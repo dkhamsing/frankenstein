@@ -21,7 +21,8 @@ module Frankenstein
     "README.md",
     "Readme.md",
     "readme.md",
-    "README.markdown"
+    "README.markdown",
+    "Readme.markdown"
   ]
 
   SEPARATOR = "="
