@@ -161,7 +161,10 @@ module Frankenstein
   links_to_check = links_found.reject { |x|
     x.length < 9
   }.map { |x|
-    x.gsub(/\).*/,'').gsub(/'.*/,'') # ) is for markdown, ' is for https://fastlane.tools/
+    x.gsub(/\).*/,'').gsub(/'.*/,'').gsub(/,.*/,'')
+    # ) for markdown
+    # ' found on https://fastlane.tools/
+    # , for link followed by comma
   }.uniq
 
   if flag_control_failure
@@ -336,7 +339,7 @@ module Frankenstein
     created = github.create_pull_request(repo, branch, head, "Update redirects", "Created with https://github.com/dkhamsing/frankenstein")
     pull_link = created[:html_url].blue
     f_puts "Pull request created: #{pull_link}".white
-    
+
     github.delete_repository(fork)
     verbose "Deleted fork"
   end
