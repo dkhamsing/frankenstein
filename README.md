@@ -6,7 +6,7 @@
 
 ![](assets/demo.gif)
 
-:runner: :octocat: :construction_worker:
+This is still a [work in progress](https://github.com/dkhamsing/frankenstein/issues/1) :runner: :octocat: :construction_worker:
 
 ## Installation
 
