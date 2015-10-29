@@ -129,7 +129,7 @@ module Frankenstein
       README_VARIATIONS.find { |x|
         temp = "#{base}#{x}"
         $readme = x
-        verbose "Readme found to be: #{$readme}"
+        verbose "Readme found: #{$readme}"
         status(temp) < 400 }
         }"
   end
@@ -286,7 +286,7 @@ module Frankenstein
       end #redirects.each
 
       File.open(FILE_TEMP, 'w') { |f|
-        f_puts "Wrote log with redirects replaced: #{FILE_TEMP}".white
+        f_puts "Wrote redirects replaced to #{FILE_TEMP.white}"
         f.write(replaced)
       }
     } # File.open(FILE_TEMP, 'a+') { |f|
