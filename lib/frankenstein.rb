@@ -59,12 +59,12 @@ module Frankenstein
   regex = "#{OPTION_THREADS}#{SEPARATOR}"
   verbose "Regular expression: #{regex}"
   temp = ARGV.find { |e| /#{regex}/ =~ e }
-  number_of_threads = if temp
+  $number_of_threads = if temp
     temp.split(SEPARATOR)[1].to_i
   else
     5 # default is 5 threads
   end
-  verbose "Number of threads: #{number_of_threads}"
+  verbose "Number of threads: #{$number_of_threads}"
 
   if flag_fetch_github_stars || option_pull_request
     n = Netrc.read
@@ -189,7 +189,7 @@ module Frankenstein
     failures = []
     redirects = Hash.new
     if !option_github_stars_only
-      Parallel.each_with_index(links_to_check, :in_threads => number_of_threads) do |link, index|
+      Parallel.each_with_index(links_to_check, :in_threads => $number_of_threads) do |link, index|
         begin
         res = Faraday.get(link)
         rescue Exception => e
@@ -205,11 +205,11 @@ module Frankenstein
 
         if flag_minimize_output
           f_print status_glyph res.status, link
-          if (index + 1) % log_number_of_items_per_row == 0
+          if ((index + 1) % log_number_of_items_per_row == 0) and $number_of_threads == 0
             f_puts " #{log_number_of_items_per_row * (1 +(index / log_number_of_items_per_row)) }"
           end
         else
-          f_puts_with_index index+1, links_to_check.count, "\t #{status_glyph res.status, link} #{res.status==200 ? "" : res.status} #{link}"
+          f_puts_with_index index+1, links_to_check.count, "#{status_glyph res.status, link} #{res.status==200 ? "" : res.status} #{link}"
         end
 
         if res.status != 200
@@ -252,7 +252,7 @@ module Frankenstein
         f_puts pluralize("repo",github_repos.count).white
 
         client = Octokit::Client.new(:netrc => true)
-        Parallel.each_with_index(github_repos, :in_threads => number_of_threads) do |repo, index|
+        Parallel.each_with_index(github_repos, :in_threads => $number_of_threads) do |repo, index|
         # github_repos.each_with_index { |repo, index|
           verbose "Attempting to get stars for #{repo}"
 
@@ -266,7 +266,7 @@ module Frankenstein
           end
 
           count = gh_repo.stargazers_count
-          f_puts_with_index index+1, github_repos.count, "\t ⭐️  #{count} #{repo} #{heat_index count}"
+          f_puts_with_index index+1, github_repos.count, "⭐️  #{count} #{repo} #{heat_index count}"
         end # Parallel
       end # if github_repos.count == 0
     end # flag_fetch_github_stars

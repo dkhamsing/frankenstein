@@ -71,7 +71,10 @@ module Frankenstein
     end
 
     def f_puts_with_index(index, total, input)
-      f_puts "#{index}/#{total} #{input}"
+      if $number_of_threads == 0
+        f_print "#{index}/#{total} "
+      end
+      f_puts input
     end
 
     def franken_log(input)
