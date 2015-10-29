@@ -20,7 +20,7 @@ module Frankenstein
     end
 
     def pluralize(text, count)
-      return text << "#{count > 1 ? 's' : ''}"
+      "#{text}#{count > 1 ? 's' : ''}"
     end
 
     def in_white_list(input)
