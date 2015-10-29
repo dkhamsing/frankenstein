@@ -139,30 +139,40 @@ module Frankenstein
     verbose "Parsed message: #{message}"
 
     if message.include? "API rate limit exceeded"
-      f_puts "#{mad} Abort: #{message}".red
-      exit 0
-    end
+      f_puts "#{mad} Error: GitHub #{message}".red
+      f_puts "Finding readme..."
 
-    if message == "Not Found"
-      f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
-      exit 1
-    end
+      base = "https://raw.githubusercontent.com/#{argv1}/master/"
+          "#{base}#{
+            README_VARIATIONS.find { |x|
+              temp = "#{base}#{x}"
+              $readme = x
+              verbose "Readme found: #{$readme}"
+              status(temp) < 400 }
+              }"
 
-    default_branch = parsed['default_branch']
-    repo_description = parsed['description']
-    repo_stars = parsed['stargazers_count']
+    else
+      if message == "Not Found"
+        f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
+        exit 1
+      end
 
-    f_puts "Found: #{default_branch.white} for #{argv1_is_github_repo} — #{repo_description} — #{repo_stars}⭐️ "
+      default_branch = parsed['default_branch']
+      repo_description = parsed['description']
+      repo_stars = parsed['stargazers_count']
 
-    base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
-    the_url = "#{base}#{
-        README_VARIATIONS.find { |x|
-        temp = "#{base}#{x}"
-        $readme = x
-        verbose "Readme found: #{$readme}"
-        status(temp) < 400 }
-        }"
-  end
+      f_puts "Found: #{default_branch.white} for #{argv1_is_github_repo} — #{repo_description} — #{repo_stars}⭐️ "
+
+      base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
+      the_url = "#{base}#{
+          README_VARIATIONS.find { |x|
+          temp = "#{base}#{x}"
+          $readme = x
+          verbose "Readme found: #{$readme}"
+          status(temp) < 400 }
+          }"
+    end # if message ==
+  end # if message.include? "API..
 
   f_print "#{logo} Processing links for ".white
   f_print the_url.blue
