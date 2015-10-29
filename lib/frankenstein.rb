@@ -140,8 +140,8 @@ module Frankenstein
 
     if message.include? "API rate limit exceeded"
       f_puts "#{mad} Error: GitHub #{message}".red
-      f_puts "Finding readme..."
 
+      f_puts "Finding readme..."
       base = "https://raw.githubusercontent.com/#{argv1}/master/"
           "#{base}#{
             README_VARIATIONS.find { |x|
@@ -150,7 +150,6 @@ module Frankenstein
               verbose "Readme found: #{$readme}"
               status(temp) < 400 }
               }"
-
     else
       if message == "Not Found"
         f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
