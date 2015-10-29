@@ -293,7 +293,7 @@ module Frankenstein
   end # redirects.count
 
   if $option_log_to_file
-    f_puts "Wrote log to #{FILE_LOG}".white
+    f_puts "Wrote log to #{FILE_LOG.white}"
   end
 
   if option_pull_request
