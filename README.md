@@ -49,8 +49,6 @@ $ frankenstein https://fastlane.tools
 https://t.co/an02Vvi8Tl redirects to 
 https://github.com/fastlane/snapshot 
 # ...
-Wrote log with redirects replaced: franken_temp
-
 🕐  Time elapsed: 17.51 seconds
 
 🏃  No failures for https://fastlane.tools 
