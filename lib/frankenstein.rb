@@ -138,6 +138,10 @@ module Frankenstein
     message = parsed['message']
     verbose "Parsed message: #{message}"
 
+    if message.nil?
+      message = ''
+    end
+
     if message.include? "API rate limit exceeded"
       f_puts "#{mad} Error: GitHub #{message}".red
 
