@@ -11,7 +11,7 @@ module Frankenstein
 
   NETRC_GITHUB_MACHINE = "api.github.com"
 
-  OPTION_LOG = "log"
+  OPTION_LOG = "lo"
   OPTION_PULL_REQUEST = "pull"
   OPTION_ROW = "row"
   OPTION_STARS = "stars"
