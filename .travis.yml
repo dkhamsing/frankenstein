@@ -8,6 +8,6 @@ script:
   - frankenstein bin/assets/test-readme
   - frankenstein bin/assets/test-no-links
   - frankenstein dkhamsing/ios-asset-names -mv log threads=0
-  - frankenstein http://dkhamsing.tumblr.com/ threads=10
   - frankenstein fastlane/fastlane.tools threads=8
   - frankenstein dkhamsing/frankenstein threads=10
+  - frankenstein http://dkhamsing.github.io/
