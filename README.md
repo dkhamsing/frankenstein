@@ -29,7 +29,7 @@ frankenstein <url|github repo|file> [-fgmv] [log] [pull] [row=d] [stars] [thread
 ### Examples
 
 ``` bash
-$ frankenstein https://fastlane.tools 
+$ frankenstein https://fastlane.tools
 
 🏃  Processing links on https://fastlane.tools ...
 🔎  Checking 50 links
@@ -41,12 +41,12 @@ $ frankenstein https://fastlane.tools
 🔶  301 https://t.co/an02Vvi8Tl
 # ...
 🔶  4 redirects
-https://t.co/an02Vvi8Tl redirects to 
-https://github.com/fastlane/snapshot 
+https://t.co/an02Vvi8Tl redirects to
+https://github.com/fastlane/snapshot
 # ...
 🕐  Time elapsed: 17.51 seconds
 
-🏃  No failures for https://fastlane.tools 
+🏃  No failures for https://fastlane.tools
 ```
 
 ```
@@ -74,7 +74,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 
 ``` bash
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
-$ frankenstein matteocrippa/awesome-swift -m row=5 # change number of items per row (10 is the default)
+$ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of items per row (10 is the default, requires threads=0)
 
 🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
 🔎  Checking 456 links:
@@ -94,7 +94,7 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 Fetching star count for repos and creating a pull request for redirects requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
-`-g` `stars` 
+`-g` `stars`
 
 ``` bash
 $ frankenstein dkhamsing/open-source-ios-apps stars # only fetch GitHub star count
@@ -118,7 +118,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -g # fetch GitHub star count
  500+ Stars: 🔥🔥🔥
 1000+ Stars: 🔥🔥🔥🔥
 2000+ Stars: 🔥🔥🔥🔥🔥
-``` 
+```
 
 `pull`
 
@@ -130,8 +130,8 @@ $ frankenstein fastlane/sigh pull
 2/23 	 🔶  301 https://github.com/KrauseFx/deliver
 #...
 🔶  10 redirects
-https://github.com/KrauseFx/fastlane redirects to 
-https://github.com/fastlane/fastlane 
+https://github.com/KrauseFx/fastlane redirects to
+https://github.com/fastlane/fastlane
 #...
 Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
@@ -168,7 +168,7 @@ script:
 
 ## Credits
 
-- `faraday`, `parallel`, `octokit` and [more](lib/frankenstein.rb). 
+- `faraday`, `parallel`, `octokit` and [more](lib/frankenstein.rb).
 - [stackoverflow](http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142) and [@mgreensmith](http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/).
 - [awesome-aws](https://github.com/donnemartin/awesome-aws) for that 🔥.
 - [giphy](http://giphy.com/gifs/2MMB4JT8lokbS) for "it's alive" image.
