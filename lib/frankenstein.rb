@@ -7,6 +7,7 @@ require "frankenstein/usage"
 module Frankenstein
   require 'faraday'
   require 'faraday_middleware'
+  require 'json'
   require 'parallel'
   require 'colored'
   require 'octokit'
@@ -124,9 +125,19 @@ module Frankenstein
     argv1
   else
     argv1_is_github_repo = argv1
-    base = "https://raw.githubusercontent.com/#{argv1}/master/"
-    "#{base}#{
-      README_VARIATIONS.find { |x|
+
+    json_url = GITHUB_API_BASE + "repos/" + argv1_is_github_repo
+    f_puts "Finding default branch for #{argv1_is_github_repo.white}"
+    verbose json_url
+
+    parsed = JSON.parse(Faraday.get(json_url).body)
+    default_branch = parsed['default_branch']
+
+    f_puts "Found: #{default_branch.white}"
+
+    base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
+    the_url = "#{base}#{
+        README_VARIATIONS.find { |x|
         temp = "#{base}#{x}"
         $readme = x
         verbose "Readme found: #{$readme}"

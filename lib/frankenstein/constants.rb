@@ -9,6 +9,8 @@ module Frankenstein
   FLAG_MINIMIZE_OUTPUT = "m"
   FLAG_VERBOSE = "v"
 
+  GITHUB_API_BASE = "https://api.github.com/"
+
   NETRC_GITHUB_MACHINE = "api.github.com"
 
   OPTION_LOG = "log"
