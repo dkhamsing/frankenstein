@@ -327,7 +327,7 @@ module Frankenstein
                                            :type => "blob",
                                            :sha => blob_sha } ],
                                        {:base_tree => sha_base_tree }).sha
-    commit_message = "Update redirects"
+    commit_message = PULL_REQUEST_TITLE
     sha_new_commit = github.create_commit(fork, commit_message, sha_new_tree, sha_latest_commit).sha
     updated_ref = github.update_ref(fork, ref, sha_new_commit)
 
@@ -336,7 +336,7 @@ module Frankenstein
     head = "#{forker}:#{branch}"
     verbose "Set head to #{head}"
 
-    created = github.create_pull_request(repo, branch, head, "Update redirects", "Created with https://github.com/dkhamsing/frankenstein")
+    created = github.create_pull_request(repo, branch, head, "Update redirects", PULL_REQUEST_DESCRIPTION)
     pull_link = created[:html_url].blue
     f_puts "Pull request created: #{pull_link}".white
 

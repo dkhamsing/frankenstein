@@ -17,6 +17,9 @@ module Frankenstein
   OPTION_STARS = "stars"
   OPTION_THREADS = "threads"
 
+  PULL_REQUEST_TITLE = "Update redirects"
+  PULL_REQUEST_DESCRIPTION = "Created with https://github.com/dkhamsing/frankenstein"
+
   README_VARIATIONS = [
     "README.md",
     "Readme.md",
