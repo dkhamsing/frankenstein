@@ -126,6 +126,7 @@ module Frankenstein
   else
     argv1_is_github_repo = argv1
 
+    # note github api has a rate limit of 60 unauthenticated requests per hour https://developer.github.com/v3/#rate-limiting
     json_url = GITHUB_API_BASE + "repos/" + argv1_is_github_repo
     f_puts "Finding default branch for #{argv1_is_github_repo.white}"
     verbose json_url
