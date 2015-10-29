@@ -1,3 +1,4 @@
+# Constants
 module Frankenstein
   ARGV1_FILE = 'file'
   ARGV1_GITHUB_REPO = 'github repo'
@@ -44,6 +45,6 @@ module Frankenstein
     '//github.com.*issues/new',
     '//github.com.*ch/new',
     '//github.com.*\.git$',
-    '//i.creativecommons.org/.*png',
+    '//i.creativecommons.org/.*png'
   ]
 end

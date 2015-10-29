@@ -61,10 +61,7 @@ module Frankenstein
 
     def f_puts(input)
       puts input
-      if $option_log_to_file
-        franken_log(input)
-        franken_log("\n")
-      end
+      franken_log "#{input}\n" if $option_log_to_file
     end
 
     def f_puts_with_index(index, total, input)
