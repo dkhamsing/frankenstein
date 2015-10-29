@@ -26,13 +26,6 @@ frankenstein <url|github repo|file> [-fgmv] [log] [pull] [row=d] [stars] [thread
 
 ### Examples
 
-```
-✅ 200 ok
-🔶 3xx redirect
-🔴 4xx error
-⚪ other
-```
-
 ``` bash
 $ frankenstein https://fastlane.tools 
 
@@ -52,6 +45,13 @@ https://github.com/fastlane/snapshot
 🕐  Time elapsed: 17.51 seconds
 
 🏃  No failures for https://fastlane.tools 
+```
+
+```
+✅ 200 ok
+🔶 3xx redirect
+🔴 4xx error
+⚪ other
 ```
 
 ``` bash
