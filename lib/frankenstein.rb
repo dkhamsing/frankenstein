@@ -131,9 +131,12 @@ module Frankenstein
     f_puts "Finding default branch for #{argv1_is_github_repo.white}"
     verbose json_url
 
-    parsed = JSON.parse(Faraday.get(json_url).body)
+    body = Faraday.get(json_url).body
+    verbose body
+    parsed = JSON.parse(body)
 
     message = parsed['message']
+    verbose "Parsed message: #{message}"
     if message == "Not Found"
       f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
       exit 1
