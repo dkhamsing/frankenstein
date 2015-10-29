@@ -281,7 +281,7 @@ module Frankenstein
         f_puts "   (#{issues.count} of #{links_to_check.count} #{pluralize "link", links_to_check.count})"
         f_puts issues
       else
-        f_puts "#{"\nfrankenstein".white} #{"found no errors".green} #{sunglasses}"
+        f_puts "#{"\nfrankenstein".white} #{"found no errors".green} for #{links_to_check.count} #{pluralize "link", links_to_check.count} #{sunglasses}"
       end
 
       if misc.count>0
@@ -352,7 +352,7 @@ module Frankenstein
 
   if $option_log_to_file
     f_puts "Wrote log to #{FILE_LOG.white}"
-  end 
+  end
 
   if option_pull_request
     print "Would you like to open a pull request? (y/n) "
