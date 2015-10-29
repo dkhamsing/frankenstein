@@ -1,51 +1,50 @@
-module Frankenstein
-  require 'frankenstein/constants'
+require 'frankenstein/constants'
 
+# Logging
+module Frankenstein
   class << self
     def heat_index(count)
       count = count.to_i
       case
-      when count>2000
+      when count > 2000
         return heat << heat << heat << heat << heat
-      when count>1000
+      when count > 1000
         return heat << heat << heat << heat
-      when count>500
+      when count > 500
         return heat << heat << heat
-      when count>200
+      when count > 200
         return heat << heat
-      when count>100
+      when count > 100
         return heat
       end
     end
 
     def pluralize(text, count)
-      return text << "#{count > 1 ? "s" : ""}"
+      return text << "#{count > 1 ? 's' : ''}"
     end
 
     def in_white_list(input)
-      WHITE_LIST_REGEXP.each { |regexp|
+      WHITE_LIST_REGEXP.each do |regexp|
         if input.match(regexp)
           verbose "#{input} is in white list matching #{regexp}".white
           return true
         end
-      }
+      end
       false
     end
 
     def status_glyph(status, url)
-      if in_white_list(url)
-        return "⚪  white list"
-      end
+      return '⚪  white list' if in_white_list(url)
 
       case
       when status == 200
-        return "✅ "
-      when status.to_s.start_with?("3")
-        return "🔶 "
-      when status.to_s.start_with?("4")
-        return "🔴 "
+        return '✅ '
+      when status.to_s.start_with?('3')
+        return '🔶 '
+      when status.to_s.start_with?('4')
+        return '🔴 '
       else
-        return "⚪ "
+        return '⚪ '
       end
     end
 
@@ -57,9 +56,7 @@ module Frankenstein
 
     def f_print(input)
       print input
-      if $option_log_to_file
-        franken_log(input)
-      end
+      franken_log(input) if $option_log_to_file
     end
 
     def f_puts(input)
@@ -71,22 +68,16 @@ module Frankenstein
     end
 
     def f_puts_with_index(index, total, input)
-      if $number_of_threads == 0
-        f_print "#{index}/#{total} "
-      end
+      f_print "#{index}/#{total} " if $number_of_threads == 0
       f_puts input
     end
 
     def franken_log(input)
-      File.open(FILE_LOG, 'a') { |f|
-        f.write(input)
-      }
+      File.open(FILE_LOG, 'a') { |f| f.write(input) }
     end
 
     def verbose(message)
-      if $flag_verbose
-        f_puts message
-      end
+      f_puts message if $flag_verbose
     end
   end # class
 end
