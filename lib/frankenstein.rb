@@ -189,7 +189,7 @@ module Frankenstein
     if code != 200
       error_message = (argv1_is_http) ? "url response" : "could not find readme in master branch"
       f_puts "#{mad} Error, #{error_message.red} (status code: #{code.to_s.red})"
-      exit 
+      exit
     end
 
     res = Faraday.get(the_url)
@@ -352,54 +352,60 @@ module Frankenstein
 
   if $option_log_to_file
     f_puts "Wrote log to #{FILE_LOG.white}"
-  end
+  end 
 
   if option_pull_request
-    f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
+    print "Would you like to open a pull request? (y/n) "
+    user_input = STDIN.gets.chomp
 
-    github = Octokit::Client.new(:netrc => true)
+    if user_input.downcase == 'y'
+      f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
 
-    repo = argv1
-    forker = Netrc.read[NETRC_GITHUB_MACHINE][0]
-    fork = repo.gsub(/.*\//,"#{forker}/")
-    verbose "Fork: #{fork}"
+      github = Octokit::Client.new(:netrc => true)
 
-    github.fork(repo)
+      repo = argv1
+      forker = Netrc.read[NETRC_GITHUB_MACHINE][0]
+      fork = repo.gsub(/.*\//,"#{forker}/")
+      verbose "Fork: #{fork}"
 
-    sleep 2 # give it time to create repo 😢
+      github.fork(repo)
 
-    branch = "master"
+      sleep 2 # give it time to create repo 😢
 
-    ref = "heads/#{branch}"
+      branch = "master"
 
-    # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-    sha_latest_commit = github.ref(fork, ref).object.sha
-    sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
-    file_name = $readme
-    my_content = File.read(FILE_TEMP)
+      ref = "heads/#{branch}"
 
-    blob_sha = github.create_blob(fork, Base64.encode64(my_content), "base64")
-    sha_new_tree = github.create_tree(fork,
-                                       [ { :path => file_name,
-                                           :mode => "100644",
-                                           :type => "blob",
-                                           :sha => blob_sha } ],
-                                       {:base_tree => sha_base_tree }).sha
-    commit_message = PULL_REQUEST_TITLE
-    sha_new_commit = github.create_commit(fork, commit_message, sha_new_tree, sha_latest_commit).sha
-    updated_ref = github.update_ref(fork, ref, sha_new_commit)
+      # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
+      sha_latest_commit = github.ref(fork, ref).object.sha
+      sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
+      file_name = $readme
+      my_content = File.read(FILE_TEMP)
 
-    verbose "Sent commit to fork #{fork}"
+      blob_sha = github.create_blob(fork, Base64.encode64(my_content), "base64")
+      sha_new_tree = github.create_tree(fork,
+                                         [ { :path => file_name,
+                                             :mode => "100644",
+                                             :type => "blob",
+                                             :sha => blob_sha } ],
+                                         {:base_tree => sha_base_tree }).sha
+      commit_message = PULL_REQUEST_TITLE
+      sha_new_commit = github.create_commit(fork, commit_message, sha_new_tree, sha_latest_commit).sha
+      updated_ref = github.update_ref(fork, ref, sha_new_commit)
 
-    head = "#{forker}:#{branch}"
-    verbose "Set head to #{head}"
+      verbose "Sent commit to fork #{fork}"
 
-    created = github.create_pull_request(repo, branch, head, "Update redirects", PULL_REQUEST_DESCRIPTION)
-    pull_link = created[:html_url].blue
-    f_puts "Pull request created: #{pull_link}".white
+      head = "#{forker}:#{branch}"
+      verbose "Set head to #{head}"
 
-    github.delete_repository(fork)
-    verbose "Deleted fork"
+      created = github.create_pull_request(repo, branch, head, "Update redirects", PULL_REQUEST_DESCRIPTION)
+      pull_link = created[:html_url].blue
+      f_puts "Pull request created: #{pull_link}".white
+
+      github.delete_repository(fork)
+      verbose "Deleted fork"
+
+    end # user input
   end
 
   elapsed_seconds = Time.now - elapsed_time_start
