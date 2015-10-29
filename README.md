@@ -123,7 +123,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count after
 `pull`
 
 ``` bash
-$ frankenstein fastlane/sigh pull # create a pull request replacing redirects 
+$ frankenstein fastlane/sigh pull # create a pull request replacing redirects
 
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
 🔎  Checking 23 links
@@ -142,7 +142,7 @@ Pull request created: https://github.com/fastlane/sigh/pull/195
 🏃  No failures for fastlane/sigh
 ```
 
-Example uses of `frankenstein` with `pull` option 
+Example uses of `frankenstein` with `pull` option
 
 - https://github.com/fastlane/sigh/pull/195
 - https://github.com/fastlane/frameit/pull/65
@@ -164,7 +164,7 @@ language: ruby
 rvm:
   - 2.2
 before_script:
-  - wget https://github.com/dkhamsing/frankenstein/archive/1.0-wip.tar.gz -O /tmp/frankenstein.tar.gz
+  - wget https://codeload.github.com/dkhamsing/frankenstein/tar.gz/1.0-wip -O /tmp/frankenstein.tar.gz
   - tar -xvf /tmp/frankenstein.tar.gz
   - export PATH=$PATH:$PWD/frankenstein-1.0-wip/bin/
   - cd frankenstein-1.0-wip
