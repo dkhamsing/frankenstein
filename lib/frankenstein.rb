@@ -189,7 +189,7 @@ module Frankenstein
     if code != 200
       error_message = (argv1_is_http) ? "url response" : "could not find readme in master branch"
       f_puts "#{mad} Error, #{error_message.red} (status code: #{code.to_s.red})"
-      exit(1)
+      exit 
     end
 
     res = Faraday.get(the_url)
@@ -285,7 +285,7 @@ module Frankenstein
       end
 
       if misc.count>0
-        f_puts "\n#{misc.count} misc. #{pluralize "item", misc.count}: #{misc}".white 
+        f_puts "\n#{misc.count} misc. #{pluralize "item", misc.count}: #{misc}".white
       end
     end #if !option_github_stars_only
 
