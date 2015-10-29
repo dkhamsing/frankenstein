@@ -74,7 +74,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 
 ``` bash
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
-$ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of items per row (10 is the default, requires threads=0)
+$ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of items per row (10 is the default, row option requires threads=0)
 
 🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
 🔎  Checking 456 links:
@@ -85,7 +85,7 @@ $ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of 
 
 ``` bash
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
-$ frankenstein dkhamsing/open-source-ios-apps log # write log to file (franken_log)
+$ frankenstein dkhamsing/open-source-ios-apps log # write log to a file named franken_log
 $ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
@@ -98,7 +98,7 @@ Fetching star count for repos and creating a pull request for redirects requires
 
 ``` bash
 $ frankenstein dkhamsing/open-source-ios-apps stars # fetch GitHub star count only and skip checking urls
-$ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count
+$ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count after checking urls
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
 🔎  Checking 350 links
@@ -123,7 +123,8 @@ $ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count
 `pull`
 
 ``` bash
-$ frankenstein fastlane/sigh pull
+$ frankenstein fastlane/sigh pull # create a pull request replacing redirects 
+
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
 🔎  Checking 23 links
 1/23 	 🔶  301 https://github.com/KrauseFx/fastlane
@@ -149,7 +150,7 @@ Example uses of `frankenstein` with `pull` option
 
 #### White list
 
-Some URLs that are meant to be redirected (i.e. badge, authentication) have been white listed ([details](lib/frankenstein/constants.rb)).
+Some URLs that are meant to be redirected (i.e. badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
 
 ### Travis
 
@@ -163,10 +164,10 @@ language: ruby
 rvm:
   - 2.2
 before_script:
-  - wget https://github.com/dkhamsing/frankenstein/archive/travis.tar.gz -O /tmp/frankenstein.tar.gz
+  - wget https://github.com/dkhamsing/frankenstein/archive/1.0-wip.tar.gz -O /tmp/frankenstein.tar.gz
   - tar -xvf /tmp/frankenstein.tar.gz
-  - export PATH=$PATH:$PWD/frankenstein-travis/bin/
-  - cd frankenstein-travis
+  - export PATH=$PATH:$PWD/frankenstein-1.0-wip/bin/
+  - cd frankenstein-1.0-wip
   - bundle install
 script:  
   - frankenstein ../README.md
