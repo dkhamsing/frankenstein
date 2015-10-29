@@ -141,6 +141,12 @@ Pull request created: https://github.com/fastlane/sigh/pull/195
 🏃  No failures for fastlane/sigh
 ```
 
+Example uses of `frankenstein` with `pull` option 
+
+- https://github.com/fastlane/sigh/pull/195
+- https://github.com/fastlane/frameit/pull/65
+- https://github.com/dkhamsing/BrandColors/pull/11
+
 #### White list
 
 Some URLs that are meant to be redirected (i.e. badge, authentication) have been white listed ([details](lib/frankenstein/constants.rb)).
