@@ -263,7 +263,9 @@ module Frankenstein
           elsif res.status >= 300
              redirect = resolve_redirects link
              verbose "#{link} was redirected to \n#{redirect}".white
-             if !redirect.nil?
+             if redirect.nil?
+               f_puts "#{mad} No redirect found for #{link}"
+             else
                redirects[link] = redirect
              end
           end
