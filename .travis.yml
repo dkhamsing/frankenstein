@@ -9,3 +9,4 @@ script:
   - frankenstein dkhamsing/ios-asset-names -mv log threads=0
   - frankenstein https://fastlane.tools threads=10
   - frankenstein fastlane/fastlane.tools threads=8
+  - frankenstein bin/assets/test-no-links
