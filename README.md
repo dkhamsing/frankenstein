@@ -4,6 +4,8 @@
 
 `frankenstein` checks for live URLs on a page and works with [GitHub](#github) & [Travis](#travis).
 
+[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
+
 ![](assets/demo.gif)
 
 This is still a [work in progress](https://github.com/dkhamsing/frankenstein/issues/1) :runner: :octocat: :construction_worker:
