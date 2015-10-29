@@ -1,4 +1,8 @@
 module Frankenstein
+  ARGV1_FILE = 'file'
+  ARGV1_GITHUB_REPO = 'github repo'
+  ARGV1_URL = 'url'
+
   CONTROLLED_ERROR = "https://github.com/dkhamsing/controlled/error"
 
   FILE_LOG = "franken_log"
