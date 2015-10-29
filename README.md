@@ -146,6 +146,7 @@ Example uses of `frankenstein` with `pull` option
 
 - https://github.com/fastlane/sigh/pull/195
 - https://github.com/fastlane/frameit/pull/65
+- https://github.com/piemonte/PBJVision/pull/293
 - https://github.com/dkhamsing/BrandColors/pull/11
 
 #### White list
