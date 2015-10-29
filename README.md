@@ -84,6 +84,20 @@ $ frankenstein matteocrippa/awesome-swift -m row=5 # change number of items per 
 ```
 
 ``` bash
+$ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
+$ frankenstein dkhamsing/open-source-ios-apps log # write log to file (franken_log)
+$ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options
+$ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
+```
+
+#### GitHub
+
+Fetching star count for repos and creating a pull request for redirects requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+
+`-g` `stars` 
+
+``` bash
+$ frankenstein dkhamsing/open-source-ios-apps stars # only fetch GitHub star count
 $ frankenstein dkhamsing/open-source-ios-apps -g # fetch GitHub star count
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
@@ -97,23 +111,6 @@ $ frankenstein dkhamsing/open-source-ios-apps -g # fetch GitHub star count
 3/226 	 ⭐️  378 belm/BaiduFM-Swift 🔥 🔥
 # ...
 ```
-
-``` bash
-$ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
-$ frankenstein dkhamsing/open-source-ios-apps log # write log to file (franken_log)
-$ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options
-$ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
-
-$ frankenstein dkhamsing/open-source-ios-apps stars # only fetch GitHub star count
-$ frankenstein dkhamsing/open-source-ios-apps pull # create a pull request with updated redirects
-# details below
-```
-
-#### GitHub
-
-Fetching star count for repos and creating a pull request for redirects requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
-
-`-g` `stars` 
 
 ```
  100+ Stars: 🔥
