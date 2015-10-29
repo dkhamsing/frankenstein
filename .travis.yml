@@ -4,6 +4,5 @@ rvm:
 before_script:
   - export PATH=$PATH:$PWD/bin/
   - bundle install
-  - cd bin/assets
 script:  
-  - frankenstein test-readme
+  - frankenstein bin/assets/test-readme
