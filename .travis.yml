@@ -6,4 +6,4 @@ before_script:
   - bundle install
 script:  
   - frankenstein bin/assets/test-readme
-  - frankenstein dkhamsing/ios-asset-names -mvg log threads=0
+  - frankenstein dkhamsing/ios-asset-names -mv log threads=0
