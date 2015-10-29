@@ -228,6 +228,7 @@ module Frankenstein
       end
     end
 
+    misc = []
     issues = []
     failures = []
     redirects = Hash.new
@@ -258,7 +259,9 @@ module Frankenstein
         if res.status != 200
           issues.push("#{status_glyph res.status, link} #{res.status} #{link}")
 
-          if res.status >= 400
+          if res.status >= 500
+            misc.push(link)
+          elsif res.status >= 400
             failures.push(link)
           elsif res.status >= 300
              redirect = resolve_redirects link
@@ -279,6 +282,10 @@ module Frankenstein
         f_puts issues
       else
         f_puts "#{"\nfrankenstein".white} #{"found no errors".green} #{sunglasses}"
+      end
+
+      if misc.count>0
+        f_puts "\n#{misc.count} misc. #{pluralize "item", misc.count}: #{misc}".white 
       end
     end #if !option_github_stars_only
 
