@@ -315,6 +315,10 @@ module Frankenstein
     end # flag_fetch_github_stars
   end # if links_to_check.count==0
 
+  if redirects.nil?
+    redirects = []
+  end
+
   if redirects.count > 0
     f_puts "\n#{status_yellow} #{redirects.count} #{pluralize "redirect", redirects.count}".yellow
 
@@ -401,6 +405,10 @@ module Frankenstein
 
   if $option_log_to_file
     franken_log "End: #{Time.new}"
+  end
+
+  if failures.nil?
+    failures = []
   end
 
   f_puts ""
