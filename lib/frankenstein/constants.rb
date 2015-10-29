@@ -5,13 +5,13 @@ module Frankenstein
   FILE_TEMP = "franken_temp"
 
   FLAG_FAIL = "f"
-  FLAG_GITHUB_STARS = "g"
+  FLAG_GITHUB_STARS = "c"
   FLAG_MINIMIZE_OUTPUT = "m"
   FLAG_VERBOSE = "v"
 
   NETRC_GITHUB_MACHINE = "api.github.com"
 
-  OPTION_LOG = "lo"
+  OPTION_LOG = "log"
   OPTION_PULL_REQUEST = "pull"
   OPTION_ROW = "row"
   OPTION_STARS = "stars"

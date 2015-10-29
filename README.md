@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ``` bash
-frankenstein <url|github repo|file> [-fgmv] [log] [pull] [row=d] [stars] [threads=d]
+frankenstein <url|github repo|file> [-cfmv] [log] [pull] [row=d] [stars] [threads=d]
 ```
 
 ### Examples
@@ -86,7 +86,7 @@ $ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of 
 ``` bash
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps log # write log to file (franken_log)
-$ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options
+$ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
 
@@ -94,11 +94,11 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 Fetching star count for repos and creating a pull request for redirects requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
-`-g` `stars`
+`-c` `stars`
 
 ``` bash
-$ frankenstein dkhamsing/open-source-ios-apps stars # only fetch GitHub star count
-$ frankenstein dkhamsing/open-source-ios-apps -g # fetch GitHub star count
+$ frankenstein dkhamsing/open-source-ios-apps stars # fetch GitHub star count only and skip checking urls
+$ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
 🔎  Checking 350 links

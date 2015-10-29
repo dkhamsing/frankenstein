@@ -7,8 +7,10 @@ module Frankenstein
   class << self
     def usage
       puts "#{logo} Check for live URLS on a page".white
+
+      all_flags = FLAG_GITHUB_STARS + FLAG_FAIL +  FLAG_MINIMIZE_OUTPUT + FLAG_VERBOSE
       puts "#{"frankenstein".green} <#{"url|github repo|file".magenta}> "\
-      "[#{"-fgmv".blue}] "\
+      "[-#{all_flags.blue}] "\
       "[#{OPTION_LOG.blue}] "\
       "[#{OPTION_PULL_REQUEST.blue}] "\
       "[#{OPTION_ROW.blue}=d] "\
@@ -18,8 +20,9 @@ module Frankenstein
       puts "   #{"github repo".magenta} \t GitHub repository"
       puts "   #{"file".magenta} \t File on disk"
 
-      puts "\n   #{FLAG_FAIL.blue} \t\t Add a controlled failure"
+      puts "\n"
       puts "   #{FLAG_GITHUB_STARS.blue} \t\t Fetch GitHub repo star count"
+      puts "   #{FLAG_FAIL.blue} \t\t Add a controlled failure"      
       puts "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t Minimized result output (see row option below)"
       puts "   #{FLAG_VERBOSE.blue} \t\t Verbose output"
 
