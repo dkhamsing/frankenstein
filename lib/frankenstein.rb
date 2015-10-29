@@ -137,6 +137,12 @@ module Frankenstein
 
     message = parsed['message']
     verbose "Parsed message: #{message}"
+
+    if message.include? "API rate limit exceeded"
+      f_puts "#{mad} Abort: #{message}".red
+      exit 0
+    end
+
     if message == "Not Found"
       f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
       exit 1
