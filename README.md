@@ -136,7 +136,7 @@ $ frankenstein fastlane/sigh pull
 https://github.com/KrauseFx/fastlane redirects to 
 https://github.com/fastlane/fastlane 
 #...
-Creating pull request on GitHub for fastlane/sigh..
+Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 
 🕐  Time elapsed: 12.3 seconds

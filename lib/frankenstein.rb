@@ -297,7 +297,7 @@ module Frankenstein
   end
 
   if option_pull_request
-    f_puts "\nCreating pull request on GitHub for #{argv1}..".white
+    f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
 
     github = Octokit::Client.new(:netrc => true)
 
