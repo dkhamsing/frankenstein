@@ -146,7 +146,8 @@ module Frankenstein
       f_puts "#{mad} Error: GitHub #{message}".red
 
       f_puts 'Finding readme...'
-      base = "https://raw.githubusercontent.com/#{argv1}/master/"
+      default_branch = 'master'
+      base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
       "#{base}#{
         README_VARIATIONS.find do |x|
           temp = "#{base}#{x}"
@@ -385,7 +386,7 @@ module Frankenstein
 
       sleep 2 # give it time to create repo :-(
 
-      branch = 'master'
+      branch = default_branch
 
       ref = "heads/#{branch}"
 
