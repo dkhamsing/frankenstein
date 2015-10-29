@@ -131,9 +131,18 @@ module Frankenstein
     verbose json_url
 
     parsed = JSON.parse(Faraday.get(json_url).body)
-    default_branch = parsed['default_branch']
 
-    f_puts "Found: #{default_branch.white}"
+    message = parsed['message']
+    if message == "Not Found"
+      f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
+      exit 1
+    end
+
+    default_branch = parsed['default_branch']
+    repo_description = parsed['description']
+    repo_stars = parsed['stargazers_count']
+
+    f_puts "Found: #{default_branch.white} for #{argv1_is_github_repo} — #{repo_description} — #{repo_stars}⭐️ "
 
     base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
     the_url = "#{base}#{
