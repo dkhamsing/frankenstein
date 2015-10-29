@@ -14,8 +14,8 @@ This is still a [work in progress](https://github.com/dkhamsing/frankenstein/iss
 
 ``` bash
 git clone https://github.com/dkhamsing/frankenstein.git
-cd frankenstein/bin
-./setup
+cd frankenstein
+bundle install
 
 # you're good to go 😎
 ```
