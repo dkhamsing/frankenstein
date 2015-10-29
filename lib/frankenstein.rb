@@ -278,7 +278,7 @@ module Frankenstein
         f_puts "   (#{issues.count} of #{links_to_check.count} #{pluralize "link", links_to_check.count})"
         f_puts issues
       else
-        f_puts "#{"\nfrankenstein".white} #{"found no errors".green} 😎 "
+        f_puts "#{"\nfrankenstein".white} #{"found no errors".green} #{sunglasses}"
       end
     end #if !option_github_stars_only
 
@@ -419,7 +419,11 @@ module Frankenstein
   if failures.count == 0
     f_puts "#{logo} No failures for #{argv1.blue}".white
   else
-    f_puts "#{status_red} #{failures.count} #{pluralize "failure", failures.count} for #{argv1.blue}".red
-    exit(1)
+    if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
+      f_puts "The only failure was the controlled failure #{sunglasses}"
+    else
+      f_puts "#{status_red} #{failures.count} #{pluralize "failure", failures.count} for #{argv1.blue}".red
+      exit(1)
+    end
   end
 end # module

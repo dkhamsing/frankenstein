@@ -14,10 +14,14 @@ module Frankenstein
 
     def status_red
       return "🔴 "
-    end 
+    end
 
     def status_yellow
       return "🔶 "
-    end 
+    end
+
+    def sunglasses
+      return "😎 "
+    end
   end # class
 end
