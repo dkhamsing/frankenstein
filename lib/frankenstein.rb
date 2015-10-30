@@ -98,8 +98,8 @@ module Frankenstein
 
     def fetch_response(url, method: :get)
       conn = Faraday.new do |b|
-          b.use FaradayMiddleware::FollowRedirects;
-          b.adapter :net_http
+        b.use FaradayMiddleware::FollowRedirects;
+        b.adapter :net_http
       end
       return conn.send method, url
     rescue Faraday::Error, Faraday::Error::ConnectionFailed => e
@@ -116,9 +116,8 @@ module Frankenstein
   end
 
   if flag_minimize_output
-    message = 'Number of minimized output items per row: '\
-              + log_number_of_items_per_row.to_s
-    verbose message
+    m = "Number of minimized output items / row: #{log_number_of_items_per_row}"
+    verbose m
   end
 
   the_url = if argv1_is_http || found_file_content
@@ -344,7 +343,7 @@ module Frankenstein
           message << repo_updated if option_github_last_push
           f_puts_with_index idx + 1, github_repos.count, message
 
-          h = {repo: repo, count: count, pushed_at: pushed_at}
+          h = { repo: repo, count: count, pushed_at: pushed_at }
           repos_info.push(h)
         end # Parallel
         repo_log_json repos_info unless repos_info.count == 0
