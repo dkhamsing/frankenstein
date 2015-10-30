@@ -14,7 +14,7 @@ module Frankenstein
   FILE_TEMP = 'logs/franken_temp'
 
   FLAG_FAIL = 'f'
-  FLAG_GITHUB_STARS = 'c'
+  FLAG_GITHUB_STARS = 'r'
   FLAG_MINIMIZE_OUTPUT = 'm'
   FLAG_VERBOSE = 'v'
 
@@ -25,7 +25,7 @@ module Frankenstein
   OPTION_LOG = 'log'
   OPTION_PULL_REQUEST = 'pull'
   OPTION_ROW = 'row'
-  OPTION_STARS = 'stars'
+  OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
 
   PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
