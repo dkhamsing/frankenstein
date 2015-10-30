@@ -25,11 +25,11 @@ module Frankenstein
       "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
       "   #{ARGV1_GITHUB_REPO.magenta} \t GitHub repository \n"\
       "   #{ARGV1_FILE.magenta} \t File on disk \n\n"\
-      "   #{FLAG_FAIL.blue} \t\t Add a controlled failure \n"\
-      "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t Minimized result output "\
+      "   #{FLAG_FAIL.blue} \t\t #{FLAG_FAIL_USAGE} \n"\
+      "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t #{FLAG_MINIMIZE_USAGE} "\
       "(see row option below) \n"\
-      "   #{FLAG_GITHUB_STARS.blue} \t\t Get GitHub repo info \n"\
-      "   #{FLAG_VERBOSE.blue} \t\t Verbose output \n"\
+      "   #{FLAG_GITHUB_STARS.blue} \t\t #{FLAG_GITHUB_USAGE} \n"\
+      "   #{FLAG_VERBOSE.blue} \t\t #{FLAG_VERBOSE_USAGE} \n"\
       "\n   #{OPTION_LOG.blue} \t\t Write log to file \n"\
       "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated "\
       "redirects \n"\

@@ -20,6 +20,11 @@ module Frankenstein
   FLAG_MINIMIZE_OUTPUT = 'm'
   FLAG_VERBOSE = 'v'
 
+  FLAG_FAIL_USAGE = 'Add a controlled failure'
+  FLAG_GITHUB_USAGE = 'Get GitHub repo info'
+  FLAG_MINIMIZE_USAGE = 'Minimized result output'
+  FLAG_VERBOSE_USAGE = 'Verbose output'
+
   GITHUB_API_BASE = 'https://api.github.com/'
   GITHUB_RAW_CONTENT_URL = 'https://raw.githubusercontent.com/'
 
