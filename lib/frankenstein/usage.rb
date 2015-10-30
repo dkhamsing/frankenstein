@@ -1,3 +1,4 @@
+require 'frankenstein/cli'
 require 'frankenstein/constants'
 require 'frankenstein/emoji'
 
@@ -11,20 +12,13 @@ module Frankenstein
         "#{ARGV1_GITHUB_REPO.magenta}"
     end
 
-    def all_flags
-      FLAG_FAIL +
-        FLAG_MINIMIZE_OUTPUT +
-        FLAG_GITHUB_STARS.yellow +
-        FLAG_VERBOSE
-    end
-
     def usage
       m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
           "#{PRODUCT.green} <#{all_argv1}> "\
-      "[-#{all_flags.blue}] "\
+      "[-#{cli_all_flags.join.blue}] "\
       "[#{OPTION_LOG.blue}] "\
       "[#{OPTION_PULL_REQUEST.blue}] "\
-      "[#{OPTION_STARS.yellow}] "\
+      "[#{OPTION_STARS.blue}] "\
       "[#{OPTION_ROW.blue}=d] "\
       "[#{OPTION_THREADS.blue}=d] "\
       "\n"\
@@ -34,12 +28,12 @@ module Frankenstein
       "   #{FLAG_FAIL.blue} \t\t Add a controlled failure \n"\
       "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t Minimized result output "\
       "(see row option below) \n"\
-      "   #{FLAG_GITHUB_STARS.yellow} \t\t Get GitHub repo info \n"\
+      "   #{FLAG_GITHUB_STARS.blue} \t\t Get GitHub repo info \n"\
       "   #{FLAG_VERBOSE.blue} \t\t Verbose output \n"\
       "\n   #{OPTION_LOG.blue} \t\t Write log to file \n"\
       "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated "\
       "redirects \n"\
-      "   #{OPTION_STARS.yellow} \t Get GitHub repo info only \n"\
+      "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
       "   #{OPTION_ROW.blue} \t\t Number of items per row (minimized output, "\
       "#{DEFAULT_NUMBER_OF_ITEMS_PER_ROWS} is the default, only works "\
       "with threads=0) \n"\

@@ -16,5 +16,14 @@ module Frankenstein
 
       temp ? temp.split(separator)[1].to_i : nil
     end
+
+    def cli_all_flags
+      [
+        FLAG_FAIL,
+        FLAG_MINIMIZE_OUTPUT,
+        FLAG_GITHUB_STARS,
+        FLAG_VERBOSE        
+      ]
+    end
   end # class
 end
