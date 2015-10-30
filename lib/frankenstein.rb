@@ -57,11 +57,12 @@ module Frankenstein
   flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
   if flag_minimize_output
     log_number_of_items_per_row = option_value OPTION_ROW, SEPARATOR
-    log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if log_number_of_items_per_row == nil
+    log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if
+      log_number_of_items_per_row.nil?
   end
 
   $number_of_threads = option_value OPTION_THREADS, SEPARATOR
-  $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads == nil
+  $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads.nil?
   verbose "Number of threads: #{$number_of_threads}"
 
   if flag_fetch_github_stars || option_pull_request || option_github_last_push
