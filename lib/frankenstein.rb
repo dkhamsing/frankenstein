@@ -119,8 +119,8 @@ module Frankenstein
                 find_url(argv1, default_branch)
               else
                 if message == 'Not Found'
-                  m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo}".red
-                  f_puts m
+                  m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo}"
+                  f_puts m.red
                   exit(1)
                 end
 
