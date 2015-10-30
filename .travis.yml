@@ -5,9 +5,9 @@ before_script:
   - export PATH=$PATH:$PWD/bin/
   - bundle install
 script:  
-  - frankenstein bin/assets/test-readme
-  - frankenstein bin/assets/test-no-links
+  - frankenstein bin/assets/test-readme -v
+  - frankenstein bin/assets/test-no-links -v
   - frankenstein dkhamsing/ios-asset-names -mv log threads=0
-  - frankenstein fastlane/fastlane.tools threads=8
-  - frankenstein dkhamsing/frankenstein threads=10
-  - frankenstein http://dkhamsing.github.io/
+  - frankenstein fastlane/fastlane.tools -v threads=8
+  - frankenstein dkhamsing/frankenstein -v threads=10
+  - frankenstein http://dkhamsing.github.io/ -v
