@@ -97,8 +97,8 @@ Fetching star count for repos / creating a pull request for redirects require a 
 `-c` `stars`
 
 ``` bash
-$ frankenstein dkhamsing/open-source-ios-apps stars # fetch GitHub star count only and skip checking urls
-$ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count after checking urls
+$ frankenstein dkhamsing/open-source-ios-apps stars # get GitHub info only and skip checking urls
+$ frankenstein dkhamsing/open-source-ios-apps -c # get GitHub info after checking urls
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
 🔎  Checking 350 links
@@ -106,9 +106,9 @@ $ frankenstein dkhamsing/open-source-ios-apps -c # fetch GitHub star count after
 2/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/pulls
 # ...
 🔎  Getting star count for 228 GitHub repos
-1/226 	 ⭐️  2709 iCHAIT/awesome-osx 🔥 🔥 🔥 🔥 🔥
-2/226 	 ⭐️  2275 pcqpcq/open-source-android-apps 🔥 🔥 🔥 🔥 🔥
-3/226 	 ⭐️  378 belm/BaiduFM-Swift 🔥 🔥
+⭐️  311 kenshin03/Cherry 🔥 🔥  last updated 4 months ago
+⭐️  18 neonichu/CoolSpot  last updated 5 months ago
+⭐️  2312 pcqpcq/open-source-android-apps 🔥 🔥 🔥 🔥 🔥  last updated 4 days ago
 # ...
 ```
 

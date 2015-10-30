@@ -26,7 +26,6 @@ module Frankenstein
   argv1, argv_flags = ARGV
 
   option_github_stars_only = ARGV.include? OPTION_STARS
-  option_github_last_push = ARGV.include? OPTION_LAST_PUSH
   $option_log_to_file = ARGV.include? OPTION_LOG
   flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
   $flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
@@ -66,7 +65,7 @@ module Frankenstein
   $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads.nil?
   verbose "Number of threads: #{$number_of_threads}"
 
-  if flag_fetch_github_stars || option_pull_request || option_github_last_push
+  if flag_fetch_github_stars || option_pull_request
     n = Netrc.read
     creds = n[NETRC_GITHUB_MACHINE]
     if creds.nil?
@@ -273,7 +272,7 @@ module Frankenstein
       end
     end # if !option_github_stars_only
 
-    if flag_fetch_github_stars || option_github_last_push
+    if flag_fetch_github_stars
       github_repos = links_to_check.select { |link|
         link.to_s.downcase.include? 'github.com' and link.count('/') == 4
       }.map { |url| url.split('.com/')[1] }.reject { |x| x.include? '.' }.uniq
@@ -307,7 +306,7 @@ module Frankenstein
           repo_updated = number_of_days_since pushed_at
 
           message = "⭐️  #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
-          message << repo_updated if option_github_last_push
+          message << repo_updated
           f_puts_with_index idx + 1, github_repos.count, message
 
           h = { repo: repo, count: count, pushed_at: pushed_at }
