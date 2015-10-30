@@ -163,9 +163,11 @@ module Frankenstein
       default_branch = parsed['default_branch']
       repo_description = parsed['description']
       repo_stars = parsed['stargazers_count']
+      repo_pushed_at = parsed['pushed_at']
 
+      repo_updated = number_of_days_since(Time.parse repo_pushed_at)
       message = "Found: #{default_branch.white} for #{argv1_is_github_repo} — "\
-                "#{repo_description} — #{repo_stars}⭐️ "
+                "#{repo_description} — #{repo_stars}⭐️  — #{repo_updated}"
       f_puts message
 
       base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
@@ -336,10 +338,10 @@ module Frankenstein
           count = gh_repo.stargazers_count
           pushed_at = gh_repo.pushed_at
 
-          last_push = number_of_days_since pushed_at
+          repo_updated = number_of_days_since pushed_at
 
           message = "⭐️  #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
-          message << last_push if option_github_last_push
+          message << repo_updated if option_github_last_push
           f_puts_with_index idx + 1, github_repos.count, message
 
           h = {repo: repo, count: count, pushed_at: pushed_at}
