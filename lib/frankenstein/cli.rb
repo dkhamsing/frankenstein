@@ -1,7 +1,15 @@
 # Process cli: command line interface
 module Frankenstein
   class << self
-    def option_value(name, separator)
+    def cli_get_github(option_github_stars_only, argv_flags)
+      if option_github_stars_only
+        true
+      else
+        argv_flags.to_s.include? FLAG_GITHUB_STARS
+      end
+    end
+
+    def cli_option_value(name, separator)
       regex = "#{name}#{separator}"
       verbose "Regular expression: #{regex}"
       temp = ARGV.find { |e| /#{regex}/ =~ e }
