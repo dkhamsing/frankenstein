@@ -5,6 +5,7 @@ before_script:
   - export PATH=$PATH:$PWD/bin/
   - bundle install
 script:  
+  - frankenstein
   - frankenstein bin/assets/test-readme -v
   - frankenstein bin/assets/test-no-links -v
   - frankenstein dkhamsing/ios-asset-names -mv log threads=0
