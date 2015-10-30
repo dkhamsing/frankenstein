@@ -5,16 +5,7 @@ module Frankenstein
       days = difference date
       months = days / 30
 
-      m = 'last updated '
-
-      case
-      when days == 0
-        m << 'today'
-      when days < 100
-        m << "#{days} #{pluralize 'day', days} ago"
-      else
-        m << "#{months} #{pluralize 'month', months} ago"
-      end
+      m = text_from(days, months)
 
       case
       when days < 10
@@ -32,8 +23,22 @@ module Frankenstein
       time = Time.new
       return 0 if date.nil?
 
-      difference = -((date - time)/60/60/24)
-      return difference.round(0)
+      difference = -((date - time) / 60 / 60 / 24)
+      difference.round(0)
+    end
+
+    def text_from(days, months)
+      m = 'last updated '
+      case
+      when days == 0
+        m << 'today'
+      when days < 100
+        m << "#{days} #{pluralize 'day', days} ago"
+      else
+        m << "#{months} #{pluralize 'month', months} ago"
+      end
+
+      m
     end
   end # class
 end
