@@ -64,7 +64,7 @@ module Frankenstein
     n = Netrc.read
     creds = n[NETRC_GITHUB_MACHINE]
     if creds.nil?
-      f_puts "#{em_mad} Error: missing GitHub credentials in .netrc".red
+      error_log 'Missing GitHub credentials in .netrc'
       exit(1)
     end
   end
@@ -107,7 +107,7 @@ module Frankenstein
 
               message = '' if message.nil?
               if message.include? 'API rate limit exceeded'
-                f_puts "#{em_mad} Error: GitHub #{message}".red
+                error_log "GitHub #{message}"
 
                 f_puts 'Finding readme...'
                 default_branch = 'master'
@@ -146,15 +146,10 @@ module Frankenstein
 
               unless code == 200
                 if argv1_is_http
-                  error_message = 'url response'
-                  m = "#{em_mad} Error, #{error_message.red} "\
-                      "(status code: #{code.to_s.red})"
-                  f_puts m
+                  error_log "url response (status code: #{code})"
                   exit(1)
                 else
-                  error_message = 'could not find readme in master branch'
-                  m = "#{em_logo} Error, #{error_message.white} "
-                  f_puts m
+                  error_log 'could not find readme in master branch'.white
                   exit
                 end
               end
@@ -199,9 +194,7 @@ module Frankenstein
         begin
           res = Faraday.get(link)
         rescue StandardError => e
-          f_print "#{em_mad} Error getting link "
-          f_print link.white
-          f_puts ": #{e.message.red}"
+          error_log "Getting link #{link.white} #{e.message}"
 
           issue = "#{em_status_red} #{e.message} #{link}"
           issues.push(issue)
@@ -289,9 +282,7 @@ module Frankenstein
           begin
             gh_repo = client.repo(repo)
           rescue StandardError => e
-            f_print "#{em_mad} Error getting repo for "
-            f_print repo.white
-            f_puts ": #{e.message.red}"
+            error_log "Getting repo for #{repo.white} #{e.message.red}"
             next
           end
 

@@ -49,6 +49,10 @@ module Frankenstein
     end
 
     # logging
+    def error_log(message)
+      f_puts "#{em_mad} Error: #{message}".red
+    end
+
     def error_result_header(error)
       f_print "\n📋  #{PRODUCT} results: ".white
       f_puts error.red
