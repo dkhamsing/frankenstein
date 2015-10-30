@@ -77,7 +77,7 @@ module Frankenstein
 
   if argv1.nil?
     usage
-    exit(0)
+    exit
   end
 
   # start
@@ -123,7 +123,7 @@ module Frankenstein
                 if message == 'Not Found'
                   m = "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
                   f_puts m
-                  exit 1
+                  exit(1)
                 end
 
                 default_branch = parsed['default_branch']
@@ -156,7 +156,7 @@ module Frankenstein
                   m = "#{mad} Error, #{error_message.red} "\
                       "(status code: #{code.to_s.red})"
                   f_puts m
-                  exit 1
+                  exit(1)
                 else
                   error_message = 'could not find readme in master branch'
                   m = "#{logo} Error, #{error_message.white} "
