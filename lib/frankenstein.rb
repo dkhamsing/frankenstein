@@ -55,7 +55,7 @@ module Frankenstein
     log_number_of_items_per_row = if temp
                                     temp.split(SEPARATOR)[1].to_i
                                   else
-                                    10 # default is 10 items per output rows
+                                    DEFAULT_NUMBER_OF_ITEMS_PER_ROWS
                                   end
   end
 
@@ -65,7 +65,7 @@ module Frankenstein
   $number_of_threads = if temp
                          temp.split(SEPARATOR)[1].to_i
                        else
-                         5 # default is 5 threads
+                         DEFAULT_NUMBER_OF_THREADS
                        end
   verbose "Number of threads: #{$number_of_threads}"
 
