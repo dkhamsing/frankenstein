@@ -23,10 +23,10 @@ module Frankenstein
       "#{text}#{count > 1 ? 's' : ''}"
     end
 
-    def in_white_list(input)
-      WHITE_LIST_REGEXP.each do |regexp|
+    def in_white_saved(input)
+      WHITE_saved_REGEXP.each do |regexp|
         if input.match(regexp)
-          verbose "#{input} is in white list matching #{regexp}".white
+          verbose "#{input} is in white saved matching #{regexp}".white
           return true
         end
       end
@@ -34,7 +34,7 @@ module Frankenstein
     end
 
     def status_glyph(status, url)
-      return '⚪  white list' if in_white_list(url)
+      return '⚪  white saved' if in_white_saved(url)
 
       case
       when status == 200
@@ -73,15 +73,16 @@ module Frankenstein
       File.open(FILE_LOG, 'a') { |f| f.write(input) }
     end
 
-    def repo_log_json(hash)
+    def repo_log_json(list)
       json = if File.exist?(FILE_REPO)
                file = File.read(FILE_REPO)
-               list = JSON.parse(file)
-               list.push(hash).to_json
+               saved = JSON.parse(file)
+               list.each { |x| saved.push(x) }
+               saved 
              else
-               hash.to_json
+               list
              end
-      File.open(FILE_REPO, 'w') { |f| f.puts(json) }
+      File.open(FILE_REPO, 'w') { |f| f.puts(json.to_json) }
     end
 
     def verbose(message)

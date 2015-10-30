@@ -1,5 +1,5 @@
 Gemfile.lock
 franken_log
-franken_repos
+franken_repos.json
 franken_temp
 *.gem
