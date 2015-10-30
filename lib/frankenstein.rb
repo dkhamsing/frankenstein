@@ -16,6 +16,9 @@ module Frankenstein
   require 'octokit'
   require 'netrc'
 
+  # logs are stored in logs/
+  Dir.mkdir 'logs'
+
   # process cli arguments
   argv1, argv_flags = ARGV
 
