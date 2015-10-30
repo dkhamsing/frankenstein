@@ -142,7 +142,7 @@ Pull request created: https://github.com/fastlane/sigh/pull/195
 🏃  No failures for fastlane/sigh
 ```
 
-Example uses of `frankenstein` with `pull` option
+Example uses of `frankenstein` with `pull` option:
 
 - https://github.com/fastlane/sigh/pull/195
 - https://github.com/fastlane/frameit/pull/65
@@ -156,10 +156,10 @@ Some URLs that are meant to be redirected (i.e. badge, authentication) have been
 ### Travis
 
 - You can use `frankenstein` with [Travis](https://travis-ci.org/) to validate commits on GitHub.
-- Example uses of `frankenstein` with Travis
-  - [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
-    - https://github.com/dkhamsing/open-source-ios-apps/pull/139
-    - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
+- Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
+  - https://github.com/dkhamsing/open-source-ios-apps/pull/139
+  - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
+  - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87774588
 
 `.travis.yml` file
 
