@@ -1,3 +1,4 @@
+require 'frankenstein/cli'
 require 'frankenstein/constants'
 require 'frankenstein/logging'
 require 'frankenstein/usage'
@@ -46,16 +47,6 @@ module Frankenstein
                             else
                               argv_flags.to_s.include? FLAG_GITHUB_STARS
                             end
-
-  class << self
-    def option_value(name, separator)
-      regex = "#{name}#{separator}"
-      verbose "Regular expression: #{regex}"
-      temp = ARGV.find { |e| /#{regex}/ =~ e }
-
-      temp ? temp.split(SEPARATOR)[1].to_i : nil
-    end
-  end # class
 
   flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
   if flag_minimize_output
