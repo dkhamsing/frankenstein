@@ -24,7 +24,7 @@ module Frankenstein
     end
 
     def in_white_saved(input)
-      WHITE_saved_REGEXP.each do |regexp|
+      WHITE_LIST_REGEXP.each do |regexp|
         if input.match(regexp)
           verbose "#{input} is in white saved matching #{regexp}".white
           return true
