@@ -47,26 +47,24 @@ module Frankenstein
                               argv_flags.to_s.include? FLAG_GITHUB_STARS
                             end
 
+  class << self
+    def option_value(name, separator)
+      regex = "#{name}#{separator}"
+      verbose "Regular expression: #{regex}"
+      temp = ARGV.find { |e| /#{regex}/ =~ e }
+
+      temp ? temp.split(SEPARATOR)[1].to_i : nil
+    end
+  end # class
+
   flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
   if flag_minimize_output
-    regex = "#{OPTION_ROW}#{SEPARATOR}"
-    verbose "Regular expression: #{regex}"
-    temp = ARGV.find { |e| /#{regex}/ =~ e }
-    log_number_of_items_per_row = if temp
-                                    temp.split(SEPARATOR)[1].to_i
-                                  else
-                                    DEFAULT_NUMBER_OF_ITEMS_PER_ROWS
-                                  end
+    log_number_of_items_per_row = option_value OPTION_ROW, SEPARATOR
+    log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if log_number_of_items_per_row == nil
   end
 
-  regex = "#{OPTION_THREADS}#{SEPARATOR}"
-  verbose "Regular expression: #{regex}"
-  temp = ARGV.find { |e| /#{regex}/ =~ e }
-  $number_of_threads = if temp
-                         temp.split(SEPARATOR)[1].to_i
-                       else
-                         DEFAULT_NUMBER_OF_THREADS
-                       end
+  $number_of_threads = option_value OPTION_THREADS, SEPARATOR
+  $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads == nil
   verbose "Number of threads: #{$number_of_threads}"
 
   if flag_fetch_github_stars || option_pull_request
