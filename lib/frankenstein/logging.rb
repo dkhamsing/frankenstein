@@ -74,22 +74,13 @@ module Frankenstein
     end
 
     def repo_log_json(hash)
-      json = if File.exists?(FILE_REPO)
+      json = if File.exist?(FILE_REPO)
                file = File.read(FILE_REPO)
                list = JSON.parse(file)
-
-
-              #  puts list
-
                list.push(hash).to_json
-
-              #  puts list
-
-              #  (data_hash << hash).to_json
              else
                hash.to_json
              end
-
       File.open(FILE_REPO, 'w') { |f| f.puts(json) }
     end
 

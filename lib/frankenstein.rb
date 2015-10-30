@@ -19,7 +19,7 @@ module Frankenstein
 
   # logs are stored in logs/
   logs_dir = 'logs'
-  Dir.mkdir logs_dir unless File.exists?(logs_dir)
+  Dir.mkdir logs_dir unless File.exist?(logs_dir)
 
   # process cli arguments
   argv1, argv_flags = ARGV
