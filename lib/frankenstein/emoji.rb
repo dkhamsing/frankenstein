@@ -21,6 +21,10 @@ module Frankenstein
       '🔴 '
     end
 
+    def em_status_white
+      '⚪ '
+    end
+
     def em_status_yellow
       '🔶 '
     end

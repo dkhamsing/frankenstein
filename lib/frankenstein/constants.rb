@@ -21,6 +21,7 @@ module Frankenstein
   FLAG_VERBOSE = 'v'
 
   GITHUB_API_BASE = 'https://api.github.com/'
+  GITHUB_RAW_CONTENT_URL = 'https://raw.githubusercontent.com/'
 
   NETRC_GITHUB_MACHINE = 'api.github.com'
 
@@ -31,7 +32,7 @@ module Frankenstein
   OPTION_THREADS = 'threads'
 
   PRODUCT = 'frankenstein'
-  
+
   PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
 
   PULL_REQUEST_TITLE = 'Update redirects'

@@ -34,7 +34,7 @@ module Frankenstein
     end
 
     def status_glyph(status, url)
-      return '⚪  white saved' if in_white_saved(url)
+      return "#{em_status_white} white saved" if in_white_saved(url)
 
       case
       when status == 200
@@ -44,7 +44,7 @@ module Frankenstein
       when status.to_s.start_with?('4')
         return em_status_red
       else
-        return '⚪ '
+        return em_status_white
       end
     end
 

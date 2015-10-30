@@ -29,7 +29,7 @@ module Frankenstein
     end
 
     def find_url(repo, branch)
-      base = "https://raw.githubusercontent.com/#{repo}/#{branch}/"
+      base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
       "#{base}#{
         README_VARIATIONS.find do |x|
           temp = "#{base}#{x}"
