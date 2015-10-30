@@ -30,8 +30,10 @@ module Frankenstein
 
     def difference(date)
       time = Time.new
+      return 0 if date.nil?
+
       difference = -((date - time)/60/60/24)
-      difference.round(0)
+      return difference.round(0)
     end
   end # class
 end
