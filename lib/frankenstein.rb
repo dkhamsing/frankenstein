@@ -310,6 +310,7 @@ module Frankenstein
       }.map { |url| url.split('.com/')[1] }.reject { |x| x.include? '.' }.uniq
       verbose github_repos
 
+      repos_info = []
       if github_repos.count == 0
         f_puts 'No GitHub repos found'.white
       else
@@ -340,8 +341,13 @@ module Frankenstein
           message << last_push if option_github_last_push
           f_puts_with_index idx + 1, github_repos.count, message
 
-          repo_log repo, count, pushed_at
+          h = {repo: repo, count: count, pushed_at: pushed_at}
+          repos_info.push(h)
+          # repo_log repo, count, pushed_at
         end # Parallel
+
+        # puts repos_info.to_json unless repos_info.count == 0
+        repo_log_json repos_info.to_json unless repos_info.count == 0
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0

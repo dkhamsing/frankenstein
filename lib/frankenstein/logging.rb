@@ -83,6 +83,10 @@ module Frankenstein
       end
     end
 
+    def repo_log_json(json)
+      File.open(FILE_REPO, 'a') { |f| f.write(json) }
+    end
+
     def verbose(message)
       f_puts message if $flag_verbose
     end
