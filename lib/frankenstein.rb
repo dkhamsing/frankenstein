@@ -98,7 +98,7 @@ module Frankenstein
 
     def fetch_response(url, method: :get)
       conn = Faraday.new do |b|
-        b.use FaradayMiddleware::FollowRedirects;
+        b.use FaradayMiddleware::FollowRedirects
         b.adapter :net_http
       end
       return conn.send method, url
