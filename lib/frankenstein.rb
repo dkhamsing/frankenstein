@@ -68,7 +68,7 @@ module Frankenstein
     n = Netrc.read
     creds = n[NETRC_GITHUB_MACHINE]
     if creds.nil?
-      f_puts "#{mad} Error: missing GitHub credentials in .netrc".red
+      f_puts "#{em_mad} Error: missing GitHub credentials in .netrc".red
       exit(1)
     end
   end
@@ -111,7 +111,7 @@ module Frankenstein
 
               message = '' if message.nil?
               if message.include? 'API rate limit exceeded'
-                f_puts "#{mad} Error: GitHub #{message}".red
+                f_puts "#{em_mad} Error: GitHub #{message}".red
 
                 f_puts 'Finding readme...'
                 default_branch = 'master'
@@ -119,7 +119,7 @@ module Frankenstein
                 find_url(argv1, default_branch)
               else
                 if message == 'Not Found'
-                  m = "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
+                  m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo}".red
                   f_puts m
                   exit(1)
                 end
@@ -132,14 +132,14 @@ module Frankenstein
                 repo_updated = number_of_days_since(Time.parse repo_pushed_at)
                 m = "Found: #{default_branch.white} for "\
                       "#{argv1_is_github_repo} — "\
-                      "#{repo_description} — #{repo_stars}#{star} — #{repo_updated}"
+                      "#{repo_description} — #{repo_stars}#{em_star} — #{repo_updated}"
                 f_puts m
 
                 find_url(argv1, default_branch)
               end # if message ==
             end # if message.include? "API..
 
-  f_print "#{logo} Processing links for ".white
+  f_print "#{em_logo} Processing links for ".white
   f_print the_url.blue
   f_puts ' ...'.white
 
@@ -151,13 +151,13 @@ module Frankenstein
               unless code == 200
                 if argv1_is_http
                   error_message = 'url response'
-                  m = "#{mad} Error, #{error_message.red} "\
+                  m = "#{em_mad} Error, #{error_message.red} "\
                       "(status code: #{code.to_s.red})"
                   f_puts m
                   exit(1)
                 else
                   error_message = 'could not find readme in master branch'
-                  m = "#{logo} Error, #{error_message.white} "
+                  m = "#{em_logo} Error, #{error_message.white} "
                   f_puts m
                   exit
                 end
@@ -203,11 +203,11 @@ module Frankenstein
         begin
           res = Faraday.get(link)
         rescue StandardError => e
-          f_print "#{mad} Error getting link "
+          f_print "#{em_mad} Error getting link "
           f_print link.white
           f_puts ": #{e.message.red}"
 
-          issue = "#{status_red} #{e.message} #{link}"
+          issue = "#{em_status_red} #{e.message} #{link}"
           issues.push(issue)
           failures.push(issue)
           next
@@ -238,7 +238,7 @@ module Frankenstein
             redirect = resolve_redirects link
             verbose "#{link} was redirected to \n#{redirect}".white
             if redirect.nil?
-              f_puts "#{mad} No redirect found for #{link}"
+              f_puts "#{em_mad} No redirect found for #{link}"
             else
               redirects[link] = redirect
             end
@@ -293,7 +293,7 @@ module Frankenstein
           begin
             gh_repo = client.repo(repo)
           rescue StandardError => e
-            f_print "#{mad} Error getting repo for "
+            f_print "#{em_mad} Error getting repo for "
             f_print repo.white
             f_puts ": #{e.message.red}"
             next
@@ -304,7 +304,7 @@ module Frankenstein
 
           repo_updated = number_of_days_since pushed_at
 
-          message = "#{star} #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
+          message = "#{em_star} #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
           message << repo_updated
           f_puts_with_index idx + 1, github_repos.count, message
 
@@ -319,7 +319,7 @@ module Frankenstein
   redirects = [] if redirects.nil?
 
   if redirects.count > 0
-    message = "\n#{status_yellow} #{redirects.count} "\
+    message = "\n#{em_status_yellow} #{redirects.count} "\
               "#{pluralize 'redirect', redirects.count}"
     f_puts message.yellow
 
@@ -422,12 +422,12 @@ module Frankenstein
 
   f_puts ''
   if failures.count == 0
-    f_puts "#{logo} No failures for #{argv1.blue}".white
+    f_puts "#{em_logo} No failures for #{argv1.blue}".white
   else
     if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
       f_puts "The only failure was the controlled failure #{sunglasses}"
     else
-      message = "#{status_red} #{failures.count} "\
+      message = "#{em_status_red} #{failures.count} "\
                 "#{pluralize 'failure', failures.count} for #{argv1.blue}"
       f_puts message.red
       exit(1)

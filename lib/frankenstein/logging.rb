@@ -7,15 +7,15 @@ module Frankenstein
       count = count.to_i
       case
       when count > 2000
-        return heat << heat << heat << heat << heat
+        return em_heat << em_heat << em_heat << em_heat << em_heat
       when count > 1000
-        return heat << heat << heat << heat
+        return em_heat << em_heat << em_heat << em_heat
       when count > 500
-        return heat << heat << heat
+        return em_heat << em_heat << em_heat
       when count > 200
-        return heat << heat
+        return em_heat << em_heat
       when count > 100
-        return heat
+        return em_heat
       end
     end
 
@@ -40,9 +40,9 @@ module Frankenstein
       when status == 200
         return '✅ '
       when status.to_s.start_with?('3')
-        return '🔶 '
+        return em_status_red
       when status.to_s.start_with?('4')
-        return '🔴 '
+        return em_status_red
       else
         return '⚪ '
       end
@@ -83,7 +83,7 @@ module Frankenstein
                  h = saved.map { |s| s if s['repo']==x[:repo] }.compact.first
                  unless h.nil?
                    difference = x[:count] - h['count']
-                   m = "#{x[:repo]} count difference: #{difference} #{star}"
+                   m = "#{x[:repo]} count difference: #{difference} #{em_star}"
                    f_puts m unless difference == 0
                    saved.delete(h)
                  end

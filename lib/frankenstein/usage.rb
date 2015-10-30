@@ -14,7 +14,7 @@ module Frankenstein
       all_argv1 = "#{ARGV1_URL.magenta}|#{ARGV1_FILE.magenta}|"\
                   "#{ARGV1_GITHUB_REPO.magenta}"
 
-      m = "#{logo} #{'Check for live URLS on a page'.white} \n" \
+      m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
           "#{'frankenstein'.green} <#{all_argv1}> "\
       "[-#{all_flags.blue}] "\
       "[#{OPTION_LOG.blue}] "\
@@ -41,12 +41,12 @@ module Frankenstein
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
       "\n"\
-      "\n#{logo} #{'Examples'.white} \n"\
+      "\n#{em_logo} #{'Examples'.white} \n"\
       "$ frankenstein https://fastlane.tools \n"\
       "$ frankenstein README.md \n"\
       "$ frankenstein dkhamsing/open-source-ios-apps -mv threads=10 \n"\
       "$ frankenstein dkhamsing/open-source-ios-apps stars \n"\
-      "\n#{logo} \n- Fetching GitHub repo information and creating pull"\
+      "\n#{em_logo} \n- Fetching GitHub repo information and creating pull"\
       " requests require credentials in .netrc \n"\
       '- More information: '\
       "#{'https://github.com/dkhamsing/frankenstein'.white.underline}"
