@@ -6,14 +6,19 @@ module Frankenstein
   require 'colored'
 
   class << self
-    def usage
-      all_flags = FLAG_FAIL +
-                  FLAG_MINIMIZE_OUTPUT +
-                  FLAG_GITHUB_STARS.yellow +
-                  FLAG_VERBOSE
-      all_argv1 = "#{ARGV1_URL.magenta}|#{ARGV1_FILE.magenta}|"\
-                  "#{ARGV1_GITHUB_REPO.magenta}"
+    def all_argv1
+      "#{ARGV1_URL.magenta}|#{ARGV1_FILE.magenta}|"\
+        "#{ARGV1_GITHUB_REPO.magenta}"
+    end
 
+    def all_flags
+      FLAG_FAIL +
+        FLAG_MINIMIZE_OUTPUT +
+        FLAG_GITHUB_STARS.yellow +
+        FLAG_VERBOSE
+    end
+
+    def usage
       m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
           "#{'frankenstein'.green} <#{all_argv1}> "\
       "[-#{all_flags.blue}] "\

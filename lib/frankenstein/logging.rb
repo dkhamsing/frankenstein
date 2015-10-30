@@ -80,7 +80,7 @@ module Frankenstein
                saved = JSON.parse(file)
 
                list.each do |x|
-                 h = saved.map { |s| s if s['repo']==x[:repo] }.compact.first
+                 h = saved.map { |s| s if s['repo'] == x[:repo] }.compact.first
                  unless h.nil?
                    difference = x[:count] - h['count']
                    m = "#{x[:repo]} count difference: #{difference} #{em_star}"
