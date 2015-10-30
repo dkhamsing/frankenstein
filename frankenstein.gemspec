@@ -19,11 +19,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # dependencies
+  spec.add_dependency 'colored', '~> 1.2'
   spec.add_dependency 'faraday', '~> 0.9.2'
   spec.add_dependency 'faraday_middleware', '~> 0.10.0'
   spec.add_dependency 'json', '~> 1.8.3'
   spec.add_dependency 'parallel', '~> 1.6.1'
-  spec.add_dependency 'colored', '~> 1.2'
+
+  # github 
   spec.add_dependency 'octokit', '~> 3.4.2'
   spec.add_dependency 'netrc', '~> 0.7.8'
 
