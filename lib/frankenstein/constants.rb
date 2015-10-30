@@ -30,6 +30,8 @@ module Frankenstein
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
 
+  PRODUCT = 'frankenstein'
+  
   PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
 
   PULL_REQUEST_TITLE = 'Update redirects'

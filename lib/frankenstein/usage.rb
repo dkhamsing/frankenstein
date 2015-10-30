@@ -20,7 +20,7 @@ module Frankenstein
 
     def usage
       m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
-          "#{'frankenstein'.green} <#{all_argv1}> "\
+          "#{PRODUCT.green} <#{all_argv1}> "\
       "[-#{all_flags.blue}] "\
       "[#{OPTION_LOG.blue}] "\
       "[#{OPTION_PULL_REQUEST.blue}] "\
@@ -47,14 +47,14 @@ module Frankenstein
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
       "\n"\
       "\n#{em_logo} #{'Examples'.white} \n"\
-      "$ frankenstein https://fastlane.tools \n"\
-      "$ frankenstein README.md \n"\
-      "$ frankenstein dkhamsing/open-source-ios-apps -mv threads=10 \n"\
-      "$ frankenstein dkhamsing/open-source-ios-apps stars \n"\
+      "$ #{PRODUCT} https://fastlane.tools \n"\
+      "$ #{PRODUCT} README.md \n"\
+      "$ #{PRODUCT} dkhamsing/open-source-ios-apps -mv threads=10 \n"\
+      "$ #{PRODUCT} dkhamsing/open-source-ios-apps stars \n"\
       "\n#{em_logo} \n- Fetching GitHub repo information and creating pull"\
       " requests require credentials in .netrc \n"\
       '- More information: '\
-      "#{'https://github.com/dkhamsing/frankenstein'.white.underline}"
+      "#{PROJECT_URL.white.underline}"
 
       puts m
     end

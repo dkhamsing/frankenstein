@@ -258,7 +258,7 @@ module Frankenstein
 
         f_puts issues
       else
-        m = "#{"\nfrankenstein".white} #{'found no errors'.green} for "\
+        m = "\n#{PRODUCT.white} #{'found no errors'.green} for "\
             "#{links_to_check.count} #{pluralize 'link', links_to_check.count}"\
             " #{sunglasses}"
         f_puts m

@@ -50,7 +50,7 @@ module Frankenstein
 
     # logging
     def error_result_header(error)
-      f_print "\n📋  frankenstein results: ".white
+      f_print "\n📋  #{PRODUCT} results: ".white
       f_puts error.red
     end
 
