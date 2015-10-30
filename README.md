@@ -156,9 +156,12 @@ Some URLs that are meant to be redirected (i.e. badge, authentication) have been
 ### Travis
 
 - You can use `frankenstein` with [Travis](https://travis-ci.org/) to validate commits on GitHub.
-- Here is [a validation](https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142) on a [pull request](https://github.com/dkhamsing/open-source-ios-apps/pull/139) for [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps).
+- Example uses of `frankenstein` with Travis
+  - [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
+    - https://github.com/dkhamsing/open-source-ios-apps/pull/139
+    - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
 
-Example `.travis.yml` file
+`.travis.yml` file
 
 ```
 language: ruby
