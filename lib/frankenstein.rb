@@ -334,8 +334,8 @@ module Frankenstein
           count = gh_repo.stargazers_count
           last_push = number_of_days_since gh_repo.pushed_at
 
-          message = "⭐️  #{count} #{repo} #{heat_index count}" if flag_fetch_github_stars
-          message << " #{last_push}" if option_github_last_push
+          message = "⭐️  #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
+          message << last_push if option_github_last_push
           f_puts_with_index idx + 1, github_repos.count, message
         end # Parallel
       end # if github_repos.count == 0
