@@ -94,103 +94,88 @@ module Frankenstein
   end
 
   the_url = if argv1_is_http || found_file_content
-    argv1
-  else
-    argv1_is_github_repo = argv1
+              argv1
+            else
+              argv1_is_github_repo = argv1
 
-    # note github api has a rate limit of 60 unauthenticated requests per hour https://developer.github.com/v3/#rate-limiting
-    json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
-    f_puts "Finding default branch for #{argv1_is_github_repo.white}"
-    verbose json_url
+              # note github api has a rate limit of 60 unauthenticated requests
+              #   per hour https://developer.github.com/v3/#rate-limiting
+              json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
+              f_puts "Finding default branch for #{argv1_is_github_repo.white}"
+              verbose json_url
 
-    body = Faraday.get(json_url).body
-    verbose body
-    parsed = JSON.parse(body)
+              body = Faraday.get(json_url).body
+              verbose body
+              parsed = JSON.parse(body)
 
-    message = parsed['message']
-    verbose "Parsed message: #{message}"
+              message = parsed['message']
+              verbose "Parsed message: #{message}"
 
-    message = '' if message.nil?
+              message = '' if message.nil?
+              if message.include? 'API rate limit exceeded'
+                f_puts "#{mad} Error: GitHub #{message}".red
 
-    if message.include? 'API rate limit exceeded'
-      f_puts "#{mad} Error: GitHub #{message}".red
+                f_puts 'Finding readme...'
+                default_branch = 'master'
 
-      f_puts 'Finding readme...'
-      default_branch = 'master'
-      # base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
-      # "#{base}#{
-      #   README_VARIATIONS.find do |x|
-      #     temp = "#{base}#{x}"
-      #     $readme = x
-      #     verbose "Readme found: #{$readme}"
-      #     status(temp) < 400
-      #   end
-      # }"
-      base = find_url(argv1, default_branch)
-    else
-      if message == 'Not Found'
-        f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
-        exit 1
-      end
+                find_url(argv1, default_branch)
+              else
+                if message == 'Not Found'
+                  m = "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
+                  f_puts m
+                  exit 1
+                end
 
-      default_branch = parsed['default_branch']
-      repo_description = parsed['description']
-      repo_stars = parsed['stargazers_count']
-      repo_pushed_at = parsed['pushed_at']
+                default_branch = parsed['default_branch']
+                repo_description = parsed['description']
+                repo_stars = parsed['stargazers_count']
+                repo_pushed_at = parsed['pushed_at']
 
-      repo_updated = number_of_days_since(Time.parse repo_pushed_at)
-      message = "Found: #{default_branch.white} for #{argv1_is_github_repo} — "\
-                "#{repo_description} — #{repo_stars}⭐️  — #{repo_updated}"
-      f_puts message
+                repo_updated = number_of_days_since(Time.parse repo_pushed_at)
+                m = "Found: #{default_branch.white} for "\
+                      "#{argv1_is_github_repo} — "\
+                      "#{repo_description} — #{repo_stars}⭐️  — #{repo_updated}"
+                f_puts m
 
-      base = find_url(argv1, default_branch)
-      # base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
-      # the_url = "#{base}#{
-      #     README_VARIATIONS.find do |x|
-      #       temp = "#{base}#{x}"
-      #       $readme = x
-      #       verbose "Readme found: #{$readme}"
-      #       status(temp) < 400
-      #     end
-      #     }"
-    end # if message ==
-  end # if message.include? "API..
+                find_url(argv1, default_branch)
+              end # if message ==
+            end # if message.include? "API..
 
   f_print "#{logo} Processing links for ".white
   f_print the_url.blue
   f_puts ' ...'.white
 
-  links_found = if found_file_content
-                  URI.extract(found_file_content, /http()s?/)
+  content = if found_file_content
+              found_file_content
+            else
+              code = status the_url
+
+              unless code == 200
+                if argv1_is_http
+                  error_message = 'url response'
+                  m = "#{mad} Error, #{error_message.red} "\
+                      "(status code: #{code.to_s.red})"
+                  f_puts m
+                  exit 1
                 else
-                  code = status the_url
-
-                  unless code == 200
-                    if argv1_is_http
-                      error_message = 'url response'
-                      m = "#{mad} Error, #{error_message.red} "\
-                          "(status code: #{code.to_s.red})"
-                      f_puts m
-                      exit 1
-                    else
-                      error_message = 'could not find readme in master branch'
-                      m = "#{logo} Error, #{error_message.white} "
-                      f_puts m
-                      exit
-                    end
-                  end
-
-                  res = Faraday.get(the_url)
-                  content = res.body
-                  File.open(FILE_TEMP, 'w') { |f| f.write(content) }
-                  URI.extract(content, /http()s?/)
+                  error_message = 'could not find readme in master branch'
+                  m = "#{logo} Error, #{error_message.white} "
+                  f_puts m
+                  exit
                 end
+              end
+
+              content = Faraday.get(the_url).body
+              File.open(FILE_TEMP, 'w') { |f| f.write(content) }
+              content
+            end
+  links_found = URI.extract(content, /http()s?/)
   verbose "Links found: #{links_found}"
 
-  links_to_check = links_found.reject { |x| x.length < 9 }
-  .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '') }
-  .uniq
-
+  links_to_check =
+    links_found.reject { |x| x.length < 9 }
+    .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '') }
+    .uniq
   # ) for markdown
   # ' found on https://fastlane.tools/
   # , for link followed by comma
@@ -251,6 +236,7 @@ module Frankenstein
           elsif res.status >= 400
             failures.push(link)
           elsif res.status >= 300
+            #TODO: check white list
             redirect = resolve_redirects link
             verbose "#{link} was redirected to \n#{redirect}".white
             if redirect.nil?
