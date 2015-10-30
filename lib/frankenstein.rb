@@ -260,7 +260,7 @@ module Frankenstein
       else
         m = "\n#{PRODUCT.white} #{'found no errors'.green} for "\
             "#{links_to_check.count} #{pluralize 'link', links_to_check.count}"\
-            " #{sunglasses}"
+            " #{em_sunglasses}"
         f_puts m
       end
 
@@ -425,7 +425,7 @@ module Frankenstein
     f_puts "#{em_logo} No failures for #{argv1.blue}".white
   else
     if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
-      f_puts "The only failure was the controlled failure #{sunglasses}"
+      f_puts "The only failure was the controlled failure #{em_sunglasses}"
     else
       message = "#{em_status_red} #{failures.count} "\
                 "#{pluralize 'failure', failures.count} for #{argv1.blue}"
