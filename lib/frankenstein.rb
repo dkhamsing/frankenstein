@@ -112,7 +112,7 @@ module Frankenstein
                 f_puts 'Finding readme...'
                 default_branch = 'master'
 
-                find_url(argv1, default_branch)
+                net_find_github_url(argv1, default_branch)
               else
                 if message == 'Not Found'
                   m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo}"
@@ -131,7 +131,7 @@ module Frankenstein
                       "#{repo_description} — #{repo_stars}#{em_star} — #{repo_updated}"
                 f_puts m
 
-                find_url(argv1, default_branch)
+                net_find_github_url(argv1, default_branch)
               end # if message ==
             end # if message.include? "API..
 
