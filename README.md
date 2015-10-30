@@ -92,7 +92,7 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 #### GitHub
 
-Fetching star count for repos and creating a pull request for redirects requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+Fetching star count for repos / creating a pull request for redirects require a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
 `-c` `stars`
 
