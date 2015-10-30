@@ -10,6 +10,7 @@ module Frankenstein
   DEFAULT_NUMBER_OF_THREADS = 5
 
   FILE_LOG = 'logs/franken_log'
+  FILE_REPO = 'logs/franken_repos'
   FILE_TEMP = 'logs/franken_temp'
 
   FLAG_FAIL = 'f'

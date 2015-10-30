@@ -73,6 +73,16 @@ module Frankenstein
       File.open(FILE_LOG, 'a') { |f| f.write(input) }
     end
 
+    def repo_log(repo, star_count, last_push)
+      # print repo + star_count.to_s + last_push.to_s
+
+      File.open(FILE_REPO, 'a') do |f|
+        separator = '::'
+        m = "#{repo}#{separator}#{star_count}#{separator}#{last_push} \n"
+        f.write m
+      end
+    end
+
     def verbose(message)
       f_puts message if $flag_verbose
     end
