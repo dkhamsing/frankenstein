@@ -236,7 +236,7 @@ module Frankenstein
           elsif res.status >= 400
             failures.push(link)
           elsif res.status >= 300
-            #TODO: check white list
+            # TODO: check white list
             redirect = resolve_redirects link
             verbose "#{link} was redirected to \n#{redirect}".white
             if redirect.nil?
