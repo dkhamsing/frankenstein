@@ -74,11 +74,24 @@ module Frankenstein
     end
 
     def repo_log_json(list)
+      f_puts "\nWriting repo log ... "
       json = if File.exist?(FILE_REPO)
                file = File.read(FILE_REPO)
                saved = JSON.parse(file)
-               list.each { |x| saved.push(x) }
-               saved 
+
+               list.each do |x|
+                 h = saved.map { |s| s if s['repo']==x[:repo] }.compact.first
+                 unless h.nil?
+                   difference = x[:count] - h['count']
+                   m = "#{x[:repo]} count difference: #{difference} #{star}"
+                   f_puts m unless difference == 0
+                   saved.delete(h)
+                 end
+
+                 saved.push(x)
+               end
+
+               saved
              else
                list
              end
