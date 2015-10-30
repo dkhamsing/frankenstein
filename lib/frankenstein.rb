@@ -196,7 +196,7 @@ module Frankenstein
                     m = "#{mad} Error, #{error_message.red} "\
                         "(status code: #{code.to_s.red})"
                     f_puts m
-                    exit
+                    exit 1
                   end
 
                   res = Faraday.get(the_url)
