@@ -2,6 +2,7 @@ require 'frankenstein/cli'
 require 'frankenstein/constants'
 require 'frankenstein/date'
 require 'frankenstein/logging'
+require 'frankenstein/network'
 require 'frankenstein/usage'
 require 'frankenstein/version'
 
@@ -79,34 +80,6 @@ module Frankenstein
     exit(0)
   end
 
-  class << self
-    def status(url)
-      response = Faraday.head(url)
-      code = response.status
-      verbose "Status: #{code} #{url}"
-      code
-    end
-
-    def resolve_redirects(url) # resolve_redirects via http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142
-      response = fetch_response(url, method: :head)
-      if response
-        return response.to_hash[:url].to_s
-      else
-        return nil
-      end
-    end
-
-    def fetch_response(url, method: :get)
-      conn = Faraday.new do |b|
-        b.use FaradayMiddleware::FollowRedirects
-        b.adapter :net_http
-      end
-      return conn.send method, url
-    rescue Faraday::Error, Faraday::Error::ConnectionFailed => e
-      return nil
-    end
-  end # class
-
   # start
   elapsed_time_start = Time.now
 
@@ -144,15 +117,16 @@ module Frankenstein
 
       f_puts 'Finding readme...'
       default_branch = 'master'
-      base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
-      "#{base}#{
-        README_VARIATIONS.find do |x|
-          temp = "#{base}#{x}"
-          $readme = x
-          verbose "Readme found: #{$readme}"
-          status(temp) < 400
-        end
-      }"
+      # base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
+      # "#{base}#{
+      #   README_VARIATIONS.find do |x|
+      #     temp = "#{base}#{x}"
+      #     $readme = x
+      #     verbose "Readme found: #{$readme}"
+      #     status(temp) < 400
+      #   end
+      # }"
+      base = find_url(argv1, default_branch)
     else
       if message == 'Not Found'
         f_puts "#{mad} Error retrieving repo #{argv1_is_github_repo}".red
@@ -169,15 +143,16 @@ module Frankenstein
                 "#{repo_description} — #{repo_stars}⭐️  — #{repo_updated}"
       f_puts message
 
-      base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
-      the_url = "#{base}#{
-          README_VARIATIONS.find do |x|
-            temp = "#{base}#{x}"
-            $readme = x
-            verbose "Readme found: #{$readme}"
-            status(temp) < 400
-          end
-          }"
+      base = find_url(argv1, default_branch)
+      # base = "https://raw.githubusercontent.com/#{argv1}/#{default_branch}/"
+      # the_url = "#{base}#{
+      #     README_VARIATIONS.find do |x|
+      #       temp = "#{base}#{x}"
+      #       $readme = x
+      #       verbose "Readme found: #{$readme}"
+      #       status(temp) < 400
+      #     end
+      #     }"
     end # if message ==
   end # if message.include? "API..
 
