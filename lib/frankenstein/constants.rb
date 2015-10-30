@@ -9,9 +9,11 @@ module Frankenstein
   DEFAULT_NUMBER_OF_ITEMS_PER_ROWS = 10
   DEFAULT_NUMBER_OF_THREADS = 5
 
-  FILE_LOG = 'logs/franken_log'
-  FILE_REPO = 'logs/franken_repos'
-  FILE_TEMP = 'logs/franken_temp'
+  FILE_LOG_DIRECTORY = 'logs'
+
+  FILE_LOG = "#{FILE_LOG_DIRECTORY}/franken_log"
+  FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
+  FILE_TEMP = "#{FILE_LOG_DIRECTORY}/franken_temp"
 
   FLAG_FAIL = 'f'
   FLAG_GITHUB_STARS = 'r'

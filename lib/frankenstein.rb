@@ -18,9 +18,8 @@ module Frankenstein
   require 'octokit'
   require 'netrc'
 
-  # logs are stored in logs/
-  logs_dir = 'logs'
-  Dir.mkdir logs_dir unless File.exist?(logs_dir)
+  # logs are stored in FILE_LOG_DIRECTORY
+  Dir.mkdir FILE_LOG_DIRECTORY unless File.exist?(FILE_LOG_DIRECTORY)
 
   # process cli arguments
   argv1, argv_flags = ARGV
