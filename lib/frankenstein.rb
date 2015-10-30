@@ -343,11 +343,8 @@ module Frankenstein
 
           h = {repo: repo, count: count, pushed_at: pushed_at}
           repos_info.push(h)
-          # repo_log repo, count, pushed_at
         end # Parallel
-
-        # puts repos_info.to_json unless repos_info.count == 0
-        repo_log_json repos_info.to_json unless repos_info.count == 0
+        repo_log_json repos_info unless repos_info.count == 0
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0

@@ -73,29 +73,24 @@ module Frankenstein
       File.open(FILE_LOG, 'a') { |f| f.write(input) }
     end
 
-    # def repo_log(repo, star_count, last_push)
-    #   # print repo + star_count.to_s + last_push.to_s
-    #
-    #   File.open(FILE_REPO, 'a') do |f|
-    #     separator = '::'
-    #     m = "#{repo}#{separator}#{star_count}#{separator}#{last_push} \n"
-    #     f.write m
-    #   end
-    # end
-
-    def repo_log_json(json)
-      if File.exists?(FILE_REPO)
-        file = File.read(FILE_REPO)
-        data_hash = JSON.parse(file)
-
-        puts data_hash << json
-
-        File.open(FILE_REPO, 'a') { |f| f.puts(data_hash) }
-      else
-        File.open(FILE_REPO, 'a') { |f| f.puts(json) }
-      end
+    def repo_log_json(hash)
+      json = if File.exists?(FILE_REPO)
+               file = File.read(FILE_REPO)
+               list = JSON.parse(file)
 
 
+              #  puts list
+
+               list.push(hash).to_json
+
+              #  puts list
+
+              #  (data_hash << hash).to_json
+             else
+               hash.to_json
+             end
+
+      File.open(FILE_REPO, 'w') { |f| f.puts(json) }
     end
 
     def verbose(message)
