@@ -1,15 +1,17 @@
-require 'frankenstein/version'
 require 'frankenstein/constants'
 require 'frankenstein/logging'
 require 'frankenstein/usage'
+require 'frankenstein/version'
 
 # Check for live URLs on a page
 module Frankenstein
+  require 'colored'
   require 'faraday'
   require 'faraday_middleware'
   require 'json'
   require 'parallel'
-  require 'colored'
+
+  # github
   require 'octokit'
   require 'netrc'
 
