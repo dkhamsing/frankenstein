@@ -6,7 +6,11 @@ module Frankenstein
       months = days / 30
 
       m = 'last updated '
-      if days < 100
+
+      case
+      when days == 0
+        m << 'today'
+      when days < 100
         m << "#{days} #{pluralize 'day', days} ago"
       else
         m << "#{months} #{pluralize 'month', months} ago"
