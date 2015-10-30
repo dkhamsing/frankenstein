@@ -132,7 +132,7 @@ module Frankenstein
                 repo_updated = number_of_days_since(Time.parse repo_pushed_at)
                 m = "Found: #{default_branch.white} for "\
                       "#{argv1_is_github_repo} — "\
-                      "#{repo_description} — #{repo_stars}⭐️  — #{repo_updated}"
+                      "#{repo_description} — #{repo_stars}#{star} — #{repo_updated}"
                 f_puts m
 
                 find_url(argv1, default_branch)
@@ -304,7 +304,7 @@ module Frankenstein
 
           repo_updated = number_of_days_since pushed_at
 
-          message = "⭐️  #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
+          message = "#{star} #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
           message << repo_updated
           f_puts_with_index idx + 1, github_repos.count, message
 

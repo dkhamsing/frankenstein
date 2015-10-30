@@ -13,6 +13,10 @@ module Frankenstein
       '😡 '
     end
 
+    def star
+      '⭐️ '
+    end
+
     def status_red
       '🔴 '
     end
