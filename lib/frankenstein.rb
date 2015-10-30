@@ -288,7 +288,7 @@ module Frankenstein
         client = Octokit::Client.new(netrc: true)
         Parallel.each_with_index(github_repos,
                                  in_threads: $number_of_threads) do |repo, idx|
-          verbose "Attempting to get stars for #{repo}"
+          verbose "Attempting to get stars for #{repo.white}"
 
           begin
             gh_repo = client.repo(repo)
