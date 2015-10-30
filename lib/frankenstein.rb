@@ -191,12 +191,18 @@ module Frankenstein
                   code = status the_url
 
                   unless code == 200
-                    error_message = (argv1_is_http) ? 'url response' :
-                                    'could not find readme in master branch'
-                    m = "#{mad} Error, #{error_message.red} "\
-                        "(status code: #{code.to_s.red})"
-                    f_puts m                    
-                    exit 1 if argv1_is_http else exit
+                    if argv1_is_http
+                      error_message = 'url response'
+                      m = "#{mad} Error, #{error_message.red} "\
+                          "(status code: #{code.to_s.red})"
+                      f_puts m
+                      exit 1
+                    else
+                      error_message = 'could not find readme in master branch'
+                      m = "#{logo} Error, #{error_message.white} "
+                      f_puts m
+                      exit
+                    end
                   end
 
                   res = Faraday.get(the_url)
