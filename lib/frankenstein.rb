@@ -1,5 +1,6 @@
 require 'frankenstein/cli'
 require 'frankenstein/constants'
+require 'frankenstein/date'
 require 'frankenstein/logging'
 require 'frankenstein/usage'
 require 'frankenstein/version'
@@ -17,12 +18,14 @@ module Frankenstein
   require 'netrc'
 
   # logs are stored in logs/
-  Dir.mkdir 'logs'
+  logs_dir = 'logs'
+  Dir.mkdir logs_dir unless File.exists?(logs_dir)
 
   # process cli arguments
   argv1, argv_flags = ARGV
 
   option_github_stars_only = ARGV.include? OPTION_STARS
+  option_github_last_push = ARGV.include? OPTION_LAST_PUSH
   $option_log_to_file = ARGV.include? OPTION_LOG
   flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
   $flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
@@ -61,7 +64,7 @@ module Frankenstein
   $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads == nil
   verbose "Number of threads: #{$number_of_threads}"
 
-  if flag_fetch_github_stars || option_pull_request
+  if flag_fetch_github_stars || option_pull_request || option_github_last_push
     n = Netrc.read
     creds = n[NETRC_GITHUB_MACHINE]
     if creds.nil?
@@ -301,7 +304,7 @@ module Frankenstein
       end
     end # if !option_github_stars_only
 
-    if flag_fetch_github_stars
+    if flag_fetch_github_stars || option_github_last_push
       github_repos = links_to_check.select { |link|
         link.to_s.downcase.include? 'github.com' and link.count('/') == 4
       }.map { |url| url.split('.com/')[1] }.reject { |x| x.include? '.' }.uniq
@@ -311,7 +314,7 @@ module Frankenstein
         f_puts 'No GitHub repos found'.white
       else
         f_print "\n🔎  "
-        f_print "Getting star count for #{github_repos.count} GitHub ".white
+        f_print "Getting information for #{github_repos.count} GitHub ".white
         f_puts pluralize('repo', github_repos.count).white
 
         client = Octokit::Client.new(netrc: true)
@@ -329,7 +332,10 @@ module Frankenstein
           end
 
           count = gh_repo.stargazers_count
-          message = "⭐️  #{count} #{repo} #{heat_index count}"
+          last_push = number_of_days_since gh_repo.pushed_at
+
+          message = "⭐️  #{count} #{repo} #{heat_index count}" if flag_fetch_github_stars
+          message << " #{last_push}" if option_github_last_push
           f_puts_with_index idx + 1, github_repos.count, message
         end # Parallel
       end # if github_repos.count == 0
