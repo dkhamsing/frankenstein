@@ -114,9 +114,10 @@ module Frankenstein
 
                 net_find_github_url(argv1, default_branch)
               else
-                if message == 'Not Found'
-                  m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo}"
-                  f_puts m.red
+                if message == 'Not Found' || message == 'Moved Permanently'
+                  m = "#{em_mad} Error retrieving repo #{argv1_is_github_repo} "
+                  f_print m.red
+                  f_puts message.downcase
                   exit(1)
                 end
 
