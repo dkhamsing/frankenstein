@@ -24,6 +24,11 @@ module Frankenstein
   # process cli arguments
   argv1, argv_flags = ARGV
 
+  if argv1.nil?
+    usage
+    exit
+  end
+
   option_github_stars_only = ARGV.include? OPTION_STARS
   $option_log_to_file = ARGV.include? OPTION_LOG
   flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
@@ -67,11 +72,6 @@ module Frankenstein
       error_log 'Missing GitHub credentials in .netrc'
       exit(1)
     end
-  end
-
-  if argv1.nil?
-    usage
-    exit
   end
 
   # start
