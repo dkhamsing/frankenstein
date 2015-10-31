@@ -1,0 +1,17 @@
+# white list
+
+https://coveralls.io/r/haml/haml redirects to
+
+[![Coverage Status](https://coveralls.io/repos/lodash/lodash/badge.svg?branch=master&service=github)](https://coveralls.io/github/lodash/lodash?branch=master)
+
+⚪  white list 302 http://badge.fury.io/js/react-native
+⚪  white list 302 https://badge.fury.io/js/react-native.svg
+
+https://fury-badge.herokuapp.com/rb/fog.png
+
+⚪  white list 301 https://discord.gg/0ZcbPKXt5bWJVmUY
+
+⚪  white list 301 https://github.com/facebook/react-native.git
+https://github.com/dkhamsing/ios-asset-names/issues/new
+
+⚪  white list 301 https://travis-ci.org/facebook/react-native.svg?branch=master

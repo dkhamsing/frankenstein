@@ -8,6 +8,7 @@ script:
   - frankenstein
   - frankenstein bin/assets/test-readme -v
   - frankenstein bin/assets/test-no-links -v
+  - frankenstein bin/assets/test-white-list
   - frankenstein dkhamsing/ios-asset-names -mv log threads=0
   - frankenstein fastlane/fastlane.tools -v threads=8
   - frankenstein dkhamsing/frankenstein -v threads=10
