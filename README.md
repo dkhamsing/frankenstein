@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ``` bash
-frankenstein <url|file|github repo> [-fmrv] [log] [pull] [repo] [row=d] [threads=d]
+frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [row=d] [threads=d]
 ```
 
 ### Examples
@@ -94,11 +94,11 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 Fetching star count for repos / creating a pull request for redirects require a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
-`-r` `repo`
+`-z` `repo`
 
 ``` bash
 $ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking urls
-$ frankenstein dkhamsing/open-source-ios-apps -r # get GitHub info after checking urls
+$ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking urls
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
 🔎  Checking 350 links

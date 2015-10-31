@@ -16,7 +16,7 @@ module Frankenstein
   FILE_TEMP = "#{FILE_LOG_DIRECTORY}/franken_temp"
 
   FLAG_FAIL = 'f'
-  FLAG_GITHUB_STARS = 'r'
+  FLAG_GITHUB_STARS = 'z'
   FLAG_MINIMIZE_OUTPUT = 'm'
   FLAG_VERBOSE = 'v'
 
