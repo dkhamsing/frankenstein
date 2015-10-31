@@ -9,8 +9,6 @@ require 'frankenstein/version'
 # Check for live URLs on a page
 module Frankenstein
   require 'colored'
-  require 'faraday'
-  require 'faraday_middleware'
   require 'json'
   require 'parallel'
 
@@ -98,7 +96,7 @@ module Frankenstein
               f_puts "Finding default branch for #{argv1_is_github_repo.white}"
               verbose json_url
 
-              body = Faraday.get(json_url).body
+              body = net_get(json_url).body
               verbose body
               parsed = JSON.parse(body)
 
@@ -155,7 +153,7 @@ module Frankenstein
                 end
               end
 
-              content = Faraday.get(the_url).body
+              content = net_get(the_url).body
               File.open(FILE_TEMP, 'w') { |f| f.write(content) }
               content
             end
@@ -193,7 +191,7 @@ module Frankenstein
       Parallel.each_with_index(links_to_check,
                                in_threads: $number_of_threads) do |link, index|
         begin
-          res = Faraday.get(link)
+          res = net_get(link)
         rescue StandardError => e
           error_log "Getting link #{link.white} #{e.message}"
 

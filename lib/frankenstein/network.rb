@@ -1,6 +1,13 @@
 # Networking
 module Frankenstein
+  require 'faraday'
+  require 'faraday_middleware'
+
   class << self
+    def net_get(url)
+      Faraday.get(url)
+    end
+
     def status(url)
       response = Faraday.head(url)
       code = response.status
