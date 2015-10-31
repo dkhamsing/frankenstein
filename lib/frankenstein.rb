@@ -229,7 +229,7 @@ module Frankenstein
             if redirect.nil?
               f_puts "#{em_mad} No redirect found for #{link}"
             else
-              redirects[link] = redirect unless in_white_saved(link)
+              redirects[link] = redirect unless in_white_list(link)
             end
           end # if res.status >= 500
         end # if res.status != 200
