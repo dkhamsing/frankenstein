@@ -40,7 +40,7 @@ module Frankenstein
       when status == 200
         return '✅ '
       when status.to_s.start_with?('3')
-        return em_status_red
+        return em_status_yellow
       when status.to_s.start_with?('4')
         return em_status_red
       else
