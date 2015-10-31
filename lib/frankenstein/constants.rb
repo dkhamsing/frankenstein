@@ -57,12 +57,15 @@ module Frankenstein
 
   WHITE_LIST_REGEXP = [
     '//badge.fury.io/',
+    '//coveralls.io/r/',
     '//coveralls.io/repos.*svg',
     '//discord.gg/',
+    '//fury-badge.herokuapp.com/.*png',
     '//github.com.*issues/new',
     '//github.com.*ch/new',
     '//github.com.*\.git$',
     '//i.creativecommons.org/.*png',
+    '//secure.travis-ci.org/.*png',
     '//travis-ci.org/.*svg'
   ]
 end
