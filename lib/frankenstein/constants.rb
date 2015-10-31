@@ -55,10 +55,13 @@ module Frankenstein
   SEPARATOR = '='
 
   WHITE_LIST_REGEXP = [
+    '//badge.fury.io/',
     '//coveralls.io/repos.*svg',
+    '//discord.gg/',
     '//github.com.*issues/new',
     '//github.com.*ch/new',
     '//github.com.*\.git$',
-    '//i.creativecommons.org/.*png'
+    '//i.creativecommons.org/.*png',
+    '//travis-ci.org/.*svg'
   ]
 end

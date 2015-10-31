@@ -26,7 +26,7 @@ module Frankenstein
     def in_white_saved(input)
       WHITE_LIST_REGEXP.each do |regexp|
         if input.match(regexp)
-          verbose "#{input} is in white saved matching #{regexp}".white
+          verbose "#{input} is in white list matching #{regexp}".white
           return true
         end
       end
@@ -34,7 +34,7 @@ module Frankenstein
     end
 
     def status_glyph(status, url)
-      return "#{em_status_white} white saved" if in_white_saved(url)
+      return "#{em_status_white} white list" if in_white_saved(url)
 
       case
       when status == 200
