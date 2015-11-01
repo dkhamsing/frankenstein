@@ -290,7 +290,8 @@ module Frankenstein
 
           repo_updated = number_of_days_since pushed_at
 
-          message = "#{em_star} #{count} #{repo} #{heat_index count} " if flag_fetch_github_stars
+          message = "#{em_star} #{count} #{repo} #{heat_index count} " if
+            flag_fetch_github_stars
           message << repo_updated
           f_puts_with_index idx + 1, github_repos.count, message
 
