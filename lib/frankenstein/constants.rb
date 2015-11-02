@@ -64,6 +64,7 @@ module Frankenstein
     '//github.com.*issues/new',
     '//github.com.*ch/new',
     '//github.com.*\.git$',
+    '//groups.google.com',
     '//i.creativecommons.org/.*png',
     '//secure.travis-ci.org/.*png',
     '//travis-ci.org/.*svg'
