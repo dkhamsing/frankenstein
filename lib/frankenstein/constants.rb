@@ -67,6 +67,7 @@ module Frankenstein
     '//groups.google.com',
     '//i.creativecommons.org/.*png',
     '//secure.travis-ci.org/.*png',
+    '://stackoverflow.com/questions/ask?',
     '//travis-ci.org/.*svg'
   ]
 end
