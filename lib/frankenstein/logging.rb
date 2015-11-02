@@ -34,7 +34,7 @@ module Frankenstein
     end
 
     def status_glyph(status, url)
-      return "#{em_status_white} white list" if in_white_list(url)
+      return em_status_white if in_white_list(url)
 
       case
       when status == 200
