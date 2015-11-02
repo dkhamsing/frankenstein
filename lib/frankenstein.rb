@@ -1,6 +1,7 @@
 require 'frankenstein/cli'
 require 'frankenstein/constants'
 require 'frankenstein/date'
+require 'frankenstein/github'
 require 'frankenstein/logging'
 require 'frankenstein/network'
 require 'frankenstein/usage'
@@ -11,10 +12,6 @@ module Frankenstein
   require 'colored'
   require 'json'
   require 'parallel'
-
-  # github
-  require 'octokit'
-  require 'netrc'
 
   # logs are stored in FILE_LOG_DIRECTORY
   Dir.mkdir FILE_LOG_DIRECTORY unless File.exist?(FILE_LOG_DIRECTORY)
@@ -64,8 +61,7 @@ module Frankenstein
   verbose "Number of threads: #{$number_of_threads}"
 
   if flag_fetch_github_stars || option_pull_request
-    n = Netrc.read
-    creds = n[NETRC_GITHUB_MACHINE]
+    creds = github_netrc()
     if creds.nil?
       error_log 'Missing GitHub credentials in .netrc'
       exit(1)
@@ -273,13 +269,13 @@ module Frankenstein
         f_print "Getting information for #{github_repos.count} GitHub ".white
         f_puts pluralize('repo', github_repos.count).white
 
-        client = Octokit::Client.new(netrc: true)
+        client = github_client()
         Parallel.each_with_index(github_repos,
                                  in_threads: $number_of_threads) do |repo, idx|
           verbose "Attempting to get info for #{repo.white}"
 
           begin
-            gh_repo = client.repo(repo)
+            gh_repo = github_repo(client, repo)
           rescue StandardError => e
             error_log "Getting repo for #{repo.white} #{e.message.red}"
             next
@@ -336,16 +332,14 @@ module Frankenstein
     if user_input.downcase == 'y'
       f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
 
-      github = Octokit::Client.new(netrc: true)
+      github = github_client()
 
       repo = argv1
-      forker = Netrc.read[NETRC_GITHUB_MACHINE][0]
+      forker = github_netrc_username()
       fork = repo.gsub(%r{.*\/}, "#{forker}/")
       verbose "Fork: #{fork}"
 
-      github.fork(repo)
-
-      sleep 2 # give it time to create repo :-(
+      github_fork(github, repo)
 
       branch = default_branch
 
