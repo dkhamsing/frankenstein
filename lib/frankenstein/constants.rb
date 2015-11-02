@@ -50,6 +50,7 @@ module Frankenstein
     'README.markdown',
     'Readme.markdown',
     'README.rst',
+    'README.asciidoc',
     'index.html'
   ]
 
