@@ -12,24 +12,25 @@ This is still a [work in progress](https://github.com/dkhamsing/frankenstein/iss
 
 ## Installation
 
-``` bash
+``` shell
 git clone https://github.com/dkhamsing/frankenstein.git
 cd frankenstein
 bundle install
 
-# you're good to go 😎
+# you're good to go 😎 (run frankenstein from bin/)
 ```
 
 ## Usage
 
-``` bash
+``` shell
 frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [row=d] [threads=d]
 ```
 
 ### Examples
 
-``` bash
-$ frankenstein https://fastlane.tools
+``` shell
+$ frankenstein README.md # file on disk
+$ frankenstein https://fastlane.tools #url
 
 🏃  Processing links on https://fastlane.tools ...
 🔎  Checking 50 links
@@ -56,12 +57,8 @@ https://github.com/fastlane/snapshot
 ⚪ other
 ```
 
-``` bash
-$ frankenstein README.md # file on disk
+``` shell
 $ frankenstein dkhamsing/open-source-ios-apps # GitHub repo
-```
-
-``` bash
 $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
@@ -72,7 +69,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 # ...
 ```
 
-``` bash
+``` shell
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 $ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of items per row (10 is the default, row option requires threads=0)
 
@@ -83,7 +80,7 @@ $ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of 
 # ...
 ```
 
-``` bash
+``` shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps log # write log to a file named franken_log
 $ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
@@ -96,7 +93,7 @@ Getting repo information / creating a pull request for redirects require a GitHu
 
 `-z` `repo`
 
-``` bash
+``` shell
 $ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking urls
 $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking urls
 
@@ -122,7 +119,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 
 `pull`
 
-``` bash
+``` shell
 $ frankenstein fastlane/sigh pull # create a pull request replacing redirects
 
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
