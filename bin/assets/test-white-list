@@ -1,20 +1,26 @@
 # white list
 
-https://coveralls.io/r/haml/haml redirects to
-
+https://coveralls.io/r/haml/haml
 [![Coverage Status](https://coveralls.io/repos/lodash/lodash/badge.svg?branch=master&service=github)](https://coveralls.io/github/lodash/lodash?branch=master)
+https://coveralls.io
 
-⚪  white list 302 http://badge.fury.io/js/react-native
-⚪  white list 302 https://badge.fury.io/js/react-native.svg
+WL https://discord.gg/0ZcbPKXt5bWJVmUY
 
-https://fury-badge.herokuapp.com/rb/fog.png
+WL http://badge.fury.io/js/react-native
+WL https://badge.fury.io/js/react-native.svg
+WL https://fury-badge.herokuapp.com/rb/fog.png
 
-⚪  white list 301 https://discord.gg/0ZcbPKXt5bWJVmUY
+WL http://groups.google.com/group/guard-dev
+WL http://groups.google.com/group/ruby-bundler
+http://groups.google.com
 
-⚪  white list 301 https://github.com/facebook/react-native.git
-https://github.com/dkhamsing/ios-asset-names/issues/new
+WL https://github.com/facebook/react-native.git
+WL https://github.com/dkhamsing/ios-asset-names/issues/new
+https://github.com/dkhamsing
 
-⚪  white list 301 https://travis-ci.org/facebook/react-native.svg?branch=master
+WL https://travis-ci.org/facebook/react-native.svg?branch=master
+https://travis-ci.org/facebook/
 
-⚪  white list 301 http://groups.google.com/group/guard-dev
-- http://groups.google.com/group/ruby-bundler 
+WL https://stackoverflow.com/questions/ask?tags=realm
+https://stackoverflow.com
+http://stackoverflow.com/questions/19280341/create-directory-if-it-doesnt-exist-with-ruby
