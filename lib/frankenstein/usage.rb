@@ -19,7 +19,6 @@ module Frankenstein
       "[#{OPTION_LOG.blue}] "\
       "[#{OPTION_PULL_REQUEST.blue}] "\
       "[#{OPTION_STARS.blue}] "\
-      "[#{OPTION_ROW.blue}=d] "\
       "[#{OPTION_THREADS.blue}=d] "\
       "\n"\
       "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
@@ -34,9 +33,6 @@ module Frankenstein
       "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated "\
       "redirects \n"\
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
-      "   #{OPTION_ROW.blue} \t\t Number of items per row (minimized output, "\
-      "#{DEFAULT_NUMBER_OF_ITEMS_PER_ROWS} is the default, only works "\
-      "with threads=0) \n"\
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
       "\n"\

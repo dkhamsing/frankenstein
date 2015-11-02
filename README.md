@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ``` shell
-frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [row=d] [threads=d]
+frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [threads=d]
 ```
 
 ### Examples
@@ -71,12 +71,10 @@ $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 
 ``` shell
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
-$ frankenstein matteocrippa/awesome-swift -m row=5 threads=0 # change number of items per row (10 is the default, row option requires threads=0)
 
 🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
 🔎  Checking 456 links:
-✅ ✅ ✅ ✅ ✅ 5
-✅ ✅ ✅ ✅ ✅ 10
+✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ 
 # ...
 ```
 

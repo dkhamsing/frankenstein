@@ -32,7 +32,7 @@ module Frankenstein
 
   OPTION_LOG = 'log'
   OPTION_PULL_REQUEST = 'pull'
-  OPTION_ROW = 'row'
+  OPTION_ROW = 'toremove:-()'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
 
