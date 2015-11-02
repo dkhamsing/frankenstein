@@ -92,7 +92,7 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 #### GitHub
 
-Fetching star count for repos / creating a pull request for redirects require a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+Getting repo information / creating a pull request for redirects require a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
 `-z` `repo`
 
@@ -105,7 +105,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 1/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/issues
 2/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/pulls
 # ...
-🔎  Getting star count for 228 GitHub repos
+🔎  Getting information for 228 GitHub repos
 ⭐️  311 kenshin03/Cherry 🔥 🔥  last updated 4 months ago
 ⭐️  18 neonichu/CoolSpot  last updated 5 months ago
 ⭐️  2312 pcqpcq/open-source-android-apps 🔥 🔥 🔥 🔥 🔥  last updated 4 days ago
@@ -149,6 +149,7 @@ Example uses of `frankenstein` with `pull` option:
 - https://github.com/fastlane/frameit/pull/65
 - https://github.com/piemonte/PBJVision/pull/293
 - https://github.com/kylef/Commander/pull/14
+- https://github.com/bbatsov/rubocop/pull/2387
 
 #### White list
 
