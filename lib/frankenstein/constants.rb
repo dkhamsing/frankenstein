@@ -58,6 +58,7 @@ module Frankenstein
 
   WHITE_LIST_REGEXP = [
     '://badge.fury.io/',
+    '//bit.ly/',
     '://coveralls.io/r/',
     '://coveralls.io/repos.*png',
     '://coveralls.io/repos.*svg',
