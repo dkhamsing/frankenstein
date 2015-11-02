@@ -8,7 +8,7 @@
 
 ![](assets/demo.gif)
 
-This is still a [work in progress](https://github.com/dkhamsing/frankenstein/issues/1) :runner: :octocat: :construction_worker:
+This is still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :octocat: :construction_worker:
 
 ## Installation
 
@@ -17,7 +17,7 @@ git clone https://github.com/dkhamsing/frankenstein.git
 cd frankenstein
 bundle install
 
-# you're good to go 😎 (run frankenstein from bin/)
+# you can now run frankensteinfrom bin/ 😎 
 ```
 
 ## Usage
