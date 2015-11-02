@@ -63,6 +63,7 @@ module Frankenstein
     '//fury-badge.herokuapp.com/.*png',
     '//github.com.*issues/new',
     '//github.com.*ch/new',
+    '//github.com.*releases/new',
     '//github.com.*\.git$',
     '//groups.google.com',
     '//i.creativecommons.org/.*png',
