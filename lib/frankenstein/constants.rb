@@ -70,12 +70,14 @@ module Frankenstein
     '://github.com.*\.git$',
     '://groups.google.com',
     '://i.creativecommons.org/.*png',
+    '://instagram.com/',
     'reddit.com/message/compose',
     '://secure.travis-ci.org/.*png',
     '://secure.travis-ci.org/.*svg',
     '://stackoverflow.com/questions/ask?',
     '://t.co/',
     '://travis-ci.org/.*png',
-    '://travis-ci.org/.*svg'
+    '://travis-ci.org/.*svg',
+    '://youtu.be/'
   ]
 end
