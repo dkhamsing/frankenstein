@@ -383,10 +383,6 @@ module Frankenstein
                                            PULL_REQUEST_DESCRIPTION)
       pull_link = created[:html_url].blue
       f_puts "Pull request created: #{pull_link}".white
-
-      github.delete_repository(fork)
-      verbose 'Deleted fork'
-
     end # user input
   end
 
