@@ -56,19 +56,20 @@ module Frankenstein
   SEPARATOR = '='
 
   WHITE_LIST_REGEXP = [
-    '//badge.fury.io/',
-    '//coveralls.io/r/',
-    '//coveralls.io/repos.*svg',
-    '//discord.gg/',
-    '//fury-badge.herokuapp.com/.*png',
-    '//github.com.*issues/new',
-    '//github.com.*ch/new',
-    '//github.com.*releases/new',
-    '//github.com.*\.git$',
-    '//groups.google.com',
-    '//i.creativecommons.org/.*png',
-    '//secure.travis-ci.org/.*png',
+    '://badge.fury.io/',
+    '://coveralls.io/r/',
+    '://coveralls.io/repos.*svg',
+    '://discord.gg/',
+    '://fury-badge.herokuapp.com/.*png',
+    '://github.com.*issues/new',
+    '://github.com.*ch/new',
+    '://github.com.*releases/new',
+    '://github.com.*\.git$',
+    '://groups.google.com',
+    '://i.creativecommons.org/.*png',
+    '://secure.travis-ci.org/.*png',
     '://stackoverflow.com/questions/ask?',
-    '//travis-ci.org/.*svg'
+    '://t.co/',
+    '://travis-ci.org/.*svg'
   ]
 end
