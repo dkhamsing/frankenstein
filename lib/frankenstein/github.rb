@@ -19,7 +19,7 @@ module Frankenstein
     end
 
     def github_netrc_username
-      n = github_netrc()
+      n = github_netrc
       n[0]
     end
 

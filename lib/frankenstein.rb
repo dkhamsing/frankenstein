@@ -61,7 +61,7 @@ module Frankenstein
   verbose "Number of threads: #{$number_of_threads}"
 
   if flag_fetch_github_stars || option_pull_request
-    creds = github_netrc()
+    creds = github_netrc
     if creds.nil?
       error_log 'Missing GitHub credentials in .netrc'
       exit(1)
@@ -123,7 +123,8 @@ module Frankenstein
                 repo_updated = number_of_days_since(Time.parse repo_pushed_at)
                 m = "Found: #{default_branch.white} for "\
                       "#{argv1_is_github_repo} — "\
-                      "#{repo_description} — #{repo_stars}#{em_star} — #{repo_updated}"
+                      "#{repo_description} — #{repo_stars}#{em_star} "\
+                      "— #{repo_updated}"
                 f_puts m
 
                 net_find_github_url(argv1, default_branch)
@@ -269,7 +270,7 @@ module Frankenstein
         f_print "Getting information for #{github_repos.count} GitHub ".white
         f_puts pluralize('repo', github_repos.count).white
 
-        client = github_client()
+        client = github_client
         Parallel.each_with_index(github_repos,
                                  in_threads: $number_of_threads) do |repo, idx|
           verbose "Attempting to get info for #{repo.white}"
@@ -332,10 +333,10 @@ module Frankenstein
     if user_input.downcase == 'y'
       f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
 
-      github = github_client()
+      github = github_client
 
       repo = argv1
-      forker = github_netrc_username()
+      forker = github_netrc_username
       fork = repo.gsub(%r{.*\/}, "#{forker}/")
       verbose "Fork: #{fork}"
 
