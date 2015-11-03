@@ -164,11 +164,12 @@ module Frankenstein
 
   links_to_check =
     links_found.reject { |x| x.length < 9 }
-    .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '') }
+    .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '').gsub('/:', '/') }
     .uniq
   # ) for markdown
   # ' found on https://fastlane.tools/
   # , for link followed by comma
+  # /: found on ircanywhere/ircanywhere
 
   links_to_check.unshift(CONTROLLED_ERROR) if flag_control_failure
 
