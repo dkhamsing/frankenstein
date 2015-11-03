@@ -38,7 +38,7 @@ module Frankenstein
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
-      "   #{OPTION_WHITE_LIST.blue} \t\t Additional item to white list "\
+      "   #{OPTION_WHITE_LIST.blue} \t\t ^ separated items to white list "\
       "\n"\
       "\n#{em_logo} #{'Examples'.white} \n"\
       "$ #{PRODUCT} https://fastlane.tools \n"\
