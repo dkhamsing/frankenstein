@@ -63,6 +63,8 @@ module Frankenstein
   option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR
   verbose "Option white list: #{option_white_list}" unless option_white_list.nil?
 
+  option_head = ARGV.include? OPTION_HEAD
+
   if flag_fetch_github_stars || option_pull_request
     creds = github_netrc
     if creds.nil?
@@ -191,7 +193,7 @@ module Frankenstein
       Parallel.each_with_index(links_to_check,
                                in_threads: $number_of_threads) do |link, index|
         begin
-          res = net_get(link)
+          res = option_head ? net_head(link) : net_get(link)
         rescue StandardError => e
           error_log "Getting link #{link.white} #{e.message}"
 
@@ -227,7 +229,7 @@ module Frankenstein
             verbose "#{link} was redirected to \n#{redirect}".yellow
             if redirect.nil?
               f_puts "#{em_mad} No redirect found for #{link}"
-            else              
+            else
               redirects[link] = redirect unless in_white_list(link, option_white_list)
             end
           end # if res.status >= 500

@@ -4,12 +4,16 @@ module Frankenstein
   require 'faraday_middleware'
 
   class << self
+    def net_head(url)
+      Faraday.head(url)
+    end
+
     def net_get(url)
       Faraday.get(url)
     end
 
     def status(url)
-      response = Faraday.head(url)
+      response = net_head(url)
       code = response.status
       verbose "Status: #{code} #{url}"
       code

@@ -16,6 +16,7 @@ module Frankenstein
       m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
           "#{PRODUCT.green} <#{all_argv1}> "\
       "[-#{cli_all_flags.join.blue}] "\
+      "[#{OPTION_HEAD.blue}] "\
       "[#{OPTION_LOG.blue}] "\
       "[#{OPTION_PULL_REQUEST.blue}] "\
       "[#{OPTION_STARS.blue}] "\
@@ -30,7 +31,8 @@ module Frankenstein
       "(see row option below) \n"\
       "   #{FLAG_GITHUB_STARS.blue} \t\t #{FLAG_GITHUB_USAGE} \n"\
       "   #{FLAG_VERBOSE.blue} \t\t #{FLAG_VERBOSE_USAGE} \n"\
-      "\n   #{OPTION_LOG.blue} \t\t Write log to file \n"\
+      "\n   #{OPTION_HEAD.blue} \t Make head requests only \n"\
+      "   #{OPTION_LOG.blue} \t\t Write log to file \n"\
       "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated "\
       "redirects \n"\
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
