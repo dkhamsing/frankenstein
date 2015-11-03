@@ -15,8 +15,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = Frankenstein::PROJECT_URL
   spec.license       = 'MIT'
 
-  spec.files         = Dir['lib/**/*'] + %w(bin/frankenstein README.md)
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.files = Dir["lib/**/*"] + %w( bin/frankenstein README.md )
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+
   spec.require_paths = ['lib']
 
   # dependencies
