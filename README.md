@@ -17,7 +17,7 @@ git clone https://github.com/dkhamsing/frankenstein.git
 cd frankenstein
 bundle install
 
-# you can now run frankensteinfrom bin/ 😎 
+# you can now run frankenstein from bin/ 😎
 ```
 
 ## Usage
@@ -74,7 +74,7 @@ $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 
 🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
 🔎  Checking 456 links:
-✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ 
+✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
 # ...
 ```
 
