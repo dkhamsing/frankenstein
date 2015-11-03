@@ -49,6 +49,7 @@ module Frankenstein
     'readme.md',
     'README.markdown',
     'Readme.markdown',
+    'README',
     'README.rst',
     'README.asciidoc',
     'index.html'
