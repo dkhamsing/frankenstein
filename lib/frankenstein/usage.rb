@@ -20,6 +20,7 @@ module Frankenstein
       "[#{OPTION_PULL_REQUEST.blue}] "\
       "[#{OPTION_STARS.blue}] "\
       "[#{OPTION_THREADS.blue}=d] "\
+      "[#{OPTION_WHITE_LIST.blue}=s] "\
       "\n"\
       "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
       "   #{ARGV1_GITHUB_REPO.magenta} \t GitHub repository \n"\
@@ -35,6 +36,7 @@ module Frankenstein
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
+      "   #{OPTION_WHITE_LIST.blue} \t\t Additional item to white list "\
       "\n"\
       "\n#{em_logo} #{'Examples'.white} \n"\
       "$ #{PRODUCT} https://fastlane.tools \n"\

@@ -10,11 +10,16 @@ module Frankenstein
     end
 
     def cli_option_value(name, separator)
+      temp = cli_option_value_raw name, separator
+      temp ? temp.to_i : nil
+    end
+
+    def cli_option_value_raw(name, separator)
       regex = "#{name}#{separator}"
       verbose "Regular expression: #{regex}"
       temp = ARGV.find { |e| /#{regex}/ =~ e }
 
-      temp ? temp.split(separator)[1].to_i : nil
+      temp ? temp.split(separator)[1] : nil
     end
 
     def cli_all_flags

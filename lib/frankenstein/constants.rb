@@ -35,6 +35,7 @@ module Frankenstein
   OPTION_ROW = 'toremove:-()'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
+  OPTION_WHITE_LIST = 'wl'
 
   PRODUCT = 'frankenstein'
 

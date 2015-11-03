@@ -12,7 +12,7 @@ This is still a [work in progress](https://github.com/dkhamsing/frankenstein/pul
 
 ## Installation
 
-``` shell
+```shell
 git clone https://github.com/dkhamsing/frankenstein.git
 cd frankenstein
 bundle install
@@ -22,13 +22,13 @@ bundle install
 
 ## Usage
 
-``` shell
-frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [threads=d]
+```shell
+frankenstein <url|file|github repo> [-fmzv] [log] [pull] [repo] [threads=d] [wl=s]
 ```
 
 ### Examples
 
-``` shell
+```shell
 $ frankenstein README.md # file on disk
 $ frankenstein https://fastlane.tools #url
 
@@ -57,7 +57,7 @@ https://github.com/fastlane/snapshot
 ⚪ other
 ```
 
-``` shell
+```shell
 $ frankenstein dkhamsing/open-source-ios-apps # GitHub repo
 $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 
@@ -69,7 +69,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 # ...
 ```
 
-``` shell
+```shell
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 
 🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
@@ -78,7 +78,7 @@ $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 # ...
 ```
 
-``` shell
+```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps log # write log to a file named franken_log
 $ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
@@ -91,7 +91,7 @@ Getting repo information / creating a pull request for redirects require a GitHu
 
 `-z` `repo`
 
-``` shell
+```shell
 $ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking urls
 $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking urls
 
@@ -117,7 +117,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 
 `pull`
 
-``` shell
+```shell
 $ frankenstein fastlane/sigh pull # create a pull request replacing redirects
 
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
@@ -149,6 +149,10 @@ Example uses of `frankenstein` with `pull` option:
 #### White list
 
 Some URLs that are meant to be redirected (i.e. badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
+
+```shell
+$ frankenstein docker/docker wl=tryit # additional item to white list
+```
 
 ### Travis
 

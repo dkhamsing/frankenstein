@@ -60,6 +60,9 @@ module Frankenstein
   $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads.nil?
   verbose "Number of threads: #{$number_of_threads}"
 
+  option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR
+  verbose "Option white list: #{option_white_list}" unless option_white_list.nil?
+
   if flag_fetch_github_stars || option_pull_request
     creds = github_netrc
     if creds.nil?
@@ -221,11 +224,11 @@ module Frankenstein
           elsif res.status >= 300
             # TODO: check white list
             redirect = resolve_redirects link
-            verbose "#{link} was redirected to \n#{redirect}".white
+            verbose "#{link} was redirected to \n#{redirect}".yellow
             if redirect.nil?
               f_puts "#{em_mad} No redirect found for #{link}"
-            else
-              redirects[link] = redirect unless in_white_list(link)
+            else              
+              redirects[link] = redirect unless in_white_list(link, option_white_list)
             end
           end # if res.status >= 500
         end # if res.status != 200
