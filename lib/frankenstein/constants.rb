@@ -70,6 +70,8 @@ module Frankenstein
     '://github.com.*ch/new',
     '://github.com.*releases/new',
     '://github.com.*releases/download/',
+    '://github.com.*releases/latest',
+    '://github.com.*/archive/.*.tar.gz',
     '://github.com.*\.git$',
     '://raw.github.com/',
     '://groups.google.com',
