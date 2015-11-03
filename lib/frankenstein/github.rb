@@ -10,7 +10,6 @@ module Frankenstein
 
     def github_fork(client, repo)
       client.fork(repo)
-      sleep 2 # give it time to create repo :-(
     end
 
     def github_netrc

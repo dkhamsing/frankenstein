@@ -347,6 +347,14 @@ module Frankenstein
 
       github_fork(github, repo)
 
+      # check fork has been created
+      forked_repo = nil
+      unless forked_repo
+        sleep 1
+        forked_repo = "#{forker}/#{repo}"
+        verbose "forking repo.. sleep"
+      end
+
       branch = default_branch
 
       ref = "heads/#{branch}"
