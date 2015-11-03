@@ -156,9 +156,9 @@ module Frankenstein
               end
 
               content = net_get(the_url).body
-              File.open(FILE_TEMP, 'w') { |f| f.write(content) }
               content
             end
+  File.open(FILE_TEMP, 'w') { |f| f.write(content) }
   links_found = URI.extract(content, /http()s?/)
   verbose "Links found: #{links_found}"
 
