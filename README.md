@@ -147,6 +147,7 @@ Example uses of `frankenstein` with `pull` option:
 - https://github.com/bbatsov/rubocop/pull/2387
 - https://github.com/nwjs/nw.js/pull/3948
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
+- https://github.com/airbnb/javascript/pull/564
 
 #### White list
 
