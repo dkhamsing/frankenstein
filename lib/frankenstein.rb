@@ -152,7 +152,7 @@ module Frankenstein
   content = if found_file_content
               found_file_content
             else
-              code = status the_url
+              code = net_status the_url
               log.verbose "Status : #{Status}"
 
               unless code == 200

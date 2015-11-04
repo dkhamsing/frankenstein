@@ -12,7 +12,7 @@ module Frankenstein
       Faraday.get(url)
     end
 
-    def status(url)
+    def net_status(url)
       response = net_head(url)
       code = response.status
       # log.verbose "Status: #{code} #{url}"
@@ -43,7 +43,7 @@ module Frankenstein
       base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
       readme = README_VARIATIONS.find do |x|
         temp = "#{base}#{x}"
-        status(temp) == 200
+        net_status(temp) == 200
       end
       url = "#{base}#{readme}"
 
