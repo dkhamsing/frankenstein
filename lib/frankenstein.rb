@@ -314,7 +314,7 @@ module Frankenstein
       pull_link = created[:html_url].blue
       log.add "Pull request created: #{pull_link}".white
     end # user input
-  end
+  end # option pull request
 
   elapsed_seconds = Time.now - elapsed_time_start
   log.verbose "Elapsed time in seconds: #{elapsed_seconds}"
