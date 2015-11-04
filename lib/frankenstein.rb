@@ -338,7 +338,7 @@ module Frankenstein
   log.add "Wrote log to #{FILE_LOG.white}" if option_log_to_file
 
   if option_pull_request
-    print 'Would you like to open a pull request? (y/n) '
+    print 'Would you like to open a pull request to update the redirects? (y/n)'
     user_input = STDIN.gets.chomp
 
     if user_input.downcase == 'y'
