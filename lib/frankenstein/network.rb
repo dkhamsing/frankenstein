@@ -49,7 +49,7 @@ module Frankenstein
           status(temp, log) < 400
         end
       }"
-      return url, readme
+      [url, readme]
     end
   end # class
 end
