@@ -39,7 +39,7 @@ module Frankenstein
       return nil
     end
 
-    def net_find_github_url(repo, branch, log)
+    def net_find_github_url_readme(repo, branch, log)
       base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
       readme = nil
       url = "#{base}#{

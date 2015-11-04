@@ -117,7 +117,7 @@ module Frankenstein
              log.add 'Finding readme...'
              default_branch = 'master'
 
-             net_find_github_url(argv1, default_branch, log)
+             net_find_github_url_readme(argv1, default_branch, log)
            else
              if message == 'Not Found' || message == 'Moved Permanently'
                m = "Retrieving repo #{argv1_is_github_repo} "
@@ -137,7 +137,7 @@ module Frankenstein
                "— #{repo_updated}"
              log.add m
 
-             net_find_github_url(argv1, default_branch, log)
+             net_find_github_url_readme(argv1, default_branch, log)
            end # if message ==
          end # if message.include? "API..
   the_url = u
