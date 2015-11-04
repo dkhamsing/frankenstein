@@ -54,14 +54,15 @@ module Frankenstein
 
   flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
   if flag_minimize_output
+    # TODO: remove this, not used
     log_number_of_items_per_row = cli_option_value OPTION_ROW, SEPARATOR, log
     log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if
       log_number_of_items_per_row.nil?
   end
 
-  $number_of_threads = cli_option_value OPTION_THREADS, SEPARATOR, log
-  $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads.nil?
-  log.verbose "Number of threads: #{$number_of_threads}"
+  number_of_threads = cli_option_value OPTION_THREADS, SEPARATOR, log
+  number_of_threads = DEFAULT_NUMBER_OF_THREADS if number_of_threads.nil?
+  log.verbose "Number of threads: #{number_of_threads}"
 
   option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
   log.verbose "Option white list: #{option_white_list}" unless option_white_list.nil?
@@ -79,7 +80,7 @@ module Frankenstein
   # start
   elapsed_time_start = Time.now
 
-  if $option_log_to_file
+  if option_log_to_file
     log.file_write "\n\nStart: #{elapsed_time_start} \n"
     log.file_write "Arguments: #{ARGV} \n"
   end
@@ -204,7 +205,7 @@ module Frankenstein
     redirects = {}
     unless option_github_stars_only
       Parallel.each_with_index(links_to_check,
-                               in_threads: $number_of_threads) do |link, index|
+                               in_threads: number_of_threads) do |link|
         begin
           res = option_head ? net_head(link) : net_get(link)
         rescue StandardError => e
@@ -218,11 +219,6 @@ module Frankenstein
 
         if flag_minimize_output
           log.my_print status_glyph res.status, link, log
-          # if ((index + 1) % log_number_of_items_per_row == 0) && $number_of_threads == 0
-          #   n = log_number_of_items_per_row *
-          #       (1 + (index / log_number_of_items_per_row))
-          #   f_puts " #{n}"
-          # end
         else
           message = "#{status_glyph res.status, link, log} "\
                     "#{res.status == 200 ? '' : res.status} #{link}"
@@ -231,7 +227,8 @@ module Frankenstein
         end
 
         if res.status != 200
-          issues.push("#{status_glyph res.status, link, log} #{res.status} #{link}")
+          m = "#{status_glyph res.status, link, log} #{res.status} #{link}"
+          issues.push(m)
 
           if res.status >= 500
             misc.push(link)
@@ -244,7 +241,8 @@ module Frankenstein
             if redirect.nil?
               log.add "#{em_mad} No redirect found for #{link}"
             else
-              redirects[link] = redirect unless in_white_list(link, option_white_list, log)
+              redirects[link] = redirect unless
+                in_white_list(link, option_white_list, log)
             end
           end # if res.status >= 500
         end # if res.status != 200
@@ -285,13 +283,13 @@ module Frankenstein
       if github_repos.count == 0
         log.add 'No GitHub repos found'.white
       else
-        log.my_print "\n🔎  "
-        log.my_print "Getting information for #{github_repos.count} GitHub ".white
+        m = "\n🔎  Getting information for #{github_repos.count} GitHub ".white
+        log.my_print m
         log.add pluralize('repo', github_repos.count).white
 
         client = github_client
         Parallel.each_with_index(github_repos,
-                                 in_threads: $number_of_threads) do |repo, idx|
+                                 in_threads: number_of_threads) do |repo|
           log.verbose "Attempting to get info for #{repo.white}"
 
           begin
@@ -344,7 +342,7 @@ module Frankenstein
     end # File.open(FILE_TEMP, 'a+') { |f|
   end # redirects.count
 
-  log.add "Wrote log to #{FILE_LOG.white}" if $option_log_to_file
+  log.add "Wrote log to #{FILE_LOG.white}" if option_log_to_file
 
   if option_pull_request
     print 'Would you like to open a pull request? (y/n) '
@@ -367,7 +365,7 @@ module Frankenstein
       while forked_repo
         sleep 1
         forked_repo = github_fork(github, "#{forker}/#{repo}")
-        log.verbose "forking repo.. sleep"
+        log.verbose 'forking repo.. sleep'
       end
 
       branch = default_branch
@@ -422,7 +420,7 @@ module Frankenstein
     log.add "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
   end
 
-  log.file_write "End: #{Time.new}" if $option_log_to_file
+  log.file_write "End: #{Time.new}" if option_log_to_file
 
   failures = [] if failures.nil?
 

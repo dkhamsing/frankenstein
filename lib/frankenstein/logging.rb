@@ -61,7 +61,6 @@ module Frankenstein
                list.each do |x|
                  h = saved.map { |s| s if s['repo'] == x[:repo] }.compact.first
                  unless h.nil? || x[:count].nil?
-                  #  verbose "x: #{x[:count]}, h: #{h['count']}"
                    difference = x[:count] - h['count']
                    m = "#{x[:repo]} count difference: #{difference} #{em_star}"
                    log.add m unless difference == 0
