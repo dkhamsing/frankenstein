@@ -246,7 +246,6 @@ module Frankenstein
       }.map { |url| url.split('.com/')[1] }.reject { |x| x.include? '.' }.uniq
       log.verbose github_repos
 
-      repos_info = []
       if github_repos.count == 0
         log.add 'No GitHub repos found'.white
       else
@@ -254,24 +253,10 @@ module Frankenstein
         log.my_print m
         log.add pluralize('repo', github_repos.count).white
 
-        client = github_client
-        Parallel.each_with_index(github_repos,
-                                 in_threads: number_of_threads) do |repo|
-          log.verbose "Attempting to get info for #{repo.white}"
+        infos =
+          github_repos_info(github_repos, number_of_threads, github_client, log)
 
-          begin
-            gh_repo = github_repo(client, repo)
-          rescue StandardError => e
-            log.error "Getting repo for #{repo.white} #{e.message.red}"
-            next
-          end
-
-          m, hash = github_repo_info(gh_repo, repo)
-          repos_info.push(hash)
-          log.add m
-          log.verbose "   #{gh_repo.description}"
-        end # Parallel
-        io_repo_log_json(repos_info, log) unless repos_info.count == 0
+        io_repo_log_json(infos, log) unless infos.count == 0
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0

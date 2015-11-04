@@ -71,5 +71,26 @@ module Frankenstein
 
       [message, parsed]
     end
+
+    def github_repos_info(github_repos, number_of_threads, client, log)
+      repos_info = []
+      Parallel.each(github_repos, in_threads: number_of_threads) do |repo|
+        log.verbose "Attempting to get info for #{repo.white}"
+
+        begin
+          gh_repo = github_repo(client, repo)
+        rescue StandardError => e
+          log.error "Getting repo for #{repo.white} #{e.message.red}"
+          next
+        end
+
+        m, hash = github_repo_info(gh_repo, repo)
+        repos_info.push(hash)
+        log.add m
+        log.verbose "   #{gh_repo.description}"
+      end
+
+      repos_info
+    end
   end # class
 end
