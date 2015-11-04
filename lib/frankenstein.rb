@@ -26,11 +26,11 @@ module Frankenstein
   end
 
   option_github_stars_only = ARGV.include? OPTION_STARS
-  $option_log_to_file = ARGV.include? OPTION_LOG
+  option_log_to_file = ARGV.include? OPTION_LOG
   flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
-  $flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
+  flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
 
-  log = Frankenstein::Log.new($flag_verbose, $option_log_to_file)
+  log = Frankenstein::Log.new(flag_verbose, option_log_to_file)
 
   if argv1
     argv1_is_http = argv1.match(/^http/)
