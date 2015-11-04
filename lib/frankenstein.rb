@@ -13,7 +13,6 @@ require 'frankenstein/version'
 # Check for live URLs on a page
 module Frankenstein
   require 'colored'
-  require 'json'
   require 'parallel'
 
   # logs are stored in FILE_LOG_DIRECTORY

@@ -1,6 +1,8 @@
 # I/O
 module Frankenstein
   class << self
+    require 'json'
+    
     def io_repo_log_json(list, log)
       log.add "\nWriting repo log ... "
       json = if File.exist?(FILE_REPO)

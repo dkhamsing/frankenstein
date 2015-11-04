@@ -8,6 +8,7 @@ module Frankenstein
   class << self
     require 'octokit'
     require 'netrc'
+    require 'json'
 
     def github_client
       Octokit::Client.new(netrc: true)
