@@ -263,9 +263,10 @@ module Frankenstein
     end # user input
   end # option pull request
 
-  elapsed_seconds = Time.now - elapsed_time_start
-  log.verbose "Elapsed time in seconds: #{elapsed_seconds}"
   log.my_print "\n🕐  Time elapsed: ".white
+
+  elapsed_seconds = Time.now - elapsed_time_start
+  log.verbose "Elapsed time in seconds: #{elapsed_seconds}"  
   case
   when elapsed_seconds > 60
     minutes = (elapsed_seconds / 60).floor
