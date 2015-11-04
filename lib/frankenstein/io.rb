@@ -1,7 +1,7 @@
 # I/O
 module Frankenstein
   class << self
-    def repo_log_json(list, log)
+    def io_repo_log_json(list, log)
       log.add "\nWriting repo log ... "
       json = if File.exist?(FILE_REPO)
                file = File.read(FILE_REPO)
