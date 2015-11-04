@@ -116,8 +116,8 @@ module Frankenstein
                                            default_branch,
                                            argv1)
              net_find_github_url_readme(argv1, default_branch)
-           end # if message ==
-         end # if message.include? "API..
+           end # if message ..
+         end # if argv1_is_http ..
   the_url = u
   readme = r
   log.verbose "Readme found: #{readme}"
@@ -204,8 +204,7 @@ module Frankenstein
         elsif res.status >= 400
           failures.push(link)
         elsif res.status >= 300
-          # TODO: check white list
-          redirect = resolve_redirects link, log
+          redirect = resolve_redirects(link, log)
           log.verbose "#{link} was redirected to \n#{redirect}".yellow
           if redirect.nil?
             log.add "#{em_mad} No redirect found for #{link}"
@@ -235,11 +234,11 @@ module Frankenstein
       end
 
       if misc.count > 0
-        message = "\n#{misc.count} misc. "\
-                  "#{pluralize 'item', misc.count}: #{misc}"
-        log.add message.white
+        m = "\n#{misc.count} misc. "\
+            "#{pluralize 'item', misc.count}: #{misc}"
+        log.add m.white
       end
-    end # if !option_github_stars_only
+    end # unless option_github_stars_only
 
     if flag_fetch_github_stars
       github_repos = links_to_check.select { |link|
@@ -267,9 +266,9 @@ module Frankenstein
             next
           end
 
-          message, hash = github_repo_info(gh_repo, repo)
+          m, hash = github_repo_info(gh_repo, repo)
           repos_info.push(hash)
-          log.add message
+          log.add m
           log.verbose "   #{gh_repo.description}"
         end # Parallel
         io_repo_log_json(repos_info, log) unless repos_info.count == 0
@@ -280,9 +279,9 @@ module Frankenstein
   redirects = [] if redirects.nil?
 
   if redirects.count > 0
-    message = "\n#{em_status_yellow} #{redirects.count} "\
-              "#{pluralize 'redirect', redirects.count}"
-    log.add message.yellow
+    m = "\n#{em_status_yellow} #{redirects.count} "\
+        "#{pluralize 'redirect', redirects.count}"
+    log.add m.yellow
 
     log.verbose "Replacing redirects in temp file #{FILE_TEMP}.."
     File.open(FILE_TEMP, 'a+') do |f|
@@ -393,9 +392,9 @@ module Frankenstein
     if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
       log.add "The only failure was the controlled failure #{em_sunglasses}"
     else
-      message = "#{em_status_red} #{failures.count} "\
-                "#{pluralize 'failure', failures.count} for #{argv1.blue}"
-      log.add message.red
+      m = "#{em_status_red} #{failures.count} "\
+          "#{pluralize 'failure', failures.count} for #{argv1.blue}"
+      log.add m.red
       exit(1)
     end
   end
