@@ -1,6 +1,18 @@
 # Output
 module Frankenstein
   class << self
+    def elapsed(elapsed_seconds)
+      case
+      when elapsed_seconds > 60
+        minutes = (elapsed_seconds / 60).floor
+        seconds = elapsed_seconds - minutes * 60
+        m = "#{minutes.round(0)} #{pluralize 'minute', minutes} "
+        m << "#{seconds > 0 ? seconds.round(0).to_s << 's' : ''}"
+      else
+        "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
+      end
+    end
+
     def heat_index(count)
       count = count.to_i
       case

@@ -263,20 +263,11 @@ module Frankenstein
     end # user input
   end # option pull request
 
-  log.my_print "\n🕐  Time elapsed: ".white
-
   elapsed_seconds = Time.now - elapsed_time_start
-  log.verbose "Elapsed time in seconds: #{elapsed_seconds}"  
-  case
-  when elapsed_seconds > 60
-    minutes = (elapsed_seconds / 60).floor
-    seconds = elapsed_seconds - minutes * 60
-    m = "#{minutes.round(0)} #{pluralize 'minute', minutes} "
-    m << "#{seconds > 0 ? seconds.round(0).to_s << 's' : ''}"
-    log.add m
-  else
-    log.add "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
-  end
+  log.verbose "Elapsed time in seconds: #{elapsed_seconds}"
+
+  m = "\n🕐  Time elapsed: ".white << elapsed(elapsed_seconds)
+  log.add m
 
   log.file_write "End: #{Time.new}" if option_log_to_file
 
