@@ -61,11 +61,6 @@ module Frankenstein
     log.file_write "Arguments: #{ARGV} \n"
   end
 
-  if flag_minimize_output
-    m = "Number of minimized output items / row: #{log_number_of_items_per_row}"
-    log.verbose m
-  end
-
   u, r = if argv1_is_http || found_file_content
            argv1
          else
