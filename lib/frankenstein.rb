@@ -350,8 +350,8 @@ module Frankenstein
       forked_repo = nil
       while forked_repo
         sleep 1
-        forked_repo = github_fork(github, "#{forker}/#{repo}")
-        log.verbose 'forking repo.. sleep'
+        forked_repo = github_fork(github, fork)
+        log.verbose 'Forking repo.. sleep'
       end
 
       # commit change
