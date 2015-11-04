@@ -114,20 +114,18 @@ module Frankenstein
            message = '' if message.nil?
            log.verbose "Parsed message: #{message}"
 
-           if message.include? 'API rate limit exceeded'
-             log.error "GitHub #{message}"
-
-             log.add 'Finding readme...'
-             default_branch = 'master'
-
-             net_find_github_url_readme(argv1, default_branch)
-           elsif message == 'Not Found' || message == 'Moved Permanently'
+           if message == 'Not Found' || message == 'Moved Permanently'
              m = "Retrieving repo #{argv1_is_github_repo} "
              log.error "#{m.red} #{message.downcase}"
              exit(1)
+           elsif message.include? 'API rate limit exceeded'
+             log.error "GitHub #{message}"
+             log.add 'Finding readme...'
+
+             default_branch = 'master'
+             net_find_github_url_readme(argv1, default_branch)
            else
              default_branch = parsed['default_branch']
-
              log.add github_info(parsed, default_branch, argv1_is_github_repo)
              net_find_github_url_readme(argv1, default_branch)
            end # if message ==
