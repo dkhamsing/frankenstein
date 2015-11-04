@@ -217,7 +217,6 @@ module Frankenstein
         else
           message = "#{status_glyph res.status, link, log} "\
                     "#{res.status == 200 ? '' : res.status} #{link}"
-          # f_puts_with_index index + 1, links_to_check.count, message
           log.add message
         end
 
@@ -302,7 +301,6 @@ module Frankenstein
           message = "#{em_star} #{count} #{repo} #{heat_index count} " if
             flag_fetch_github_stars
           message << repo_updated
-          # f_puts_with_index idx + 1, github_repos.count, message
           log.add message
 
           h = { repo: repo, count: count, pushed_at: pushed_at }
@@ -344,7 +342,7 @@ module Frankenstein
     user_input = STDIN.gets.chomp
 
     if user_input.downcase == 'y'
-      f_puts "\nCreating pull request on GitHub for #{argv1} ...".white
+      log.add "\nCreating pull request on GitHub for #{argv1} ...".white
 
       github = github_client
 
