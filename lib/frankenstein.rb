@@ -258,61 +258,8 @@ module Frankenstein
 
     if user_input.downcase == 'y'
       log.add "\nCreating pull request on GitHub for #{argv1} ...".white
-
-      github = github_client
-
-      repo = argv1
-      forker = github_netrc_username
-      fork = repo.gsub(%r{.*\/}, "#{forker}/")
-      log.verbose "Fork: #{fork}"
-
-      github_fork(github, repo)
-
-      # check fork has been created
-      forked_repo = nil
-      while forked_repo
-        sleep 1
-        forked_repo = github_fork(github, fork)
-        log.verbose 'Forking repo.. sleep'
-      end
-
-      # commit change
-      branch = default_branch
-      ref = "heads/#{branch}"
-
-      # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-      sha_latest_commit = github.ref(fork, ref).object.sha
-      sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
-      file_name = readme
-      my_content = File.read(FILE_TEMP)
-
-      blob_sha = github.create_blob(fork, Base64.encode64(my_content), 'base64')
-      sha_new_tree = github.create_tree(fork,
-                                        [{ path: file_name,
-                                           mode: '100644',
-                                           type: 'blob',
-                                           sha: blob_sha }],
-                                        base_tree: sha_base_tree).sha
-      commit_message = PULL_REQUEST_TITLE
-      sha_new_commit = github.create_commit(fork,
-                                            commit_message,
-                                            sha_new_tree,
-                                            sha_latest_commit).sha
-      updated_ref = github.update_ref(fork, ref, sha_new_commit)
-      log.verbose "Updated ref: #{updated_ref}"
-      log.verbose "Sent commit to fork #{fork}"
-
-      # create pull request
-      head = "#{forker}:#{branch}"
-      log.verbose "Set head to #{head}"
-
-      created = github.create_pull_request(repo,
-                                           branch,
-                                           head,
-                                           PULL_REQUEST_TITLE,
-                                           PULL_REQUEST_DESCRIPTION)
-      pull_link = created[:html_url].blue
-      log.add "Pull request created: #{pull_link}".white
+      p = github_pull_request(github_client, argv1, default_branch, readme, log)
+      log.add "Pull request created: #{p}".white
     end # user input
   end # option pull request
 
