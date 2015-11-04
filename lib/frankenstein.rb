@@ -90,7 +90,7 @@ module Frankenstein
     log.verbose m
   end
 
-  the_url = if argv1_is_http || found_file_content
+  the_url, readme = if argv1_is_http || found_file_content
               argv1
             else
               argv1_is_github_repo = argv1
@@ -375,7 +375,7 @@ module Frankenstein
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
       sha_latest_commit = github.ref(fork, ref).object.sha
       sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
-      file_name = $readme
+      file_name = readme
       my_content = File.read(FILE_TEMP)
 
       blob_sha = github.create_blob(fork, Base64.encode64(my_content), 'base64')
