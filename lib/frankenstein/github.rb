@@ -1,5 +1,8 @@
 # GitHub helper
 module Frankenstein
+  GITHUB_API_BASE = 'https://api.github.com/'
+  GITHUB_RAW_CONTENT_URL = 'https://raw.githubusercontent.com/'
+
   class << self
     require 'octokit'
     require 'netrc'

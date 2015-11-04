@@ -25,9 +25,6 @@ module Frankenstein
   FLAG_MINIMIZE_USAGE = 'Minimized result output'
   FLAG_VERBOSE_USAGE = 'Verbose output'
 
-  GITHUB_API_BASE = 'https://api.github.com/'
-  GITHUB_RAW_CONTENT_URL = 'https://raw.githubusercontent.com/'
-
   NETRC_GITHUB_MACHINE = 'api.github.com'
 
   OPTION_HEAD = 'head'
