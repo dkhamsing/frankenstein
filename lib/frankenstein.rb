@@ -186,7 +186,7 @@ module Frankenstein
   log.verbose links_to_check
 
   if links_to_check.count == 0
-    error_result_header 'no links found'
+    log.error_header 'no links found'
   else
     unless option_github_stars_only
       # f_print "🔎  Checking #{links_to_check.count} ".white
