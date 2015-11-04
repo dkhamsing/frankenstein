@@ -42,5 +42,17 @@ module Frankenstein
     def github_repo(client, repo)
       client.repo(repo)
     end
+
+    def github_repo_info(gh_repo, name)
+      count = gh_repo.stargazers_count
+      pushed_at = gh_repo.pushed_at
+      repo_updated = number_of_days_since pushed_at
+      message = "#{em_star} #{count} #{name} #{heat_index count} "
+      message << repo_updated
+
+      h = { repo: name, count: count, pushed_at: pushed_at }
+
+      [message, h]
+    end
   end # class
 end

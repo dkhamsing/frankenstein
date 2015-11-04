@@ -285,18 +285,10 @@ module Frankenstein
             next
           end
 
-          count = gh_repo.stargazers_count
-          pushed_at = gh_repo.pushed_at
-
-          repo_updated = number_of_days_since pushed_at
-
-          message = "#{em_star} #{count} #{repo} #{heat_index count} " if
-            flag_fetch_github_stars
-          message << repo_updated
+          message, hash = github_repo_info(gh_repo, repo)
+          repos_info.push(hash)
           log.add message
-
-          h = { repo: repo, count: count, pushed_at: pushed_at }
-          repos_info.push(h)
+          log.verbose "   #{gh_repo.description}"
         end # Parallel
         io_repo_log_json repos_info, log unless repos_info.count == 0
       end # if github_repos.count == 0
