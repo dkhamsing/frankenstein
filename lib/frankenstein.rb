@@ -400,8 +400,9 @@ module Frankenstein
   when elapsed_seconds > 60
     minutes = (elapsed_seconds / 60).floor
     seconds = elapsed_seconds - minutes * 60
-    log.my_print "#{minutes.round(0)} #{pluralize 'minute', minutes} "
-    log.add "#{seconds > 0 ? seconds.round(0).to_s << 's' : ''}"
+    m = "#{minutes.round(0)} #{pluralize 'minute', minutes} "
+    m << "#{seconds > 0 ? seconds.round(0).to_s << 's' : ''}"
+    log.add m
   else
     log.add "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
   end
