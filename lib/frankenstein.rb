@@ -90,60 +90,58 @@ module Frankenstein
     log.verbose m
   end
 
-  the_url, readme = if argv1_is_http || found_file_content
-              argv1
-            else
-              argv1_is_github_repo = argv1
+  u, r = if argv1_is_http || found_file_content
+           argv1
+         else
+           argv1_is_github_repo = argv1
 
-              # note github api has a rate limit of 60 unauthenticated requests
-              #   per hour https://developer.github.com/v3/#rate-limiting
-              json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
-              log.add "Finding default branch for #{argv1_is_github_repo.white}"
-              log.verbose json_url
+           # note github api has a rate limit of 60 unauthenticated
 
-              body = net_get(json_url).body
-              log.verbose body
-              parsed = JSON.parse(body)
+           #   requests per hour
+           #   https://developer.github.com/v3/#rate-limiting
+           json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
+           log.add "Finding default branch for #{argv1_is_github_repo.white}"
+           log.verbose json_url
 
-              message = parsed['message']
-              log.verbose "Parsed message: #{message}"
+           body = net_get(json_url).body
+           log.verbose body
+           parsed = JSON.parse(body)
 
-              message = '' if message.nil?
-              if message.include? 'API rate limit exceeded'
-                log.error "GitHub #{message}"
+           message = parsed['message']
+           log.verbose "Parsed message: #{message}"
 
-                log.add 'Finding readme...'
-                default_branch = 'master'
+           message = '' if message.nil?
+           if message.include? 'API rate limit exceeded'
+             log.error "GitHub #{message}"
 
-                net_find_github_url(argv1, default_branch, log)
-              else
-                if message == 'Not Found' || message == 'Moved Permanently'
-                  m = "Retrieving repo #{argv1_is_github_repo} "
-                  # f_print m.red
-                  # f_puts message.downcase
-                  log.error "#{m.red} #{message.downcase}"
-                  exit(1)
-                end
+             log.add 'Finding readme...'
+             default_branch = 'master'
 
-                default_branch = parsed['default_branch']
-                repo_description = parsed['description']
-                repo_stars = parsed['stargazers_count']
-                repo_pushed_at = parsed['pushed_at']
+             net_find_github_url(argv1, default_branch, log)
+           else
+             if message == 'Not Found' || message == 'Moved Permanently'
+               m = "Retrieving repo #{argv1_is_github_repo} "
+               log.error "#{m.red} #{message.downcase}"
+               exit(1)
+             end
 
-                repo_updated = number_of_days_since(Time.parse repo_pushed_at)
-                m = "Found: #{default_branch.white} for "\
-                      "#{argv1_is_github_repo} — "\
-                      "#{repo_description} — #{repo_stars}#{em_star} "\
-                      "— #{repo_updated}"
-                log.add m
+             default_branch = parsed['default_branch']
+             repo_description = parsed['description']
+             repo_stars = parsed['stargazers_count']
+             repo_pushed_at = parsed['pushed_at']
 
-                net_find_github_url(argv1, default_branch, log)
-              end # if message ==
-            end # if message.include? "API..
+             repo_updated = number_of_days_since(Time.parse repo_pushed_at)
+             m = "Found: #{default_branch.white} for "\
+               "#{argv1_is_github_repo} — "\
+               "#{repo_description} — #{repo_stars}#{em_star} "\
+               "— #{repo_updated}"
+             log.add m
 
-  # f_print "#{em_logo} Processing links for ".white
-  # f_print the_url.blue
-  # f_puts ' ...'.white
+             net_find_github_url(argv1, default_branch, log)
+           end # if message ==
+         end # if message.include? "API..
+  the_url = u
+  readme = r
 
   m = "#{em_logo} Processing links for ".white
   m << the_url.blue
