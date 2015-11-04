@@ -23,21 +23,21 @@ module Frankenstein
       "#{text}#{count > 1 ? 's' : ''}"
     end
 
-    def in_white_list(input, cli_wl)
+    def in_white_list(input, cli_wl, log)
       # verbose "cli wl: #{cli_wl}"
       white_list = cli_wl ? WHITE_LIST_REGEXP.dup.push(cli_wl.split('^')).flatten : WHITE_LIST_REGEXP
       # verbose "white list: #{white_list}"
       white_list.each do |regexp|
         if input.match(regexp)
-          verbose "#{input} is in white list matching #{regexp}".white
+          log.verbose "#{input} is in white list matching #{regexp}".white
           return true
         end
       end
       false
     end
 
-    def status_glyph(status, url)
-      return em_status_white if in_white_list(url, nil)
+    def status_glyph(status, url, log)
+      return em_status_white if in_white_list(url, nil, log)
 
       case
       when status == 200
@@ -50,38 +50,38 @@ module Frankenstein
         return em_status_white
       end
     end
+#
+#     # logging
+#     def error_log(message)
+#       f_puts "#{em_mad} Error: #{message}".red
+#     end
+#
+#     def error_result_header(error)
+#       f_print "\n📋  #{PRODUCT} results: ".white
+#       f_puts error.red
+#     end
+#
+#     def f_print(input)
+#       print input
+#       franken_log(input) if $option_log_to_file
+#     end
+#
+#     def f_puts(input)
+#       puts input
+#       franken_log "#{input}\n" if $option_log_to_file
+#     end
+#
+#     def f_puts_with_index(index, total, input)
+#       f_print "#{index}/#{total} " if $number_of_threads == 0
+#       f_puts input
+#     end
+#
+#     def franken_log(input)
+#       File.open(FILE_LOG, 'a') { |f| f.write(input) }
+#     end
 
-    # logging
-    def error_log(message)
-      f_puts "#{em_mad} Error: #{message}".red
-    end
-
-    def error_result_header(error)
-      f_print "\n📋  #{PRODUCT} results: ".white
-      f_puts error.red
-    end
-
-    def f_print(input)
-      print input
-      franken_log(input) if $option_log_to_file
-    end
-
-    def f_puts(input)
-      puts input
-      franken_log "#{input}\n" if $option_log_to_file
-    end
-
-    def f_puts_with_index(index, total, input)
-      f_print "#{index}/#{total} " if $number_of_threads == 0
-      f_puts input
-    end
-
-    def franken_log(input)
-      File.open(FILE_LOG, 'a') { |f| f.write(input) }
-    end
-
-    def repo_log_json(list)
-      f_puts "\nWriting repo log ... "
+    def repo_log_json(list, log)
+      log.add "\nWriting repo log ... "
       json = if File.exist?(FILE_REPO)
                file = File.read(FILE_REPO)
                saved = JSON.parse(file)
@@ -92,7 +92,7 @@ module Frankenstein
                   #  verbose "x: #{x[:count]}, h: #{h['count']}"
                    difference = x[:count] - h['count']
                    m = "#{x[:repo]} count difference: #{difference} #{em_star}"
-                   f_puts m unless difference == 0
+                   log.add m unless difference == 0
                    saved.delete(h)
                  end
 
@@ -106,8 +106,8 @@ module Frankenstein
       File.open(FILE_REPO, 'w') { |f| f.puts(json.to_json) }
     end
 
-    def verbose(message)
-      f_puts message if $flag_verbose
-    end
+    # def verbose(message)
+    #   f_puts message if $flag_verbose
+    # end
   end # class
 end

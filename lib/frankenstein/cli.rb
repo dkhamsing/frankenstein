@@ -9,14 +9,14 @@ module Frankenstein
       end
     end
 
-    def cli_option_value(name, separator)
-      temp = cli_option_value_raw name, separator
+    def cli_option_value(name, separator, log)
+      temp = cli_option_value_raw name, separator, log
       temp ? temp.to_i : nil
     end
 
-    def cli_option_value_raw(name, separator)
+    def cli_option_value_raw(name, separator, log)
       regex = "#{name}#{separator}"
-      verbose "Regular expression: #{regex}"
+      log.verbose "Regular expression: #{regex}"
       temp = ARGV.find { |e| /#{regex}/ =~ e }
 
       temp ? temp.split(separator)[1] : nil

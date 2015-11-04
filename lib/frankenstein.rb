@@ -54,16 +54,16 @@ module Frankenstein
 
   flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
   if flag_minimize_output
-    log_number_of_items_per_row = cli_option_value OPTION_ROW, SEPARATOR
+    log_number_of_items_per_row = cli_option_value OPTION_ROW, SEPARATOR, log
     log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if
       log_number_of_items_per_row.nil?
   end
 
-  $number_of_threads = cli_option_value OPTION_THREADS, SEPARATOR
+  $number_of_threads = cli_option_value OPTION_THREADS, SEPARATOR, log
   $number_of_threads = DEFAULT_NUMBER_OF_THREADS if $number_of_threads.nil?
   log.verbose "Number of threads: #{$number_of_threads}"
 
-  option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR
+  option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
   log.verbose "Option white list: #{option_white_list}" unless option_white_list.nil?
 
   option_head = ARGV.include? OPTION_HEAD
@@ -217,21 +217,21 @@ module Frankenstein
         end
 
         if flag_minimize_output
-          log.my_print status_glyph res.status, link
+          log.my_print status_glyph res.status, link, log
           # if ((index + 1) % log_number_of_items_per_row == 0) && $number_of_threads == 0
           #   n = log_number_of_items_per_row *
           #       (1 + (index / log_number_of_items_per_row))
           #   f_puts " #{n}"
           # end
         else
-          message = "#{status_glyph res.status, link} "\
+          message = "#{status_glyph res.status, link, log} "\
                     "#{res.status == 200 ? '' : res.status} #{link}"
           # f_puts_with_index index + 1, links_to_check.count, message
           log.add message
         end
 
         if res.status != 200
-          issues.push("#{status_glyph res.status, link} #{res.status} #{link}")
+          issues.push("#{status_glyph res.status, link, log} #{res.status} #{link}")
 
           if res.status >= 500
             misc.push(link)
@@ -239,12 +239,12 @@ module Frankenstein
             failures.push(link)
           elsif res.status >= 300
             # TODO: check white list
-            redirect = resolve_redirects link
+            redirect = resolve_redirects link, log
             log.verbose "#{link} was redirected to \n#{redirect}".yellow
             if redirect.nil?
               log.add "#{em_mad} No redirect found for #{link}"
             else
-              redirects[link] = redirect unless in_white_list(link, option_white_list)
+              redirects[link] = redirect unless in_white_list(link, option_white_list, log)
             end
           end # if res.status >= 500
         end # if res.status != 200
@@ -315,7 +315,7 @@ module Frankenstein
           h = { repo: repo, count: count, pushed_at: pushed_at }
           repos_info.push(h)
         end # Parallel
-        repo_log_json repos_info unless repos_info.count == 0
+        repo_log_json repos_info, log unless repos_info.count == 0
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0
