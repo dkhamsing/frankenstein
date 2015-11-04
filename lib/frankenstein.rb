@@ -354,8 +354,8 @@ module Frankenstein
         log.verbose 'forking repo.. sleep'
       end
 
+      # commit change
       branch = default_branch
-
       ref = "heads/#{branch}"
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
@@ -380,6 +380,7 @@ module Frankenstein
       log.verbose "Updated ref: #{updated_ref}"
       log.verbose "Sent commit to fork #{fork}"
 
+      # create pull request
       head = "#{forker}:#{branch}"
       log.verbose "Set head to #{head}"
 
