@@ -27,50 +27,23 @@ module Frankenstein
     exit
   end
 
-  option_github_stars_only = ARGV.include? OPTION_STARS
-  option_log_to_file = ARGV.include? OPTION_LOG
-  flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
-  flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
-
+  flag_verbose, option_log_to_file = cli_log(argv_flags)
   log = Frankenstein::Log.new(flag_verbose, option_log_to_file)
 
-  if argv1
-    argv1_is_http = argv1.match(/^http/)
+  option_github_stars_only,
+  option_head,
+  option_pull_request,
+  option_white_list,
+  flag_control_failure,
+  flag_fetch_github_stars,
+  flag_minimize_output,
+  argv1_is_http,
+  found_file_content,
+  number_of_threads = cli_process(argv1, argv_flags, log)
 
-    unless argv1_is_http
-      begin
-        found_file_content = File.read(argv1)
-      rescue StandardError => e
-        log.verbose "Not a file: #{e.to_s.red}"
-      end
-
-      option_pull_request = if argv1.include? '/'
-                              ARGV.include? OPTION_PULL_REQUEST
-                            else
-                              false
-                            end
-    end
-  end
-
-  flag_fetch_github_stars = cli_get_github option_github_stars_only, argv_flags
-
-  flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
-  if flag_minimize_output
-    # TODO: remove this, not used
-    log_number_of_items_per_row = cli_option_value OPTION_ROW, SEPARATOR, log
-    log_number_of_items_per_row = DEFAULT_NUMBER_OF_ITEMS_PER_ROWS if
-      log_number_of_items_per_row.nil?
-  end
-
-  number_of_threads = cli_option_value OPTION_THREADS, SEPARATOR, log
-  number_of_threads = DEFAULT_NUMBER_OF_THREADS if number_of_threads.nil?
   log.verbose "Number of threads: #{number_of_threads}"
-
-  option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
   m = "Option white list: #{option_white_list}"
   log.verbose m unless option_white_list.nil?
-
-  option_head = ARGV.include? OPTION_HEAD
 
   if flag_fetch_github_stars || option_pull_request
     creds = github_netrc
