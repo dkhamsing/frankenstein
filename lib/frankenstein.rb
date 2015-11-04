@@ -97,19 +97,7 @@ module Frankenstein
            argv1
          else
            log.verbose 'Attempt to get default branch (unauthenticated)'
-
-           # github api has a rate limit of 60 unauthenticated requests per hour
-           # https://developer.github.com/v3/#rate-limiting
-           json_url = GITHUB_API_BASE + 'repos/' + argv1
-           log.verbose "json url: #{json_url}"
-           log.add "Finding default branch for #{argv1.white}"
-
-           body = net_get(json_url).body
-           log.verbose body
-
-           parsed = JSON.parse(body)
-           message = parsed['message']
-           message = '' if message.nil?
+           message, parsed = github_repo_unauthenticated(argv1, log)
            log.verbose "Parsed message: #{message}"
 
            if message == 'Not Found' || message == 'Moved Permanently'
