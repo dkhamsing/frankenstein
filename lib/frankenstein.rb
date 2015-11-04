@@ -96,15 +96,13 @@ module Frankenstein
   u, r = if argv1_is_http || found_file_content
            argv1
          else
-           argv1_is_github_repo = argv1
-
            log.verbose 'Attempt to get default branch (unauthenticated)'
 
            # github api has a rate limit of 60 unauthenticated requests per hour
            # https://developer.github.com/v3/#rate-limiting
-           json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
+           json_url = GITHUB_API_BASE + 'repos/' + argv1
            log.verbose "json url: #{json_url}"
-           log.add "Finding default branch for #{argv1_is_github_repo.white}"
+           log.add "Finding default branch for #{argv1.white}"
 
            body = net_get(json_url).body
            log.verbose body
@@ -115,7 +113,7 @@ module Frankenstein
            log.verbose "Parsed message: #{message}"
 
            if message == 'Not Found' || message == 'Moved Permanently'
-             m = "Retrieving repo #{argv1_is_github_repo} "
+             m = "Retrieving repo #{argv1} "
              log.error "#{m.red} #{message.downcase}"
              exit(1)
            elsif message.include? 'API rate limit exceeded'
@@ -128,7 +126,7 @@ module Frankenstein
              default_branch = parsed['default_branch']
              log.add github_repo_json_info(parsed,
                                            default_branch,
-                                           argv1_is_github_repo)
+                                           argv1)
              net_find_github_url_readme(argv1, default_branch)
            end # if message ==
          end # if message.include? "API..
