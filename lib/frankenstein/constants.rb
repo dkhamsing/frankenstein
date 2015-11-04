@@ -25,8 +25,6 @@ module Frankenstein
   FLAG_MINIMIZE_USAGE = 'Minimized result output'
   FLAG_VERBOSE_USAGE = 'Verbose output'
 
-  NETRC_GITHUB_MACHINE = 'api.github.com'
-
   OPTION_HEAD = 'head'
   OPTION_LOG = 'log'
   OPTION_PULL_REQUEST = 'pull'

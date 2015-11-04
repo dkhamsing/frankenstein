@@ -127,17 +127,8 @@ module Frankenstein
              exit(1)
            else
              default_branch = parsed['default_branch']
-             repo_description = parsed['description']
-             repo_stars = parsed['stargazers_count']
-             repo_pushed_at = parsed['pushed_at']
 
-             repo_updated = number_of_days_since(Time.parse repo_pushed_at)
-             m = "Found: #{default_branch.white} for "\
-               "#{argv1_is_github_repo} — "\
-               "#{repo_description} — #{repo_stars}#{em_star} "\
-               "— #{repo_updated}"
-             log.add m
-
+             log.add github_info(parsed, default_branch, argv1_is_github_repo)
              net_find_github_url_readme(argv1, default_branch)
            end # if message ==
          end # if message.include? "API..
