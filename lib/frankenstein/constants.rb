@@ -78,6 +78,7 @@ module Frankenstein
     '://github.com.*\.git$',
     '://github.com.*tree/',
     '://maven-badges.herokuapp.com/',
+    '://ogp.me/ns',
     '://raw.github.com/',
     '://groups.google.com',
     '://i.creativecommons.org/.*png',
