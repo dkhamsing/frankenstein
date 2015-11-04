@@ -10,7 +10,7 @@ module Frankenstein
     end
 
     def error(message)
-      add "#{Frankenstein::em_mad}  Error: #{message}".red
+      add "#{Frankenstein.em_mad}  Error: #{message}".red
     end
 
     def error_header(message)
