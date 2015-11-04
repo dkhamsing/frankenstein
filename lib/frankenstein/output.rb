@@ -32,6 +32,18 @@ module Frankenstein
       false
     end
 
+    def output_status(flag_minimize_output, status, link, log)
+      if flag_minimize_output
+        log.my_print status_glyph status, link, log
+      else
+        m = status_glyph(res.status, link, log)
+        m << ' '
+        m << "#{res.status} " unless status == 200
+        m << link
+        log.add m
+      end
+    end
+
     def status_glyph(status, url, log)
       return em_status_white if in_white_list(url, nil, log)
 

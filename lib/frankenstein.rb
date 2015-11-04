@@ -192,35 +192,27 @@ module Frankenstein
           next
         end
 
-        if flag_minimize_output
-          log.my_print status_glyph res.status, link, log
-        else
-          m = status_glyph(res.status, link, log)
-          m << ' '
-          m << "#{res.status} " unless res.status == 200
-          m << link
-          log.add m
-        end
+        output_status(flag_minimize_output, res.status, link, log)
 
-        if res.status != 200
-          m = "#{status_glyph res.status, link, log} #{res.status} #{link}"
-          issues.push(m)
+        next if res.status == 200
 
-          if res.status >= 500
-            misc.push(link)
-          elsif res.status >= 400
-            failures.push(link)
-          elsif res.status >= 300
-            # TODO: check white list
-            redirect = resolve_redirects link, log
-            log.verbose "#{link} was redirected to \n#{redirect}".yellow
-            if redirect.nil?
-              log.add "#{em_mad} No redirect found for #{link}"
-            else
-              redirects[link] = redirect unless
-                in_white_list(link, option_white_list, log)
-            end
-          end # if res.status >= 500
+        m = "#{status_glyph res.status, link, log} #{res.status} #{link}"
+        issues.push(m)
+
+        if res.status >= 500
+          misc.push(link)
+        elsif res.status >= 400
+          failures.push(link)
+        elsif res.status >= 300
+          # TODO: check white list
+          redirect = resolve_redirects link, log
+          log.verbose "#{link} was redirected to \n#{redirect}".yellow
+          if redirect.nil?
+            log.add "#{em_mad} No redirect found for #{link}"
+          else
+            redirects[link] = redirect unless
+              in_white_list(link, option_white_list, log)
+          end
         end # if res.status != 200
       end # Parallel
 
