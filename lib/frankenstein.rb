@@ -117,7 +117,7 @@ module Frankenstein
              log.add 'Finding readme...'
              default_branch = 'master'
 
-             net_find_github_url_readme(argv1, default_branch, log)
+             net_find_github_url_readme(argv1, default_branch)
            else
              if message == 'Not Found' || message == 'Moved Permanently'
                m = "Retrieving repo #{argv1_is_github_repo} "
@@ -137,7 +137,7 @@ module Frankenstein
                "— #{repo_updated}"
              log.add m
 
-             net_find_github_url_readme(argv1, default_branch, log)
+             net_find_github_url_readme(argv1, default_branch)
            end # if message ==
          end # if message.include? "API..
   the_url = u
@@ -152,7 +152,8 @@ module Frankenstein
   content = if found_file_content
               found_file_content
             else
-              code = status the_url, log
+              code = status the_url
+              log.verbose "Status : #{Status}"
 
               unless code == 200
                 if argv1_is_http
