@@ -12,6 +12,17 @@ module Frankenstein
       Faraday.get(url)
     end
 
+    def net_find_github_url_readme(repo, branch)
+      base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
+      readme = README_VARIATIONS.find do |x|
+        temp = "#{base}#{x}"
+        net_status(temp) == 200
+      end
+      url = "#{base}#{readme}"
+
+      [url, readme]
+    end
+
     def net_status(url)
       response = net_head(url)
       code = response.status
@@ -37,17 +48,6 @@ module Frankenstein
     rescue Faraday::Error, Faraday::Error::ConnectionFailed => e
       log.verbose "fetch_response error #{e}"
       return nil
-    end
-
-    def net_find_github_url_readme(repo, branch)
-      base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
-      readme = README_VARIATIONS.find do |x|
-        temp = "#{base}#{x}"
-        net_status(temp) == 200
-      end
-      url = "#{base}#{readme}"
-
-      [url, readme]
     end
   end # class
 end
