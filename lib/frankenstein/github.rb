@@ -90,7 +90,7 @@ module Frankenstein
         log.verbose "   #{gh_repo.description}"
       end
 
-      repos_info
+      io_repo_log_json(repos_info, log) unless repos_info.count == 0
     end
   end # class
 end

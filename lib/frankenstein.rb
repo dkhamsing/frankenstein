@@ -253,10 +253,7 @@ module Frankenstein
         log.my_print m
         log.add pluralize('repo', github_repos.count).white
 
-        infos =
-          github_repos_info(github_repos, number_of_threads, github_client, log)
-
-        io_repo_log_json(infos, log) unless infos.count == 0
+        github_repos_info(github_repos, number_of_threads, github_client, log)
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0
