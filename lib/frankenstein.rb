@@ -195,9 +195,11 @@ module Frankenstein
         if flag_minimize_output
           log.my_print status_glyph res.status, link, log
         else
-          message = "#{status_glyph res.status, link, log} "\
-                    "#{res.status == 200 ? '' : res.status} #{link}"
-          log.add message
+          m = status_glyph(res.status, link, log)
+          m << ' '
+          m << "#{res.status} " unless res.status == 200
+          m << link
+          log.add m
         end
 
         if res.status != 200
@@ -278,7 +280,7 @@ module Frankenstein
           log.add message
           log.verbose "   #{gh_repo.description}"
         end # Parallel
-        io_repo_log_json repos_info, log unless repos_info.count == 0
+        io_repo_log_json(repos_info, log) unless repos_info.count == 0
       end # if github_repos.count == 0
     end # flag_fetch_github_stars
   end # if links_to_check.count==0
