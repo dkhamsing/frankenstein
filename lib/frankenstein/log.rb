@@ -21,7 +21,7 @@ module Frankenstein
 
     def add(message)
       puts message
-      file_write message if @write_to_file
+      file_write "#{message}\n" if @write_to_file
     end
 
     def my_print(message)
