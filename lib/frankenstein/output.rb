@@ -1,4 +1,4 @@
-# Logging
+# Output
 module Frankenstein
   class << self
     def heat_index(count)
@@ -22,9 +22,7 @@ module Frankenstein
     end
 
     def in_white_list(input, cli_wl, log)
-      # verbose "cli wl: #{cli_wl}"
       white_list = cli_wl ? WHITE_LIST_REGEXP.dup.push(cli_wl.split('^')).flatten : WHITE_LIST_REGEXP
-      # verbose "white list: #{white_list}"
       white_list.each do |regexp|
         if input.match(regexp)
           log.verbose "#{input} is in white list matching #{regexp}".white
@@ -47,31 +45,6 @@ module Frankenstein
       else
         return em_status_white
       end
-    end
-
-    def repo_log_json(list, log)
-      log.add "\nWriting repo log ... "
-      json = if File.exist?(FILE_REPO)
-               file = File.read(FILE_REPO)
-               saved = JSON.parse(file)
-
-               list.each do |x|
-                 h = saved.map { |s| s if s['repo'] == x[:repo] }.compact.first
-                 unless h.nil? || x[:count].nil?
-                   difference = x[:count] - h['count']
-                   m = "#{x[:repo]} count difference: #{difference} #{em_star}"
-                   log.add m unless difference == 0
-                   saved.delete(h)
-                 end
-
-                 saved.push(x)
-               end
-
-               saved
-             else
-               list
-             end
-      File.open(FILE_REPO, 'w') { |f| f.puts(json.to_json) }
     end
   end # class
 end
