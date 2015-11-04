@@ -98,20 +98,22 @@ module Frankenstein
          else
            argv1_is_github_repo = argv1
 
+           log.verbose 'Attempt to get default branch (unauthenticated)'
+
            # github api has a rate limit of 60 unauthenticated requests per hour
            # https://developer.github.com/v3/#rate-limiting
            json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
+           log.verbose "json url: #{json_url}"
            log.add "Finding default branch for #{argv1_is_github_repo.white}"
-           log.verbose json_url
 
            body = net_get(json_url).body
            log.verbose body
-           parsed = JSON.parse(body)
 
+           parsed = JSON.parse(body)
            message = parsed['message']
+           message = '' if message.nil?
            log.verbose "Parsed message: #{message}"
 
-           message = '' if message.nil?
            if message.include? 'API rate limit exceeded'
              log.error "GitHub #{message}"
 
@@ -119,13 +121,11 @@ module Frankenstein
              default_branch = 'master'
 
              net_find_github_url_readme(argv1, default_branch)
+           elsif message == 'Not Found' || message == 'Moved Permanently'
+             m = "Retrieving repo #{argv1_is_github_repo} "
+             log.error "#{m.red} #{message.downcase}"
+             exit(1)
            else
-             if message == 'Not Found' || message == 'Moved Permanently'
-               m = "Retrieving repo #{argv1_is_github_repo} "
-               log.error "#{m.red} #{message.downcase}"
-               exit(1)
-             end
-
              default_branch = parsed['default_branch']
              repo_description = parsed['description']
              repo_stars = parsed['stargazers_count']
