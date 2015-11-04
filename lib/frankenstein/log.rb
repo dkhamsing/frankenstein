@@ -2,8 +2,6 @@
 module Frankenstein
   # Logger
   class Log
-    # require constants, emoji, colored
-
     def initialize(opt_verbose, opt_write_to_file)
       @verbose = opt_verbose
       @write_to_file = opt_write_to_file
@@ -12,7 +10,7 @@ module Frankenstein
     end
 
     def error(message)
-      add "😢  Error: #{message}".red
+      add "#{Frankenstein::em_mad}  Error: #{message}".red
     end
 
     def error_header(message)

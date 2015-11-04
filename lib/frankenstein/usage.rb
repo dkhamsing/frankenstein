@@ -1,7 +1,3 @@
-require 'frankenstein/cli'
-require 'frankenstein/constants'
-require 'frankenstein/emoji'
-
 # Usage
 module Frankenstein
   require 'colored'

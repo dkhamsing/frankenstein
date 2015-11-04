@@ -1,6 +1,3 @@
-require 'frankenstein/constants'
-require 'frankenstein/emoji'
-
 # Logging
 module Frankenstein
   class << self

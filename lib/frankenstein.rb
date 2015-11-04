@@ -1,6 +1,7 @@
 require 'frankenstein/cli'
 require 'frankenstein/constants'
 require 'frankenstein/date'
+require 'frankenstein/emoji'
 require 'frankenstein/github'
 require 'frankenstein/log'
 require 'frankenstein/logging'
