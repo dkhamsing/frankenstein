@@ -182,7 +182,7 @@ module Frankenstein
     unless option_github_stars_only
       m = "🔎  Checking #{links_to_check.count} ".white
       m << pluralize('link', links_to_check.count).white
-      m << '   (including a controlled failure)' if flag_control_failure
+      m << ' (including a controlled failure)' if flag_control_failure
       log.add m
     end
 
