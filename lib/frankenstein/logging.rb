@@ -1,4 +1,5 @@
 require 'frankenstein/constants'
+require 'frankenstein/emoji'
 
 # Logging
 module Frankenstein
@@ -50,35 +51,6 @@ module Frankenstein
         return em_status_white
       end
     end
-#
-#     # logging
-#     def error_log(message)
-#       f_puts "#{em_mad} Error: #{message}".red
-#     end
-#
-#     def error_result_header(error)
-#       f_print "\n📋  #{PRODUCT} results: ".white
-#       f_puts error.red
-#     end
-#
-#     def f_print(input)
-#       print input
-#       franken_log(input) if $option_log_to_file
-#     end
-#
-#     def f_puts(input)
-#       puts input
-#       franken_log "#{input}\n" if $option_log_to_file
-#     end
-#
-#     def f_puts_with_index(index, total, input)
-#       f_print "#{index}/#{total} " if $number_of_threads == 0
-#       f_puts input
-#     end
-#
-#     def franken_log(input)
-#       File.open(FILE_LOG, 'a') { |f| f.write(input) }
-#     end
 
     def repo_log_json(list, log)
       log.add "\nWriting repo log ... "
@@ -105,9 +77,5 @@ module Frankenstein
              end
       File.open(FILE_REPO, 'w') { |f| f.puts(json.to_json) }
     end
-
-    # def verbose(message)
-    #   f_puts message if $flag_verbose
-    # end
   end # class
 end
