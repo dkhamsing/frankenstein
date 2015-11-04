@@ -36,9 +36,9 @@ module Frankenstein
       if flag_minimize_output
         log.my_print status_glyph status, link, log
       else
-        m = status_glyph(res.status, link, log)
+        m = status_glyph(status, link, log)
         m << ' '
-        m << "#{res.status} " unless status == 200
+        m << "#{status} " unless status == 200
         m << link
         log.add m
       end
