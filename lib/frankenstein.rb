@@ -126,7 +126,9 @@ module Frankenstein
              net_find_github_url_readme(argv1, default_branch)
            else
              default_branch = parsed['default_branch']
-             log.add github_info(parsed, default_branch, argv1_is_github_repo)
+             log.add github_repo_json_info(parsed,
+                                           default_branch,
+                                           argv1_is_github_repo)
              net_find_github_url_readme(argv1, default_branch)
            end # if message ==
          end # if message.include? "API..

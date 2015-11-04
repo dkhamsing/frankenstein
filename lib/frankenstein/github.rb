@@ -17,18 +17,6 @@ module Frankenstein
       client.fork(repo)
     end
 
-    def github_info(parsed, default_branch, argv1_is_github_repo)
-      repo_description = parsed['description']
-      repo_stars = parsed['stargazers_count']
-      repo_pushed_at = parsed['pushed_at']
-      repo_updated = number_of_days_since(Time.parse repo_pushed_at)
-
-      "Found: #{default_branch.white} for "\
-        "#{argv1_is_github_repo} — "\
-        "#{repo_description} — #{repo_stars}#{em_star} "\
-        "— #{repo_updated}"
-    end
-
     def github_netrc
       n = Netrc.read
       n[NETRC_GITHUB_MACHINE]
@@ -53,6 +41,18 @@ module Frankenstein
       h = { repo: name, count: count, pushed_at: pushed_at }
 
       [message, h]
+    end
+
+    def github_repo_json_info(parsed, default_branch, argv1_is_github_repo)
+      repo_description = parsed['description']
+      repo_stars = parsed['stargazers_count']
+      repo_pushed_at = parsed['pushed_at']
+      repo_updated = number_of_days_since(Time.parse repo_pushed_at)
+
+      "Found: #{default_branch.white} for "\
+        "#{argv1_is_github_repo} — "\
+        "#{repo_description} — #{repo_stars}#{em_star} "\
+        "— #{repo_updated}"
     end
   end # class
 end
