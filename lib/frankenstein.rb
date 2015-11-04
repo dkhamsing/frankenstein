@@ -80,8 +80,8 @@ module Frankenstein
   elapsed_time_start = Time.now
 
   if $option_log_to_file
-    log.write_to_file "\n\nStart: #{elapsed_time_start} \n"
-    log.write_to_file "Arguments: #{ARGV} \n"
+    log.file_write "\n\nStart: #{elapsed_time_start} \n"
+    log.file_write "Arguments: #{ARGV} \n"
   end
 
   if flag_minimize_output
@@ -422,7 +422,7 @@ module Frankenstein
     log.add "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
   end
 
-  log.write_to_file "End: #{Time.new}" if $option_log_to_file
+  log.file_write "End: #{Time.new}" if $option_log_to_file
 
   failures = [] if failures.nil?
 
