@@ -150,7 +150,7 @@ Example uses of `frankenstein` with `pull` option:
 
 #### White list
 
-Some URLs that are meant to be redirected (i.e. badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
+Some URLs that are meant to be redirected (i.e. url shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
 
 ```shell
 $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, separated by ^
