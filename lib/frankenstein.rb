@@ -65,7 +65,8 @@ module Frankenstein
   log.verbose "Number of threads: #{number_of_threads}"
 
   option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
-  log.verbose "Option white list: #{option_white_list}" unless option_white_list.nil?
+  m = "Option white list: #{option_white_list}"
+  log.verbose m unless option_white_list.nil?
 
   option_head = ARGV.include? OPTION_HEAD
 
@@ -95,10 +96,8 @@ module Frankenstein
          else
            argv1_is_github_repo = argv1
 
-           # note github api has a rate limit of 60 unauthenticated
-
-           #   requests per hour
-           #   https://developer.github.com/v3/#rate-limiting
+           # github api has a rate limit of 60 unauthenticated requests per hour
+           # https://developer.github.com/v3/#rate-limiting
            json_url = GITHUB_API_BASE + 'repos/' + argv1_is_github_repo
            log.add "Finding default branch for #{argv1_is_github_repo.white}"
            log.verbose json_url
@@ -142,6 +141,7 @@ module Frankenstein
          end # if message.include? "API..
   the_url = u
   readme = r
+  log.verbose "Readme found: #{readme}"
 
   m = "#{em_logo} Processing links for ".white
   m << the_url.blue
@@ -188,9 +188,6 @@ module Frankenstein
     log.error_header 'no links found'
   else
     unless option_github_stars_only
-      # f_print "🔎  Checking #{links_to_check.count} ".white
-      # f_puts pluralize('link', links_to_check.count).white
-      # f_puts '   (including a controlled failure)' if flag_control_failure
       m = "🔎  Checking #{links_to_check.count} ".white
       m << pluralize('link', links_to_check.count).white
       m << '   (including a controlled failure)' if flag_control_failure

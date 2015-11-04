@@ -45,8 +45,6 @@ module Frankenstein
       url = "#{base}#{
         README_VARIATIONS.find do |x|
           readme = x
-          log.verbose "Readme found: #{readme}"
-
           temp = "#{base}#{x}"
           status(temp, log) < 400
         end
