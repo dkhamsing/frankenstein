@@ -41,14 +41,12 @@ module Frankenstein
 
     def net_find_github_url_readme(repo, branch, log)
       base = "#{GITHUB_RAW_CONTENT_URL}#{repo}/#{branch}/"
-      readme = nil
-      url = "#{base}#{
-        README_VARIATIONS.find do |x|
-          readme = x
-          temp = "#{base}#{x}"
-          status(temp, log) < 400
-        end
-      }"
+      readme = README_VARIATIONS.find do |x|
+        temp = "#{base}#{x}"
+        status(temp, log) == 200
+      end
+      url = "#{base}#{readme}"
+
       [url, readme]
     end
   end # class
