@@ -30,7 +30,7 @@ frankenstein <url|file|github repo> [-fmzv] [head] [pull] [repo] [threads=d] [wl
 
 ```shell
 $ frankenstein README.md # file on disk
-$ frankenstein https://fastlane.tools #url
+$ frankenstein https://fastlane.tools # URL
 
 🏃  Processing links on https://fastlane.tools ...
 🔎  Checking 50 links
@@ -82,7 +82,7 @@ $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
-$ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some urls may be misreported as errors using this option 😕)
+$ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some URLs may be misreported as errors using this option 😕)
 $ frankenstein dkhamsing/open-source-ios-apps -fv head # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
@@ -94,8 +94,8 @@ Getting repo information / creating a pull request for redirects require a GitHu
 `-z` `repo`
 
 ```shell
-$ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking urls
-$ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking urls
+$ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking URLs
+$ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking URLs
 
 🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
 🔎  Checking 350 links
@@ -153,7 +153,7 @@ Example uses of `frankenstein` with `pull` option:
 
 #### White list
 
-Some URLs that are meant to be redirected (i.e. url shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
+Some URLs that are meant to be redirected (i.e. URL shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
 
 ```shell
 $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, separated by ^
