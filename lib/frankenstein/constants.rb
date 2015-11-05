@@ -11,7 +11,6 @@ module Frankenstein
   FILE_LOG_DIRECTORY = 'logs'
 
   FILE_COPY = 'copy'
-  FILE_LOG = 'log'
   FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
   FILE_REDIRECTS = 'redirects'
   FILE_UPDATED = 'updated'
@@ -27,7 +26,6 @@ module Frankenstein
   FLAG_VERBOSE_USAGE = 'Verbose output'
 
   OPTION_HEAD = 'head'
-  OPTION_LOG = 'log'
   OPTION_PULL_REQUEST = 'pull'
   OPTION_ROW = 'toremove:-()'
   OPTION_STARS = 'repo'

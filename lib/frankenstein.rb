@@ -26,13 +26,13 @@ module Frankenstein
     exit
   end
 
-  flag_verbose, option_log_to_file = cli_log(argv_flags)
-  log = Frankenstein::Log.new(flag_verbose, option_log_to_file, argv1)
+  flag_verbose = cli_log(argv_flags)
+  log = Frankenstein::Log.new(flag_verbose, argv1)
 
   file_copy = log.filename(FILE_COPY)
   file_updated = log.filename(FILE_UPDATED)
   file_redirects = log.filename(FILE_REDIRECTS)
-  file_log = log.filename(FILE_LOG)
+  file_log = log.filelog
 
   option_github_stars_only,
   option_head,
@@ -253,7 +253,7 @@ module Frankenstein
     end # File.open(FILE_TEMP, 'a+') { |f|
   end # redirects.count
 
-  puts "Wrote log to #{file_log.white}" if option_log_to_file
+  puts "Wrote log to #{file_log.white}"
 
   if option_pull_request
     m = 'Would you like to open a pull request to update the redirects? (y/n) '

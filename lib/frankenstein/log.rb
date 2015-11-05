@@ -2,9 +2,8 @@
 module Frankenstein
   # Logger
   class Log
-    def initialize(opt_verbose, opt_write_to_file, argv1)
+    def initialize(opt_verbose, argv1)
       @verbose = opt_verbose
-      @write_to_file = true
 
       epoch = Time.now.to_i
       filtered_argv1 = argv1.gsub(%r{(:|\/)}, '-')
@@ -13,6 +12,10 @@ module Frankenstein
 
       @file_log = "#{FILE_LOG_DIRECTORY}/#{@identifier}.#{PRODUCT}"
       puts "file lig "
+    end
+
+    def filelog
+      @file_log
     end
 
     def filename(extension)
@@ -31,12 +34,12 @@ module Frankenstein
 
     def add(message)
       puts message
-      file_write "#{message}\n" if @write_to_file
+      file_write "#{message}\n"
     end
 
     def my_print(message)
       print message
-      file_write message if @write_to_file
+      file_write message
     end
 
     def file_write(message)

@@ -32,10 +32,7 @@ module Frankenstein
     end
 
     def cli_log(argv_flags)
-      v = argv_flags.to_s.include? FLAG_VERBOSE
-      f = ARGV.include? OPTION_LOG
-
-      [v, f]
+      argv_flags.to_s.include? FLAG_VERBOSE
     end
 
     def cli_process(argv1, argv_flags, log)
