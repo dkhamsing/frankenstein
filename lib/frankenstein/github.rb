@@ -14,6 +14,32 @@ module Frankenstein
       Octokit::Client.new(netrc: true)
     end
 
+    def github_create_gist(file, public)
+      separator = '/'
+      filename = file.split(separator)[1] if file.include? separator
+
+      puts "🏃 Creating a gist for #{filename.white}"
+
+      gputs 'Reading content'
+      c = File.read(file)
+      c = c.gsub('[34m', '').gsub('[0m', '').gsub('[37m', '').gsub('[32m', '')
+          .gsub('[33m', '').gsub('[31m', '')
+
+      gputs 'Creating GitHub client'
+      client = github_client
+      payload = { public: public,
+                  files: { filename => { content: c } }
+                }
+
+      gputs 'Client creating gist'
+      r = client.create_gist(payload)
+
+      html_url = r[:html_url]
+      gputs "🎉 gist created: #{html_url.white}"
+
+      html_url
+    end
+
     def github_fork(client, repo)
       client.fork(repo)
     end
@@ -145,5 +171,9 @@ module Frankenstein
 
       io_repo_log_json(repos_info, log) unless repos_info.count == 0
     end
+
+    def gputs(m)
+      puts "  #{m}"
+    end    
   end # class
 end
