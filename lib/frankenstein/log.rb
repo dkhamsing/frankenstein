@@ -11,7 +11,6 @@ module Frankenstein
       @identifier = "#{epoch}-#{today}-#{filtered_argv1}"
 
       @file_log = "#{FILE_LOG_DIRECTORY}/#{@identifier}.#{PRODUCT}"
-      puts "file lig "
     end
 
     def filelog
