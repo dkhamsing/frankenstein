@@ -48,6 +48,7 @@ module Frankenstein
     'README',
     'README.rst',
     'README.asciidoc',
+    'README.rdoc',
     'index.html'
   ]
 
