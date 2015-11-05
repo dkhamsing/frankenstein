@@ -28,7 +28,7 @@ module Frankenstein
       n[0]
     end
 
-    def github_pull_request(github, repo, branch, readme, log)
+    def github_pull_request(github, repo, branch, readme, filename, log)
       forker = github_netrc_username
       fork = repo.gsub(%r{.*\/}, "#{forker}/")
       log.verbose "Fork: #{fork}"
@@ -50,7 +50,7 @@ module Frankenstein
       sha_latest_commit = github.ref(fork, ref).object.sha
       sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
       file_name = readme
-      my_content = File.read(FILE_TEMP)
+      my_content = File.read(filename)
 
       blob_sha = github.create_blob(fork, Base64.encode64(my_content), 'base64')
       sha_new_tree = github.create_tree(fork,
