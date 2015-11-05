@@ -38,7 +38,7 @@ module Frankenstein
       # check fork has been created
       forked_repo = nil
       while forked_repo
-        sleep 1
+        sleep 2
         forked_repo = github_fork(github, fork)
         log.verbose 'Forking repo.. sleep'
       end
