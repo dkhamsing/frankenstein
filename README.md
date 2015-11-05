@@ -131,13 +131,12 @@ $ frankenstein fastlane/sigh pull # create a pull request replacing redirects
 https://github.com/KrauseFx/fastlane redirects to
 https://github.com/fastlane/fastlane
 #...
-Would you like to open a pull request to update the redirects? (y/n)
+Would you like to open a pull request to update the redirects? (y/n) y
 Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 
 🕐  Time elapsed: 12.3 seconds
-
-🏃  No failures for fastlane/sigh
+#...
 ```
 
 Example uses of `frankenstein` with `pull` option:
