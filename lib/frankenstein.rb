@@ -27,7 +27,11 @@ module Frankenstein
   end
 
   flag_verbose, option_log_to_file = cli_log(argv_flags)
-  log = Frankenstein::Log.new(flag_verbose, option_log_to_file)
+  log = Frankenstein::Log.new(flag_verbose, option_log_to_file, argv1)
+
+  file_copy = log.filename(FILE_COPY)
+  file_updated = log.filename(FILE_UPDATED)
+  file_redirects = log.filename(FILE_REDIRECTS)
 
   option_github_stars_only,
   option_head,
@@ -113,7 +117,7 @@ module Frankenstein
               content = net_get(the_url).body
               content
             end
-  File.open(FILE_TEMP, 'w') { |f| f.write(content) }
+  File.open(file_copy, 'w') { |f| f.write(content) }
   links_found = URI.extract(content, /http()s?/)
   log.verbose "Links found: #{links_found}"
 
@@ -228,12 +232,14 @@ module Frankenstein
   redirects = [] if redirects.nil?
 
   if redirects.count > 0
+    File.open(file_redirects, 'w') { |f| f.write(redirects) }
+
     m = "\n#{em_status_yellow} #{redirects.count} "\
         "#{pluralize 'redirect', redirects.count}"
     log.add m.yellow
 
-    log.verbose "Replacing redirects in temp file #{FILE_TEMP}.."
-    File.open(FILE_TEMP, 'a+') do |f|
+    log.verbose "Replacing redirects in temp file #{file_updated}.."
+    File.open(file_copy, 'a+') do |f|
       original = f.read
       replaced = original
 
@@ -242,8 +248,8 @@ module Frankenstein
         replaced = replaced.gsub key, array
       end # redirects.each
 
-      File.open(FILE_TEMP, 'w') do |ff|
-        log.add "Wrote redirects replaced to #{FILE_TEMP.white}"
+      File.open(file_updated, 'w') do |ff|
+        log.add "Wrote redirects replaced to #{file_updated.white}"
         ff.write(replaced)
       end
     end # File.open(FILE_TEMP, 'a+') { |f|

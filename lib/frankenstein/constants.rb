@@ -10,9 +10,11 @@ module Frankenstein
 
   FILE_LOG_DIRECTORY = 'logs'
 
-  FILE_LOG = "#{FILE_LOG_DIRECTORY}/franken_log"
+  FILE_COPY = 'copy'
+  FILE_LOG = 'log'
   FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
-  FILE_TEMP = "#{FILE_LOG_DIRECTORY}/franken_temp"
+  FILE_REDIRECTS = 'redirects'
+  FILE_UPDATED = 'updated'
 
   FLAG_FAIL = 'f'
   FLAG_GITHUB_STARS = 'z'
