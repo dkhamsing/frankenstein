@@ -83,7 +83,7 @@ $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some urls may be misreported as errors using this option 😕)
-$ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
+$ frankenstein dkhamsing/open-source-ios-apps -fv head # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
 
