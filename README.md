@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ```shell
-frankenstein <url|file|github repo> [-fmzv] [head] [log] [pull] [repo] [threads=d] [wl=s]
+frankenstein <url|file|github repo> [-fmzv] [head] [pull] [repo] [threads=d] [wl=s]
 ```
 
 ### Examples
@@ -45,6 +45,8 @@ $ frankenstein https://fastlane.tools #url
 https://t.co/an02Vvi8Tl redirects to
 https://github.com/fastlane/snapshot
 # ...
+Wrote log to logs/1446751796-2015-11-05-https---fastlane.tools.frankenstein
+
 🕐  Time elapsed: 17.51 seconds
 
 🏃  No failures for https://fastlane.tools
@@ -81,7 +83,6 @@ $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some urls may be misreported as errors using this option 😕)
-$ frankenstein dkhamsing/open-source-ios-apps log # write log to a file named franken_log
 $ frankenstein dkhamsing/open-source-ios-apps -fv log # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
