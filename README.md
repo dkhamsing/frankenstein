@@ -142,12 +142,13 @@ Pull request created: https://github.com/fastlane/sigh/pull/195
 Example uses of `frankenstein` with `pull` option:
 
 - https://github.com/fastlane/sigh/pull/195
-- https://github.com/piemonte/PBJVision/pull/293
 - https://github.com/kylef/Commander/pull/14
 - https://github.com/bbatsov/rubocop/pull/2387
 - https://github.com/nwjs/nw.js/pull/3948
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
 - https://github.com/airbnb/javascript/pull/564
+- https://github.com/hangtwenty/dive-into-machine-learning/pull/14
+- more https://twitter.com/frankenb0t
 
 #### White list
 
