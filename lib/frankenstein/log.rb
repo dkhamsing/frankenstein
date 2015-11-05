@@ -4,14 +4,15 @@ module Frankenstein
   class Log
     def initialize(opt_verbose, opt_write_to_file, argv1)
       @verbose = opt_verbose
-      @write_to_file = opt_write_to_file
+      @write_to_file = true
 
       epoch = Time.now.to_i
       filtered_argv1 = argv1.gsub(%r{(:|\/)}, '-')
       today = Date.today
       @identifier = "#{epoch}-#{today}-#{filtered_argv1}"
 
-      @file_log = filename(FILE_LOG)
+      @file_log = "#{FILE_LOG_DIRECTORY}/#{@identifier}.#{PRODUCT}"
+      puts "file lig "
     end
 
     def filename(extension)

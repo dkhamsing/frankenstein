@@ -32,6 +32,7 @@ module Frankenstein
   file_copy = log.filename(FILE_COPY)
   file_updated = log.filename(FILE_UPDATED)
   file_redirects = log.filename(FILE_REDIRECTS)
+  file_log = log.filename(FILE_LOG)
 
   option_github_stars_only,
   option_head,
@@ -59,10 +60,7 @@ module Frankenstein
   # start
   elapsed_time_start = Time.now
 
-  if option_log_to_file
-    log.file_write "\n\nStart: #{elapsed_time_start} \n"
-    log.file_write "Arguments: #{ARGV} \n"
-  end
+  log.file_write "$ #{PRODUCT} #{ARGV.join ' '} \n\n"
 
   u, r = if argv1_is_http || found_file_content
            argv1
@@ -255,7 +253,7 @@ module Frankenstein
     end # File.open(FILE_TEMP, 'a+') { |f|
   end # redirects.count
 
-  log.add "Wrote log to #{FILE_LOG.white}" if option_log_to_file
+  puts "Wrote log to #{file_log.white}" if option_log_to_file
 
   if option_pull_request
     m = 'Would you like to open a pull request to update the redirects? (y/n) '
@@ -276,11 +274,8 @@ module Frankenstein
   m = "\n🕐  Time elapsed: ".white << elapsed(elapsed_seconds)
   log.add m
 
-  log.file_write "End: #{Time.new}" if option_log_to_file
-
-  failures = [] if failures.nil?
-
   log.add ''
+  failures = [] if failures.nil?
   if failures.count == 0
     log.add "#{em_logo} No failures for #{argv1.blue}".white
   else
@@ -293,4 +288,6 @@ module Frankenstein
       exit(1)
     end
   end
+
+  log.file_write "\nCreated with #{PROJECT_URL} \n"
 end # module
