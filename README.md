@@ -28,6 +28,8 @@ frankenstein <url|file|github repo> [-fmzv] [head] [pull] [repo] [threads=d] [wl
 
 ### Examples
 
+See some actual example runs [here](https://gist.github.com/frankenbot) 🏃
+
 ```shell
 $ frankenstein README.md # file on disk
 $ frankenstein https://fastlane.tools # URL
