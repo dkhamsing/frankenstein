@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ```shell
-frankenstein <url|file|github repo> [-fmzv] [head] [pull] [repo] [threads=d] [wl=s]
+frankenstein <url|file|github repo> [-fmzv] [head] [repo] [threads=d] [wl=s]
 ```
 
 ### Examples
@@ -119,10 +119,10 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 2000+ Stars: 🔥🔥🔥🔥🔥
 ```
 
-`pull`
+Option to open create a pull request at the end of a `frankenstein` run
 
 ```shell
-$ frankenstein fastlane/sigh pull # create a pull request replacing redirects
+$ frankenstein fastlane/sigh
 
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
 🔎  Checking 23 links
@@ -133,12 +133,9 @@ $ frankenstein fastlane/sigh pull # create a pull request replacing redirects
 https://github.com/KrauseFx/fastlane redirects to
 https://github.com/fastlane/fastlane
 #...
-Would you like to open a pull request to update the redirects? (y/n) y
+Next? (pull | gist | tweet [-h] [message] | enter to end) pull
 Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
-
-🕐  Time elapsed: 12.3 seconds
-#...
 ```
 
 Example uses of `frankenstein` with `pull` option:

@@ -258,18 +258,6 @@ module Frankenstein
 
   puts "Wrote log to #{file_log.white}"
 
-  if option_pull_request
-    m = 'Would you like to open a pull request to update the redirects? (y/n) '
-    print m
-    user_input = STDIN.gets.chomp
-
-    if user_input.downcase == 'y'
-      log.add "\nCreating pull request on GitHub for #{argv1} ...".white
-      p = github_pull_request(argv1, default_branch, readme, file_updated, log)
-      log.add "Pull request created: #{p}".white
-    end # user input
-  end # option pull request
-
   elapsed_seconds = Time.now - elapsed_time_start
   log.verbose "Elapsed time in seconds: #{elapsed_seconds}"
 
@@ -299,12 +287,17 @@ module Frankenstein
     option_happy = '-h'
     option_gist = 'gist'
     option_tweet = 'tweet'
-    m = "\nShare results? (#{option_gist.white} | "\
-        "#{option_tweet.white} [#{option_happy.white}] [message] | n) "
+    m = "\nNext? (#{OPTION_PULL_REQUEST.white} | #{option_gist.white} | "\
+        "#{option_tweet.white} [#{option_happy.white}] [message] | "\
+        'enter to end) '
     print m
     user_input = STDIN.gets.chomp
 
-    if user_input.downcase == option_gist or user_input.include? option_tweet
+    if user_input.downcase == OPTION_PULL_REQUEST
+      log.add "\nCreating pull request on GitHub for #{argv1} ...".white
+      p = github_pull_request(argv1, default_branch, readme, file_updated, log)
+      log.add "Pull request created: #{p}".white
+    elsif user_input.downcase == option_gist or user_input.include? option_tweet
       gist_url, = Frankenstein.github_create_gist file_log, true
 
       if user_input.include? option_tweet

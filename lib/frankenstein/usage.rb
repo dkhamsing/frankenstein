@@ -13,7 +13,6 @@ module Frankenstein
           "#{PRODUCT.green} <#{all_argv1}> "\
       "[-#{cli_all_flags.join.blue}] "\
       "[#{OPTION_HEAD.blue}] "\
-      "[#{OPTION_PULL_REQUEST.blue}] "\
       "[#{OPTION_STARS.blue}] "\
       "[#{OPTION_THREADS.blue}=d] "\
       "[#{OPTION_WHITE_LIST.blue}=s] "\
@@ -27,8 +26,6 @@ module Frankenstein
       "   #{FLAG_GITHUB_STARS.blue} \t\t #{FLAG_GITHUB_USAGE} \n"\
       "   #{FLAG_VERBOSE.blue} \t\t #{FLAG_VERBOSE_USAGE} \n"\
       "\n   #{OPTION_HEAD.blue} \t Make head requests only \n"\
-      "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated "\
-      "redirects \n"\
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
