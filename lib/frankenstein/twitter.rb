@@ -18,6 +18,10 @@ module Frankenstein
   class << self
     require 'twitter'
 
+    def twitter_frankenstein_tweet(project, gist_url, user_input)
+      "🏃 frankenstein for #{project} #{gist_url} #{user_input} "
+    end
+
     def twitter_client
       config = twitter_config
       Twitter::REST::Client.new(config)
@@ -40,6 +44,11 @@ module Frankenstein
 
     def twitter_random_happy_emoji
       HAPPY_EMOJIS.sample
+    end
+
+    def twitter_tweet_url(client, tweet)
+      username = client.current_user.screen_name
+      "https://twitter.com/#{username}/status/#{tweet.id}"
     end
   end # class
 end

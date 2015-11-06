@@ -61,13 +61,13 @@ module Announce
 
     user_input = ARGV[2..ARGV.count].join ' '
 
-    tweet = "🏃 frankenstein for #{project} #{gist_url} #{user_input} "
+    tweet = Frankenstein.twitter_frankenstein_tweet(project, gist_url,
+                                                    user_input)
     option_happy = ARGV.include? OPTION_HAPPY
     tweet << Frankenstein.twitter_random_happy_emoji if option_happy
     t = client.update tweet
 
-    username = client.current_user.screen_name
-    tweet_url = "https://twitter.com/#{username}/status/#{t.id}"
+    tweet_url = Frankenstein.twitter_tweet_url(client, t)
     puts "  🐦 Tweet sent #{tweet_url.blue}"
   end
 end
