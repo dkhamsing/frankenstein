@@ -10,12 +10,16 @@ module GistLog
 
   argv1 = ARGV[0]
   if argv1.nil?
-    m = "#{PRODUCT.blue} #{'Upload a log to GitHub gist'.white} "\
-        "requires credentials in .netrc\n"\
+    m = "#{PRODUCT.blue} #{'Upload a log to GitHub gist'.white} \n"\
         "#{LEADING_SPACE}"\
-        "Usage: #{PRODUCT.blue} <#{'file'.white}> [#{OPTION_TWEET.white}] \n"\
-
+        "Usage: #{PRODUCT.blue} <#{'file'.white}> "\
+        "[#{OPTION_TWEET.white} message] \n"\
+        "#{LEADING_SPACE}       "\
+        "tweeting is optional \n\n"\
+        "#{LEADING_SPACE}"\
+        "#{PRODUCT} requires credentials in .netrc "
     puts m
+    puts "\n"
     exit
   end
 
