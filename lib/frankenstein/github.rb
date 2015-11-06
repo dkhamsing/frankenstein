@@ -37,7 +37,7 @@ module Frankenstein
       html_url = r[:html_url]
       gputs "🎉 gist created: #{html_url.white}"
 
-      html_url
+      [html_url, filename]
     end
 
     def github_fork(client, repo)
@@ -174,6 +174,6 @@ module Frankenstein
 
     def gputs(m)
       puts "  #{m}"
-    end    
+    end
   end # class
 end
