@@ -6,7 +6,8 @@ module Frankenstein
       @verbose = opt_verbose
 
       epoch = Time.now.to_i
-      filtered_argv1 = argv1.gsub(%r{(:|\/)}, '-')
+      filtered_argv1 = argv1.gsub(%r{https?://}, '')
+                       .gsub(%r{(\.|\/)}, '-').downcase
       today = Date.today
       @identifier = "#{epoch}-#{today}-#{filtered_argv1}"
 
