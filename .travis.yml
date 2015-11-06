@@ -6,10 +6,10 @@ before_script:
   - bundle install
 script:  
   - frankenstein
-  - frankenstein bin/assets/test-readme -v threads=0
-  - frankenstein bin/assets/test-no-links -v
-  - frankenstein bin/assets/test-white-list -v head
-  - frankenstein dkhamsing/ios-asset-names -mv log 
-  - frankenstein fastlane/fastlane.tools -v threads=8
-  - frankenstein dkhamsing/frankenstein -v threads=10
-  - frankenstein http://dkhamsing.github.io/ -v
+  - frankenstein bin/assets/test-readme -v threads=0 travis
+  - frankenstein bin/assets/test-no-links -v travis
+  - frankenstein bin/assets/test-white-list -v head travis
+  - frankenstein dkhamsing/ios-asset-names -mv log travis
+  - frankenstein fastlane/fastlane.tools -v threads=8 travis
+  - frankenstein dkhamsing/frankenstein -v threads=10 travis
+  - frankenstein http://dkhamsing.github.io/ -v travis

@@ -287,7 +287,7 @@ module Frankenstein
       m = "#{em_status_red} #{failures.count} "\
           "#{pluralize 'failure', failures.count} for #{argv1.blue}"
       log.add m.red
-      exit(1)
+      # exit(1)
     end
   end
 
@@ -295,26 +295,33 @@ module Frankenstein
 
   # TODO: check for twitter creds
 
-  option_happy = '-h'
-  option_gist = 'gist'
-  option_tweet = 'tweet'
-  m = "\nShare results? (#{option_gist.white} | "\
-      "#{option_tweet.white} [#{option_happy.white}] [message] | n) "
-  print m
-  user_input = STDIN.gets.chomp
+  if not ARGV.include? 'travis'
+    option_happy = '-h'
+    option_gist = 'gist'
+    option_tweet = 'tweet'
+    m = "\nShare results? (#{option_gist.white} | "\
+        "#{option_tweet.white} [#{option_happy.white}] [message] | n) "
+    print m
+    user_input = STDIN.gets.chomp
 
-  if user_input.downcase == option_gist or user_input.include? option_tweet
-    gist_url, = Frankenstein.github_create_gist file_log, true
+    if user_input.downcase == option_gist or user_input.include? option_tweet
+      gist_url, = Frankenstein.github_create_gist file_log, true
 
-    if user_input.include? option_tweet
-      client = twitter_client
-      message = user_input.gsub(option_tweet, '').tr(option_happy, '').strip
-      tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
-                                                      message)
-      option_happy = user_input.include? option_happy
-      tweet << Frankenstein.twitter_random_happy_emoji if option_happy
-      t = client.update tweet
-      twitter_log Frankenstein.twitter_tweet_url(client, t)
-    end # if user_input.downcase == 't'
-  end # user input == y
+      if user_input.include? option_tweet
+        client = twitter_client
+        message = user_input.gsub(option_tweet, '').tr(option_happy, '').strip
+        tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
+                                                        message)
+        option_happy = user_input.include? option_happy
+        tweet << Frankenstein.twitter_random_happy_emoji if option_happy
+        t = client.update tweet
+        twitter_log Frankenstein.twitter_tweet_url(client, t)
+      end # if user_input.downcase == 't'
+    end # user input == y
+  end
+
+  if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
+  else
+    exit(1)
+  end
 end # module
