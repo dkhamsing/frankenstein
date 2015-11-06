@@ -18,8 +18,10 @@ module Frankenstein
   class << self
     require 'twitter'
 
-    def twitter_frankenstein_tweet(project, gist_url, user_input)
-      "🏃 frankenstein for #{project} #{gist_url} #{user_input} "
+    def twitter_frankenstein_tweet(project, gist_url, user_input, happy)
+      t = "🏃 frankenstein for #{project} #{gist_url} #{user_input} "
+      t << Frankenstein.twitter_random_happy_emoji if happy
+      t
     end
 
     def twitter_client

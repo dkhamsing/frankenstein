@@ -61,10 +61,9 @@ module Announce
 
     user_input = ARGV[2..ARGV.count].join ' '
 
+    happy = ARGV.include? OPTION_HAPPY
     tweet = Frankenstein.twitter_frankenstein_tweet(project, gist_url,
-                                                    user_input)
-    option_happy = ARGV.include? OPTION_HAPPY
-    tweet << Frankenstein.twitter_random_happy_emoji if option_happy
+                                                    user_input, happy)
     t = client.update tweet
 
     Frankenstein.twitter_log Frankenstein.twitter_tweet_url(client, t)

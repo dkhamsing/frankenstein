@@ -310,10 +310,10 @@ module Frankenstein
       if user_input.include? option_tweet
         client = twitter_client
         message = user_input.gsub(option_tweet, '').tr(option_happy, '').strip
+
+        happy = user_input.include? option_happy
         tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
-                                                        message)
-        option_happy = user_input.include? option_happy
-        tweet << Frankenstein.twitter_random_happy_emoji if option_happy
+                                                        message, happy)
         t = client.update tweet
         twitter_log Frankenstein.twitter_tweet_url(client, t)
       end # if user_input.downcase == 't'
