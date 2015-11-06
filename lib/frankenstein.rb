@@ -320,11 +320,6 @@ module Frankenstein
     end # user input == y
   end
 
-  if failures.count == 0
-  else
-    if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
-    else
-      exit(1)
-    end
-  end
+  exit(1) if ((failures.count > 0) ||
+  ((failures.count == 1) && (failures.include? CONTROLLED_ERROR)))
 end # module
