@@ -46,14 +46,18 @@ module GistLog
     client = Frankenstein.twitter_client
     separator = '-'
     a = filename.split separator
-    project = a[4..a.count].join(separator).gsub('frankenstein', '')
+    project = a[4..a.count].join(separator).gsub('frankenstein', '')[0...-1]
+              .sub('-', '/')
 
-    m = 'Add to a tweet (@ mention?): '
+    m = 'Add to the tweet (@ mention, comment): '
     print m
     user_input = STDIN.gets.chomp
 
-    tweet = "🏃 frankenstein for #{project[0...-1]} #{gist_url} " << user_input
+    tweet = "🏃 frankenstein for #{project} #{gist_url} " << user_input
     t = client.update tweet
-    puts "  🐦 Tweet sent #{t}"
+
+    username = client.current_user.screen_name
+    tweet_url = "https://twitter.com/#{username}/status/#{t.id}"
+    puts "  🐦 Tweet sent #{tweet_url.blue}"
   end
 end
