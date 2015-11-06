@@ -262,8 +262,7 @@ module Frankenstein
 
     if user_input.downcase == 'y'
       log.add "\nCreating pull request on GitHub for #{argv1} ...".white
-      p = github_pull_request(github_client, argv1, default_branch, readme,
-                              file_updated, log)
+      p = github_pull_request(argv1, default_branch, readme, file_updated, log)
       log.add "Pull request created: #{p}".white
     end # user input
   end # option pull request

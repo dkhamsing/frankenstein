@@ -54,11 +54,12 @@ module Frankenstein
       n[0]
     end
 
-    def github_pull_request(github, repo, branch, readme, filename, log)
+    def github_pull_request(repo, branch, readme, filename, log)
       forker = github_netrc_username
       fork = repo.gsub(%r{.*\/}, "#{forker}/")
       log.verbose "Fork: #{fork}"
 
+      github = github_client
       github_fork(github, repo)
 
       # check fork has been created
