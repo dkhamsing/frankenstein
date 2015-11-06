@@ -95,6 +95,8 @@ module Frankenstein
       log.verbose "Updated ref: #{updated_ref}"
       log.verbose "Sent commit to fork #{fork}"
 
+      sleep 1 # sad
+
       # create pull request
       head = "#{forker}:#{branch}"
       log.verbose "Set head to #{head}"
