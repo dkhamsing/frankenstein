@@ -7,6 +7,7 @@ require 'frankenstein/io'
 require 'frankenstein/log'
 require 'frankenstein/network'
 require 'frankenstein/output'
+require 'frankenstein/twitter'
 require 'frankenstein/usage'
 require 'frankenstein/version'
 
@@ -291,4 +292,29 @@ module Frankenstein
   end
 
   log.file_write "\nCreated with #{PROJECT_URL} \n"
+
+  # TODO: check for twitter creds
+
+  option_happy = '-h'
+  option_gist = 'gist'
+  option_tweet = 'tweet'
+  m = "\nShare results? (#{option_gist.white} | "\
+      "#{option_tweet.white} [#{option_happy.white}] [message] | n) "
+  print m
+  user_input = STDIN.gets.chomp
+
+  if user_input.downcase == option_gist or user_input.include? option_tweet
+    gist_url, filename = Frankenstein.github_create_gist file_log, true
+
+    if user_input.include? option_tweet
+      client = twitter_client
+      message = user_input.gsub(option_tweet, '').tr(option_happy, '').strip
+      tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
+                                                      message)
+      option_happy = user_input.include? option_happy
+      tweet << Frankenstein.twitter_random_happy_emoji if option_happy
+      t = client.update tweet
+      twitter_log Frankenstein.twitter_tweet_url(client, t)
+    end # if user_input.downcase == 't'
+  end # user input == y
 end # module

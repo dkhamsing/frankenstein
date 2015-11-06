@@ -42,6 +42,10 @@ module Frankenstein
       }
     end
 
+    def twitter_log(message)
+      puts "  🐦 Tweet sent #{message.blue}"
+    end
+
     def twitter_random_happy_emoji
       HAPPY_EMOJIS.sample
     end

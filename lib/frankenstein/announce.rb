@@ -44,7 +44,7 @@ module Announce
   end
 
   unless File.exist? argv1
-    puts "File #{argv1.white} does not exist"
+    puts "#{PRODUCT.red} File #{argv1.white} does not exist"
     exit(1)
   end
 
@@ -67,7 +67,6 @@ module Announce
     tweet << Frankenstein.twitter_random_happy_emoji if option_happy
     t = client.update tweet
 
-    tweet_url = Frankenstein.twitter_tweet_url(client, t)
-    puts "  🐦 Tweet sent #{tweet_url.blue}"
+    Frankenstein.twitter_log Frankenstein.twitter_tweet_url(client, t)
   end
 end
