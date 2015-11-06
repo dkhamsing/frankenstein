@@ -304,7 +304,7 @@ module Frankenstein
   user_input = STDIN.gets.chomp
 
   if user_input.downcase == option_gist or user_input.include? option_tweet
-    gist_url, filename = Frankenstein.github_create_gist file_log, true
+    gist_url, = Frankenstein.github_create_gist file_log, true
 
     if user_input.include? option_tweet
       client = twitter_client
