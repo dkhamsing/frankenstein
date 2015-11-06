@@ -1,6 +1,11 @@
 # Process cli: command line interface
 module Frankenstein
   class << self
+    def cli_filter_github(argv1)
+      repo = argv1.gsub(%r{https?:\/\/github.com\/}, '')
+      ((repo.count '/').to_i == 1) ? repo : argv1
+    end
+
     def cli_get_github(option_github_stars_only, argv_flags)
       if option_github_stars_only
         true

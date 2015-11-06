@@ -34,6 +34,8 @@ module Frankenstein
   file_redirects = log.filename(FILE_REDIRECTS)
   file_log = log.filelog
 
+  argv1 = cli_filter_github(argv1)
+
   option_github_stars_only,
   option_head,
   option_pull_request,
