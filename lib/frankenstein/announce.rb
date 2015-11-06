@@ -47,14 +47,13 @@ module Announce
 
   if option_tweet
     client = Frankenstein.twitter_client
+
     separator = '-'
     a = filename.split separator
     project = a[4..a.count].join(separator).gsub('frankenstein', '')[0...-1]
-              .sub('-', '/')
+              .sub(separator, '/')
 
-    m = 'Add to the tweet (@ mention, comment): '
-    print m
-    user_input = STDIN.gets.chomp
+    user_input = ARGV[2..ARGV.count].join ' '
 
     tweet = "🏃 frankenstein for #{project} #{gist_url} " << user_input
     t = client.update tweet
