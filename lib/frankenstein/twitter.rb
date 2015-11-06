@@ -3,6 +3,18 @@ module Frankenstein
   NETRC_TWITTER_CONSUMER = 'consumer.twitter'
   NETRC_TWITTER_ACCESS = 'access.twitter'
 
+  HAPPY_EMOJIS = [
+    '😎',
+    '🎉',
+    '😉',
+    '😀',
+    '😄',
+    '😄',
+    '☺️',
+    '🙃',
+    '👏'
+  ]
+
   class << self
     require 'twitter'
 
@@ -16,8 +28,7 @@ module Frankenstein
       consumer = n[NETRC_TWITTER_CONSUMER]
       access = n[NETRC_TWITTER_ACCESS]
 
-      # return nil unless consumer.nil?
-      # return nil unless access.nil?
+      # TODO: netrc missing
 
       {
         consumer_key:        consumer[0],
@@ -25,6 +36,10 @@ module Frankenstein
         access_token:        access[0],
         access_token_secret: access[1]
       }
+    end
+
+    def twitter_random_happy_emoji
+      HAPPY_EMOJIS.sample
     end
   end # class
 end

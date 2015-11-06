@@ -5,17 +5,22 @@ module Announce
   require 'frankenstein/twitter'
 
   PRODUCT = 'announce'
+  OPTION_HAPPY = '-h'
   OPTION_TWEET = 'tweet'
+
   LEADING_SPACE = '         '
+  SPACE_ARGS    = "#{LEADING_SPACE} \t\t"
 
   argv1 = ARGV[0]
   if argv1.nil?
     m = "#{PRODUCT.blue} #{'Upload a log to GitHub gist'.white} "\
-        "(optionally tweet about it) \n"\
-        "#{LEADING_SPACE}"\
+        "\n#{LEADING_SPACE}"\
         "Usage: #{PRODUCT.blue} <#{'file'.white}> "\
-        "[#{OPTION_TWEET.white} message] \n\n"\
-        "#{LEADING_SPACE}"\
+        "[#{OPTION_HAPPY.white}] "\
+        "[#{OPTION_TWEET.white} message] \n"\
+        "#{SPACE_ARGS} #{OPTION_TWEET} \t Tweet a message (optional) \n"\
+        "#{SPACE_ARGS} #{OPTION_HAPPY} \t Make the tweet happy 🎉 \n"\
+        "\n#{LEADING_SPACE}"\
         "#{PRODUCT} requires credentials in .netrc "
     puts m
     puts "\n"
@@ -50,12 +55,15 @@ module Announce
 
     separator = '-'
     a = filename.split separator
-    project = a[4..a.count].join(separator).gsub('frankenstein', '')[0...-1]
-              .sub(separator, '/')
+    project = a[4..a.count].join(separator).sub(separator, '/')
+    fr = 'frankenstein'
+    project = project.gsub(fr, '')[0...-1] if project.include? fr
 
     user_input = ARGV[2..ARGV.count].join ' '
 
-    tweet = "🏃 frankenstein for #{project} #{gist_url} " << user_input
+    tweet = "🏃 frankenstein for #{project} #{gist_url} #{user_input} "
+    option_happy = ARGV.include? OPTION_HAPPY
+    tweet << Frankenstein.twitter_random_happy_emoji if option_happy
     t = client.update tweet
 
     username = client.current_user.screen_name
