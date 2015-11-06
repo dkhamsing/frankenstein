@@ -119,7 +119,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 2000+ Stars: 🔥🔥🔥🔥🔥
 ```
 
-Option to open create a pull request at the end of a `frankenstein` run
+`frankenstein` can also open a pull request to update redirects:
 
 ```shell
 $ frankenstein fastlane/sigh
@@ -138,7 +138,7 @@ Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 ```
 
-Example uses of `frankenstein` with `pull` option:
+Example pull requests by `frankenstein`:
 
 - https://github.com/fastlane/sigh/pull/195
 - https://github.com/kylef/Commander/pull/14
@@ -148,6 +148,25 @@ Example uses of `frankenstein` with `pull` option:
 - https://github.com/airbnb/javascript/pull/564
 - https://github.com/hangtwenty/dive-into-machine-learning/pull/14
 - more https://twitter.com/frankenb0t
+
+`frankenstein` can create a gist of the results and send a tweet out:
+
+```shell
+$ frankenstein johnno1962/GitDiff
+
+Finding default branch for johnno1962/GitDiff
+Found: master for johnno1962/GitDiff — Highlights deltas against git repo in Xcode — 645⭐️  — last updated 1 day ago
+🏃  Processing links for https://raw.githubusercontent.com/johnno1962/GitDiff/master/README.md ...
+🔎  Checking 4 links
+#...
+Next? (pull | gist | tweet [-h] [message] | enter to end) tweet no failures @Injection4Xcode 🎉           
+🏃 Creating a gist for 1446854221-2015-11-06-johnno1962-GitDiff.frankenstein
+  Reading content
+  Creating GitHub client
+  Client creating gist
+  🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
+  🐦 Tweet sent https://twitter.com/frankenb0t/status/662781085479137280
+```
 
 #### White list
 
