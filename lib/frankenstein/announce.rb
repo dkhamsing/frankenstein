@@ -1,21 +1,20 @@
 # Create a gist from log
-module GistLog
+module Announce
   require 'colored'
   require 'frankenstein/github'
   require 'frankenstein/twitter'
 
-  PRODUCT = 'gistlog'
+  PRODUCT = 'announce'
   OPTION_TWEET = 'tweet'
-  LEADING_SPACE = '        '
+  LEADING_SPACE = '         '
 
   argv1 = ARGV[0]
   if argv1.nil?
-    m = "#{PRODUCT.blue} #{'Upload a log to GitHub gist'.white} \n"\
+    m = "#{PRODUCT.blue} #{'Upload a log to GitHub gist'.white} "\
+        "(optionally tweet about it) \n"\
         "#{LEADING_SPACE}"\
         "Usage: #{PRODUCT.blue} <#{'file'.white}> "\
-        "[#{OPTION_TWEET.white} message] \n"\
-        "#{LEADING_SPACE}       "\
-        "tweeting is optional \n\n"\
+        "[#{OPTION_TWEET.white} message] \n\n"\
         "#{LEADING_SPACE}"\
         "#{PRODUCT} requires credentials in .netrc "
     puts m
