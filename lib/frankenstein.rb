@@ -295,7 +295,7 @@ module Frankenstein
 
   # TODO: check for twitter creds
 
-  if not ARGV.include? 'travis'
+  unless ARGV.include? 'travis'
     option_happy = '-h'
     option_gist = 'gist'
     option_tweet = 'tweet'
@@ -320,8 +320,11 @@ module Frankenstein
     end # user input == y
   end
 
-  if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
+  if failures.count == 0
   else
-    exit(1)
+    if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
+    else
+      exit(1)
+    end
   end
 end # module
