@@ -247,7 +247,7 @@ module Frankenstein
       end # redirects.each
 
       File.open(file_updated, 'w') do |ff|
-        log.add "Wrote redirects replaced to #{file_updated.white}"
+        puts "Wrote redirects replaced to #{file_updated.white}"
         ff.write(replaced)
       end
     end # File.open(FILE_TEMP, 'a+') { |f|
