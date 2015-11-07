@@ -107,14 +107,14 @@ $ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and sk
 $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking URLs
 
 # ...
-🔎  Checking 350 links
-1/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/issues
-2/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/pulls
-# ...
-🔎  Getting information for 228 GitHub repos
-⭐️  311 kenshin03/Cherry 🔥 🔥  last updated 4 months ago
-⭐️  18 neonichu/CoolSpot  last updated 5 months ago
-⭐️  2312 pcqpcq/open-source-android-apps 🔥 🔥 🔥 🔥 🔥  last updated 4 days ago
+🔎  Getting information for 239 GitHub repos
+⭐️  143 artsy/Emergence 🔥  last updated 4 days ago
+⭐️  19 neonichu/CoolSpot  last updated 5 months ago
+⭐️  138 lazerwalker/cortado 🔥  last updated 3 months ago
+⭐️  931 Dimillian/SwiftHN 🔥 🔥 🔥  last updated 5 months ago
+⭐️  1947 austinzheng/swift-2048 🔥 🔥 🔥 🔥  last updated 13 days ago
+⭐️  1482 ericjohnson/canabalt-ios 🔥 🔥 🔥 🔥  last updated 51 months ago
+⭐️  264 jpsim/CardsAgainst 🔥 🔥  last updated 12 days ago
 # ...
 ```
 
