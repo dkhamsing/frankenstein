@@ -142,7 +142,7 @@ Found: master for fastlane/sigh — Because you would rather spend your time bui
 https://github.com/KrauseFx/fastlane redirects to
 https://github.com/fastlane/fastlane
 #...
-Next? (pull | gist | tweet [-h] [message] | enter to end) pull
+Next? (pull request | gist | tweet [-h] [message] | enter to end) p
 Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 ```
@@ -168,7 +168,7 @@ Found: master for johnno1962/GitDiff — Highlights deltas against git repo in X
 🏃  Processing links for https://raw.githubusercontent.com/johnno1962/GitDiff/master/README.md ...
 🔎  Checking 4 links
 #...
-Next? (pull | gist | tweet [-h] [message] | enter to end) tweet no failures @Injection4Xcode 🎉           
+Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures @Injection4Xcode 🎉           
 🏃 Creating a gist for 1446854221-2015-11-06-johnno1962-GitDiff.frankenstein
   Reading content
   Creating GitHub client
