@@ -278,7 +278,8 @@ module Frankenstein
     end
   end
 
-  log.file_write "\nCreated with #{PROJECT_URL} \n"
+  m = "\nCreated with #{PROJECT_URL} #{Time.now.strftime("%b %d, %Y")} \n"
+  log.file_write m
 
   # TODO: check for twitter creds
 
