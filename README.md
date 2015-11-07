@@ -23,7 +23,7 @@ bundle install
 ## Usage
 
 ```shell
-frankenstein <url|file|github repo> [-fmzv] [head] [repo] [threads=d] [wl=s]
+frankenstein <url|file|github repo> [-fmzv] [head] [repo] [threads=d] [wl=s1^s2]
 ```
 
 ### Examples
