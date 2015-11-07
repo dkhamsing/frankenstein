@@ -197,7 +197,7 @@ before_script:
   - cd frankenstein-1.0-wip
   - bundle install
 script:  
-  - frankenstein ../README.md
+  - frankenstein ../README.md travis # skip prompt at end of run
 ```
 
 ## Credits
