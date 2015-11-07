@@ -15,7 +15,7 @@ module Frankenstein
       "[#{OPTION_HEAD.blue}] "\
       "[#{OPTION_STARS.blue}] "\
       "[#{OPTION_THREADS.blue}=d] "\
-      "[#{OPTION_WHITE_LIST.blue}=s] "\
+      "[#{OPTION_WHITE_LIST.blue}=s1^s2..] "\
       "[#{OPTION_SKIP.blue}] "\
       "\n"\
       "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
