@@ -165,7 +165,7 @@ Next? (pull | gist | tweet [-h] [message] | enter to end) tweet no failures @Inj
   Creating GitHub client
   Client creating gist
   🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
-  🐦 Tweet sent https://twitter.com/frankenb0t/status/662781085479137280
+  🐦 Tweet sent: https://twitter.com/frankenb0t/status/662781085479137280
 ```
 
 #### White list
