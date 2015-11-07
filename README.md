@@ -47,7 +47,7 @@ $ frankenstein https://fastlane.tools # URL
 https://t.co/an02Vvi8Tl redirects to
 https://github.com/fastlane/snapshot
 # ...
-Wrote log to logs/1446751796-2015-11-05-https---fastlane.tools.frankenstein
+Wrote log to logs/1446869147-2015-11-06-fastlane.tools.frankenstein
 
 🕐  Time elapsed: 17.51 seconds
 
@@ -62,28 +62,33 @@ Wrote log to logs/1446751796-2015-11-05-https---fastlane.tools.frankenstein
 ```
 
 ```shell
-$ frankenstein dkhamsing/open-source-ios-apps # GitHub repo
-$ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
+$ frankenstein dkhamsing/open-source-ios-apps # check URLs in a GitHub repo readme
+$ frankenstein https://github.com/ccgus/fmdb
 
-🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
-🔎  Checking 351 links
-1/351 	 🔴 404 https://github.com/dkhamsing/controlled/error # controlled failure
-2/351 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/issues
-3/351 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/pulls
+Finding default branch for ccgus/fmdb
+Found: master for ccgus/fmdb — A Cocoa / Objective-C wrapper around SQLite — 8025⭐️  — last updated 1 day ago
+🏃  Processing links for https://raw.githubusercontent.com/ccgus/fmdb/master/README.markdown ...
+🔎  Checking 14 links
+✅  http://www.sqlite.org/docs.html
+✅  http://sqlite.org/
+✅  http://www.sqlite.org/faq.html
+⚪  301 http://groups.google.com/group/fmdb
 # ...
 ```
 
 ```shell
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 
-🏃  Processing links on https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
-🔎  Checking 456 links:
-✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
+Found: master for matteocrippa/awesome-swift — A collaborative list of awesome swift resources. Feel free to contribute! — 4981⭐️  — last updated 1 day ago
+🏃  Processing links for https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
+🔎  Checking 470 links
+✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
 # ...
 ```
 
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
+$ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
 $ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some URLs may be misreported as errors using this option 😕)
 $ frankenstein dkhamsing/open-source-ios-apps -fv head # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
@@ -99,7 +104,7 @@ Getting repo information / creating a pull request for redirects require a GitHu
 $ frankenstein dkhamsing/open-source-ios-apps repo # get GitHub info only and skip checking URLs
 $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checking URLs
 
-🏃  Processing links on https://raw.githubusercontent.com/dkhamsing/open-source-ios-apps/master/README.md ...
+# ...
 🔎  Checking 350 links
 1/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/issues
 2/350 	 ✅   https://github.com/dkhamsing/open-source-ios-apps/pulls
@@ -124,10 +129,12 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 ```shell
 $ frankenstein fastlane/sigh
 
+Finding default branch for fastlane/sigh
+Found: master for fastlane/sigh — Because you would rather spend your time building stuff than fighting provisioning — 864⭐️  — last updated 8 days ago
 🏃  Processing links for https://raw.githubusercontent.com/fastlane/sigh/master/README.md ...
-🔎  Checking 23 links
-1/23 	 🔶  301 https://github.com/KrauseFx/fastlane
-2/23 	 🔶  301 https://github.com/KrauseFx/deliver
+🔎  Checking 21 links
+🔶  301 https://github.com/KrauseFx/fastlane
+🔶  301 https://github.com/KrauseFx/deliver
 #...
 🔶  10 redirects
 https://github.com/KrauseFx/fastlane redirects to
@@ -178,7 +185,7 @@ $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, s
 
 ### Travis
 
-- You can use `frankenstein` with [Travis](https://travis-ci.org/) to validate commits on GitHub.
+- You can use `frankenstein` with [Travis](https://travis-ci.org/) to validate commits on GitHub (option `travis`).
 - Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
   - https://github.com/dkhamsing/open-source-ios-apps/pull/139
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
@@ -197,7 +204,7 @@ before_script:
   - cd frankenstein-1.0-wip
   - bundle install
 script:  
-  - frankenstein ../README.md travis # skip prompt at end of run
+  - frankenstein ../README.md travis
 ```
 
 ## Credits
