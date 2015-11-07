@@ -28,16 +28,17 @@ frankenstein <url|file|github repo> [-fmzv] [head] [repo] [threads=d] [wl=s1^s2]
 
 ### Examples
 
-See some actual example runs [here](https://gist.github.com/frankenbot) 🏃
+See some example runs [here](https://gist.github.com/frankenbot) 🏃
 
 ```shell
 $ frankenstein README.md # file on disk
 $ frankenstein https://fastlane.tools # URL
 
-🏃  Processing links on https://fastlane.tools ...
+🏃  Processing links for https://fastlane.tools ...
 🔎  Checking 50 links
-1/50 	 ✅   https://github.com/krausefx/fastlane
-2/50 	 ✅   https://github.com/KrauseFx/fastlane
+✅  http://gradle.org/
+✅  https://cocoapods.org
+✅  https://github.com/fastlane/fastlane
 # ...
 📋  frankenstein results: 4 issues (8%)
    (4 of 50 links)
@@ -89,14 +90,14 @@ Found: master for matteocrippa/awesome-swift — A collaborative list of awesome
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
 $ frankenstein dkhamsing/open-source-ios-apps -f # add a controlled failure
-$ frankenstein dkhamsing/open-source-ios-apps head # head requests only (use this option to speed up frankenstein, some URLs may be misreported as errors using this option 😕)
+$ frankenstein dkhamsing/open-source-ios-apps head # make head requests to speed up frankenstein, some pages block these though and get reported as errors 😕
 $ frankenstein dkhamsing/open-source-ios-apps -fv head # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
 
 #### GitHub
 
-Getting repo information / creating a pull request for redirects require a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+Integration with GitHub (repo information, pull request, gists) requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
 `-z` `repo`
 
@@ -174,6 +175,8 @@ Next? (pull | gist | tweet [-h] [message] | enter to end) tweet no failures @Inj
   🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
   🐦 Tweet sent: https://twitter.com/frankenb0t/status/662781085479137280
 ```
+
+Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb).
 
 #### White list
 
