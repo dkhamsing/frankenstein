@@ -283,7 +283,7 @@ module Frankenstein
 
   # TODO: check for twitter creds
 
-  unless ARGV.include? 'no-prompt'
+  unless ARGV.include? OPTION_SKIP
     option_happy = '-h'
     option_gist = 'gist'
     option_tweet = 'tweet'

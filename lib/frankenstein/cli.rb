@@ -31,8 +31,8 @@ module Frankenstein
       [
         FLAG_FAIL,
         FLAG_MINIMIZE_OUTPUT,
-        FLAG_GITHUB_STARS,
-        FLAG_VERBOSE
+        FLAG_VERBOSE,
+        FLAG_GITHUB_STARS
       ]
     end
 

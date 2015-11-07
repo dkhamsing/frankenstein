@@ -27,7 +27,7 @@ module Frankenstein
 
   OPTION_HEAD = 'head'
   OPTION_PULL_REQUEST = 'pull'
-  OPTION_ROW = 'toremove:-()'
+  OPTION_SKIP = 'no-prompt'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
   OPTION_WHITE_LIST = 'wl'
