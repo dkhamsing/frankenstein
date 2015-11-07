@@ -80,6 +80,7 @@ Found: master for ccgus/fmdb — A Cocoa / Objective-C wrapper around SQLite —
 ```shell
 $ frankenstein matteocrippa/awesome-swift -m # minimized result output
 
+Finding default branch for matteocrippa/awesome-swift
 Found: master for matteocrippa/awesome-swift — A collaborative list of awesome swift resources. Feel free to contribute! — 4981⭐️  — last updated 1 day ago
 🏃  Processing links for https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
 🔎  Checking 470 links
@@ -97,7 +98,7 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threa
 
 #### GitHub
 
-Integration with GitHub (repo information, pull request, gists) requires a GitHub account with username and passwords set in a [.netrc file](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+Integration with GitHub (repo information, pull request, gists) requires a GitHub account with username and passwords set in [.netrc](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
 `-z` `repo`
 
@@ -194,7 +195,7 @@ $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, s
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87774588
 
-`.travis.yml` file
+`.travis.yml` sample file:
 
 ```
 language: ruby
