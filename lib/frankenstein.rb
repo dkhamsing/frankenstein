@@ -39,7 +39,6 @@ module Frankenstein
 
   option_github_stars_only,
   option_head,
-  option_pull_request,
   option_white_list,
   flag_control_failure,
   flag_fetch_github_stars,
@@ -52,7 +51,7 @@ module Frankenstein
   m = "Option white list: #{option_white_list}"
   log.verbose m unless option_white_list.nil?
 
-  if flag_fetch_github_stars || option_pull_request
+  if flag_fetch_github_stars
     creds = github_netrc
     if creds.nil?
       error.log 'Missing GitHub credentials in .netrc'
@@ -285,15 +284,16 @@ module Frankenstein
 
   unless ARGV.include? OPTION_SKIP
     option_happy = '-h'
-    option_gist = 'gist'
-    option_tweet = 'tweet'
-    m = "\nNext? (#{OPTION_PULL_REQUEST.white} | #{option_gist.white} | "\
-        "#{option_tweet.white} [#{option_happy.white}] [message] | "\
+    option_gist = 'g'
+    option_tweet = 't'
+    option_pull = 'p'
+    m = "\nNext? (#{option_pull.white}ull request | #{option_gist.white}ist | "\
+        "#{option_tweet.white}weet [#{option_happy.white}] [message] | "\
         'enter to end) '
     print m
     user_input = STDIN.gets.chomp
 
-    if user_input.downcase == OPTION_PULL_REQUEST
+    if user_input.downcase == option_pull
       log.add "\nCreating pull request on GitHub for #{argv1} ...".white
       p = github_pull_request(argv1, default_branch, readme, file_updated, log)
       log.add "Pull request created: #{p}".white
