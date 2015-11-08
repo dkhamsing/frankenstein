@@ -49,6 +49,10 @@ module Frankenstein
       n[NETRC_GITHUB_MACHINE]
     end
 
+    def github_creds
+      !(github_netrc.nil?)
+    end
+
     def github_netrc_username
       n = github_netrc
       n[0]

@@ -51,12 +51,9 @@ module Frankenstein
   m = "Option white list: #{option_white_list}"
   log.verbose m unless option_white_list.nil?
 
-  if flag_fetch_github_stars
-    creds = github_netrc
-    if creds.nil?
-      error.log 'Missing GitHub credentials in .netrc'
-      exit(1)
-    end
+  if flag_fetch_github_stars && !github_creds
+    log.error 'Missing GitHub credentials in .netrc'
+    exit(1)
   end
 
   # start
@@ -283,7 +280,7 @@ module Frankenstein
 
   # TODO: check for twitter creds
 
-  unless ARGV.include? OPTION_SKIP
+  if github_creds && !(ARGV.include? OPTION_SKIP)
     option_happy = '-h'
     option_gist = 'g'
     option_tweet = 't'
@@ -312,7 +309,7 @@ module Frankenstein
         twitter_log Frankenstein.twitter_tweet_url(client, t)
       end # if user_input.downcase == 't'
     end # user input == y
-  end
+  end # if github_creds
 
   exit(1) if (failures.count > 0) && !(failures.include? CONTROLLED_ERROR)
 end # module
