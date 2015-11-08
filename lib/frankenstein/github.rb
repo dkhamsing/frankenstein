@@ -90,7 +90,7 @@ module Frankenstein
                                            type: 'blob',
                                            sha: blob_sha }],
                                         base_tree: sha_base_tree).sha
-      commit_message = PULL_REQUEST_TITLE
+      commit_message = PULL_REQUEST_COMMIT_MESSAGE
       sha_new_commit = github.create_commit(fork,
                                             commit_message,
                                             sha_new_tree,
