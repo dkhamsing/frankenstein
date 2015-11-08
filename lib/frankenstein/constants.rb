@@ -34,8 +34,8 @@ module Frankenstein
   PRODUCT = 'frankenstein'
 
   PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
-
-  PULL_REQUEST_TITLE = 'Update redirects'
+  
+  PULL_REQUEST_TITLE = 'Readme: Update redirects'
   PULL_REQUEST_DESCRIPTION = "Created with #{PROJECT_URL}"
 
   README_VARIATIONS = [
