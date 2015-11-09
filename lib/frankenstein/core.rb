@@ -11,7 +11,6 @@ module Frankenstein
       links_to_check =
         links_found.reject { |x| x.length < 9 }
         .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '').gsub('/:', '/') }
-        .uniq
       # ) for markdown
       # ' found on https://fastlane.tools/
       # , for link followed by comma
@@ -57,7 +56,7 @@ module Frankenstein
         misc = []
         issues = []
         failures = []
-        redirects = {}
+        redirects = []
         unless option_github_stars_only
           Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
             begin
@@ -88,7 +87,7 @@ module Frankenstein
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
               else
-                redirects[link] = redirect unless
+                redirects.push({ link => redirect }) unless
                   in_white_list(link, option_white_list, log)
               end
             end # if res.status != 200
@@ -128,9 +127,10 @@ module Frankenstein
           original = f.read
           replaced = original
 
-          redirects.each do |key, array|
+          redirects.each do |hash|
+            key, array = hash.first
             log.add "#{key.yellow} redirects to \n#{array} \n\n"
-            replaced = replaced.gsub key, array
+            replaced = replaced.sub key, array
           end # redirects.each
 
           File.open(file_updated, 'w') do |ff|
