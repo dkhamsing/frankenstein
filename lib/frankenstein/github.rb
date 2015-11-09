@@ -77,7 +77,7 @@ module Frankenstein
       forked_repo = nil
       while forked_repo.nil?
         forked_repo = github_fork(github, repo)
-        sleep 1
+        sleep 2
         puts 'forking'.red
         pp forked_repo
         # log.verbose 'Forking repo.. sleep'
