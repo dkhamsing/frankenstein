@@ -55,6 +55,8 @@ module Frankenstein
 
   SEPARATOR = '='
 
+  WHITE_LIST_STATUS = -1
+
   WHITE_LIST_REGEXP = [
     '://amzn.com/',
     '://badge.fury.io/',

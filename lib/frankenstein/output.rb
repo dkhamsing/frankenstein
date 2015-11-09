@@ -80,7 +80,8 @@ module Frankenstein
       else
         m = status_glyph(status, link, log)
         m << ' '
-        m << "#{status} " unless status == 200
+        m << "#{status} " unless
+          (status == 200) || (status == WHITE_LIST_STATUS)
         m << link
         log.add m
       end
