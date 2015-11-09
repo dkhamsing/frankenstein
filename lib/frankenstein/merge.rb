@@ -83,6 +83,5 @@ module Merge
 
     puts "\n #{PRODUCT} finished for #{project.white}"
 
-    system("open -a Safari #{clean_pull_url}") if comments > 0
   end
 end
