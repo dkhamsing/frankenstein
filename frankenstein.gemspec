@@ -27,11 +27,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 1.8.3'
   spec.add_dependency 'parallel', '~> 1.6.1'
 
-  spec.add_dependency 'octokit', '~> 3.4.2' # gitub
-  spec.add_dependency 'netrc', '~> 0.7.8' # credentials
-  spec.add_dependency 'twitter' # tweets
+  spec.add_dependency 'octokit', '~> 4.1.1' # gitub
+  spec.add_dependency 'netrc', '~> 0.11.0' # credentials
+  spec.add_dependency 'twitter', '~> 5.15.0' # tweets
 
   spec.add_development_dependency 'bundler', '~> 1.7'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 10.4.2'
   spec.add_development_dependency 'guard-rubocop', '~> 1.2.0'
 end
