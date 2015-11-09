@@ -58,6 +58,7 @@ module Frankenstein
   WHITE_LIST_STATUS = -1
 
   WHITE_LIST_REGEXP = [
+    '://127',
     '://amzn.com/',
     '://badge.fury.io/',
     '//bit.ly/',
@@ -82,6 +83,7 @@ module Frankenstein
     '://github.com.*\.git$',
     '://github.com.*/tree/',
     '://github.com/.*/zipball/',
+    '://localhost',
     '://maven-badges.herokuapp.com/',
     '://ogp.me/ns',
     '://raw.github.com/',
