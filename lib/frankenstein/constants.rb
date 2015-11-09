@@ -49,7 +49,8 @@ module Frankenstein
     'README.rst',
     'README.asciidoc',
     'README.rdoc',
-    'index.html'
+    'index.html',
+    'readme.creole'
   ]
 
   SEPARATOR = '='
