@@ -35,7 +35,7 @@ module Merge
   end
 
   logo = Frankenstein.em_logo
-  puts "#{logo} Parsing ..."
+  puts "#{logo} Parsing input #{argv1.white} ..."
   clean_pull_url = argv1.gsub(/#.*$/, '')
   puts clean_pull_url
   number = clean_pull_url.gsub(/.*pull\//, '')
@@ -47,7 +47,7 @@ module Merge
   fork = project.sub(username, Frankenstein.github_netrc_username)
   puts fork
 
-  puts "\n#{logo} Checking merge status ..."
+  puts "\n#{logo} Checking merge status for #{project.white} ..."
   client = Frankenstein.github_client
   merged = client.pull_merged? project, number
   if merged == true
@@ -69,7 +69,7 @@ module Merge
     f = client.pull_files project, number
     changes = f[0][:additions]
 
-    puts "\n #{logo} Crafting tweet ..."
+    puts "\n#{logo} Crafting tweet ... \n"
     t = "#{logo}#{clean_pull_url} was merged with "\
         "#{Frankenstein.pluralize2 changes, 'change'} "\
         "#{Frankenstein.twitter_random_happy_emoji}"
@@ -78,10 +78,10 @@ module Merge
     client = Frankenstein.twitter_client
     t = client.update t
 
-    puts ''
-    Frankenstein.twitter_log Frankenstein.twitter_tweet_url(client, t)
+    puts "\nTweet sent #{Frankenstein.twitter_tweet_url(client, t).blue}"
 
     puts "\n #{PRODUCT} finished for #{project.white}"
 
+    system("open -a Safari #{clean_pull_url}") if comments.count > 0
   end
 end
