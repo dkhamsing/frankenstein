@@ -33,6 +33,10 @@ module Frankenstein
       "#{text}#{count > 1 ? 's' : ''}"
     end
 
+    def pluralize2(count, text)
+      "#{count} #{text}#{count > 1 ? 's' : ''}"
+    end
+
     def in_white_list(input, cli_wl, log)
       white_list = cli_wl ? WHITE_LIST_REGEXP.dup.push(cli_wl.split('^')).flatten : WHITE_LIST_REGEXP
       white_list.each do |regexp|
@@ -42,6 +46,32 @@ module Frankenstein
         end
       end
       false
+    end
+
+    def output_issues(issues, links_to_check, log)
+      if issues.count > 0
+        percent = issues.count * 100 / links_to_check.count
+        m = "#{issues.count} #{pluralize 'issue', issues.count} "\
+            "(#{percent.round}%)"
+        log.error_header m
+
+        m = "   (#{issues.count} of #{links_to_check.count} "\
+            "#{pluralize 'link', links_to_check.count})"
+        log.add m
+
+        log.add issues
+      else
+        m = "\n#{PRODUCT.white} #{'found no errors'.green} for "\
+            "#{links_to_check.count} "\
+            "#{pluralize 'link', links_to_check.count} #{em_sunglasses}"
+        log.add m
+      end
+    end
+
+    def output_misc(misc, log)
+      m = "\n#{misc.count} misc. "\
+          "#{pluralize 'item', misc.count}: #{misc}"
+      log.add m.white
     end
 
     def output_status(flag_minimize_output, status, link, log)

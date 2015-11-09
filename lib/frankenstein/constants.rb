@@ -26,8 +26,7 @@ module Frankenstein
   FLAG_VERBOSE_USAGE = 'Verbose output'
 
   OPTION_HEAD = 'head'
-  OPTION_PULL_REQUEST = 'pull'
-  OPTION_ROW = 'toremove:-()'
+  OPTION_SKIP = 'no-prompt'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
   OPTION_WHITE_LIST = 'wl'
@@ -36,7 +35,8 @@ module Frankenstein
 
   PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
 
-  PULL_REQUEST_TITLE = 'Update redirects'
+  PULL_REQUEST_COMMIT_MESSAGE = 'Readme: Update redirects'
+  PULL_REQUEST_TITLE = 'Update Readme'
   PULL_REQUEST_DESCRIPTION = "Created with #{PROJECT_URL}"
 
   README_VARIATIONS = [
@@ -49,7 +49,8 @@ module Frankenstein
     'README.rst',
     'README.asciidoc',
     'README.rdoc',
-    'index.html'
+    'index.html',
+    'readme.creole'
   ]
 
   SEPARATOR = '='

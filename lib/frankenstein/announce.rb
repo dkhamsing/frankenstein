@@ -27,13 +27,12 @@ module Announce
     exit
   end
 
-  option_tweet = ARGV.include? OPTION_TWEET
-
-  creds = Frankenstein.github_netrc
-  if creds.nil?
-    puts 'Missing GitHub credentials in .netrc'.red
+  if !Frankenstein.github_creds
+    puts Frankenstein::GITHUB_CREDS_ERROR
     exit(1)
   end
+
+  option_tweet = ARGV.include? OPTION_TWEET
 
   if option_tweet
     creds = Frankenstein.twitter_config

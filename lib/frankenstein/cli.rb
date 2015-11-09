@@ -31,8 +31,8 @@ module Frankenstein
       [
         FLAG_FAIL,
         FLAG_MINIMIZE_OUTPUT,
-        FLAG_GITHUB_STARS,
-        FLAG_VERBOSE
+        FLAG_VERBOSE,
+        FLAG_GITHUB_STARS
       ]
     end
 
@@ -53,24 +53,14 @@ module Frankenstein
       ]
     end
 
-    def cli_process_options(argv1, argv1_is_http, log)
+    def cli_process_options(log)
       option_github_stars_only = ARGV.include? OPTION_STARS
       option_head = ARGV.include? OPTION_HEAD
-
-      unless argv1_is_http
-        option_pull_request = if argv1.include? '/'
-                                ARGV.include? OPTION_PULL_REQUEST
-                              else
-                                false
-                              end
-      end
-
       option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
 
       [
         option_github_stars_only,
         option_head,
-        option_pull_request,
         option_white_list
       ]
     end
@@ -103,8 +93,7 @@ module Frankenstein
 
       option_github_stars_only,
       option_head,
-      option_pull_request,
-      option_white_list = cli_process_options(argv1, argv1_is_http, log)
+      option_white_list = cli_process_options(log)
 
       flag_fetch_github_stars,
       flag_minimize_output,
@@ -114,7 +103,6 @@ module Frankenstein
       [
         option_github_stars_only,
         option_head,
-        option_pull_request,
         option_white_list,
         flag_control_failure,
         flag_fetch_github_stars,
