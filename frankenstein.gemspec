@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'netrc', '~> 0.11.0' # credentials
   spec.add_dependency 'twitter', '~> 5.15.0' # tweets
 
-  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'bundler', '~> 1.7' # travis needs this at 1.7
   spec.add_development_dependency 'rake', '~> 10.4.2'
   spec.add_development_dependency 'guard-rubocop', '~> 1.2.0'
 end
