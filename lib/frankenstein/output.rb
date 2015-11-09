@@ -33,6 +33,10 @@ module Frankenstein
       "#{text}#{count > 1 ? 's' : ''}"
     end
 
+    def pluralize2(count, text)
+      "#{count} #{text}#{count > 1 ? 's' : ''}"
+    end
+
     def in_white_list(input, cli_wl, log)
       white_list = cli_wl ? WHITE_LIST_REGEXP.dup.push(cli_wl.split('^')).flatten : WHITE_LIST_REGEXP
       white_list.each do |regexp|

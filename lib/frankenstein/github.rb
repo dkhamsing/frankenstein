@@ -10,6 +10,9 @@ module Frankenstein
     require 'netrc'
     require 'json'
 
+    require 'frankenstein/date'
+    require 'frankenstein/emoji'
+
     def github_client
       Octokit::Client.new(netrc: true)
     end
@@ -156,6 +159,13 @@ module Frankenstein
       message = '' if message.nil?
 
       [message, parsed]
+    end
+
+    def github_get_repos(links_to_check)
+      links_to_check.select { |link|
+        link.to_s.downcase.include? 'github.com' and link.count('/') == 4
+      }.map { |url| url.split('.com/')[1] }
+      .reject { |x| x.include? '.' or x.include? '#' }.uniq
     end
 
     def github_repos_info(github_repos, number_of_threads, client, log)
