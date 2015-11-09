@@ -172,7 +172,7 @@ module Frankenstein
 
       if user_input.include? option_tweet
         client = twitter_client
-        message = user_input.gsub(option_tweet, '').tr(option_happy, '').strip
+        message = user_input.sub(option_tweet, '').sub(option_happy, '').strip
 
         happy = user_input.include? option_happy
         tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
