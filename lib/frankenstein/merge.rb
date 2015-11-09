@@ -80,7 +80,7 @@ module Merge
 
     puts "\nTweet sent #{Frankenstein.twitter_tweet_url(client, t).blue}"
 
-    puts "\n #{PRODUCT} finished for #{project.white}"
+    puts "\n#{PRODUCT} finished for #{project.white}"
 
     system("open -a Safari #{clean_pull_url}") if comments.count > 0
   end
