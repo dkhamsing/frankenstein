@@ -83,7 +83,6 @@ module Merge
 
     puts "\n #{PRODUCT} finished for #{project.white}"
 
-    m = "\nWould you like to leave a comment for #{clean_pull_url} "
-    puts m if comments > 0
+    system("open -a Safari #{clean_pull_url}") if comments > 0
   end
 end
