@@ -1,4 +1,4 @@
-# Create a gist from log
+# Check for merged pull request, close fork and send tweet
 module Merge
   require 'colored'
   require 'frankenstein/constants'
@@ -8,8 +8,8 @@ module Merge
 
   # require 'pp'
 
-  PRODUCT = 'check_merge'
-  PRODUCT_DESCRIPTION = 'Check for merged pull request'
+  PRODUCT = 'mergeclose'
+  PRODUCT_DESCRIPTION = 'Automate processing of merged pull requests'
 
   LEADING_SPACE = '     '
 
