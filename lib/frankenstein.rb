@@ -28,6 +28,7 @@ module Frankenstein
     exit
   end
 
+  argv1 = cli_filter_github(argv1)
   filtered = argv1.sub('/', '-') # TODO: filtered should be in core
   if core_logs.scan(filtered).count > 0
     m = "#{em_logo} there are previous runs for #{argv1.white} in "\
@@ -46,8 +47,6 @@ module Frankenstein
   file_updated = log.filename(FILE_UPDATED)
   file_redirects = log.filename(FILE_REDIRECTS)
   file_log = log.filelog
-
-  argv1 = cli_filter_github(argv1)
 
   option_github_stars_only,
   option_head,
