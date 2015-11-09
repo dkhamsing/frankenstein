@@ -5,7 +5,6 @@ module Frankenstein
 
   GITHUB_CREDS_ERROR = 'Missing GitHub credentials in .netrc'
 
-
   NETRC_GITHUB_MACHINE = 'api.github.com'
 
   class << self

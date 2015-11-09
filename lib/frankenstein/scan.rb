@@ -25,7 +25,7 @@ module Scan
     exit
   end
 
-  if !Frankenstein.github_creds
+  unless Frankenstein.github_creds
     puts Frankenstein::GITHUB_CREDS_ERROR
     exit(1)
   end
