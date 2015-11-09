@@ -22,7 +22,7 @@ module Frankenstein
 
     def core_logs
       d = Dir.entries(Frankenstein::FILE_LOG_DIRECTORY)
-      d.join ' '      
+      d.join ' '
     end
 
     def core_run(

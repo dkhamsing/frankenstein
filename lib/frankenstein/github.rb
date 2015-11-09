@@ -75,7 +75,7 @@ module Frankenstein
 
       # fork
       forked_repo = nil
-      while forked_repo == nil
+      while forked_repo.nil?
         forked_repo = github_fork(github, repo)
         sleep 1
         puts 'forking'.red
