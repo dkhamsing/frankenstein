@@ -169,6 +169,10 @@ module Frankenstein
       log.file_write "\nCreated with #{PROJECT_URL} "\
                      "#{Time.now.strftime("%b %d, %Y")} \n"
 
+      f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}"\
+          "-r#{redirects.count}-f#{failures.count}"      
+      File.open(f, 'w') { |ff| ff.write("#{PRODUCT} stats") }
+
       failures
     end
   end # class

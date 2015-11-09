@@ -21,6 +21,10 @@ module Frankenstein
       "#{FILE_LOG_DIRECTORY}/#{@identifier}-#{extension}"
     end
 
+    def identifier
+      @identifier
+    end
+
     def error(message)
       add "#{Frankenstein.em_mad}  Error: #{message}".red
     end
