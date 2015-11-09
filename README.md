@@ -28,7 +28,7 @@ frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [wl=s1^s2.
 
 ### Examples
 
-See some example runs [here](https://gist.github.com/frankenbot) 🏃
+See some example runs [here](https://gist.github.com/ReadmeCritic) 🏃
 
 ```shell
 $ frankenstein README.md # file on disk
@@ -156,7 +156,7 @@ Example pull requests by `frankenstein`:
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
 - https://github.com/airbnb/javascript/pull/564
 - https://github.com/hangtwenty/dive-into-machine-learning/pull/14
-- more https://twitter.com/frankenb0t
+- more https://twitter.com/ReadmeCritic
 
 `frankenstein` can create a gist of the results and send a tweet out:
 
@@ -174,7 +174,7 @@ Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures 
   Creating GitHub client
   Client creating gist
   🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
-  🐦 Tweet sent: https://twitter.com/frankenb0t/status/662781085479137280
+  🐦 Tweet sent: https://twitter.com/ReadmeCritic/status/662781085479137280
 ```
 
 Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb).
