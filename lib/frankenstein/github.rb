@@ -16,6 +16,8 @@ module Frankenstein
     require 'frankenstein/date'
     require 'frankenstein/emoji'
 
+    require 'pp'
+
     def github_client
       Octokit::Client.new(netrc: true)
     end
@@ -70,14 +72,15 @@ module Frankenstein
       log.verbose "Fork: #{fork}"
 
       github = github_client
-      github_fork(github, repo)
 
-      # check fork has been created
+      # fork
       forked_repo = nil
-      while forked_repo
-        sleep 2
-        forked_repo = github_fork(github, fork)
-        log.verbose 'Forking repo.. sleep'
+      while forked_repo == nil
+        forked_repo = github_fork(github, repo)
+        sleep 1
+        puts 'forking'.red
+        pp forked_repo
+        # log.verbose 'Forking repo.. sleep'
       end
 
       # commit change
