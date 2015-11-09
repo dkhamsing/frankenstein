@@ -54,8 +54,7 @@ module Frankenstein
         failures = []
         redirects = {}
         unless option_github_stars_only
-          Parallel.each_with_index(links_to_check,
-                                   in_threads: number_of_threads) do |link|
+          Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
             begin
               res = option_head ? net_head(link) : net_get(link)
             rescue StandardError => e
@@ -90,29 +89,8 @@ module Frankenstein
             end # if res.status != 200
           end # Parallel
 
-          if issues.count > 0
-            percent = issues.count * 100 / links_to_check.count
-            m = "#{issues.count} #{pluralize 'issue', issues.count} "\
-                "(#{percent.round}%)"
-            log.error_header m
-
-            m = "   (#{issues.count} of #{links_to_check.count} "\
-                "#{pluralize 'link', links_to_check.count})"
-            log.add m
-
-            log.add issues
-          else
-            m = "\n#{PRODUCT.white} #{'found no errors'.green} for "\
-                "#{links_to_check.count} "\
-                "#{pluralize 'link', links_to_check.count} #{em_sunglasses}"
-            log.add m
-          end
-
-          if misc.count > 0
-            m = "\n#{misc.count} misc. "\
-                "#{pluralize 'item', misc.count}: #{misc}"
-            log.add m.white
-          end
+          output_issues(issues, links_to_check, log)
+          output_misc(misc, log) if misc.count > 0
         end # unless option_github_stars_only
 
         if flag_fetch_github_stars
