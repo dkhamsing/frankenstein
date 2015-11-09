@@ -28,6 +28,17 @@ module Frankenstein
     exit
   end
 
+  filtered = argv1.sub('/', '-') # TODO: filtered should be in core
+  if core_logs.scan(filtered).count > 0
+    m = "#{em_logo} there are previous runs for #{argv1.white} in "\
+        "#{FILE_LOG_DIRECTORY.green}"
+    puts m
+    pattern = "#{FILE_LOG_DIRECTORY}/*#{filtered}.frankenstein"
+    r = Dir.glob pattern
+    puts pluralize2 r.count, 'file'
+    puts r
+  end
+
   flag_verbose = cli_log(argv_flags)
   log = Frankenstein::Log.new(flag_verbose, argv1)
 

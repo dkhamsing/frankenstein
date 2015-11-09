@@ -20,6 +20,11 @@ module Frankenstein
       [links_to_check, links_found]
     end
 
+    def core_logs
+      d = Dir.entries(Frankenstein::FILE_LOG_DIRECTORY)
+      d.join ' '      
+    end
+
     def core_run(
       elapsed_time_start,
       log,

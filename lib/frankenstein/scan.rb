@@ -43,8 +43,7 @@ module Scan
 
   flag_verbose = false
   number_of_threads = 10
-  d = Dir.entries(Frankenstein::FILE_LOG_DIRECTORY)
-  logs = d.join ''
+  logs = Frankenstein.core_logs
   r.each do |argv1|
     next if logs.include? argv1.sub('/', '-')
 
