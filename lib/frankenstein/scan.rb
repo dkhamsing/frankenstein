@@ -12,11 +12,8 @@ module Scan
 
   PRODUCT = 'scan'
   PRODUCT_DESCRIPTION = 'Scan for GitHub repos'
-  # OPTION_HAPPY = '-h'
-  # OPTION_TWEET = 'tweet'
 
   LEADING_SPACE = '     '
-  # SPACE_ARGS    = "#{LEADING_SPACE} \t\t"
 
   argv_1 = ARGV[0]
   if argv_1.nil?
@@ -28,10 +25,8 @@ module Scan
     exit
   end
 
-  # TODO: use github_creds
-  creds = Frankenstein.github_netrc
-  if creds.nil?
-    puts 'Missing GitHub credentials in .netrc'.red
+  if !Frankenstein.github_creds
+    puts 'Missing GitHub credentials in .netrc'
     exit(1)
   end
 
