@@ -3,6 +3,9 @@ module Frankenstein
   GITHUB_API_BASE = 'https://api.github.com/'
   GITHUB_RAW_CONTENT_URL = 'https://raw.githubusercontent.com/'
 
+  GITHUB_CREDS_ERROR = 'Missing GitHub credentials in .netrc'
+
+
   NETRC_GITHUB_MACHINE = 'api.github.com'
 
   class << self

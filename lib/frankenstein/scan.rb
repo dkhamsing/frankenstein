@@ -26,7 +26,7 @@ module Scan
   end
 
   if !Frankenstein.github_creds
-    puts 'Missing GitHub credentials in .netrc'
+    puts Frankenstein::GITHUB_CREDS_ERROR
     exit(1)
   end
 

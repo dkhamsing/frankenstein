@@ -53,7 +53,7 @@ module Frankenstein
   log.verbose m unless option_white_list.nil?
 
   if flag_fetch_github_stars && !github_creds
-    log.error 'Missing GitHub credentials in .netrc'
+    log.error GITHUB_CREDS_ERROR
     exit(1)
   end
 
