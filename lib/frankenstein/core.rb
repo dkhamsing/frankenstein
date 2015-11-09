@@ -166,7 +166,8 @@ module Frankenstein
         end
       end
 
-      log.file_write "\nCreated with #{PROJECT_URL} \n"
+      log.file_write "\nCreated with #{PROJECT_URL} "\
+                     "#{Time.now.strftime("%b %d, %Y")} \n"
 
       failures
     end
