@@ -71,7 +71,7 @@ module Merge
 
     puts "\n #{logo} Crafting tweet ..."
     t = "#{logo}#{clean_pull_url} was merged with "\
-        "#{Frankenstein.pluralize2 changes, 'change'} "
+        "#{Frankenstein.pluralize2 changes, 'change'} "\
         "#{Frankenstein.twitter_random_happy_emoji}"
     puts t
 
