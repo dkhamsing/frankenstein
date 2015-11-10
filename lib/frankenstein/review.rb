@@ -37,8 +37,8 @@ module Review
   redirects_file = "#{argv_1}-redirects"
 
   if not File.exist? file_copy or
-    not File.exist? file_info or
-    not File.exist? redirects_file
+     not File.exist? file_info or
+     not File.exist? redirects_file
     puts 'Error: File(s) missing'.red
     exit
   end
@@ -88,7 +88,7 @@ module Review
 
       list.each do |x| # TODO: this looks like it could be improved
         redirects.reject! do |hash|
-          key, array = hash.first
+          key, * = hash.first
           key.include? x
         end
       end

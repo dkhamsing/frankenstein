@@ -6,7 +6,7 @@ module Frankenstein
     def io_repo_log_json(list, log)
       log.add "\nWriting repo log ... "
       json = if File.exist?(FILE_REPO)
-              saved = io_json_read FILE_REPO
+               saved = io_json_read FILE_REPO
 
                list.each do |x|
                  h = saved.map { |s| s if s['repo'] == x[:repo] }.compact.first
