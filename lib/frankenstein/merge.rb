@@ -39,13 +39,13 @@ module Merge
       puts "\n#{logo} Checking comments ..."
       comments = client.issue_comments project, number
       puts 'No comments' if comments.count == 0
-      unless comments == 0
-        comments.each do |c|
-          u = '@' << c[:user][:login]
-          m = "\n#{u.white}: #{c[:body]} "
-          puts m
-        end
-      end
+
+      comments.each do |c|
+        u = '@' << c[:user][:login]
+        m = "\n#{u.white}: #{c[:body]} "
+        puts m
+      end unless comments == 0
+      # end
     end
 
     def delete_fork(client, fork, logo)
@@ -65,7 +65,7 @@ module Merge
 
       system("open -a Safari #{clean_pull_url}")
     end
-  end #class
+  end # class
 
   logo = Frankenstein.em_logo
   puts "#{logo} Parsing input #{argv1.white} ..."
@@ -80,45 +80,43 @@ module Merge
   fork = project.sub(username, Frankenstein.github_netrc_username)
   puts fork
 
-  puts "\n#{logo} Checking merge status for #{project.white} ..."
+  puts "\n#{logo} Creating GitHub client"
   client = Frankenstein.github_client
 
+  puts "\n#{logo} Getting changes ... "
   f = client.pull_files project, number
   changes = f[0][:additions]
+  m = 'Found '\
+      "#{Frankenstein.pluralize2 changes, 'change'} "
+  puts m
 
+  puts "\n#{logo} Checking merge status for #{project.white} ..."
   merged = client.pull_merged? project, number
-  if merged == true
-    puts 'Pull request was merged 🎉'
+  puts 'Pull request was merged 🎉' if merged == true
 
-    check_comments(client, project, number, logo)
+  puts "\n#{logo} Checking pull request status ..." unless merged == true
+  state = client.pull(project, number)[:state]
+  puts 'Pull request was closed 😡' if state == 'closed'
 
-    delete_fork client, fork, logo
+  check_comments(client, project, number, logo)
 
-    puts "\n#{logo} Crafting tweet ... \n\n"
-    t = "#{logo}#{clean_pull_url} was merged with "\
-        "#{Frankenstein.pluralize2 changes, 'change'} "\
-        "#{Frankenstein.twitter_random_happy_emoji}"
-    # puts t
+  puts ''
+  if merged == true || state == 'closed'
+    delete_fork(client, fork, logo)
 
-    finish t, project, clean_pull_url
-  else
-    puts 'Not merged 😡'
-    puts "\n#{logo} Checking pull request status ..."
-    state = client.pull(project, number)[:state]
-    if state == 'closed'
-      puts "Pull request was closed"
-
-      check_comments(client, project, number, logo)
-
-      delete_fork client, fork, logo
-
-      puts "\n#{logo} Crafting tweet ... \n\n"
+    puts "#{logo} Crafting tweet ... \n\n"
+    if (merged == true)
+      t = "#{logo}#{clean_pull_url} was merged with "\
+          "#{Frankenstein.pluralize2 changes, 'change'} "\
+          "#{Frankenstein.twitter_random_happy_emoji}"
+    else
       t = "#{logo}This pull request with "\
           "#{Frankenstein.pluralize2 changes, 'change'} "\
           "looked pretty good ¯/_(ツ)_/¯ #{clean_pull_url}/files"
-      # puts t
-
-      finish t, project, clean_pull_url
     end
+
+    finish t, project, clean_pull_url
+  else    
+    puts 'Pull request is still open 📗'
   end
 end
