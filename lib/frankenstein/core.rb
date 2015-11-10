@@ -25,6 +25,36 @@ module Frankenstein
       d.join ' '
     end
 
+    def core_process_redirects(
+      file_redirects,
+      file_copy,
+      file_updated,
+      redirects,
+      log)
+      File.open(file_redirects, 'w') { |f| f.write(redirects) }
+
+      m = "\n#{em_status_yellow} #{redirects.count} "\
+          "#{pluralize 'redirect', redirects.count}"
+      log.add m.yellow
+
+      log.verbose "Replacing redirects in temp file #{file_updated}.."
+      File.open(file_copy, 'a+') do |f|
+        original = f.read
+        replaced = original
+
+        redirects.each do |hash|
+          key, array = hash.first
+          log.add "#{key.yellow} redirects to \n#{array} \n\n"
+          replaced = replaced.sub key, array
+        end # redirects.each
+
+        File.open(file_updated, 'w') do |ff|
+          puts "Wrote redirects replaced to #{file_updated.white}"
+          ff.write(replaced)
+        end
+      end # File.open(FILE_TEMP, 'a+') { |f|
+    end
+
     def core_run(
       elapsed_time_start,
       log,
@@ -121,28 +151,12 @@ module Frankenstein
       redirects = [] if redirects.nil?
 
       if redirects.count > 0
-        File.open(file_redirects, 'w') { |f| f.write(redirects) }
-
-        m = "\n#{em_status_yellow} #{redirects.count} "\
-            "#{pluralize 'redirect', redirects.count}"
-        log.add m.yellow
-
-        log.verbose "Replacing redirects in temp file #{file_updated}.."
-        File.open(file_copy, 'a+') do |f|
-          original = f.read
-          replaced = original
-
-          redirects.each do |hash|
-            key, array = hash.first
-            log.add "#{key.yellow} redirects to \n#{array} \n\n"
-            replaced = replaced.sub key, array
-          end # redirects.each
-
-          File.open(file_updated, 'w') do |ff|
-            puts "Wrote redirects replaced to #{file_updated.white}"
-            ff.write(replaced)
-          end
-        end # File.open(FILE_TEMP, 'a+') { |f|
+        core_process_redirects(
+          file_redirects,
+          file_copy,
+          file_updated,
+          redirects,
+          log)
       end # redirects.count
 
       puts "Wrote log to #{file_log.white}"
