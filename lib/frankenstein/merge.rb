@@ -104,7 +104,7 @@ module Merge
   if merged == true || state == 'closed'
     delete_fork(client, fork, logo)
 
-    puts "#{logo} Crafting tweet ... \n\n"
+    puts "\n#{logo} Crafting tweet ... \n\n"
     if (merged == true)
       t = "#{logo}#{clean_pull_url} was merged with "\
           "#{Frankenstein.pluralize2 changes, 'change'} "\
