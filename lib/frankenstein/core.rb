@@ -2,6 +2,7 @@
 module Frankenstein
   require 'parallel'
   require 'colored'
+  require 'frankenstein/constants'
   require 'frankenstein/output'
 
   class << self
@@ -170,7 +171,7 @@ module Frankenstein
                      "#{Time.now.strftime("%b %d, %Y")} \n"
 
       f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}"\
-          "-r#{redirects.count}-f#{failures.count}"      
+          "-r#{redirects.count}-f#{failures.count}"
       File.open(f, 'w') { |ff| ff.write("#{PRODUCT} stats") }
 
       failures
