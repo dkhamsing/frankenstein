@@ -112,5 +112,13 @@ module Frankenstein
         number_of_threads
       ]
     end
+
+    def cli_prompt option_pull, option_white_list
+      m = "\nCreate pull request? (#{option_pull.white}ull request | "\
+          "white list #{option_white_list.white}=s1^s2.. | "\
+          'enter to end) '
+      print m
+      STDIN.gets.chomp
+    end
   end # class
 end

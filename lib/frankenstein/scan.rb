@@ -91,6 +91,8 @@ module Scan
       links_to_check,
       argv1,
       number_of_threads,
+      default_branch,
+      readme,
       false, # option_github_stars_only,
       true,  # option_head,
       false, # option_white_list,

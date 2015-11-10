@@ -62,6 +62,8 @@ module Frankenstein
       links_to_check,
       argv1,
       number_of_threads,
+      branch,
+      readme,
       option_github_stars_only,
       option_head,
       option_white_list,
@@ -188,7 +190,15 @@ module Frankenstein
       f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}-stats"
       f << "-r#{redirects.count}" if redirects.count > 0
       f << "-f#{failures.count}" if failures.count > 0
-      File.open(f, 'w') { |ff| ff.write("#{PRODUCT} stats") }
+      File.open(f, 'w') { |ff| ff.write("#{PRODUCT} info for #{argv1}") }
+
+      f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}-info"
+      hash = {
+        repo: argv1,
+        branch: branch,
+        readme: readme
+      }
+      io_json_write f, hash
 
       failures
     end
