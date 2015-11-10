@@ -3,6 +3,7 @@ module Scan
   require 'colored'
   require 'parallel'
 
+  require 'frankenstein/cli'
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/github'
@@ -34,6 +35,8 @@ module Scan
     puts "#{PRODUCT.red} File #{argv1.white} does not exist"
     exit(1)
   end
+
+  Frankenstein.cli_create_log_dir()
 
   c = File.read argv_1
   links, * = Frankenstein.core_find_links c

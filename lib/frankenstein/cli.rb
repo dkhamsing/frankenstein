@@ -1,6 +1,10 @@
 # Process cli: command line interface
 module Frankenstein
   class << self
+    def cli_create_log_dir
+      Dir.mkdir FILE_LOG_DIRECTORY unless File.exist?(FILE_LOG_DIRECTORY)
+    end
+
     def cli_filter_github(argv1)
       repo = argv1.gsub(%r{https?:\/\/github.com\/}, '')
       ((repo.count '/').to_i == 1) ? repo : argv1

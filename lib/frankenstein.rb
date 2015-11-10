@@ -18,7 +18,7 @@ module Frankenstein
   require 'parallel'
 
   # logs are stored in FILE_LOG_DIRECTORY
-  Dir.mkdir FILE_LOG_DIRECTORY unless File.exist?(FILE_LOG_DIRECTORY)
+  cli_create_log_dir()
 
   # process cli arguments
   argv1, argv_flags = ARGV
