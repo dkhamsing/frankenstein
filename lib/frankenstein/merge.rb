@@ -96,7 +96,7 @@ module Merge
 
   puts "\n#{logo} Checking pull request status ..." unless merged == true
   state = client.pull(project, number)[:state]
-  puts 'Pull request was closed 😡' if state == 'closed'
+  puts 'Pull request was closed 😡' if state == 'closed' && merged == false
 
   check_comments(client, project, number, logo)
 
@@ -109,14 +109,14 @@ module Merge
       t = "#{logo}#{clean_pull_url} was merged with "\
           "#{Frankenstein.pluralize2 changes, 'change'} "\
           "#{Frankenstein.twitter_random_happy_emoji}"
-    else
+    else # closed :-(
       t = "#{logo}This pull request with "\
           "#{Frankenstein.pluralize2 changes, 'change'} "\
           "looked pretty good ¯/_(ツ)_/¯ #{clean_pull_url}/files"
     end
 
     finish t, project, clean_pull_url
-  else    
+  else
     puts 'Pull request is still open 📗'
   end
 end
