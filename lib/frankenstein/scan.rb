@@ -69,14 +69,14 @@ module Scan
       log.add 'Finding readme...'
 
       default_branch = 'master'
-      the_url, * = Frankenstein.net_find_github_url_readme(argv1,
+      the_url, readme = Frankenstein.net_find_github_url_readme(argv1,
                                                            default_branch)
     else
       default_branch = parsed['default_branch']
       log.add Frankenstein.github_repo_json_info(parsed,
                                                  default_branch,
                                                  argv1)
-      the_url, * = Frankenstein.net_find_github_url_readme(argv1,
+      the_url, readme = Frankenstein.net_find_github_url_readme(argv1,
                                                            default_branch)
     end # if message ..
 
