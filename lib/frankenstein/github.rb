@@ -34,8 +34,9 @@ module Frankenstein
 
       gputs 'Creating GitHub client'
       client = github_client
+      gist_file_name = filename.split('-')[4..-1].join '-'
       payload = { public: public,
-                  files: { filename => { content: c } }
+                  files: { gist_file_name => { content: c } }
                 }
 
       gputs 'Client creating gist'
