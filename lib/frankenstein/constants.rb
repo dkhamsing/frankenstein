@@ -91,6 +91,7 @@ module Frankenstein
     '://groups.google.com',
     '://i.creativecommons.org/.*png',
     '://instagram.com/',
+    'paypal.com/cgi-bin/webscr',
     'plus.google.com/share',
     'reddit.com/message/compose',
     '://secure.travis-ci.org/.*(pn|sv)g',
