@@ -2,7 +2,7 @@
 module Frankenstein
   # Logger
   class Log
-    attr_reader :@identifier
+    attr_reader :identifier
 
     def initialize(opt_verbose, argv1)
       @verbose = opt_verbose
