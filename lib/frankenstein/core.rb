@@ -168,7 +168,7 @@ module Frankenstein
       end
 
       log.file_write "\nCreated with #{PROJECT_URL} "\
-                     "#{Time.now.strftime("%b %d, %Y")} \n"
+                     "#{Time.now.strftime('%b %d, %Y')} \n"
 
       f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}"
       f << "-r#{redirects.count}" if redirects.count > 0
