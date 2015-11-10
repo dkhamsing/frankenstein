@@ -15,7 +15,7 @@ module Frankenstein
     require 'frankenstein/date'
     require 'frankenstein/emoji'
 
-    require 'pp'
+    # require 'pp'
 
     def github_client
       Octokit::Client.new(netrc: true)
@@ -73,16 +73,18 @@ module Frankenstein
       github = github_client
 
       # fork
+      puts "Forking #{repo}"
       forked_repo = nil
       while forked_repo.nil?
         forked_repo = github_fork(github, repo)
         sleep 2
-        puts 'forking'.red
-        pp forked_repo
-        # log.verbose 'Forking repo.. sleep'
+        # puts 'forking'.red
+        # pp forked_repo
+        log.verbose 'Forking repo.. sleep'
       end
 
       # commit change
+      puts 'Commit change'
       ref = "heads/#{branch}"
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
@@ -110,6 +112,7 @@ module Frankenstein
       sleep 1 # sad
 
       # create pull request
+      puts 'Open pull request'
       head = "#{forker}:#{branch}"
       log.verbose "Set head to #{head}"
 
