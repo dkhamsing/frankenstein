@@ -65,8 +65,7 @@ module Closed
   puts "\n#{logo} Crafting tweet ... \n"
   t = "#{logo}This pull request with "\
       "#{Frankenstein.pluralize2 changes, 'change'} "\
-      "looked pretty good ¯/_(ツ)_/¯ "\
-      "#{clean_pull_url}/files"
+      "looked pretty good ¯/_(ツ)_/¯ #{clean_pull_url}/files"
   puts t
 
   client = Frankenstein.twitter_client

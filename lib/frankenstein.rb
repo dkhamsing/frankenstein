@@ -138,6 +138,8 @@ module Frankenstein
       links_to_check,
       argv1,
       number_of_threads,
+      default_branch,
+      readme,
       option_github_stars_only,
       option_head,
       option_white_list,

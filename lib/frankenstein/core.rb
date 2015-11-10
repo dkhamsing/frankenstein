@@ -3,6 +3,7 @@ module Frankenstein
   require 'parallel'
   require 'colored'
   require 'frankenstein/constants'
+  require 'frankenstein/io'
   require 'frankenstein/output'
 
   class << self
@@ -25,12 +26,44 @@ module Frankenstein
       d.join ' '
     end
 
+    def core_process_redirects(
+      file_redirects,
+      file_copy,
+      file_updated,
+      redirects,
+      log)
+      io_json_write file_redirects, redirects
+
+      m = "\n#{em_status_yellow} #{redirects.count} "\
+          "#{pluralize 'redirect', redirects.count}"
+      log.add m.yellow
+
+      log.verbose "Replacing redirects in temp file #{file_updated}.."
+      File.open(file_copy, 'a+') do |f|
+        original = f.read
+        replaced = original
+
+        redirects.each do |hash|
+          key, array = hash.first
+          log.add "#{key.yellow} redirects to \n#{array} \n\n"
+          replaced = replaced.sub key, array
+        end # redirects.each
+
+        File.open(file_updated, 'w') do |ff|
+          puts "Wrote redirects replaced to #{file_updated.white}"
+          ff.write(replaced)
+        end
+      end # File.open(FILE_TEMP, 'a+') { |f|
+    end
+
     def core_run(
       elapsed_time_start,
       log,
       links_to_check,
       argv1,
       number_of_threads,
+      branch,
+      readme,
       option_github_stars_only,
       option_head,
       option_white_list,
@@ -121,28 +154,12 @@ module Frankenstein
       redirects = [] if redirects.nil?
 
       if redirects.count > 0
-        File.open(file_redirects, 'w') { |f| f.write(redirects) }
-
-        m = "\n#{em_status_yellow} #{redirects.count} "\
-            "#{pluralize 'redirect', redirects.count}"
-        log.add m.yellow
-
-        log.verbose "Replacing redirects in temp file #{file_updated}.."
-        File.open(file_copy, 'a+') do |f|
-          original = f.read
-          replaced = original
-
-          redirects.each do |hash|
-            key, array = hash.first
-            log.add "#{key.yellow} redirects to \n#{array} \n\n"
-            replaced = replaced.sub key, array
-          end # redirects.each
-
-          File.open(file_updated, 'w') do |ff|
-            puts "Wrote redirects replaced to #{file_updated.white}"
-            ff.write(replaced)
-          end
-        end # File.open(FILE_TEMP, 'a+') { |f|
+        core_process_redirects(
+          file_redirects,
+          file_copy,
+          file_updated,
+          redirects,
+          log)
       end # redirects.count
 
       puts "Wrote log to #{file_log.white}"
@@ -168,11 +185,20 @@ module Frankenstein
       end
 
       log.file_write "\nCreated with #{PROJECT_URL} "\
-                     "#{Time.now.strftime("%b %d, %Y")} \n"
+                     "#{Time.now.strftime('%b %d, %Y')} \n"
 
-      f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}"\
-          "-r#{redirects.count}-f#{failures.count}"
-      File.open(f, 'w') { |ff| ff.write("#{PRODUCT} stats") }
+      f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}-stats"
+      f << "-r#{redirects.count}" if redirects.count > 0
+      f << "-f#{failures.count}" if failures.count > 0
+      File.open(f, 'w') { |ff| ff.write("#{PRODUCT} info for #{argv1}") }
+
+      f = "#{FILE_LOG_DIRECTORY}/#{log.identifier}-info"
+      hash = {
+        repo: argv1,
+        branch: branch,
+        readme: readme
+      }
+      io_json_write f, hash
 
       failures
     end
