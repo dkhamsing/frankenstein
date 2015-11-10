@@ -2,6 +2,8 @@
 module Frankenstein
   # Logger
   class Log
+    attr_reader :@identifier
+
     def initialize(opt_verbose, argv1)
       @verbose = opt_verbose
 
@@ -19,10 +21,6 @@ module Frankenstein
 
     def filename(extension)
       "#{FILE_LOG_DIRECTORY}/#{@identifier}-#{extension}"
-    end
-
-    def identifier
-      @identifier
     end
 
     def error(message)
