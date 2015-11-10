@@ -15,7 +15,7 @@ module Frankenstein
     require 'frankenstein/date'
     require 'frankenstein/emoji'
 
-    # require 'pp'
+    require 'pp'
 
     def github_client
       Octokit::Client.new(netrc: true)
@@ -89,7 +89,10 @@ module Frankenstein
       ref = "heads/#{branch}"
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-      sha_latest_commit = github.ref(fork, ref).object.sha
+      githubref = github.ref(fork, ref)
+      pp githubref
+
+      sha_latest_commit = githubref.object.sha
       sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
       file_name = readme
       my_content = File.read(filename)
