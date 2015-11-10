@@ -72,6 +72,7 @@ module Frankenstein
     '://fury-badge.herokuapp.com/.*png',
     '://shop.github.com$',
     '://enterprise.github.com/$',
+    '://github.com/.*/blob/',
     '://github.com/.*/fork$',
     '://github.com/security',
     '://github.com/site',
