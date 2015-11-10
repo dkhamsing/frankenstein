@@ -45,7 +45,10 @@ module Scan
   number_of_threads = 10
   logs = Frankenstein.core_logs
   r.each do |argv1|
-    next if logs.include? argv1.sub('/', '-')
+    if logs.include? argv1.sub('/', '-')
+      puts "Skipping #{argv1} (previously run)"
+      next
+    end
 
     elapsed_time_start = Time.now
 
