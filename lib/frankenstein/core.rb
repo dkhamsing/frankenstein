@@ -3,6 +3,7 @@ module Frankenstein
   require 'parallel'
   require 'colored'
   require 'frankenstein/constants'
+  require 'frankenstein/io'
   require 'frankenstein/output'
 
   class << self
@@ -31,7 +32,7 @@ module Frankenstein
       file_updated,
       redirects,
       log)
-      File.open(file_redirects, 'w') { |f| f.write(redirects) }
+      io_json_write file_redirects, redirects
 
       m = "\n#{em_status_yellow} #{redirects.count} "\
           "#{pluralize 'redirect', redirects.count}"

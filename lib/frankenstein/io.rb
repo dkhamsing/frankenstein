@@ -24,8 +24,12 @@ module Frankenstein
                saved
              else
                list
-             end
-      File.open(FILE_REPO, 'w') { |f| f.puts(json.to_json) }
+             end      
+      io_json_write FILE_REPO, json
+    end
+
+    def io_json_write(filename, content)
+      File.open(filename, 'w') { |f| f.puts(content.to_json) }
     end
   end
 end
