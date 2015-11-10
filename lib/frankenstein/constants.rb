@@ -85,6 +85,7 @@ module Frankenstein
     '://github.com.*\.git$',
     '://github.com.*/tree/',
     '://github.com/.*/zipball/',
+    '://github.com/.*/raw/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
     '://ogp.me/ns',
