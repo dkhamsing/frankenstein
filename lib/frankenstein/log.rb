@@ -2,6 +2,8 @@
 module Frankenstein
   # Logger
   class Log
+    require 'frankenstein/constants'
+
     attr_reader :identifier
 
     def initialize(opt_verbose, argv1)
