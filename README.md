@@ -156,7 +156,7 @@ Example pull requests by `frankenstein`:
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
 - https://github.com/airbnb/javascript/pull/564
 - https://github.com/hangtwenty/dive-into-machine-learning/pull/14
-- more https://twitter.com/ReadmeCritic
+- more https://github.com/pulls?utf8=✓&q=is%3Amerged+is%3Apr+author%3AReadmeCritic
 
 `frankenstein` can create a gist of the results and send a tweet out:
 
