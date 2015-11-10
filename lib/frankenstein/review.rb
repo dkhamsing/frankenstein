@@ -77,7 +77,8 @@ module Review
     if user_input.downcase == option_pull
       log.add "\nCreating pull request on GitHub for #{argv1} ...".white
 
-      p = github_pull_request(argv1, default_branch, readme, file_updated, log)
+      p = Frankenstein.github_pull_request(argv1, default_branch, readme,
+                                           file_updated, log)
       log.add "Pull request created: #{p}".white
 
       done = true
