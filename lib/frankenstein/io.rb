@@ -29,11 +29,7 @@ module Frankenstein
 
     def io_json_read(filename)
       c = File.read(filename)
-      if c
-        JSON.parse(c)
-      else
-        nil
-      end
+      c ? JSON.parse(c) : nil
     end
 
     def io_json_write(filename, content)

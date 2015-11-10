@@ -16,7 +16,7 @@ module Frankenstein
       # ) for markdown
       # ' found on https://fastlane.tools/
       # , for link followed by comma
-      # /: found on ircanywhere/ircanywhere
+      # : found on ircanywhere/ircanywhere
 
       [links_to_check, links_found]
     end

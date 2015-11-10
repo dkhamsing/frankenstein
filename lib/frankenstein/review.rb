@@ -84,14 +84,11 @@ module Review
       done = true
     elsif user_input.include? option_white_list
       wl = user_input.sub("#{option_white_list}=", '')
-      puts wl
       list = wl.split '^'
 
-      list.each do |x|
+      list.each do |x| # TODO: this looks like it could be improved
         redirects.reject! do |hash|
           key, array = hash.first
-          # puts "evaluating #{key} with #{wl}"
-
           key.include? x
         end
       end
