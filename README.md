@@ -78,12 +78,12 @@ Found: master for ccgus/fmdb — A Cocoa / Objective-C wrapper around SQLite —
 ```
 
 ```shell
-$ frankenstein matteocrippa/awesome-swift -m # minimized result output
+$ frankenstein dkhamsing/frankenstein
 
-Finding default branch for matteocrippa/awesome-swift
-Found: master for matteocrippa/awesome-swift — A collaborative list of awesome swift resources. Feel free to contribute! — 4981⭐️  — last updated 1 day ago
-🏃  Processing links for https://raw.githubusercontent.com/matteocrippa/awesome-swift/master/README.md ...
-🔎  Checking 470 links
+Finding default branch for dkhamsing/frankenstein
+Found: 1.0-wip for dkhamsing/frankenstein — Checks for live URLs and correct READMEs — 48⭐️  — last updated today
+🏃  Processing links for https://raw.githubusercontent.com/dkhamsing/frankenstein/1.0-wip/README.md ...
+🔎  Checking 56 links
 ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
 # ...
 ```
