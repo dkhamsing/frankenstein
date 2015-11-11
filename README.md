@@ -2,14 +2,13 @@
 
 # Frankenstein
 
-`frankenstein` checks for live URLs on a page and can [correct links](https://github.com/ReadmeCritic) in [GitHub](#github) readmes.
+`frankenstein` checks for live URLs on a page, it can also [correct links](https://github.com/ReadmeCritic) in [GitHub](#github) READMEs :octocat:
 
 ![](assets/demo.gif)
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
-`frankenstein` started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios). It can integrate with  [Travis](#travis) and do [much more](#examples) :runner: :octocat: :construction_worker:
-this is still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2).
+`frankenstein` started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios). It can integrate with [Travis](#travis) :construction_worker: and do [much more](#examples) :runner: this is a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2).
 
 ## Installation
 
