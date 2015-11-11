@@ -2,10 +2,11 @@
 module New
   require 'colored'
   require 'frankenstein/constants'
+  require 'frankenstein/core'
   require 'frankenstein/github'
   require 'frankenstein/output'
 
-  require 'pp'
+  # require 'pp'
 
   PRODUCT = 'new'
   # OPTION_MERGE = 'm'
@@ -15,17 +16,12 @@ module New
     exit(1)
   end
 
-  # argv1 = ARGV[0]
-  # state = argv1 == OPTION_MERGE ? 'merged' : 'open'
-
   puts '> Creating GitHub client'
   client = Frankenstein.github_client
 
   puts '> Getting notifications'
-
   n = client.notifications
-
-  pp n
+  # pp n
 
   m = n.map do |x|
     s = x[:subject]
@@ -43,10 +39,14 @@ module New
   t = Time.new.strftime('%b %d at %I:%M%p')
   puts "No notifications #{t.white}" if n.count == 0
 
-  debug = true
-  if n.count > 0 or debug
+  if n.count > 0
     print '> Enter number to merge pull request: '
     user_input = STDIN.gets.chomp
     puts user_input
+
+    url_to_merge = m[user_input.to_i - 1]
+    puts url_to_merge
+
+    Frankenstein.core_merge url_to_merge
   end
 end
