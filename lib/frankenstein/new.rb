@@ -38,7 +38,7 @@ module New
   end
 
   t = Time.new.strftime('%b %d at %I:%M%p')
-  puts "No notifications #{t.white}" if n.count == 0
+  puts "#{'No notifications'.green} #{t.white}" if n.count == 0
 
   while m.count > 0
     m.each_with_index do |x, index|
