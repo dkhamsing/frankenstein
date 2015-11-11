@@ -1,15 +1,22 @@
+# Extend string
+class String
+  def number?
+    true if Float(self)
+  rescue
+    false
+  end
+end
+
 # Check GitHub notifications
 module New
   require 'colored'
+  # require 'pp'
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/github'
   require 'frankenstein/output'
 
-  # require 'pp'
-
   PRODUCT = 'new'
-  # OPTION_MERGE = 'm'
 
   unless Frankenstein.github_creds
     puts Frankenstein::GITHUB_CREDS_ERROR
@@ -27,26 +34,32 @@ module New
     s = x[:subject]
     u = s[:url]
     u.sub('api.', '').sub('repos/', '').sub('/pulls', '/pull')
-    # can also hit up `u` and retrieve html_url via json..
+    # is it better to load `u` and retrieve html_url via json ?
   end
-
-  m.each_with_index do |x, index|
-    puts "#{index + 1} #{x.blue}"
-  end
-
-  puts Frankenstein.pluralize2 n.count, 'notification'
 
   t = Time.new.strftime('%b %d at %I:%M%p')
   puts "No notifications #{t.white}" if n.count == 0
 
-  if n.count > 0
+  while m.count > 0
+    m.each_with_index do |x, index|
+      puts "#{index + 1} #{x.blue}"
+    end
+
     print '> Enter number to merge pull request: '
     user_input = STDIN.gets.chomp
     puts user_input
 
-    url_to_merge = m[user_input.to_i - 1]
-    puts url_to_merge
+    if user_input.number?
+      index = user_input.to_i - 1
+      url_to_merge = m[index]
+      m.delete_at(index)
+      puts url_to_merge
 
-    Frankenstein.core_merge url_to_merge
+      Frankenstein.core_merge url_to_merge
+    else
+      puts 'not a number'
+    end
   end
-end
+
+  puts "\n#{PRODUCT.white} finished " if n.count > 0
+end # module
