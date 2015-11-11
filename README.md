@@ -8,7 +8,7 @@
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
-`frankenstein` started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios). It can integrate with [Travis](#travis) :construction_worker: and do [much more](#examples) :runner: this is a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2).
+This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios) and it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
 
 ## Installation
 
@@ -28,7 +28,7 @@ frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [wl=s1^s2.
 
 ## Examples
 
-See some example runs [here](https://gist.github.com/ReadmeCritic) 🏃
+See some actual runs [here](https://gist.github.com/ReadmeCritic) 🏃
 
 ```shell
 $ frankenstein README.md # file on disk
@@ -195,7 +195,7 @@ $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, s
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87774588
 
-`.travis.yml` sample file:
+`.travis.yml`
 
 ```
 language: ruby
