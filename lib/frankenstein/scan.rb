@@ -36,7 +36,7 @@ module Scan
     exit(1)
   end
 
-  Frankenstein.cli_create_log_dir()
+  Frankenstein.cli_create_log_dir
 
   c = File.read argv_1
   links, * = Frankenstein.core_find_links c
@@ -71,16 +71,14 @@ module Scan
       log.error "GitHub #{message}"
       log.add 'Finding readme...'
 
-      default_branch = 'master'
-      the_url, readme = Frankenstein.net_find_github_url_readme(argv1,
-                                                           default_branch)
+      b = 'master'
+      the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
     else
-      default_branch = parsed['default_branch']
+      b = parsed['default_branch']
       log.add Frankenstein.github_repo_json_info(parsed,
-                                                 default_branch,
+                                                 b,
                                                  argv1)
-      the_url, readme = Frankenstein.net_find_github_url_readme(argv1,
-                                                           default_branch)
+      the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
     end # if message ..
 
     content = Frankenstein.net_get(the_url).body
@@ -94,7 +92,7 @@ module Scan
       links_to_check,
       argv1,
       number_of_threads,
-      default_branch,
+      b,
       readme,
       false, # option_github_stars_only,
       true,  # option_head,

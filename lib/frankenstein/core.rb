@@ -47,7 +47,7 @@ module Frankenstein
       client.delete_repository fork
     end
 
-    def finish(tweet, project, clean_pull_url)
+    def finish(tweet, clean_pull_url)
       puts tweet
 
       client = twitter_client
@@ -107,7 +107,7 @@ module Frankenstein
               "looked pretty good ¯/_(ツ)_/¯ #{clean_pull_url}/files"
         end
 
-        finish t, project, clean_pull_url
+        finish t, clean_pull_url
       else
         puts 'Pull request is still open 📗'
       end

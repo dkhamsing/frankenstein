@@ -31,7 +31,7 @@ module New
   end
 
   m.each_with_index do |x, index|
-    puts "#{index+1} #{x.blue}"
+    puts "#{index + 1} #{x.blue}"
   end
 
   puts Frankenstein.pluralize2 n.count, 'notification'
