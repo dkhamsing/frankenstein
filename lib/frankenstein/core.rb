@@ -4,6 +4,7 @@ module Frankenstein
   require 'colored'
 
   require 'frankenstein/constants'
+  require 'frankenstein/github'
   require 'frankenstein/io'
   require 'frankenstein/output'
   require 'frankenstein/twitter'
@@ -24,7 +25,7 @@ module Frankenstein
     end
 
     def core_logs
-      d = Dir.entries(Frankenstein::FILE_LOG_DIRECTORY)
+      d = Dir.entries(FILE_LOG_DIRECTORY)
       d.join ' '
     end
 
@@ -49,19 +50,17 @@ module Frankenstein
     def finish(tweet, project, clean_pull_url)
       puts tweet
 
-      client = Frankenstein.twitter_client
+      client = twitter_client
       t = client.update tweet
 
-      puts "\nTweet sent #{Frankenstein.twitter_tweet_url(client, t).blue}"
+      puts "\nTweet sent #{twitter_tweet_url(client, t).blue}"
 
-      puts "\n#{PRODUCT} finished for #{project.white}"
-
+      puts "\nOpening Safari ..."
       system("open -a Safari #{clean_pull_url}")
     end
 
     def core_merge(argv1)
-      logo = Frankenstein.em_logo
-      puts "#{logo} Parsing input #{argv1.white} ..."
+      puts "#{em_logo} Parsing input #{argv1.white} ..."
       clean_pull_url = argv1.gsub(/#.*$/, '')
       puts clean_pull_url
       number = clean_pull_url.gsub(/.*pull\//, '')
@@ -70,41 +69,41 @@ module Frankenstein
       puts project
       username = project.gsub(/\/.*$/, '')
       puts username
-      fork = project.sub(username, Frankenstein.github_netrc_username)
+      fork = project.sub(username, github_netrc_username)
       puts fork
 
-      puts "\n#{logo} Creating GitHub client"
-      client = Frankenstein.github_client
+      puts "\n#{em_logo} Creating GitHub client"
+      client = github_client
 
-      puts "\n#{logo} Getting changes ... "
+      puts "\n#{em_logo} Getting changes ... "
       f = client.pull_files project, number
       changes = f[0][:additions]
       m = 'Found '\
-          "#{Frankenstein.pluralize2 changes, 'change'} "
+          "#{pluralize2 changes, 'change'} "
       puts m
 
-      puts "\n#{logo} Checking merge status for #{project.white} ..."
+      puts "\n#{em_logo} Checking merge status for #{project.white} ..."
       merged = client.pull_merged? project, number
       puts 'Pull request was merged 🎉' if merged == true
 
-      puts "\n#{logo} Checking pull request status ..." unless merged == true
+      puts "\n#{em_logo} Checking pull request status ..." unless merged == true
       state = client.pull(project, number)[:state]
       puts 'Pull request was closed 😡' if state == 'closed' && merged == false
 
-      check_comments(client, project, number, logo)
+      check_comments(client, project, number, em_logo)
 
       puts ''
       if merged == true || state == 'closed'
-        delete_fork(client, fork, logo)
+        delete_fork(client, fork, em_logo)
 
-        puts "\n#{logo} Crafting tweet ... \n\n"
+        puts "\n#{em_logo} Crafting tweet ... \n\n"
         if (merged == true)
-          t = "#{logo}#{clean_pull_url} was merged with "\
-              "#{Frankenstein.pluralize2 changes, 'change'} "\
+          t = "#{em_logo}#{clean_pull_url} was merged with "\
+              "#{pluralize2 changes, 'change'} "\
               "#{twitter_random_happy_emoji}"
         else # closed :-(
-          t = "#{logo}This pull request with "\
-              "#{Frankenstein.pluralize2 changes, 'change'} "\
+          t = "#{em_logo}This pull request with "\
+              "#{pluralize2 changes, 'change'} "\
               "looked pretty good ¯/_(ツ)_/¯ #{clean_pull_url}/files"
         end
 
