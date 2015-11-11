@@ -6,6 +6,8 @@ module Frankenstein
   require 'frankenstein/constants'
   require 'frankenstein/github'
   require 'frankenstein/io'
+  require 'frankenstein/log'
+  require 'frankenstein/network'
   require 'frankenstein/output'
   require 'frankenstein/twitter'
 
@@ -289,6 +291,76 @@ module Frankenstein
       io_json_write f, hash
 
       failures
+    end
+
+    def core_scan(argv_1)
+      c = File.read argv_1
+      links, * = Frankenstein.core_find_links c
+      r = Frankenstein.github_get_repos links
+      # puts r
+      puts "Scanning #{Frankenstein.pluralize2(r.count, 'repo').white}"
+
+      flag_verbose = false
+      number_of_threads = 10
+      logs = Frankenstein.core_logs
+      r.each do |argv1|
+        if logs.include? argv1.sub('/', '-')
+          puts "Skipping #{argv1} (previously run)"
+          next
+        end
+
+        elapsed_time_start = Time.now
+
+        log = Frankenstein::Log.new(flag_verbose, argv1)
+
+        file_copy = log.filename(Frankenstein::FILE_COPY)
+        file_updated = log.filename(Frankenstein::FILE_UPDATED)
+        file_redirects = log.filename(Frankenstein::FILE_REDIRECTS)
+        file_log = log.filelog
+
+        message, parsed = Frankenstein.github_repo_unauthenticated(argv1, log)
+        if message == 'Not Found' || message == 'Moved Permanently'
+          m = "Retrieving repo #{argv1} "
+          log.error "#{m.red} #{message.downcase}"
+          next
+        elsif message.include? 'API rate limit exceeded'
+          log.error "GitHub #{message}"
+          log.add 'Finding readme...'
+
+          b = 'master'
+          the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
+        else
+          b = parsed['default_branch']
+          log.add Frankenstein.github_repo_json_info(parsed,
+                                                     b,
+                                                     argv1)
+          the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
+        end # if message ..
+
+        content = net_get(the_url).body
+        File.open(file_copy, 'w') { |f| f.write(content) }
+
+        links_to_check, * = core_find_links content
+
+        core_run(
+          elapsed_time_start,
+          log,
+          links_to_check,
+          argv1,
+          number_of_threads,
+          b,
+          readme,
+          false, # option_github_stars_only,
+          true,  # option_head,
+          false, # option_white_list,
+          false, # flag_control_failure,
+          false, # flag_minimize_output,
+          false, # flag_fetch_github_stars,
+          file_redirects,
+          file_updated,
+          file_copy,
+          file_log)
+      end # Parallel
     end
   end # class
 end

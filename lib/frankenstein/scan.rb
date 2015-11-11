@@ -1,26 +1,26 @@
 # Scan for GitHub repos
 module Scan
   require 'colored'
-  require 'parallel'
+  require 'github-trending'
 
   require 'frankenstein/cli'
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/github'
-  require 'frankenstein/log'
-  require 'frankenstein/network'
-  require 'frankenstein/output'
 
   PRODUCT = 'scan'
   PRODUCT_DESCRIPTION = 'Scan for GitHub repos'
 
   LEADING_SPACE = '     '
+  OPTION_TREND = 't'
 
   argv_1 = ARGV[0]
   if argv_1.nil?
-    m = "#{PRODUCT.blue} #{PRODUCT_DESCRIPTION.white} "\
+    blue = PRODUCT.blue
+    m = "#{blue} #{PRODUCT_DESCRIPTION.white} "\
         "\n#{LEADING_SPACE}"\
-        "Usage: #{PRODUCT.blue} <#{'file'.white}> "
+        "Usage: #{blue} <#{'file'.white}> "\
+        "\n#{LEADING_SPACE}       #{blue} #{OPTION_TREND.white}"
     puts m
     puts "\n"
     exit
@@ -31,78 +31,33 @@ module Scan
     exit(1)
   end
 
+  Frankenstein.cli_create_log_dir
+
+  if argv_1 == OPTION_TREND
+    puts 'Scanning Trending in GitHub'
+
+    repos = Github::Trending.get
+    m = ''
+    repos.each do |r|
+      g_url = "https://github.com/#{r.name}"
+      m << g_url + ' '
+    end
+
+    filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo"
+    puts "Creating temp file #{filename.white}"
+    File.write filename, m
+
+    Frankenstein.core_scan(filename)
+
+    puts 'Deleting temp file'
+    File.delete filename
+    exit
+  end
+
   unless File.exist? argv_1
-    puts "#{PRODUCT.red} File #{argv1.white} does not exist"
+    puts "#{PRODUCT.red} File #{argv_1.white} does not exist"
     exit(1)
   end
 
-  Frankenstein.cli_create_log_dir
-
-  c = File.read argv_1
-  links, * = Frankenstein.core_find_links c
-  r = Frankenstein.github_get_repos links
-  # puts r
-  puts "Scanning #{Frankenstein.pluralize2(r.count, 'repo').white}"
-
-  flag_verbose = false
-  number_of_threads = 10
-  logs = Frankenstein.core_logs
-  r.each do |argv1|
-    if logs.include? argv1.sub('/', '-')
-      puts "Skipping #{argv1} (previously run)"
-      next
-    end
-
-    elapsed_time_start = Time.now
-
-    log = Frankenstein::Log.new(flag_verbose, argv1)
-
-    file_copy = log.filename(Frankenstein::FILE_COPY)
-    file_updated = log.filename(Frankenstein::FILE_UPDATED)
-    file_redirects = log.filename(Frankenstein::FILE_REDIRECTS)
-    file_log = log.filelog
-
-    message, parsed = Frankenstein.github_repo_unauthenticated(argv1, log)
-    if message == 'Not Found' || message == 'Moved Permanently'
-      m = "Retrieving repo #{argv1} "
-      log.error "#{m.red} #{message.downcase}"
-      next
-    elsif message.include? 'API rate limit exceeded'
-      log.error "GitHub #{message}"
-      log.add 'Finding readme...'
-
-      b = 'master'
-      the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
-    else
-      b = parsed['default_branch']
-      log.add Frankenstein.github_repo_json_info(parsed,
-                                                 b,
-                                                 argv1)
-      the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
-    end # if message ..
-
-    content = Frankenstein.net_get(the_url).body
-    File.open(file_copy, 'w') { |f| f.write(content) }
-
-    links_to_check, * = Frankenstein.core_find_links content
-
-    Frankenstein.core_run(
-      elapsed_time_start,
-      log,
-      links_to_check,
-      argv1,
-      number_of_threads,
-      b,
-      readme,
-      false, # option_github_stars_only,
-      true,  # option_head,
-      false, # option_white_list,
-      false, # flag_control_failure,
-      false, # flag_minimize_output,
-      false, # flag_fetch_github_stars,
-      file_redirects,
-      file_updated,
-      file_copy,
-      file_log)
-  end # Parallel
+  Frankenstein.core_scan(argv_1)
 end
