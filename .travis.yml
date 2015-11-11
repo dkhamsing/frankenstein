@@ -11,5 +11,4 @@ script:
   - frankenstein bin/assets/test-white-list -v head no-prompt
   - frankenstein dkhamsing/ios-asset-names -mv log no-prompt
   - frankenstein fastlane/fastlane.tools -v threads=8 no-prompt
-  - frankenstein dkhamsing/frankenstein -v threads=10 no-prompt
   - frankenstein http://dkhamsing.github.io/ -v no-prompt
