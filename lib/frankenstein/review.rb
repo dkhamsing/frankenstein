@@ -33,6 +33,8 @@ module Review
 
   # filter stats files
   argv_1 = argv_1.gsub(/-stats.*$/, '')
+  argv_1 = "#{logs_dir}/#{argv_1}" if
+    !(argv_1.include? logs_dir) && !(File.exist? argv_1)
 
   # check the files below exist
   file_copy = "#{argv_1}-copy"
