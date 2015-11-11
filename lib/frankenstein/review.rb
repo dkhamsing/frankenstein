@@ -31,6 +31,9 @@ module Review
   file_updated = "#{logs_dir}/temp-u"
   file_log = "#{logs_dir}/temp-log"
 
+  # filter stats files
+  argv_1 = argv_1.gsub(/-stats.*$/, '')
+
   # check the files below exist
   file_copy = "#{argv_1}-copy"
   file_info = "#{argv_1}-info"
