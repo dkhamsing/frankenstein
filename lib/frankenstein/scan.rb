@@ -49,7 +49,7 @@ module Scan
 
     Frankenstein.core_scan(filename)
 
-    puts 'Deleting temp file'
+    puts "Deleting temp file #{filename.white}"
     File.delete filename
     exit
   end

@@ -303,9 +303,9 @@ module Frankenstein
       flag_verbose = false
       number_of_threads = 10
       logs = Frankenstein.core_logs
-      r.each do |argv1|
+      r.each.with_index do |argv1, index|
         if logs.include? argv1.sub('/', '-')
-          puts "Skipping #{argv1} (previously run)"
+          puts "#{index + 1} Skipping #{argv1} (previously run)"
           next
         end
 
