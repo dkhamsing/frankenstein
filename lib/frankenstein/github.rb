@@ -80,9 +80,10 @@ module Frankenstein
         forked_repo = github_fork(github, repo)
         sleep 2
         # puts 'forking'.red
-        # pp forked_repo
         log.verbose 'Forking repo.. sleep'
       end
+
+      pp forked_repo
 
       # commit change
       puts 'Commit change'
