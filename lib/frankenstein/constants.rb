@@ -75,6 +75,7 @@ module Frankenstein
     '://enterprise.github.com/$',
     '://github.com/.*/blob/',
     '://github.com/.*/fork$',
+    '://github.com/pulls',
     '://github.com/security',
     '://github.com/site',
     '://github.com/new',
