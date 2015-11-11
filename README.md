@@ -2,13 +2,14 @@
 
 # Frankenstein
 
-`frankenstein` checks for live URLs on a page and works with [GitHub](#github) & [Travis](#travis).
-
-[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
+`frankenstein` checks for live URLs on a page and can [correct links](https://github.com/ReadmeCritic) in [GitHub](#github) readmes.
 
 ![](assets/demo.gif)
 
-This is still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :octocat: :construction_worker:
+[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
+
+`frankenstein` started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios). It can integrate with  [Travis](#travis) and do [much more](#examples) :runner: :octocat: :construction_worker:
+this is still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2).
 
 ## Installation
 
@@ -26,7 +27,7 @@ bundle install
 frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [wl=s1^s2..] [no-prompt]
 ```
 
-### Examples
+## Examples
 
 See some example runs [here](https://gist.github.com/ReadmeCritic) 🏃
 
@@ -96,7 +97,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -fv head # combine flags and optio
 $ frankenstein dkhamsing/open-source-ios-apps threads=10 # use 10 parallel threads (the default is 5, use threads=0 to disable threading)
 ```
 
-#### GitHub
+### GitHub
 
 Integration with GitHub (repo information, pull request, gists) requires a GitHub account with username and passwords set in [.netrc](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
@@ -179,7 +180,7 @@ Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures 
 
 Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb).
 
-#### White list
+### White list
 
 Some URLs that are meant to be redirected (i.e. URL shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
 
