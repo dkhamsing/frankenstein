@@ -8,7 +8,7 @@
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
-This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios) and it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
+This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios), it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
 
 ## Installation
 
@@ -63,7 +63,7 @@ Wrote log to logs/1446869147-2015-11-06-fastlane.tools.frankenstein
 ```
 
 ```shell
-$ frankenstein dkhamsing/open-source-ios-apps # check URLs in a GitHub repo readme
+$ frankenstein ccgus/fmdb # check URLs in a GitHub repo readme
 $ frankenstein https://github.com/ccgus/fmdb
 
 Finding default branch for ccgus/fmdb
@@ -126,7 +126,7 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 2000+ Stars: 🔥🔥🔥🔥🔥
 ```
 
-`frankenstein` can also open a pull request to update redirects:
+`frankenstein` can open a pull request to update redirects:
 
 ```shell
 $ frankenstein fastlane/sigh
@@ -189,7 +189,7 @@ $ frankenstein docker/docker wl=tryit^openvz # additional items to white list, s
 
 ### Travis
 
-- `frankenstein` can also work with [Travis](https://travis-ci.org/) to validate commits on GitHub (use option `no-prompt`).
+- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub, use option `no-prompt`.
 - Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
   - https://github.com/dkhamsing/open-source-ios-apps/pull/139
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
