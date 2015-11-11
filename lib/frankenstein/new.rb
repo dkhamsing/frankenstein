@@ -27,12 +27,15 @@ module New
 
   pp n
 
-  n.each_with_index do |x, index|
+  m = n.map do |x|
     s = x[:subject]
     u = s[:url]
-    pull_url = u.sub('api.', '').sub('repos/', '').sub('/pulls', '/pull')
+    u.sub('api.', '').sub('repos/', '').sub('/pulls', '/pull')
+    # can also hit up `u` and retrieve html_url via json..
+  end
 
-    puts "#{index+1} #{pull_url.blue}"
+  m.each_with_index do |x, index|
+    puts "#{index+1} #{x.blue}"
   end
 
   puts Frankenstein.pluralize2 n.count, 'notification'
@@ -40,5 +43,10 @@ module New
   t = Time.new.strftime('%b %d at %I:%M%p')
   puts "No notifications #{t.white}" if n.count == 0
 
-  # TODO: prompt to merge..
+  debug = true
+  if n.count > 0 or debug
+    print '> Enter number to merge pull request: '
+    user_input = STDIN.gets.chomp
+    puts user_input
+  end
 end
