@@ -6,9 +6,9 @@
 
 ![](assets/demo.gif)
 
-[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
-
 This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios), it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
+
+[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
 ## Installation
 
