@@ -147,7 +147,7 @@ Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 ```
 
-Example pull requests by `frankenstein`:
+Example pull requests with `frankenstein`:
 
 - https://github.com/fastlane/sigh/pull/195
 - https://github.com/kylef/Commander/pull/14
@@ -156,7 +156,7 @@ Example pull requests by `frankenstein`:
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
 - https://github.com/airbnb/javascript/pull/564
 - https://github.com/hangtwenty/dive-into-machine-learning/pull/14
-- more https://github.com/pulls?utf8=✓&q=is%3Amerged+is%3Apr+author%3AReadmeCritic
+- more from [@ReadmeCritic](https://github.com/pulls?q=is%3Amerged+is%3Apr+author%3AReadmeCritic&utf8=%E2%9C%93)
 
 `frankenstein` can create a gist of the results and send a tweet out:
 
