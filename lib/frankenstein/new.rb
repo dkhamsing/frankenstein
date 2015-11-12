@@ -57,7 +57,7 @@ module New
 
       Frankenstein.core_merge url_to_merge
     else
-      puts 'not a number'
+      exit
     end
   end
 
