@@ -57,10 +57,9 @@ module Review
   redirects = Frankenstein.io_json_read redirects_file
 
   info = Frankenstein.io_json_read file_info
-  puts info
+  # puts info
 
   argv1 = info['repo']
-
 
   default_branch = info['branch']
   readme = info['readme']
