@@ -305,7 +305,19 @@ module Frankenstein
       logs = Frankenstein.core_logs
       r.each.with_index do |argv1, index|
         if logs.include? argv1.sub('/', '-')
-          puts "#{index + 1} Skipping #{argv1} (previously run)"
+          match = argv1.sub('/', '-')
+          t = core_logs.match(/(.){22}(#{match})/)
+          epoch = t[0].gsub(/-.*/, '').to_i
+          today = Time.now.to_i
+          seconds = today - epoch
+          minutes = seconds / 60
+          hour = minutes / 60
+          minutes = minutes - (60 * hour) if hour > 0
+
+          m = "Skipping #{argv1}, previously run "\
+              "#{hour}h #{minutes}m ago"
+
+          puts m
           next
         end
 
