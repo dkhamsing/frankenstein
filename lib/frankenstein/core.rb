@@ -313,9 +313,19 @@ module Frankenstein
           minutes = seconds / 60
           hour = minutes / 60
           minutes = minutes - (60 * hour) if hour > 0
+          day = hour / 24
 
-          m = "Skipping #{argv1}, previously run "\
-              "#{hour}h #{minutes}m ago"
+          m = "#{index + 1} Skipping #{argv1.white}, run "
+          if day > 0
+            m << "#{pluralize2 day, 'day'}"
+          else
+            if hour > 0
+              m << "#{hour}h #{minutes}m"
+            else
+              m << "#{pluralize2 minutes, 'minute'}"
+            end
+          end
+          m << ' ago'
 
           puts m
           next
