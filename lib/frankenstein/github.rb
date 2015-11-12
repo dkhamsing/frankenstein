@@ -79,17 +79,25 @@ module Frankenstein
       while forked_repo.nil?
         forked_repo = github_fork(github, repo)
         sleep 2
-        # puts 'forking'.red
         log.verbose 'Forking repo.. sleep'
       end
 
       pp forked_repo
+      puts 'repo is forked'.red
+
+      puts 'getting fork'
+      f = github_repo(github, fork)
+      pp f
 
       # commit change
       puts 'Commit change'
       ref = "heads/#{branch}"
 
+      puts 'getting refs'
+      pp github.refs(fork)
+
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
+      puts 'getting ref'.red
       githubref = github.ref(fork, ref)
       pp githubref
 
