@@ -66,6 +66,7 @@ module Frankenstein
     '://cocoapod-badges',
     '://coveralls.io/r/',
     '://coveralls.io/repos.*(pn|sv)g',
+    '://db.tt/',
     '://discord.gg/',
     '://eepurl.com/',
     'facebook.com/sharer',
