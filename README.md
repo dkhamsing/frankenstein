@@ -13,6 +13,8 @@ This started as a project to verify links in ["awesome"](https://github.com/sind
 Jump to
 - [Installation](#installation)
 - [Usage](#usage)
+  - [GitHub](#github)
+  - [Travis](#travis)
 - [Examples](#examples)
 - [Additional Tools](#additional-tools)
 - [Credits](#credits)
