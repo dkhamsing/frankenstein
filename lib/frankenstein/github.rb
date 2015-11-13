@@ -97,15 +97,15 @@ module Frankenstein
       # pp github.refs(fork)
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-      puts 'getting ref'.red
+      # puts 'getting ref'.red
 
       begin
         githubref = github.ref(fork, ref)
 
       rescue StandardError => e
         puts "error #{e}".red
-        puts 'trying again in 2 seconds'
-        sleep 2
+        puts 'trying again in 3 seconds'
+        sleep 3
         githubref = github.ref(fork, ref)
         # pp githubref
       end
