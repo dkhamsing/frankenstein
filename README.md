@@ -26,7 +26,7 @@ bundle install
 frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [no-prompt]
 ```
 
-`frankenstein` comes with additional tools: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review) and [`scan`](#scan).
+Additional tools are available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review) and [`scan`](#scan).
 
 ## Examples
 
@@ -204,7 +204,7 @@ http://giphy.com/gifs/loop-factory-how-its-made-n1JN4fSrXovJe
 
 🏃  No failures for dkhamsing/forker
 
-Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | enter to end) wl=gph
+Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | enter to end) w=gph
 ```
 
 ### Travis
