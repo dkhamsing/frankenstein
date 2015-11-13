@@ -15,7 +15,7 @@ module Frankenstein
     require 'frankenstein/date'
     require 'frankenstein/emoji'
 
-    require 'pp'
+    # require 'pp'
 
     def github_client
       Octokit::Client.new(netrc: true)
@@ -82,24 +82,33 @@ module Frankenstein
         log.verbose 'Forking repo.. sleep'
       end
 
-      pp forked_repo
-      puts 'repo is forked'.red
-
-      puts 'getting fork'
-      f = github_repo(github, fork)
-      pp f
+      # pp forked_repo
+      # puts 'repo is forked'.red
+      #
+      # puts 'getting fork'
+      # f = github_repo(github, fork)
+      # pp f
 
       # commit change
       puts 'Commit change'
       ref = "heads/#{branch}"
 
-      puts 'getting refs'
-      pp github.refs(fork)
+      # puts 'getting refs'
+      # pp github.refs(fork)
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
       puts 'getting ref'.red
-      githubref = github.ref(fork, ref)
-      pp githubref
+
+      begin
+        githubref = github.ref(fork, ref)
+
+      rescue StandardError => e
+        puts "error #{e}".red
+        puts 'trying again in 2 seconds'
+        sleep 2
+        githubref = github.ref(fork, ref)
+        # pp githubref
+      end
 
       sha_latest_commit = githubref.object.sha
       sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
