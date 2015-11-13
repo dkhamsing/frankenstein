@@ -190,7 +190,7 @@ Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures 
   🐦 Tweet sent: https://twitter.com/ReadmeCritic/status/662781085479137280
 ```
 
-Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb).
+Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb) (also see [`announce`](#announce)).
 
 ### White list
 
@@ -220,7 +220,7 @@ Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | ent
 
 ### Travis
 
-- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub, use option `no-prompt`.
+- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub (option `no-prompt`).
 - Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
   - https://github.com/dkhamsing/open-source-ios-apps/pull/139
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
