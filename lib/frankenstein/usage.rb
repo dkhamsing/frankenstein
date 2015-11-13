@@ -8,6 +8,20 @@ module Frankenstein
         "#{ARGV1_GITHUB_REPO.magenta}"
     end
 
+    def all_tools
+      tools = [
+        'announce',
+        'issues',
+        'mergeclose',
+        'new',
+        'review',
+        'scan'
+      ]
+
+      m = tools.map { |x| x.green }
+      m.join ', '
+    end
+
     def usage
       m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
           "#{PRODUCT.green} <#{all_argv1}> "\
@@ -15,7 +29,6 @@ module Frankenstein
       "[#{OPTION_HEAD.blue}] "\
       "[#{OPTION_STARS.blue}] "\
       "[#{OPTION_THREADS.blue}=d] "\
-      "[#{OPTION_WHITE_LIST.blue}=s1^s2..] "\
       "[#{OPTION_SKIP.blue}] "\
       "\n"\
       "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
@@ -29,8 +42,6 @@ module Frankenstein
       "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
       "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
       "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
-      "   #{OPTION_WHITE_LIST.blue} \t\t ^ separated items to white list "\
-      "\n"\
       "   #{OPTION_SKIP.blue} \t Skip prompt at end of the run \n"\
       "\n#{em_logo} #{'Examples'.white} \n"\
       "$ #{PRODUCT} https://fastlane.tools \n"\
@@ -39,6 +50,7 @@ module Frankenstein
       "$ #{PRODUCT} dkhamsing/open-source-ios-apps stars \n"\
       "\n#{em_logo} \n- Fetching GitHub repo information "\
       "require credentials in .netrc \n"\
+      "- More tools: #{all_tools} \n"\
       '- More information: '\
       "#{PROJECT_URL.white.underline}"
 

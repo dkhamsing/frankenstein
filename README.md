@@ -23,8 +23,10 @@ bundle install
 ## Usage
 
 ```shell
-frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [wl=s1^s2..] [no-prompt]
+frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [no-prompt]
 ```
+
+`frankenstein` comes with additional tools: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review) and [`scan`](#scan).
 
 ## Examples
 
@@ -142,7 +144,7 @@ Found: master for fastlane/sigh — Because you would rather spend your time bui
 https://github.com/KrauseFx/fastlane redirects to
 https://github.com/fastlane/fastlane
 #...
-Next? (pull request | gist | tweet [-h] [message] | enter to end) p
+Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | enter to end) p
 Creating pull request on GitHub for fastlane/sigh ...
 Pull request created: https://github.com/fastlane/sigh/pull/195
 ```
@@ -183,8 +185,26 @@ Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb).
 
 Some URLs that are meant to be redirected (i.e. URL shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
 
+You an also white list items after a run or while using [`review`](#review) (option `w`).
+
 ```shell
-$ frankenstein docker/docker wl=tryit^openvz # additional items to white list, separated by ^
+$ frankenstein dkhamsing/forker
+
+Finding default branch for dkhamsing/forker
+Found: wip for dkhamsing/forker — Fork GitHub repos found on a page — 0⭐️  — last updated today
+🏃  Processing links for https://raw.githubusercontent.com/dkhamsing/forker/wip/README.md ...
+🔎  Checking 10 links
+✅  https://avatars.githubusercontent.com/u/4372882?v=3
+#...
+🔶  3 redirects
+http://gph.is/1768v38 -40 redirects to
+http://giphy.com/gifs/loop-factory-how-its-made-n1JN4fSrXovJe
+#...
+🕐  Time elapsed: 2.56 seconds
+
+🏃  No failures for dkhamsing/forker
+
+Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | enter to end) wl=gph
 ```
 
 ### Travis
@@ -210,6 +230,32 @@ before_script:
 script:  
   - frankenstein ../README.md no-prompt
 ```
+
+## Tools
+
+### `announce`
+
+`announce` will post a .frankenstein log file to a gist and optionally tweet the gist link.
+
+### `issues`
+
+`issues` lists open GitHub issues.
+
+### `mergeclose`
+
+`mergeclose` checks the status of a pull request (if closed, it deletes the fork and sends a tweet out).
+
+### `new`
+
+`new` checks GitHub for new notifications.
+
+### `review`
+
+`review` processes and filters a .frankenstein log file before opening a pull request to update redirects.
+
+### `scan`
+
+`scan` runs `frankenstein` in batch.
 
 ## Credits
 
