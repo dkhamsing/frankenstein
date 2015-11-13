@@ -10,6 +10,15 @@ This started as a project to verify links in ["awesome"](https://github.com/sind
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
+Jump to
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Additional Tools](#additional-tools)
+- [Credits](#credits)
+- [Contact](#contact)
+- [License](#license)
+
 ## Installation
 
 ```shell
@@ -231,7 +240,7 @@ script:
   - frankenstein ../README.md no-prompt
 ```
 
-## Tools
+## Additional Tools
 
 ### `announce`
 
