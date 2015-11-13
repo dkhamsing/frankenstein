@@ -134,7 +134,11 @@ module Frankenstein
 
         redirects.each do |hash|
           key, array = hash.first
-          log.add "#{key.yellow} redirects to \n#{array} \n\n"
+          diff = key.length - array.length
+
+          colored_diff = diff
+          colored_diff = colored_diff.to_s.red if diff.abs > 1
+          log.add "#{key.yellow} #{colored_diff} redirects to \n#{array} \n\n"
           replaced = replaced.sub key, array
         end # redirects.each
 
