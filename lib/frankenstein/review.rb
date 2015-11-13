@@ -76,7 +76,7 @@ module Review
       log)
 
     option_pull = 'p'
-    option_white_list = 'wl'
+    option_white_list = 'w'
     user_input = Frankenstein.cli_prompt option_pull, option_white_list
     if user_input.downcase == option_pull
       log.add "\nCreating pull request on GitHub for #{argv1} ...".white
