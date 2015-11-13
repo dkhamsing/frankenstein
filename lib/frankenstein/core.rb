@@ -294,7 +294,7 @@ module Frankenstein
       }
       io_json_write f, hash
 
-      failures
+      [failures, redirects]
     end
 
     def core_scan(argv_1)

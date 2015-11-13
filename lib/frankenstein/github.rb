@@ -174,6 +174,10 @@ module Frankenstein
         "— #{repo_updated}"
     end
 
+    def github_repo_exist(client, repo)
+      client.repository?(repo)
+    end
+
     def github_repo_unauthenticated(argv1, log)
       # github api has a rate limit of 60 unauthenticated requests per hour
       # https://developer.github.com/v3/#rate-limiting

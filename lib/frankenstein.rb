@@ -131,7 +131,7 @@ module Frankenstein
   log.verbose "Links found: #{links_found}"
   links_to_check.unshift(CONTROLLED_ERROR) if flag_control_failure
 
-  failures =
+  failures, redirects =
     core_run(
       elapsed_time_start,
       log,
@@ -158,30 +158,67 @@ module Frankenstein
     option_gist = 'g'
     option_tweet = 't'
     option_pull = 'p'
-    m = "\nNext? (#{option_pull.white}ull request | #{option_gist.white}ist | "\
-        "#{option_tweet.white}weet [#{option_happy.white}] [message] | "\
-        'enter to end) '
-    print m
-    user_input = STDIN.gets.chomp
+    option_w = 'w'
 
-    if user_input.downcase == option_pull
-      log.add "\nCreating pull request on GitHub for #{argv1} ...".white
-      p = github_pull_request(argv1, default_branch, readme, file_updated, log)
-      log.add "Pull request created: #{p}".white
-    elsif user_input.downcase == option_gist or user_input.include? option_tweet
-      gist_url, = Frankenstein.github_create_gist file_log, true
+    done = nil
+    while done.nil?
+      m = "\nNext? (#{option_pull.white}ull request | "\
+          "white list #{option_w.white}=s1^s2.. | #{option_gist.white}ist | "\
+          "#{option_tweet.white}weet [#{option_happy.white}] [message] | "\
+          'enter to end) '
+      print m
+      user_input = STDIN.gets.chomp
 
-      if user_input.include? option_tweet
-        client = twitter_client
-        message = user_input.sub(option_tweet, '').sub(option_happy, '').strip
+      if user_input.include? option_w
+        wl = user_input.sub("#{option_w}=", '')
+        list = wl.split '^'
 
-        happy = user_input.include? option_happy
-        tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
-                                                        message, happy)
-        t = client.update tweet
-        twitter_log Frankenstein.twitter_tweet_url(client, t)
-      end # if user_input.downcase == 't'
-    end # user input == y
+        list.each do |x| # TODO: this looks like it could be improved
+          redirects.reject! do |hash|
+            key, * = hash.first
+            key.include? x
+          end
+        end
+
+        core_process_redirects(
+          file_redirects,
+          file_copy,
+          file_updated,
+          redirects,
+          log)
+        next
+      end
+
+      if user_input.downcase == option_pull
+        unless github_repo_exist(github_client, argv1)
+          log.error "#{argv1.red} is not a repo"
+          exit(1)
+        end
+
+        log.add "\nCreating pull request on GitHub for #{argv1} ...".white
+        p = github_pull_request(argv1, default_branch, readme, file_updated,
+                                log)
+        log.add "Pull request created: #{p}".white
+        done = true
+      elsif user_input.downcase == option_gist or
+            user_input.include? option_tweet
+            done = true
+        gist_url, = Frankenstein.github_create_gist file_log, true
+
+        if user_input.include? option_tweet
+          client = twitter_client
+          message = user_input.sub(option_tweet, '').sub(option_happy, '').strip
+
+          happy = user_input.include? option_happy
+          tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
+                                                          message, happy)
+          t = client.update tweet
+          twitter_log Frankenstein.twitter_tweet_url(client, t)
+        end # if user_input.downcase == 't'
+      else  # any other key
+        done = true
+      end # user input == y
+    end # while
   end # if github_creds
 
   exit(1) if (failures.count > 0) && !(failures.include? CONTROLLED_ERROR)
