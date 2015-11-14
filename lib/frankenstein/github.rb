@@ -74,7 +74,7 @@ module Frankenstein
       github = github_client
 
       # fork
-      puts "Forking #{repo}"
+      puts "Forking to #{fork.white}..."
       forked_repo = nil
       while forked_repo.nil?
         forked_repo = github_fork(github, repo)
@@ -90,15 +90,14 @@ module Frankenstein
       # pp f
 
       # commit change
-      puts 'Commit change'
+      puts 'Committing change...'
       ref = "heads/#{branch}"
 
       # puts 'getting refs'
       # pp github.refs(fork)
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-      # puts 'getting ref'.red
-
+      puts "(Getting ref...)"
       begin
         githubref = github.ref(fork, ref)
 
@@ -131,10 +130,10 @@ module Frankenstein
       log.verbose "Updated ref: #{updated_ref}"
       log.verbose "Sent commit to fork #{fork}"
 
-      sleep 1 # sad
+      # sleep 1 # sad
 
       # create pull request
-      puts 'Open pull request'
+      puts 'Opening pull request...'
       head = "#{forker}:#{branch}"
       log.verbose "Set head to #{head}"
 
