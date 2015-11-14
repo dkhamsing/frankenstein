@@ -66,7 +66,30 @@ module Frankenstein
       n[0]
     end
 
-    def github_pull_request(repo, branch, readme, filename, log)
+    def github_pull_description(redirects, failures)
+      pr_desc = PULL_REQUEST_DESCRIPTION
+      r = "\n\n### Corrected URLs \n"\
+          "Was | Now \n"\
+          "--- | --- \n"
+      pr_desc << r
+
+      redirects.each do |hash|
+        key, array = hash.first
+        pr_desc << "#{key} | #{array} \n"
+      end
+
+      # if failures.count > 0
+      #   pr_desc << "\n### URLS could not be reached\n"
+      #   failures.each do |y|
+      #     pr_desc << "\n - #{y}"
+      #     # puts y
+      #   end
+      # end
+
+      pr_desc
+    end
+
+    def github_pull_request(repo, branch, readme, filename, description, log)
       forker = github_netrc_username
       fork = repo.gsub(%r{.*\/}, "#{forker}/")
       log.verbose "Fork: #{fork}"
@@ -141,7 +164,7 @@ module Frankenstein
                                            branch,
                                            head,
                                            PULL_REQUEST_TITLE,
-                                           PULL_REQUEST_DESCRIPTION)
+                                           description)
       created[:html_url].blue
     end
 
