@@ -100,6 +100,7 @@ module Frankenstein
     '://instagram.com/',
     'paypal.com/cgi-bin/webscr',
     'plus.google.com/share',
+    'readthedocs.org/',
     'reddit.com/message/compose',
     '://secure.travis-ci.org/.*(pn|sv)g',
     '://stackoverflow.com/questions/ask?',
