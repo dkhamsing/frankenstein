@@ -75,7 +75,7 @@ module Frankenstein
 
       redirects.each do |hash|
         key, array = hash.first
-        pr_desc << "#{key} | #{array} \n"
+        pr_desc << "#{key} | #{array} \n" unless key == array
       end
 
       # commented out because failures are not always correct when using
