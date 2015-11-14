@@ -78,6 +78,9 @@ module Frankenstein
         pr_desc << "#{key} | #{array} \n"
       end
 
+      # commented out because failures are not always correct when using
+      # head requests
+      
       # if failures.count > 0
       #   pr_desc << "\n### URLS could not be reached\n"
       #   failures.each do |y|
