@@ -134,7 +134,7 @@ module Frankenstein
 
         redirects.each do |hash|
           key, array = hash.first
-          diff = key.length - array.length
+          diff = array.length - key.length
 
           colored_diff = diff
           colored_diff = colored_diff.to_s.red if diff.abs > 1
