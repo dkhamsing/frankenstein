@@ -45,7 +45,7 @@ module New
       puts "#{index + 1} #{x.blue}"
     end
 
-    print '> Enter number to merge pull request: '
+    print '> Enter number to merge pull request (or enter to exit): '
     user_input = STDIN.gets.chomp
     puts user_input
 
