@@ -368,7 +368,7 @@ module Frankenstein
 
         links_to_check, * = core_find_links content
 
-        core_run(
+        r = core_run(
           elapsed_time_start,
           log,
           links_to_check,
@@ -386,6 +386,9 @@ module Frankenstein
           file_updated,
           file_copy,
           file_log)
+
+        redirects = r[1]
+        io_record_visits(argv1, redirects)
       end # Parallel
     end
   end # class
