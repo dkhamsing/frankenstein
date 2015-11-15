@@ -51,7 +51,8 @@ module Scan
       m << g_url + ' '
     end
 
-    filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo"
+    epoch = Time.now.to_i
+    filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
     puts "Creating temp file #{filename.white}"
     File.write filename, m
 
