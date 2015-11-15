@@ -14,6 +14,7 @@ module Frankenstein
   FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
   FILE_REDIRECTS = 'redirects'
   FILE_UPDATED = 'updated'
+  FILE_VISITS = "#{FILE_LOG_DIRECTORY}/franken_visits.json"
 
   FLAG_FAIL = 'f'
   FLAG_GITHUB_STARS = 'z'

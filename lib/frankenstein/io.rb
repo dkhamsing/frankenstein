@@ -2,6 +2,30 @@
 module Frankenstein
   class << self
     require 'json'
+    require 'time'
+
+    def io_record_visits(repo, redirects)
+      visit = { date: Time.now.utc.iso8601, redirects: redirects.count }
+      visits = [
+        visit
+      ]
+
+      if File.exist? FILE_VISITS
+        r = io_json_read FILE_VISITS
+        if r.has_key? repo
+          list = r[repo]
+          list.push visit
+        else
+          r[repo] = visits
+        end
+
+        io_json_write FILE_VISITS, r
+      else
+        hash = { repo => visits }
+        io_json_write FILE_VISITS, hash
+      end
+      # puts 'visit recorded ✅'
+    end
 
     def io_repo_log_json(list, log)
       log.add "\nWriting repo log ... "
