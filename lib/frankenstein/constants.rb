@@ -6,7 +6,7 @@ module Frankenstein
 
   CONTROLLED_ERROR = 'https://github.com/dkhamsing/controlled/error'
 
-  DEFAULT_NUMBER_OF_THREADS = 5
+  DEFAULT_NUMBER_OF_THREADS = 10
 
   FILE_LOG_DIRECTORY = 'logs'
 
