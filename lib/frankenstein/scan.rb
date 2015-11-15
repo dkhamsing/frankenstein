@@ -11,16 +11,19 @@ module Scan
   PRODUCT = 'scan'
   PRODUCT_DESCRIPTION = 'Scan for GitHub repos'
 
-  LEADING_SPACE = '     '
+  LEADING_SPACE = '      '
   OPTION_TREND = 't'
 
-  argv_1 = ARGV[0]
+  argv_1, argv_2 = ARGV
   if argv_1.nil?
-    blue = PRODUCT.blue
-    m = "#{blue} #{PRODUCT_DESCRIPTION.white} "\
-        "\n#{LEADING_SPACE}"\
-        "Usage: #{blue} <#{'file'.white}> "\
-        "\n#{LEADING_SPACE}       #{blue} #{OPTION_TREND.white}"
+    a_p = PRODUCT.blue
+    a_l = 'language'.green
+    a_t = OPTION_TREND.white
+    a_f = 'file'.white
+    m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
+        "Usage: #{a_p} <#{a_f}>"\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} "\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}]"
     puts m
     puts "\n"
     exit
@@ -35,8 +38,13 @@ module Scan
 
   if argv_1 == OPTION_TREND
     puts 'Scanning Trending in GitHub'
+    puts "Language: #{argv_2}" unless argv_2.nil?
 
-    repos = Github::Trending.get
+    if argv_2.nil?
+      repos = Github::Trending.get
+    else
+      repos = Github::Trending.get argv_2
+    end
     m = ''
     repos.each do |r|
       g_url = "https://github.com/#{r.name}"
