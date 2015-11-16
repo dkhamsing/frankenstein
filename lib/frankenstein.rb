@@ -199,7 +199,7 @@ module Frankenstein
         desc = github_pull_description(redirects, failures)
         p = github_pull_request(argv1, default_branch, readme, file_updated,
                                 desc, log)
-        log.add "Pull request created: #{p}".white
+        log.add "Pull request created: #{p.blue}".white
         io_record_pull(argv1, p)
         done = true
       elsif user_input.downcase == option_gist or

@@ -80,7 +80,7 @@ module Frankenstein
 
       # commented out because failures are not always correct when using
       # head requests
-      
+
       # if failures.count > 0
       #   pr_desc << "\n### URLS could not be reached\n"
       #   failures.each do |y|
@@ -168,7 +168,7 @@ module Frankenstein
                                            head,
                                            PULL_REQUEST_TITLE,
                                            description)
-      created[:html_url].blue
+      created[:html_url]
     end
 
     def github_repo(client, repo)

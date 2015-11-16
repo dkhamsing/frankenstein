@@ -100,7 +100,7 @@ module Review
       desc = Frankenstein.github_pull_description(redirects, nil)
       p = Frankenstein.github_pull_request(argv1, default_branch, readme,
                                            file_updated, desc, log)
-      log.add "Pull request created: #{p}".white
+      log.add "Pull request created: #{p.blue}".white
       Frankenstein.io_record_pull(argv1, p)
 
       done = true
