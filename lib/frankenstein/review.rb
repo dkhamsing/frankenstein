@@ -63,9 +63,9 @@ module Review
   # read repo from log
   if argv_1.count('/') == 1
     r = Frankenstein.io_json_read Frankenstein::FILE_VISITS
-    if r.has_key? argv_1
+    if r.key? argv_1
       events = r[argv_1]['log']
-      visit = events.select { |x| x['type']=='visit' }[0]
+      visit = events.select { |x| x['type'] == 'visit' }[0]
       argv_1 = visit['file']
       puts argv_1
     end

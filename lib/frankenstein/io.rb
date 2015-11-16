@@ -18,7 +18,7 @@ module Frankenstein
       }
       if File.exist? FILE_VISITS
         r = io_json_read FILE_VISITS
-        if r.has_key? repo
+        if r.key? repo
           hash = r[repo]
           list = hash[KEY_LOG]
           list.push pull
@@ -35,11 +35,11 @@ module Frankenstein
     def io_record_review(repo)
       p = {
         type: KEY_REVIEW,
-        date: Time.now.utc.iso8601,
+        date: Time.now.utc.iso8601
       }
       if File.exist? FILE_VISITS
         r = io_json_read FILE_VISITS
-        if r.has_key? repo
+        if r.key? repo
           hash = r[repo]
           list = hash[KEY_LOG]
           list.push p
@@ -64,7 +64,7 @@ module Frankenstein
 
       if File.exist? FILE_VISITS
         r = io_json_read FILE_VISITS
-        if r.has_key? repo
+        if r.key? repo
           hash = r[repo]
           list = hash[KEY_LOG]
           list.push visit
@@ -78,7 +78,7 @@ module Frankenstein
 
         io_json_write FILE_VISITS, hash
       end
-      # puts 'visit recorded ✅'
+      # puts 'visit recorded '
     end
 
     def io_repo_log_json(list, log)

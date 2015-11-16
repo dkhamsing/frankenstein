@@ -316,7 +316,7 @@ module Frankenstein
           seconds = today - epoch
           minutes = seconds / 60
           hour = minutes / 60
-          minutes = minutes - (60 * hour) if hour > 0
+          minutes -= - (60 * hour) if hour > 0
           day = hour / 24
 
           m = "#{index + 1} Skipping #{argv1.white}, run "

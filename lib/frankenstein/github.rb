@@ -66,7 +66,7 @@ module Frankenstein
       n[0]
     end
 
-    def github_pull_description(redirects, failures)
+    def github_pull_description(redirects, _)
       pr_desc = PULL_REQUEST_DESCRIPTION
       r = "\n\n### Corrected URLs \n"\
           "Was | Now \n"\
@@ -123,7 +123,7 @@ module Frankenstein
       # pp github.refs(fork)
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-      puts "(Getting ref...)"
+      puts '(Getting ref...)'
       begin
         githubref = github.ref(fork, ref)
 
@@ -163,12 +163,19 @@ module Frankenstein
       head = "#{forker}:#{branch}"
       log.verbose "Set head to #{head}"
 
+      begin
       created = github.create_pull_request(repo,
                                            branch,
                                            head,
                                            PULL_REQUEST_TITLE,
                                            description)
-      created[:html_url]
+      return created[:html_url]
+
+      rescue StandardError => e
+        puts 'Could not create pull request'.red
+        puts "error #{e}".red
+        return nil
+      end
     end
 
     def github_repo(client, repo)
