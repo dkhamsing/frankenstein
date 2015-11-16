@@ -1,27 +1,36 @@
 # I/O
 module Frankenstein
+
+  KEY_LOG = 'log'
+  KEY_VISIT = 'visit'
+
   class << self
     require 'json'
     require 'time'
 
-    def io_record_visits(repo, redirects)
-      visit = { date: Time.now.utc.iso8601, redirects: redirects.count }
-      visits = [
-        visit
-      ]
+    def io_record_visits(repo, redirects, file)
+      visit = {
+        type: KEY_VISIT,
+        date: Time.now.utc.iso8601,
+        redirects: redirects.count,
+        file: file
+      }
+      logs = [visit]
 
       if File.exist? FILE_VISITS
         r = io_json_read FILE_VISITS
         if r.has_key? repo
-          list = r[repo]
+          hash = r[repo]
+          list = hash[KEY_LOG]
           list.push visit
         else
-          r[repo] = visits
+          r[repo] = {KEY_LOG => logs}
         end
 
         io_json_write FILE_VISITS, r
       else
-        hash = { repo => visits }
+        hash = { repo => { KEY_LOG => logs} }
+
         io_json_write FILE_VISITS, hash
       end
       # puts 'visit recorded ✅'

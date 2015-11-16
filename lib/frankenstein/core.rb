@@ -388,7 +388,7 @@ module Frankenstein
           file_log)
 
         redirects = r[1]
-        io_record_visits(argv1, redirects)
+        io_record_visits(argv1, redirects, log.identifier)
       end # Parallel
     end
   end # class
