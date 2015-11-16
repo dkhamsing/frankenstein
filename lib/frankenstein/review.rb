@@ -36,7 +36,14 @@ module Review
       puts key.white
       list = value['log']
       list.each_with_index do |x, index|
-        puts "#{index + 1} #{x}"
+        head = "#{index + 1} "
+        if x['type'] == 'pull'
+          print head.red
+        else
+          print head
+        end
+
+        puts x
       end
     end
     exit
