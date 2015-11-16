@@ -36,13 +36,24 @@ module Review
       puts key.white
       list = value['log']
       list.each_with_index do |x, index|
-        head = "#{index + 1} "
-        if x['type'] == 'pull'
-          print head.red
-        else
-          print head
+        if list.count > 1
+          head = "#{index + 1}. "
+          if x['type'] == 'pull'
+            print head.red
+            # print 'pull '.red
+          else
+            print head
+          end
         end
 
+        type = x['type']
+        type = type.red if type == 'pull'
+        print "#{type} "
+
+        if type == 'visit'
+          r = x['redirects'] if type
+          print "#{r.to_s.yellow} " if r > 2
+        end
         puts x
       end
     end
@@ -124,5 +135,7 @@ module Review
     else
       done = true
     end
-  end
+  end #end while
+
+  Frankenstein.io_record_review argv1
 end
