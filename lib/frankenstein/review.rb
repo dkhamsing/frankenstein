@@ -12,10 +12,14 @@ module Review
   PRODUCT = 'review'
   PRODUCT_DESCRIPTION = 'Facilitate creating pull requests to update redirects'
 
+  OPTION_LOG = 'logs'
+
   argv_1 = ARGV[0]
   if argv_1.nil?
-    m = "#{PRODUCT.blue} #{PRODUCT_DESCRIPTION.white} \n"\
-        "Usage: #{PRODUCT.blue} <#{'file'.white}> "
+    o_p = PRODUCT.blue
+    m = "#{o_p} #{PRODUCT_DESCRIPTION.white} \n"\
+        "Usage: #{o_p} <#{'file'.white}> \n"\
+        "       #{o_p} #{OPTION_LOG.blue} "
     puts m
     puts "\n"
     exit
@@ -24,6 +28,18 @@ module Review
   unless Frankenstein.github_creds
     puts Frankenstein::GITHUB_CREDS_ERROR
     exit(1)
+  end
+
+  if argv_1 == OPTION_LOG
+    r = Frankenstein.io_json_read Frankenstein::FILE_VISITS
+    r.each do |key, value|
+      puts key.white
+      list = value['log']
+      list.each_with_index do |x, index|
+        puts "#{index + 1} #{x}"
+      end
+    end
+    exit
   end
 
   logs_dir = Frankenstein::FILE_LOG_DIRECTORY
