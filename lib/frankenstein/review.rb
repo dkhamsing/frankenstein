@@ -60,6 +60,17 @@ module Review
     exit
   end
 
+  # read repo from log
+  if argv_1.count('/') == 1
+    r = Frankenstein.io_json_read Frankenstein::FILE_VISITS
+    if r.has_key? argv_1
+      events = r[argv_1]['log']
+      visit = events.select { |x| x['type']=='visit' }[0]
+      argv_1 = visit['file']
+      puts argv_1
+    end
+  end
+
   logs_dir = Frankenstein::FILE_LOG_DIRECTORY
   file_redirects = "#{logs_dir}/temp-r"
   file_updated = "#{logs_dir}/temp-u"
