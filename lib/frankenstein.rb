@@ -200,6 +200,7 @@ module Frankenstein
         p = github_pull_request(argv1, default_branch, readme, file_updated,
                                 desc, log)
         log.add "Pull request created: #{p}".white
+        io_record_pull(argv1, p)
         done = true
       elsif user_input.downcase == option_gist or
             user_input.include? option_tweet

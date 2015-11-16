@@ -101,6 +101,7 @@ module Review
       p = Frankenstein.github_pull_request(argv1, default_branch, readme,
                                            file_updated, desc, log)
       log.add "Pull request created: #{p}".white
+      Frankenstein.io_record_pull(argv1, p)
 
       done = true
     elsif user_input.include? option_white_list

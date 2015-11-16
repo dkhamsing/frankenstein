@@ -2,11 +2,34 @@
 module Frankenstein
 
   KEY_LOG = 'log'
+  KEY_PULL = 'pull'
   KEY_VISIT = 'visit'
 
   class << self
     require 'json'
     require 'time'
+
+    def io_record_pull(repo, pull_url)
+      pull = {
+        type: KEY_PULL,
+        date: Time.now.utc.iso8601,
+        pull_url: pull_url
+      }
+      if File.exist? FILE_VISITS
+        r = io_json_read FILE_VISITS
+        if r.has_key? repo
+          hash = r[repo]
+          list = hash[KEY_LOG]
+          list.push pull
+        else
+          r[repo] = { KEY_LOG => [pull] }
+        end
+
+        io_json_write FILE_VISITS, r
+      else
+        puts "io_record_visits no visits log to record pull for #{repo.red}"
+      end
+    end
 
     def io_record_visits(repo, redirects, file)
       visit = {
@@ -24,12 +47,12 @@ module Frankenstein
           list = hash[KEY_LOG]
           list.push visit
         else
-          r[repo] = {KEY_LOG => logs}
+          r[repo] = { KEY_LOG => logs }
         end
 
         io_json_write FILE_VISITS, r
       else
-        hash = { repo => { KEY_LOG => logs} }
+        hash = { repo => { KEY_LOG => logs } }
 
         io_json_write FILE_VISITS, hash
       end
