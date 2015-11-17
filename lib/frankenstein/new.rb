@@ -19,6 +19,7 @@ module New
   require 'frankenstein/output'
 
   PRODUCT = 'new'
+  RUN_ISSUES = '/Run/issues/'
 
   unless Frankenstein.github_creds
     puts Frankenstein::GITHUB_CREDS_ERROR
@@ -45,10 +46,10 @@ module New
   while m.count > 0
     m.each_with_index do |x, index|
       print "#{index + 1}  "
-      if x.include? '/issues'
+      if x.include? RUN_ISSUES
         notif = n[index]
         subject = notif['subject']['title']
-        print x.green + ' '        
+        print x.green + ' '
         puts subject
       else
         puts x.blue
@@ -66,7 +67,7 @@ module New
       m.delete_at(index)
       puts url
 
-      unless url.include? '/issues/'
+      unless url.include? RUN_ISSUES
         Frankenstein.core_merge url
       else
         notif = n[index]
