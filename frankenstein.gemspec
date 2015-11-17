@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'json', '~> 1.8.3'
   spec.add_dependency 'parallel', '~> 1.6.1'
 
-  spec.add_dependency 'octokit', '~> 4.1.1' # gitub
+  spec.add_dependency 'octokit', '~> 4.1.1' # github
   spec.add_dependency 'netrc', '~> 0.11.0' # credentials
   spec.add_dependency 'twitter', '~> 5.15.0' # tweets
   spec.add_dependency 'github-trending', '~> 0.2.3' # scan
