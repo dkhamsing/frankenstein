@@ -2,6 +2,7 @@
 module Frankenstein
   require 'parallel'
   require 'colored'
+  require 'json'
 
   require 'frankenstein/constants'
   require 'frankenstein/github'
@@ -24,6 +25,28 @@ module Frankenstein
       # : found on ircanywhere/ircanywhere
 
       [links_to_check, links_found]
+    end
+
+    def core_links_to_check(r, json_url)
+      user = github_netrc_username
+      repo = "#{user}/#{r}"
+
+      c = net_get json_url
+      json = JSON.parse c.body
+
+      title = json['title']
+      body = json['body']
+      content = "#{title} #{body}"
+
+      links_to_check, * = core_find_links content
+
+      match = content.match /.*\/.*/
+      matched = match.to_s.split ' '
+      matched = matched.select { |x| x.include? "/" }
+
+      links_to_check = links_to_check + matched if matched.count > 0
+
+      [links_to_check, json]
     end
 
     def core_logs
