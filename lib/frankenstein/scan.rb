@@ -13,6 +13,7 @@ module Scan
 
   LEADING_SPACE = '      '
   OPTION_TREND = 't'
+  OPTION_TODO = 'todo'
 
   argv_1, argv_2 = ARGV
   if argv_1.nil?
@@ -20,10 +21,12 @@ module Scan
     a_l = 'language'.green
     a_t = OPTION_TREND.white
     a_f = 'file'.white
+    a_todo = OPTION_TODO.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}>"\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} "\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}]"
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}]"\
+        "\n#{LEADING_SPACE} #{a_p} #{a_todo} "
     puts m
     puts "\n"
     exit
@@ -35,6 +38,38 @@ module Scan
   end
 
   Frankenstein.cli_create_log_dir
+
+  if argv_1 == OPTION_TODO
+    f = Frankenstein::FILE_TODO
+    todo = Frankenstein.io_json_read f
+
+    left = todo.map { |x| x.dup }
+    todo.each_with_index do |x, index|
+      m = x['repo']
+
+      unless m.include? '://github.com'
+        m = "https://github.com/#{m}"
+      end
+
+      puts "Scanning #{m.white}..."
+      epoch = Time.now.to_i
+      filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
+
+      File.write filename, m
+
+      Frankenstein.core_scan(filename)
+
+      File.delete filename
+
+      left.delete_at 0
+      Frankenstein.io_json_write f, left
+      puts "todo left: #{left.count}"
+      sleep 1
+    end
+
+    puts "Finished scanning #{todo.count} repos" unless todo.count == 0
+    exit
+  end
 
   if argv_1 == OPTION_TREND
     puts 'Scanning Trending in GitHub'

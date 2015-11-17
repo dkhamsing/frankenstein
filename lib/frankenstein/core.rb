@@ -391,5 +391,21 @@ module Frankenstein
         io_record_visits(argv1, redirects, log.identifier)
       end # Parallel
     end
+
+    def core_todo_add(item)
+      f = FILE_TODO
+      log = if File.exist? f
+              io_json_read f
+            else
+              []
+            end
+
+      log.push item
+      log = log.uniq
+
+      io_json_write f, log
+
+      log
+    end
   end # class
 end

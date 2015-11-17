@@ -9,7 +9,7 @@ module Frankenstein
     end
 
     def all_tools
-      tools = %w(announce issues mergeclose new review scan)
+      tools = %w(announce issues mergeclose new review scan todo)
 
       m = tools.map { |x| x.green }
       m.join ', '

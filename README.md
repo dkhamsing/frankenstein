@@ -37,7 +37,8 @@ bundle install
 frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [no-prompt]
 ```
 
-Additional tools are available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review) and [`scan`](#scan).
+Additional tools are available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review),
+ [`todo`](#todo) and [`scan`](#scan).
 
 ## Examples
 
@@ -246,11 +247,11 @@ script:
 
 ### `announce`
 
-`announce` will post a .frankenstein log file to a gist and optionally tweet the gist link.
+`announce` can post a .frankenstein log file to a gist and optionally tweet the gist link.
 
 ### `issues`
 
-`issues` lists open GitHub issues.
+`issues` lists open and merged GitHub issues.
 
 ### `mergeclose`
 
@@ -258,15 +259,20 @@ script:
 
 ### `new`
 
-`new` checks GitHub for new notifications.
+`new` checks GitHub for new notifications and process 'em.
 
 ### `review`
 
-`review` processes and filters a .frankenstein log file before opening a pull request to update redirects.
+`review` processes and filters a .frankenstein log file before opening a pull request to update redirects (also reviews logs)
 
 ### `scan`
 
-`scan` runs `frankenstein` in batch.
+`scan` runs `frankenstein` in batch (also works with `todo`).
+
+### `todo`
+
+`todo` manages a list of `frankenstein` runs to do.
+
 
 ## Credits
 

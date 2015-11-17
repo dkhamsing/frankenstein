@@ -13,6 +13,7 @@ module Frankenstein
   FILE_COPY = 'copy'
   FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
   FILE_REDIRECTS = 'redirects'
+  FILE_TODO = "#{FILE_LOG_DIRECTORY}/franken_todo.json"
   FILE_UPDATED = 'updated'
   FILE_VISITS = "#{FILE_LOG_DIRECTORY}/franken_visits.json"
 
