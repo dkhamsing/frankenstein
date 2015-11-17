@@ -66,16 +66,40 @@ module Frankenstein
       n[0]
     end
 
-    def github_pull_description(redirects, _)
-      pr_desc = PULL_REQUEST_DESCRIPTION
-      r = "\n\n### Corrected URLs \n"\
+    def github_pull_heading(kind)
+      r = "\n\n### #{kind}Corrected URLs \n"\
           "Was | Now \n"\
           "--- | --- \n"
-      pr_desc << r
 
-      redirects.uniq.each do |hash|
-        key, array = hash.first
-        pr_desc << "#{key} | #{array} \n" unless key == array
+      r
+    end
+
+    def github_pull_description(redirects, _)
+      pr_desc = PULL_REQUEST_DESCRIPTION
+
+      # sort by url
+      redirects = redirects.uniq.sort_by { |r| r.keys[0] }
+
+      github = redirects.select { |r| r.keys[0].downcase.include? 'github' }
+      if github.count > 0
+        h = github_pull_heading 'GitHub '
+        pr_desc << h
+
+        github.each do |hash|
+          key, array = hash.first
+          pr_desc << "#{key} | #{array} \n" unless key == array
+        end
+      end
+
+      rest = redirects.reject { |r| r.keys[0].downcase.include? 'github' }
+      if rest.count > 0
+        h = github_pull_heading 'Other '
+        pr_desc << h
+
+        rest.each do |hash|
+          key, array = hash.first
+          pr_desc << "#{key} | #{array} \n" unless key == array
+        end
       end
 
       # commented out because failures are not always correct when using
