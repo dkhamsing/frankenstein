@@ -48,8 +48,6 @@ module Issues
 
       exit unless user_input.number?
 
-      # puts user_input
-
       index = user_input.to_i - 1
 
       n = i[index]
@@ -59,21 +57,21 @@ module Issues
       links_to_check, json = Frankenstein.core_links_to_check RUN_REPO, j
 
       number = json['number']
-      # puts number
-      # puts links_to_check
 
-      # check logs against links_to_check
       logs = Frankenstein.io_json_read Frankenstein::FILE_VISITS
-      # text = Frankenstein.pluralize2 links_to_check, 'link'
-      # puts "links: #{text}"
 
-      # puts "number of links #{links_to_check.count }"
+      pulls = []
       left = links_to_check.reject do |x|
         m = logs.map do |key, value|
           found = false
 
-          found = value['log'].map { |y| y['type'] }.include? 'visit' if
-            x.include? key
+          if x.include? key
+            log = value['log']
+            found = log.map { |y| y['type'] }.include? 'visit'
+
+            pull = log.select { |y| y['pull_url'] if y['type'] == 'pull' }
+            pulls.push pull[0]['pull_url'] if pull.count > 0
+          end
 
           found
         end
@@ -82,16 +80,20 @@ module Issues
       end
 
       if left.count == 0
-        puts "#{repo} issue #{number}"
-        client = Frankenstein.github_client
+        comment = "`frankenstein` run complete for "\
+                  "#{Frankenstein.pluralize2 links_to_check, 'repo'} \n"
+        pulls.each do |x|
+          filtered = x.gsub(/\/pull\/.*/, '')
+          pull_num = x.sub(filtered, '').sub('/pull/', '')
+          p_text = "#{filtered}/pulls `#{pull_num}`"
+          comment << "- created pull request for #{p_text} \n"
+        end
 
-        comment = '`frankenstein` run complete'
         client.add_comment repo, number, comment
         puts 'Left a comment on GitHub'
 
         client.close_issue repo, number
         puts "GitHub issue #{number} closed"
-
       else
         puts "Still have to run frankenstein for "
         left.each_with_index { |x, idx| puts "#{idx + 1} #{x.white}"}
