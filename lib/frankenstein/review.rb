@@ -12,9 +12,11 @@ module Review
   PRODUCT = 'review'
   PRODUCT_DESCRIPTION = 'Facilitate creating pull requests to update redirects'
 
+  OPTION_ALL = 'all'
   OPTION_LOG = 'logs'
+  OPTION_CLEAN = 'clean'
 
-  argv_1 = ARGV[0]
+  argv_1, argv_2, * = ARGV
   if argv_1.nil?
     o_p = PRODUCT.blue
     m = "#{o_p} #{PRODUCT_DESCRIPTION.white} \n"\
@@ -32,7 +34,28 @@ module Review
 
   if argv_1 == OPTION_LOG
     r = Frankenstein.io_json_read Frankenstein::FILE_VISITS
+
+    unless argv_2 == OPTION_ALL
+      original = r
+      r = r.reject do |key, value|
+        list = value['log']
+        puts "list = #{list}"
+
+        m = list.map do |x|
+          pu = x['type'] == 'pull'
+          rev = x['type'] == 'review'
+          redirects = x['redirects'] == 0
+          pu || rev || redirects
+        end
+        puts "map = #{m}"
+        m.include? true
+      end
+    end
+
+    idx = 0
     r.each do |key, value|
+      idx += 1
+      print "#{idx} "
       puts key.white
       list = value['log']
       list.each_with_index do |x, index|
@@ -57,6 +80,10 @@ module Review
         puts x
       end
     end
+
+    # puts r.size
+    # m = "original #{original.count}, clean: #{r.count}"
+    # puts m if argv_2 == OPTION_CLEAN
     exit
   end
 
