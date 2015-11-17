@@ -36,6 +36,12 @@ module Review
     exit(1)
   end
 
+  class << self
+    def mark_done(repo)
+      puts "#{repo.white} marked as done"
+    end
+  end
+
   if argv_1 == OPTION_LOG
     r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
@@ -43,7 +49,7 @@ module Review
       m = r.map { |key, _| key }
       puts m
       m.each_with_index do |x|
-        puts "Marking #{x.white} as done"
+        mark_done x
         Frankenstein.io_record_review x
       end
       puts 'Finished'
@@ -96,7 +102,7 @@ module Review
     argv_1 = s.keys[0]
 
     if argv_2 == OPTION_DONE
-      puts "#{argv_1.white} marked as done"
+      mark_done argv_1
       Frankenstein.io_record_review argv_1
       exit
     end
