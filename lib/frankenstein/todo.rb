@@ -17,7 +17,8 @@ module Todo
   if argv1.nil?
     o_r = 'repo'.white
     o_l = OPTION_LIST.blue
-    m = "#{o_p} Add a repo to run frankenstein on later \n"\
+    u = 'Add a repo to run frankenstein on later'
+    m = "#{o_p} #{u.white} \n"\
         "#{LEADING_SPACE} Usage: #{o_p} <#{o_r}> \n"\
         "#{LEADING_SPACE} Usage: #{o_p} #{o_l}"
     puts m

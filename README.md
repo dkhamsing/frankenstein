@@ -6,14 +6,17 @@
 
 ![](assets/demo.gif)
 
+[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
+
 This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios), it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
 
-[![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
+See [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run) to request a `frankenstein` run on a repo.
 
 Jump to
 - [Installation](#installation)
 - [Usage](#usage)
   - [GitHub](#github)
+  - [Correct READMEs](#correct-readmes)
   - [Travis](#travis)
 - [Examples](#examples)
 - [Additional Tools](#additional-tools)
@@ -140,7 +143,30 @@ $ frankenstein dkhamsing/open-source-ios-apps -z # get GitHub info after checkin
 2000+ Stars: 🔥🔥🔥🔥🔥
 ```
 
-`frankenstein` can open a pull request to update redirects:
+`frankenstein` can create a gist of its output results and send a tweet out:
+
+```shell
+$ frankenstein johnno1962/GitDiff
+
+Finding default branch for johnno1962/GitDiff
+Found: master for johnno1962/GitDiff — Highlights deltas against git repo in Xcode — 645⭐️  — last updated 1 day ago
+🏃  Processing links for https://raw.githubusercontent.com/johnno1962/GitDiff/master/README.md ...
+🔎  Checking 4 links
+#...
+Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures @Injection4Xcode 🎉           
+🏃 Creating a gist for 1446854221-2015-11-06-johnno1962-GitDiff.frankenstein
+  Reading content
+  Creating GitHub client
+  Client creating gist
+  🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
+  🐦 Tweet sent: https://twitter.com/ReadmeCritic/status/662781085479137280
+```
+
+Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb) (also see [`announce`](#announce)).
+
+### Correct READMEs
+
+`frankenstein` can open a pull request to update HTTP redirects (see also [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run)).
 
 ```shell
 $ frankenstein fastlane/sigh
@@ -170,28 +196,6 @@ Example pull requests with `frankenstein`:
 - https://github.com/NYTimes/objective-c-style-guide/pull/137
 - https://github.com/airbnb/javascript/pull/564
 - https://github.com/hangtwenty/dive-into-machine-learning/pull/14
-- more from [@ReadmeCritic](https://github.com/pulls?q=is%3Amerged+is%3Apr+author%3AReadmeCritic&utf8=%E2%9C%93)
-
-`frankenstein` can create a gist of the results and send a tweet out:
-
-```shell
-$ frankenstein johnno1962/GitDiff
-
-Finding default branch for johnno1962/GitDiff
-Found: master for johnno1962/GitDiff — Highlights deltas against git repo in Xcode — 645⭐️  — last updated 1 day ago
-🏃  Processing links for https://raw.githubusercontent.com/johnno1962/GitDiff/master/README.md ...
-🔎  Checking 4 links
-#...
-Next? (pull request | gist | tweet [-h] [message] | enter to end) t no failures @Injection4Xcode 🎉           
-🏃 Creating a gist for 1446854221-2015-11-06-johnno1962-GitDiff.frankenstein
-  Reading content
-  Creating GitHub client
-  Client creating gist
-  🎉 gist created: https://gist.github.com/f24c57c9989f4c5e373d
-  🐦 Tweet sent: https://twitter.com/ReadmeCritic/status/662781085479137280
-```
-
-Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb) (also see [`announce`](#announce)).
 
 ### White list
 
