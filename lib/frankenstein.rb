@@ -154,6 +154,8 @@ module Frankenstein
   # TODO: check for twitter creds
 
   if github_creds && !(ARGV.include? OPTION_SKIP)
+    io_record_review argv1
+    
     option_happy = '-h'
     option_gist = 'g'
     option_tweet = 't'
