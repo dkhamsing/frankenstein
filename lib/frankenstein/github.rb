@@ -73,7 +73,10 @@ module Frankenstein
           "--- | --- \n"
       pr_desc << r
 
-      redirects.uniq.each do |hash|
+      # sort by url
+      redirects = redirects.uniq.sort_by { |r| r.keys[0] }
+
+      redirects.each do |hash|
         key, array = hash.first
         pr_desc << "#{key} | #{array} \n" unless key == array
       end
