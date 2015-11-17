@@ -14,14 +14,14 @@ module Review
 
   OPTION_ALL = 'all'
   OPTION_LOG = 'logs'
-  OPTION_CLEAN = 'clean'
 
   argv_1, argv_2, * = ARGV
   if argv_1.nil?
     o_p = PRODUCT.blue
     m = "#{o_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{o_p} <#{'file'.white}> \n"\
-        "       #{o_p} #{OPTION_LOG.blue} "
+        "       #{o_p} #{OPTION_LOG.blue} \n"\
+        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue}"
     puts m
     puts "\n"
     exit
