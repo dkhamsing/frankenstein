@@ -25,9 +25,9 @@ module Review
         "       #{o_p} #{OPTION_LOG.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> \n"\
-        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> #{OPTION_DONE.blue}"
+        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> #{OPTION_DONE.blue} \n"\
+        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_DONE.blue} \n"
     puts m
-    puts "\n"
     exit
   end
 
@@ -38,6 +38,17 @@ module Review
 
   if argv_1 == OPTION_LOG
     r = Frankenstein.io_records(argv_2 == OPTION_ALL)
+
+    if argv_2 == OPTION_DONE
+      m = r.map { |key, _| key }
+      puts m
+      m.each_with_index do |x|
+        puts "Marking #{x.white} as done"
+        Frankenstein.io_record_review x
+      end
+      puts 'Finished'
+      exit
+    end
 
     idx = 0
     r.each do |key, value|
@@ -67,6 +78,8 @@ module Review
         puts x
       end
     end
+
+    puts 'Log is empty 🎉' if idx == 0
 
     exit
   end
