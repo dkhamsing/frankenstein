@@ -13,15 +13,19 @@ module Review
   PRODUCT_DESCRIPTION = 'Facilitate creating pull requests to update redirects'
 
   OPTION_ALL = 'all'
+  OPTION_DONE = 'done'
   OPTION_LOG = 'logs'
 
   argv_1, argv_2, * = ARGV
   if argv_1.nil?
     o_p = PRODUCT.blue
+    o_n = 'n'.white
     m = "#{o_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{o_p} <#{'file'.white}> \n"\
         "       #{o_p} #{OPTION_LOG.blue} \n"\
-        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue}"
+        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue} \n"\
+        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> \n"\
+        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> #{OPTION_DONE.blue}"
     puts m
     puts "\n"
     exit
@@ -33,24 +37,7 @@ module Review
   end
 
   if argv_1 == OPTION_LOG
-    r = Frankenstein.io_json_read Frankenstein::FILE_VISITS
-
-    unless argv_2 == OPTION_ALL
-      original = r
-      r = r.reject do |key, value|
-        list = value['log']
-        puts "list = #{list}"
-
-        m = list.map do |x|
-          pu = x['type'] == 'pull'
-          rev = x['type'] == 'review'
-          redirects = x['redirects'] == 0
-          pu || rev || redirects
-        end
-        puts "map = #{m}"
-        m.include? true
-      end
-    end
+    r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
     idx = 0
     r.each do |key, value|
@@ -81,10 +68,25 @@ module Review
       end
     end
 
-    # puts r.size
-    # m = "original #{original.count}, clean: #{r.count}"
-    # puts m if argv_2 == OPTION_CLEAN
     exit
+  end
+
+  number = argv_1.to_i
+  if number > 0
+    r = Frankenstein.io_records false
+
+    idx = 0
+    s = r.select do |x|
+      idx += 1
+      x if idx == number
+    end
+    argv_1 = s.keys[0]
+
+    if argv_2 == OPTION_DONE
+      puts "#{argv_1.white} marked as done"
+      Frankenstein.io_record_review argv_1
+      exit
+    end
   end
 
   # read repo from log

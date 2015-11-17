@@ -10,6 +10,28 @@ module Frankenstein
     require 'json'
     require 'time'
 
+    def io_records(all)
+      r = io_json_read Frankenstein::FILE_VISITS
+
+      unless all
+        r = r.reject do |key, value|
+          list = value['log']
+          # puts "list = #{list}"
+
+          m = list.map do |x|
+            pu = x['type'] == 'pull'
+            rev = x['type'] == 'review'
+            redirects = x['redirects'] == 0
+            pu || rev || redirects
+          end
+          # puts "map = #{m}"
+          m.include? true
+        end
+      end
+
+      r
+    end
+
     def io_record_pull(repo, pull_url)
       pull = {
         type: KEY_PULL,
