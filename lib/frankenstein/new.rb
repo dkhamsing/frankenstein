@@ -49,7 +49,7 @@ module New
       if x.include? RUN_ISSUES
         notif = n[index]
         subject = notif['subject']['title']
-        print x.green + ' '
+        print x.yellow + ' '
         puts subject
       else
         puts x.blue
@@ -96,7 +96,7 @@ module New
 
           client = Frankenstein.github_client
 
-          comment = "Issue processed, added #{x} to `todo`"
+          comment = "Run request for #{x} received."
           client.add_comment repo, number, comment
 
           thread = notif['id']
