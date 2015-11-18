@@ -12,8 +12,28 @@ module Scan
   PRODUCT_DESCRIPTION = 'Scan for GitHub repos'
 
   LEADING_SPACE = '      '
+
+  OPTION_RANDOM = 'random'
   OPTION_TREND = 't'
   OPTION_TODO = 'todo'
+
+  POPULAR_LANGUAGES = [
+    'java',
+    'python',
+    'php',
+    'csharp',
+    'c++',
+    'c',
+    'javascript',
+    'objective-c',
+    'swift',
+    'r',
+    'ruby',
+    'perl',
+    'matlab',
+    'lua',
+    'scala'
+  ]
 
   argv_1, argv_2 = ARGV
   if argv_1.nil?
@@ -22,9 +42,11 @@ module Scan
     a_t = OPTION_TREND.white
     a_f = 'file'.white
     a_todo = OPTION_TODO.white
+    a_r = OPTION_RANDOM.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}>"\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} "\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} #{a_r}"\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}]"\
         "\n#{LEADING_SPACE} #{a_p} #{a_todo} "
     puts m
@@ -73,11 +95,15 @@ module Scan
 
   if argv_1 == OPTION_TREND
     puts 'Scanning Trending in GitHub'
-    puts "Language: #{argv_2}" unless argv_2.nil?
 
     if argv_2.nil?
       repos = Github::Trending.get
+    elsif argv_2 == OPTION_RANDOM
+      random_language = POPULAR_LANGUAGES.sample
+      puts "Language: #{random_language.white}"
+      repos = Github::Trending.get random_language
     else
+      puts "Language: #{argv_2.white}"
       repos = Github::Trending.get argv_2
     end
     m = ''
