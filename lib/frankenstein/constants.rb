@@ -92,6 +92,7 @@ module Frankenstein
     '://github.com.*\.git$',
     '://github.com.*/tree/',
     '://github.com/.*/zipball/',
+    '://github.com/.*/tarball/',
     '://github.com/.*/raw/',
     '://github.com/.*state=open$',
     'github.io',
