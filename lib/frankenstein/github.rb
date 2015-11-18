@@ -70,7 +70,6 @@ module Frankenstein
       r = "\n\n### #{kind}Corrected URLs \n"\
           "Was | Now \n"\
           "--- | --- \n"
-
       r
     end
 
@@ -80,7 +79,8 @@ module Frankenstein
       # sort by url
       redirects = redirects.uniq.sort_by { |r| r.keys[0] }
 
-      github = redirects.select { |r| r.keys[0].downcase.include? 'github' }
+      MATCH = '://github'
+      github = redirects.select { |r| r.keys[0].downcase.include? MATCH }
       if github.count > 0
         h = github_pull_heading 'GitHub '
         pr_desc << h
@@ -91,7 +91,7 @@ module Frankenstein
         end
       end
 
-      rest = redirects.reject { |r| r.keys[0].downcase.include? 'github' }
+      rest = redirects.reject { |r| r.keys[0].downcase.include? MATCH }
       if rest.count > 0
         h = github_pull_heading 'Other '
         pr_desc << h
