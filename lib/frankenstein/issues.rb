@@ -80,13 +80,13 @@ module Issues
       end
 
       if left.count == 0
-        comment = "`frankenstein` run complete for "\
+        comment = "`frankenstein` run completed for "\
                   "#{Frankenstein.pluralize2 links_to_check.count, 'repo'} \n"
         pulls.each do |x|
           filtered = x.gsub(/\/pull\/.*/, '')
           pull_num = x.sub(filtered, '').sub('/pull/', '')
-          p_text = "#{filtered}/pulls `#{pull_num}`"
-          comment << "- created pull request for #{p_text} \n"
+          p_text = "#{filtered}/pulls"
+          comment << "- created pull request `#{pull_num}` for #{p_text} \n"
         end
 
         client.add_comment repo, number, comment
