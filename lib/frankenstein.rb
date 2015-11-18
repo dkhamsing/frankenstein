@@ -155,7 +155,7 @@ module Frankenstein
 
   if github_creds && !(ARGV.include? OPTION_SKIP)
     io_record_review argv1
-    
+
     option_happy = '-h'
     option_gist = 'g'
     option_tweet = 't'
@@ -207,7 +207,7 @@ module Frankenstein
       elsif user_input.downcase == option_gist or
             user_input.include? option_tweet
             done = true
-        gist_url, = Frankenstein.github_create_gist file_log, true
+        gist_url, * = Frankenstein.github_create_gist file_log, true
 
         if user_input.include? option_tweet
           client = twitter_client
