@@ -8,8 +8,7 @@ script:
   - frankenstein
   - frankenstein bin/assets/test-readme -v threads=0 no-prompt
   - frankenstein bin/assets/test-no-links -v no-prompt
-  - frankenstein bin/assets/test-white-list -v head no-prompt
-  - frankenstein dkhamsing/ios-asset-names -mv log no-prompt
+  - frankenstein bin/assets/test-white-list -mv head no-prompt
   - frankenstein fastlane/fastlane.tools -v threads=8 no-prompt
   - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 no-prompt
   - frankenstein http://dkhamsing.github.io/ -v no-prompt
