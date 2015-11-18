@@ -94,6 +94,11 @@ module Review
   if number > 0
     r = Frankenstein.io_records false
 
+    if number > r.count
+      puts "No log matching index #{argv_1.red}"
+      exit 1
+    end
+
     idx = 0
     s = r.select do |x|
       idx += 1
