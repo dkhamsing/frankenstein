@@ -40,7 +40,7 @@ bundle install
 frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [no-prompt]
 ```
 
-Additional tools are available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review),
+Additional tools available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review),
  [`todo`](#todo) and [`scan`](#scan).
 
 ## Examples
@@ -166,7 +166,7 @@ Tweeting requires credentials in [.netrc](lib/frankenstein/twitter.rb) (also see
 
 ### Correct READMEs
 
-`frankenstein` can open a pull request to update HTTP redirects (see also [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run)).
+`frankenstein` can open a pull request to update HTTP redirects in a repo README (see also [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run)).
 
 ```shell
 $ frankenstein fastlane/sigh
