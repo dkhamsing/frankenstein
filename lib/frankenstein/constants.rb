@@ -94,6 +94,7 @@ module Frankenstein
     '://github.com/.*/zipball/',
     '://github.com/.*/raw/',
     '://github.com/.*state=open$',
+    'github.io',
     '://goo.gl/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
