@@ -46,7 +46,7 @@ module Frankenstein
 
       links_to_check = links_to_check + matched if matched.count > 0
 
-      [links_to_check, json]
+      [links_to_check.uniq, json]
     end
 
     def core_logs
