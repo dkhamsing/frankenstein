@@ -81,7 +81,7 @@ module Issues
 
       if left.count == 0
         comment = "`frankenstein` run complete for "\
-                  "#{Frankenstein.pluralize2 links_to_check, 'repo'} \n"
+                  "#{Frankenstein.pluralize2 links_to_check.count, 'repo'} \n"
         pulls.each do |x|
           filtered = x.gsub(/\/pull\/.*/, '')
           pull_num = x.sub(filtered, '').sub('/pull/', '')
