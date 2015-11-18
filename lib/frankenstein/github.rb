@@ -73,13 +73,13 @@ module Frankenstein
       r
     end
 
+    MATCH = '://github'
     def github_pull_description(redirects, _)
       pr_desc = PULL_REQUEST_DESCRIPTION
 
       # sort by url
       redirects = redirects.uniq.sort_by { |r| r.keys[0] }
-
-      MATCH = '://github'
+      
       github = redirects.select { |r| r.keys[0].downcase.include? MATCH }
       if github.count > 0
         h = github_pull_heading 'GitHub '
