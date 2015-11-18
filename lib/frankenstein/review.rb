@@ -47,7 +47,7 @@ module Review
 
     if argv_2 == OPTION_DONE
       m = r.map { |key, _| key }
-      puts m
+      # puts m
       m.each_with_index do |x|
         mark_done x
         Frankenstein.io_record_review x
