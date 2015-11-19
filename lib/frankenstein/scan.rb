@@ -96,15 +96,14 @@ module Scan
   if argv_1.include? '@'
     user = argv_1.sub('@', '')
     c = Frankenstein.github_client
+    c.auto_paginate = true
 
     begin
       u = c.user user
 
-      puts "Getting repos for #{argv_1.white}"
+      puts "Getting repos for #{argv_1.white}..."
 
       r = c.repos user
-      # pp r
-      # TODO: page through repos
 
       r = r.reject { |x| x['fork'] }
 
