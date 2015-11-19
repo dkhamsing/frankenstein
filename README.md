@@ -251,7 +251,7 @@ script:
 
 ### `announce`
 
-`announce` can post a .frankenstein log file to a gist and optionally tweet the gist link.
+`announce` can post a .frankenstein results log file to a gist and optionally tweet the gist link.
 
 ### `issues`
 
@@ -263,7 +263,7 @@ script:
 
 ### `new`
 
-`new` checks GitHub for new notifications and process 'em.
+`new` checks GitHub for new notifications and processes 'em.
 
 ### `review`
 
