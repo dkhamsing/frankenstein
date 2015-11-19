@@ -102,7 +102,7 @@ module Scan
     begin
       u = c.user user
     rescue StandardError => e
-      puts "#{argv_1} is not a valid user #{e}".red
+      puts "#{argv_1} is not a valid user: #{e}".red
       exit 1
     end
 
@@ -121,18 +121,16 @@ module Scan
     top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
     top5.each { |x| puts ' ' << x['full_name'] }
 
-
     puts 'Getting latest repos with updates'
-    recent = r.sort_by { |x| x['pushed_at'] }.reverse.first(5)
+    recent = r.reject{ |x| x['pushed_at'].class == NilClass }
+      .sort_by { |x| x['pushed_at'] }.reverse.first(5)
     recent.each { |x| puts ' ' << x['full_name'] }
 
     combined = recent + top5
-
     m = combined.uniq.map { |x| x['full_name'] }
     m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
 
     core_scan map_repos(m)
-
 
     exit
   end
