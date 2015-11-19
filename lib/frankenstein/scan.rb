@@ -13,7 +13,8 @@ module Scan
 
   LEADING_SPACE = '      '
 
-  OPTION_RANDOM = 'random'
+  OPTION_POPULAR = 'p'
+  OPTION_RANDOM = 'r'
   OPTION_TREND = 't'
   OPTION_TODO = 'todo'
 
@@ -43,12 +44,17 @@ module Scan
     a_f = 'file'.white
     a_todo = OPTION_TODO.white
     a_r = OPTION_RANDOM.white
+    a_po = OPTION_POPULAR.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
-        "Usage: #{a_p} <#{a_f}>"\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} "\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} #{a_r}"\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}]"\
-        "\n#{LEADING_SPACE} #{a_p} #{a_todo} "
+        "Usage: #{a_p} <#{a_f}> "\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan trending repos"\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} #{a_r} — scan trending repo for a "\
+        'random language'\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}] — scan trending repo for a "\
+        'given language '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_po} — scan trending repos for popular "\
+        'languages'\
+        "\n#{LEADING_SPACE} #{a_p} #{a_todo} - scan repos from #{'todo'.blue}"
     puts m
     puts "\n"
     exit
@@ -60,6 +66,41 @@ module Scan
   end
 
   Frankenstein.cli_create_log_dir
+
+  class << self
+    def core_scan(content)
+      epoch = Time.now.to_i
+      filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
+
+      File.write filename, content
+
+      Frankenstein.core_scan(filename)
+
+      File.delete filename
+    end
+
+    def map_repos(repos)
+      mapped = repos.map { |r| "https://github.com/#{r.name}" }
+
+      m = ''
+      mapped.each { |r| m << " #{r}" }
+
+      m
+    end
+  end #class
+
+  if argv_1 == OPTION_POPULAR
+    all = []
+    pop = POPULAR_LANGUAGES
+    pop.each_with_index do |p, i|
+      puts "#{i +1}/#{pop.count} Getting trending repos for #{p}"
+      repos = Github::Trending.get p
+      all = all + repos
+    end
+
+    core_scan map_repos(all)
+    exit
+  end
 
   if argv_1 == OPTION_TODO
     f = Frankenstein::FILE_TODO
@@ -74,14 +115,8 @@ module Scan
       end
 
       puts "Scanning #{m.white}..."
-      epoch = Time.now.to_i
-      filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
 
-      File.write filename, m
-
-      Frankenstein.core_scan(filename)
-
-      File.delete filename
+      core_scan m
 
       left.delete_at 0
       Frankenstein.io_json_write f, left
@@ -106,21 +141,9 @@ module Scan
       puts "Language: #{argv_2.white}"
       repos = Github::Trending.get argv_2
     end
-    m = ''
-    repos.each do |r|
-      g_url = "https://github.com/#{r.name}"
-      m << g_url + ' '
-    end
 
-    epoch = Time.now.to_i
-    filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
-    puts "Creating temp file #{filename.white}"
-    File.write filename, m
+    core_scan map_repos(repos)
 
-    Frankenstein.core_scan(filename)
-
-    puts "Deleting temp file #{filename.white}"
-    File.delete filename
     exit
   end
 
