@@ -144,7 +144,7 @@ module Frankenstein
       rescue StandardError => e
         puts "Error: #{e}".red
         delay = 3
-        puts "Trying again in #{delay} seconds".red
+        puts "Trying again in #{delay} seconds...".red
         sleep delay
         githubref = github.ref(fork, ref)
       end
