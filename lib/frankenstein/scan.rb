@@ -100,17 +100,20 @@ module Scan
 
     begin
       u = c.user user
+      # pp u
 
-      puts "Getting repos for #{argv_1.white}..."
+      l = u['location']
+      repos = u['public_repos']
+      m = "Getting repos for #{argv_1.white} "
+      m << "from #{l.blue}" unless l.nil?
+      puts m
 
-      r = c.repos user
+      puts "#{Frankenstein.pluralize2 repos, 'repo'}"
 
-      r = r.reject { |x| x['fork'] }
-
-      puts "Found #{Frankenstein.pluralize2 r.count, 'repo'}"
+      r = c.repos(user).reject { |x| x['fork'] }
+      puts "#{r.count} are not forked" unless r.count == repos
 
       m = r.map { |x| x['full_name'] }
-
       m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
 
       core_scan map_repos(m)
