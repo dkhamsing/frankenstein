@@ -89,20 +89,16 @@ module Issues
         m.include? true
       end
 
-      gists = []
-      files.each do |hash|
-        r = hash.keys[0]
-        f = hash.values[0]
-        gist_url, * = Frankenstein.github_create_gist f, true
-        # item =
-        #   repo: repo,
-        #   gist: gist_url
-        # }
-        gists.push({ r => gist_url })
-        sleep 0.5
-      end
-
       if left.count == 0
+        gists = []
+        files.each do |hash|
+          r = hash.keys[0]
+          f = hash.values[0]
+          gist_url, * = Frankenstein.github_create_gist f, true
+          gists.push({ r => gist_url })
+          sleep 0.5
+        end
+
         comment = "`frankenstein` run completed for "\
                   "#{Frankenstein.pluralize2 links_to_check.count, 'repo'} \n"
 
@@ -128,9 +124,8 @@ module Issues
       else
         puts "Still have to run frankenstein for "
         left.each_with_index { |x, idx| puts "#{idx + 1} #{x.white}"}
-      end
-
-    end #while
+      end # if left.count ...
+    end # while
     exit
   end
 
