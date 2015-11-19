@@ -2,11 +2,13 @@
 module Scan
   require 'colored'
   require 'github-trending'
+  # require 'pp'
 
   require 'frankenstein/cli'
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/github'
+  require 'frankenstein/output'
 
   PRODUCT = 'scan'
   PRODUCT_DESCRIPTION = 'Scan for GitHub repos'
@@ -45,6 +47,7 @@ module Scan
     a_todo = OPTION_TODO.white
     a_r = OPTION_RANDOM.white
     a_po = OPTION_POPULAR.white
+    a_at = '@username'.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}> "\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan trending repos"\
@@ -54,6 +57,7 @@ module Scan
         'given language '\
         "\n#{LEADING_SPACE} #{a_p} #{a_po} — scan trending repos for popular "\
         'languages'\
+        "\n#{LEADING_SPACE} #{a_p} #{a_at} — scan repos for a GitHub user "\
         "\n#{LEADING_SPACE} #{a_p} #{a_todo} - scan repos from #{'todo'.blue}"
     puts m
     puts "\n"
@@ -80,7 +84,7 @@ module Scan
     end
 
     def map_repos(repos)
-      mapped = repos.map { |r| "https://github.com/#{r.name}" }
+      mapped = repos.map { |r| "https://github.com/#{r}" }
 
       m = ''
       mapped.each { |r| m << " #{r}" }
@@ -88,6 +92,37 @@ module Scan
       m
     end
   end #class
+
+  if argv_1.include? '@'
+    user = argv_1.sub('@', '')
+    c = Frankenstein.github_client
+
+    begin
+      u = c.user user
+
+      puts "Getting repos for #{argv_1.white}"
+
+      r = c.repos user
+      # pp r
+      # TODO: page through repos
+
+      r = r.reject { |x| x['fork'] }
+
+      puts "Found #{Frankenstein.pluralize2 r.count, 'repo'}"
+
+      m = r.map { |x| x['full_name'] }
+
+      m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
+
+      core_scan map_repos(m)
+
+    rescue StandardError => e
+      puts "Invalid user error - #{e}".red
+      exit 1
+    end
+
+    exit
+  end
 
   if argv_1 == OPTION_POPULAR
     all = []
@@ -98,7 +133,8 @@ module Scan
       all = all + repos
     end
 
-    core_scan map_repos(all)
+    m = all.map { |x| x.name }
+    core_scan map_repos(m)
     exit
   end
 
@@ -142,7 +178,9 @@ module Scan
       repos = Github::Trending.get argv_2
     end
 
-    core_scan map_repos(repos)
+
+    m = repos.map { |x| x.name }
+    core_scan map_repos(m)
 
     exit
   end
