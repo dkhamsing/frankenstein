@@ -64,6 +64,7 @@ module Frankenstein
   WHITE_LIST_REGEXP = [
     '://127',
     '://amzn.com/',
+    '//amzn.to/',
     '://badge.fury.io/',
     '//bit.ly/',
     '//cl.ly/',
