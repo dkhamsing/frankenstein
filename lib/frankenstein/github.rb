@@ -132,19 +132,9 @@ module Frankenstein
         log.verbose 'Forking repo.. sleep'
       end
 
-      # pp forked_repo
-      # puts 'repo is forked'.red
-      #
-      # puts 'getting fork'
-      # f = github_repo(github, fork)
-      # pp f
-
       # commit change
       puts 'Committing change...'
       ref = "heads/#{branch}"
-
-      # puts 'getting refs'
-      # pp github.refs(fork)
 
       # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
       puts '(Getting ref...)'
@@ -152,11 +142,11 @@ module Frankenstein
         githubref = github.ref(fork, ref)
 
       rescue StandardError => e
-        puts "error #{e}".red
-        puts 'trying again in 3 seconds'
-        sleep 3
+        puts "Error: #{e}".red
+        delay = 3
+        puts "Trying again in #{delay} seconds".red
+        sleep delay
         githubref = github.ref(fork, ref)
-        # pp githubref
       end
 
       sha_latest_commit = githubref.object.sha
@@ -179,8 +169,6 @@ module Frankenstein
       updated_ref = github.update_ref(fork, ref, sha_new_commit)
       log.verbose "Updated ref: #{updated_ref}"
       log.verbose "Sent commit to fork #{fork}"
-
-      # sleep 1 # sad
 
       # create pull request
       puts 'Opening pull request...'
