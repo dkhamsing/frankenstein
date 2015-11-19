@@ -292,7 +292,7 @@ module Frankenstein
         if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
           log.add "The only failure was the controlled failure #{em_sunglasses}"
         else
-          m = "#{em_status_red} #{pluralize2 failures.count, 'failure'}"\
+          m = "#{em_status_red} #{pluralize2 failures.count, 'failure'} "\
               "for #{argv1.blue}".red
           log.add m
         end
