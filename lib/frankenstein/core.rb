@@ -146,8 +146,7 @@ module Frankenstein
       log)
       io_json_write file_redirects, redirects
 
-      m = "\n#{em_status_yellow} #{redirects.count} "\
-          "#{pluralize 'redirect', redirects.count}"
+      m = "\n#{em_status_yellow} #{pluralize2 redirects.count, 'redirect'}"
       log.add m.yellow
 
       log.verbose "Replacing redirects in temp file #{file_updated}.."
@@ -197,8 +196,7 @@ module Frankenstein
         log.error_header 'no links found'
       else
         unless option_github_stars_only
-          m = "🔎  Checking #{links_to_check.count} ".white
-          m << pluralize('link', links_to_check.count).white
+          m = "🔎  Checking #{pluralize2 links_to_check.count, 'link'}"
           m << ' (including a controlled failure)' if flag_control_failure
           log.add m
         end
@@ -258,9 +256,9 @@ module Frankenstein
           if github_repos.count == 0
             log.add 'No GitHub repos found'.white
           else
-            m = "\n🔎  Getting information for #{github_repos.count} GitHub "
-            log.my_print m.white
-            log.add pluralize('repo', github_repos.count).white
+            m = "\n🔎  Getting information for "\
+                "#{pluralize2 github_repos.count, 'GitHub repo'}".white
+            log.add m
 
             github_repos_info(github_repos, number_of_threads, github_client,
                               log)
@@ -295,9 +293,9 @@ module Frankenstein
         if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
           log.add "The only failure was the controlled failure #{em_sunglasses}"
         else
-          m = "#{em_status_red} #{failures.count} "\
-              "#{pluralize 'failure', failures.count} for #{argv1.blue}"
-          log.add m.red
+          m = "#{em_status_red} #{pluralize2 failures.count, 'failure' }"\
+              "for #{argv1.blue}".red
+          log.add m
         end
       end
 

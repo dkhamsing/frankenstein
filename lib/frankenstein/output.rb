@@ -6,10 +6,10 @@ module Frankenstein
       when elapsed_seconds > 60
         minutes = (elapsed_seconds / 60).floor
         seconds = elapsed_seconds - minutes * 60
-        m = "#{minutes.round(0)} #{pluralize 'minute', minutes} "
+        m = "#{pluralize2 minutes.round(0), 'minute'}"
         m << "#{seconds > 0 ? seconds.round(0).to_s << 's' : ''}"
       else
-        "#{elapsed_seconds.round(2)} #{pluralize 'second', elapsed_seconds}"
+        "#{pluralize2 elapsed_seconds.round(2), 'second'}"
       end
     end
 
@@ -27,10 +27,6 @@ module Frankenstein
       when count > 100
         return em_heat
       end
-    end
-
-    def pluralize(text, count)
-      "#{text}#{count > 1 ? 's' : ''}"
     end
 
     def pluralize2(count, text)
@@ -51,27 +47,22 @@ module Frankenstein
     def output_issues(issues, links_to_check, log)
       if issues.count > 0
         percent = issues.count * 100 / links_to_check.count
-        m = "#{issues.count} #{pluralize 'issue', issues.count} "\
-            "(#{percent.round}%)"
+        m = "#{pluralize2 issues.count, 'issue'} (#{percent.round}%)"
         log.error_header m
 
-        m = "   (#{issues.count} of #{links_to_check.count} "\
-            "#{pluralize 'link', links_to_check.count})"
+        m = "   (#{issues.count} of #{pluralize2 links_to_check.count, 'link'}"
         log.add m
 
         log.add issues
       else
         m = "\n#{PRODUCT.white} #{'found no errors'.green} for "\
-            "#{links_to_check.count} "\
-            "#{pluralize 'link', links_to_check.count} #{em_sunglasses}"
+            "#{pluralize2 links_to_check.count, 'link'} #{em_sunglasses}"
         log.add m
       end
     end
 
     def output_misc(misc, log)
-      m = "\n#{misc.count} misc. "\
-          "#{pluralize 'item', misc.count}: #{misc}"
-      log.add m.white
+      log.add "\n #{pluralize2 misc.count, 'misc item'}".white
     end
 
     def output_status(flag_minimize_output, status, link, log)

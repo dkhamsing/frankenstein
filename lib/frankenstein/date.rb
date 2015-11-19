@@ -33,9 +33,9 @@ module Frankenstein
       when days == 0
         m << 'today'
       when days < 100
-        m << "#{days} #{pluralize 'day', days} ago"
+        m << "#{pluralize2 days, 'day'} ago"
       else
-        m << "#{months} #{pluralize 'month', months} ago"
+        m << "#{pluralize2 months, 'month'} ago"
       end
 
       m
