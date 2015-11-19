@@ -127,5 +127,4 @@ module Issues
       "Use #{PRODUCT.white} #{OPTION_OPEN.white} for open issues in #{RUN_REPO}"
 
   puts m unless argv1 == OPTION_MERGE
-
 end

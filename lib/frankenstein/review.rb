@@ -199,7 +199,7 @@ module Review
     else
       done = true
     end
-  end #end while
+  end # end while
 
   Frankenstein.io_record_review argv1
 end

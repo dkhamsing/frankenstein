@@ -29,7 +29,6 @@ module Frankenstein
 
     def core_links_to_check(r, json_url)
       user = github_netrc_username
-      repo = "#{user}/#{r}"
 
       c = net_get json_url
       json = JSON.parse c.body
@@ -42,7 +41,7 @@ module Frankenstein
 
       match = content.match /.*\/.*/
       matched = match.to_s.split ' '
-      matched = matched.select { |x| x.include? "/" }
+      matched = matched.select { |x| x.include? '/' }
 
       links_to_check = links_to_check + matched if matched.count > 0
 
@@ -293,7 +292,7 @@ module Frankenstein
         if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
           log.add "The only failure was the controlled failure #{em_sunglasses}"
         else
-          m = "#{em_status_red} #{pluralize2 failures.count, 'failure' }"\
+          m = "#{em_status_red} #{pluralize2 failures.count, 'failure'}"\
               "for #{argv1.blue}".red
           log.add m
         end

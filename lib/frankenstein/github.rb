@@ -79,7 +79,7 @@ module Frankenstein
 
       # sort by url
       redirects = redirects.uniq.sort_by { |r| r.keys[0] }
-      
+
       github = redirects.select { |r| r.keys[0].downcase.include? MATCH }
       if github.count > 0
         h = github_pull_heading 'GitHub '

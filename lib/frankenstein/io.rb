@@ -14,7 +14,7 @@ module Frankenstein
       r = io_json_read Frankenstein::FILE_VISITS
 
       unless all
-        r = r.reject do |key, value|
+        r = r.reject do |_, value|
           list = value['log']
           # puts "list = #{list}"
 
