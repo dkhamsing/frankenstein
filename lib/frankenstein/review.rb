@@ -24,8 +24,8 @@ module Review
         "Usage: #{o_p} <#{'file'.white}> \n"\
         "       #{o_p} #{OPTION_LOG.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue} \n"\
-        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> \n"\
-        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> #{OPTION_DONE.blue} \n"\
+        "       #{o_p} <#{o_n}> \n"\
+        "       #{o_p} <#{o_n}> #{OPTION_DONE.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_DONE.blue} \n"
     puts m
     exit
