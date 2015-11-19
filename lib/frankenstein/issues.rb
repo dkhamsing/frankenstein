@@ -60,6 +60,8 @@ module Issues
 
       logs = Frankenstein.io_json_read Frankenstein::FILE_VISITS
 
+      files = []
+      gists = []
       pulls = []
       left = links_to_check.reject do |x|
         m = logs.map do |key, value|
@@ -68,6 +70,14 @@ module Issues
           if x.include? key
             log = value['log']
             found = log.map { |y| y['type'] }.include? 'visit'
+
+            temp = log.select { |y| y['file'] if y['type'] == 'visit' }
+            if temp.count > 0
+              file = temp[0]['file']
+              dir = Frankenstein::FILE_LOG_DIRECTORY
+              fr = "#{dir}/#{file}.frankenstein"
+              files.push({ key => fr })
+            end
 
             pull = log.select { |y| y['pull_url'] if y['type'] == 'pull' }
             pulls.push pull[0]['pull_url'] if pull.count > 0
@@ -79,14 +89,35 @@ module Issues
         m.include? true
       end
 
+      gists = []
+      files.each do |hash|
+        r = hash.keys[0]
+        f = hash.values[0]
+        gist_url, * = Frankenstein.github_create_gist f, true
+        # item =
+        #   repo: repo,
+        #   gist: gist_url
+        # }
+        gists.push({ r => gist_url })
+        sleep 0.5
+      end
+
       if left.count == 0
         comment = "`frankenstein` run completed for "\
                   "#{Frankenstein.pluralize2 links_to_check.count, 'repo'} \n"
+
+        gists.each do |hash|
+          r = hash.keys[0]
+          g = hash.values[0]
+          t = "- Results for `#{r}`: #{g} \n"
+          comment << t
+        end
+
         pulls.each do |x|
           filtered = x.gsub(/\/pull\/.*/, '')
           pull_num = x.sub(filtered, '').sub('/pull/', '')
           p_text = "#{filtered}/pulls"
-          comment << "- created pull request `#{pull_num}` for #{p_text} \n"
+          comment << "- Created pull request `#{pull_num}` for #{p_text} \n"
         end
 
         client.add_comment repo, number, comment
