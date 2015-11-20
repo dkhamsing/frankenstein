@@ -75,13 +75,14 @@ module Frankenstein
       end
     end
 
-    def io_record_visits(repo, redirects, file)
+    def io_record_visits(repo, redirects, file, repo_info)
       visit = {
         type: KEY_VISIT,
         date: Time.now.utc.iso8601,
         redirects: redirects.count,
         file: file
       }
+      visit['info'] = repo_info unless repo_info.nil?
       logs = [visit]
 
       if File.exist? FILE_VISITS

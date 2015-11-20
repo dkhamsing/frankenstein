@@ -377,9 +377,11 @@ module Frankenstein
           the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
         else
           b = parsed['default_branch']
-          log.add Frankenstein.github_repo_json_info(parsed,
-                                                     b,
-                                                     argv1)
+
+          repo_info = Frankenstein.github_repo_json_info(parsed,
+                                                         b,
+                                                         argv1)
+          log.add repo_info
           the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
         end # if message ..
 
@@ -407,8 +409,8 @@ module Frankenstein
           file_copy,
           file_log)
 
-        redirects = r[1]
-        io_record_visits(argv1, redirects, log.identifier)
+        redirects = r[1]        
+        io_record_visits(argv1, redirects, log.identifier, repo_info)
       end # Parallel
     end
 

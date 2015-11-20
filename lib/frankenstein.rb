@@ -91,9 +91,10 @@ module Frankenstein
              net_find_github_url_readme(argv1, default_branch)
            else
              default_branch = parsed['default_branch']
-             log.add github_repo_json_info(parsed,
-                                           default_branch,
-                                           argv1)
+             repo_info = github_repo_json_info(parsed,
+                                               default_branch,
+                                               argv1)
+             log.add repo_info
              net_find_github_url_readme(argv1, default_branch)
            end # if message ..
          end # if argv1_is_http ..
@@ -225,7 +226,8 @@ module Frankenstein
     end # while
   end # if github_creds
 
-  io_record_visits(argv1, redirects, log.identifier) unless found_file_content
+  io_record_visits(argv1,
+    redirects, log.identifier, repo_info) unless found_file_content
 
   exit(1) if (failures.count > 0) && !(failures.include? CONTROLLED_ERROR)
 end # module
