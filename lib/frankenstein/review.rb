@@ -59,8 +59,7 @@ module Review
     idx = 0
     r.each do |key, value|
       idx += 1
-      print "#{idx} "
-      puts key.white
+      puts "#{idx} #{key}".white 
       list = value['log']
       list.each_with_index do |x, index|
         if list.count > 1
