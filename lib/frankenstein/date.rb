@@ -1,11 +1,15 @@
 # Dates
 module Frankenstein
   class << self
-    def number_of_days_since(date)
+    def number_of_days_since_raw(date)
       days = difference date
       months = days / 30
 
-      m = text_from(days, months)
+      [text_from(days, months), days]
+    end
+
+    def number_of_days_since(date)
+      m, days = number_of_days_since_raw date
 
       case
       when days < 10

@@ -210,12 +210,22 @@ module Frankenstein
       repo_description = parsed['description']
       repo_stars = parsed['stargazers_count']
       repo_pushed_at = parsed['pushed_at']
+      _, days = number_of_days_since_raw(Time.parse repo_pushed_at)
+
+      raw = {
+        description: repo_description,
+        stars: repo_stars,
+        pushed_at: repo_pushed_at,
+        updated: "#{pluralize2 days, 'day'} ago"
+      }
+
       repo_updated = number_of_days_since(Time.parse repo_pushed_at)
 
-      "Found: #{default_branch.white} for "\
-        "#{argv1_is_github_repo} — "\
-        "#{repo_description} — #{repo_stars}#{em_star} "\
-        "— #{repo_updated}"
+      m = "Found: #{default_branch.white} for "\
+          "#{argv1_is_github_repo} — "\
+          "#{repo_description} — #{repo_stars}#{em_star} "\
+          "— #{repo_updated}"
+      [m, raw]
     end
 
     def github_repo_exist(client, repo)
