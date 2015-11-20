@@ -212,11 +212,16 @@ module Frankenstein
       repo_pushed_at = parsed['pushed_at']
       _, days = number_of_days_since_raw(Time.parse repo_pushed_at)
 
+      raw_updated = if days == 0
+                      "today"
+                    else
+                      "#{pluralize2 days, 'day'} ago"
+                    end
       raw = {
         description: repo_description,
         stars: repo_stars,
         pushed_at: repo_pushed_at,
-        updated: "#{pluralize2 days, 'day'} ago"
+        updated: raw_updated
       }
 
       repo_updated = number_of_days_since(Time.parse repo_pushed_at)
