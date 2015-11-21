@@ -267,7 +267,7 @@ script:
 
 ### `review`
 
-`review` processes and filters a .frankenstein log file before opening a pull request to update redirects (also reviews logs)
+`review` processes logs before opening a pull request to update redirects. 
 
 ### `scan`
 
