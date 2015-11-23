@@ -79,8 +79,12 @@ module Frankenstein
 
       puts "\nTweet sent #{twitter_tweet_url(client, t).blue}"
 
-      puts "\nOpening Safari ..."
-      system("open -a Safari #{clean_pull_url}")
+      core_open_safari clean_pull_url
+    end
+
+    def core_open_safari(url, verbose = true)
+      puts "\nOpening Safari ..." if verbose 
+      system("open -a Safari #{url}")
     end
 
     def core_merge(argv1)
@@ -118,7 +122,12 @@ module Frankenstein
 
       puts ''
       if merged == true || state == 'closed'
-        delete_fork(client, fork, em_logo)
+        result = delete_fork(client, fork, em_logo)
+        if result == false
+          puts "The fork #{fork.red} has already been deleted.."
+          core_open_safari clean_pull_url
+          exit
+        end
 
         puts "\n#{em_logo} Crafting tweet ... \n\n"
         if (merged == true)
