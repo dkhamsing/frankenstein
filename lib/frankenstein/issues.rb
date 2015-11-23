@@ -135,8 +135,7 @@ module Issues
   client = Frankenstein.github_client
 
   puts '> Getting issues'
-  q = "is:#{state} is:pr author:#{Frankenstein.github_netrc_username}"
-  i = client.search_issues q
+  i = Frankenstein.github_issues client, state
 
   count = i[:total_count]
   m = Frankenstein.pluralize2 count, 'issue'
