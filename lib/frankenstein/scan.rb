@@ -175,20 +175,19 @@ module Scan
     exit
   end
 
-  if argv_1 == OPTION_TREND
+  if (argv_1 == OPTION_TREND) || (argv_1 == OPTION_RANDOM)
     puts 'Scanning Trending in GitHub'
 
-    if argv_2.nil?
-      repos = Github::Trending.get
-    elsif argv_2 == OPTION_RANDOM
+    if argv_1 == OPTION_RANDOM
       random_language = POPULAR_LANGUAGES.sample
-      puts "Language: #{random_language.white}"
+      puts "Random Language: #{random_language.white}"
       repos = Github::Trending.get random_language
+    elsif argv_2.nil?
+      repos = Github::Trending.get
     else
       puts "Language: #{argv_2.white}"
       repos = Github::Trending.get argv_2
     end
-
 
     m = repos.map { |x| x.name }
     core_scan map_repos(m)
