@@ -91,7 +91,7 @@ module Scan
 
       m
     end
-  end #class
+  end # class
 
   if argv_1.include? '@'
     user = argv_1.sub('@', '')
@@ -121,7 +121,7 @@ module Scan
     top5.each { |x| puts ' ' << x['full_name'] }
 
     puts 'Getting latest repos with updates'
-    recent = r.reject{ |x| x['pushed_at'].class == NilClass }
+    recent = r.reject { |x| x['pushed_at'].class == NilClass }
       .sort_by { |x| x['pushed_at'] }.reverse.first(5)
     recent.each { |x| puts ' ' << x['full_name'] }
 
@@ -138,12 +138,12 @@ module Scan
     all = []
     pop = POPULAR_LANGUAGES
     pop.each_with_index do |p, i|
-      puts "#{i +1}/#{pop.count} Getting trending repos for #{p}"
+      puts "#{i + 1}/#{pop.count} Getting trending repos for #{p}"
       repos = Github::Trending.get p
       all = all + repos
     end
 
-    m = all.map { |x| x.name }
+    m = all.map(&:name)
     core_scan map_repos(m)
     exit
   end
@@ -152,7 +152,7 @@ module Scan
     f = Frankenstein::FILE_TODO
     todo = Frankenstein.io_json_read f
 
-    left = todo.map { |x| x.dup }
+    left = todo.map(&:dup)
     todo.each_with_index do |x|
       m = x['repo']
 

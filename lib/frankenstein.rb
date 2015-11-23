@@ -91,9 +91,8 @@ module Frankenstein
              net_find_github_url_readme(argv1, default_branch)
            else
              default_branch = parsed['default_branch']
-             m, raw_info = github_repo_json_info(parsed,
-                                               default_branch,
-                                               argv1)
+             m, raw_info =
+               github_repo_json_info(parsed, default_branch, argv1)
              log.add m
              net_find_github_url_readme(argv1, default_branch)
            end # if message ..

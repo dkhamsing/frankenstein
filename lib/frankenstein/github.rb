@@ -223,7 +223,7 @@ module Frankenstein
       _, days = number_of_days_since_raw(Time.parse repo_pushed_at)
 
       raw_updated = if days == 0
-                      "today"
+                      'today'
                     else
                       "#{pluralize2 days, 'day'} ago"
                     end

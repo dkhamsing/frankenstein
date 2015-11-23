@@ -122,8 +122,8 @@ module Issues
         client.close_issue repo, number
         puts "GitHub issue #{number} closed"
       else
-        puts "Still have to run frankenstein for "
-        left.each_with_index { |x, idx| puts "#{idx + 1} #{x.white}"}
+        puts 'Still have to run frankenstein for '
+        left.each_with_index { |x, idx| puts "#{idx + 1} #{x.white}" }
       end # if left.count ...
     end # while
     exit
@@ -142,13 +142,13 @@ module Issues
   puts count == 0 ? 'No issues' : m
 
   items = i[:items]
-  items.each_with_index do |x2, i|
+  items.each_with_index do |x2, i2|
     pull_url = x2[:html_url]
-    m = "#{i + 1} #{pull_url.blue}"
+    m = "#{i2 + 1} #{pull_url.blue}"
     puts m
   end
 
-  m = "\nUse #{PRODUCT.white} #{OPTION_MERGE.white} for merged pull requests \n"\
+  m = "\nUse #{PRODUCT.white} #{OPTION_MERGE.white} for merged pull requests\n"\
       "Use #{PRODUCT.white} #{OPTION_OPEN.white} for open issues in #{RUN_REPO}"
 
   puts m unless argv1 == OPTION_MERGE

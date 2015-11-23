@@ -51,25 +51,25 @@ module Comments
   if argv1 == OPTION_READ
     exit unless File.exist? FILE
 
-    json.reject { |y| y.values[0]['number_of_comments'] == 0 }.
-      each_with_index do |x, i|
+    json.reject { |y| y.values[0]['number_of_comments'] == 0 }
+      .each_with_index do |x, i|
         project = x.keys[0]
-        puts "#{i+1} #{project.white}"
+        puts "#{i + 1} #{project.white}"
 
         c = x.values[0]['comments']
-        c.each { |c|
+        c.each do |d|
           # pp c
-          cr = c['created_at']
-          up = c['updated_at']
+          cr = d['created_at']
+          up = d['updated_at']
 
-          m = " #{c['body']} — @#{c['login']}"
+          m = " #{d['body']} — @#{d['login']}"
 
           if cr == up
             puts m
           else
             puts m + ' (updated)'.red
           end
-        }
+        end
       end
     exit
   end
@@ -118,12 +118,12 @@ module Comments
       m = "#{i2} #{project.white} #{comments.count} comments"
       puts m
 
-      cm = comments.map { |x|
+      cm = comments.map { |z|
         {
-          login: x['user']['login'],
-          created_at: x['created_at'],
-          updated_at: x['updated_at'],
-          body: x['body']
+          login: z['user']['login'],
+          created_at: z['created_at'],
+          updated_at: z['updated_at'],
+          body: z['body']
         }
       }
 
