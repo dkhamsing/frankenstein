@@ -47,7 +47,7 @@ module Scan
     a_todo = OPTION_TODO.white
     a_r = OPTION_RANDOM.white
     a_po = OPTION_POPULAR.white
-    a_at = '@username'.white
+    a_at = '@username'.green
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}> "\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan overall trending repos"\
