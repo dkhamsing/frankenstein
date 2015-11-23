@@ -54,7 +54,7 @@ module Review
     exit
   end
 
-  if (argv_1 == OPTION_LOG) && (argv_2.nil?)
+  if (argv_1 == OPTION_LOG)
     r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
     if argv_2 == OPTION_DONE
