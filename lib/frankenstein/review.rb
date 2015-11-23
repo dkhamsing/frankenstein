@@ -24,6 +24,7 @@ module Review
         "Usage: #{o_p} <#{'file'.white}> \n"\
         "       #{o_p} #{OPTION_LOG.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue} \n"\
+        "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> or \n"\
         "       #{o_p} <#{o_n}> \n"\
         "       #{o_p} <#{o_n}> #{OPTION_DONE.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_DONE.blue} \n"
@@ -42,7 +43,7 @@ module Review
     end
   end
 
-  if argv_1 == OPTION_LOG
+  if (argv_1 == OPTION_LOG) && (argv_2.nil?)
     r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
     if argv_2 == OPTION_DONE
@@ -89,7 +90,12 @@ module Review
     exit
   end
 
-  number = argv_1.to_i
+  number = if argv_1 == OPTION_LOG
+             argv_2.to_i
+           else
+             argv_1.to_i
+           end
+
   if number > 0
     r = Frankenstein.io_records false
 
