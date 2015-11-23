@@ -120,6 +120,7 @@ module Review
       idx += 1
       x if idx == number
     end
+    puts s
     argv_1 = s.keys[0]
 
     if argv_2 == OPTION_DONE
