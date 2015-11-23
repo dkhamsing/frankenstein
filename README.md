@@ -40,8 +40,14 @@ bundle install
 frankenstein <url|file|github repo> [-fmvz] [head] [repo] [threads=d] [no-prompt]
 ```
 
-Additional tools available: [`announce`](#announce), [`issues`](#issues), [`mergeclose`](#mergeclose), [`new`](#new), [`review`](#review),
- [`todo`](#todo) and [`scan`](#scan).
+Additional tools available: [`announce`](#announce),
+[`comments`](#comments),
+[`issues`](#issues),
+[`mergeclose`](#mergeclose),
+[`new`](#new),
+[`review`](#review),
+[`todo`](#todo)
+and [`scan`](#scan).
 
 ## Examples
 
@@ -253,6 +259,10 @@ script:
 
 `announce` can post a .frankenstein results log file to a gist and optionally tweet the gist link.
 
+### `comments`
+
+`comments` gather comments from merged pull requests.
+
 ### `issues`
 
 `issues` lists open and merged GitHub issues.
@@ -267,7 +277,7 @@ script:
 
 ### `review`
 
-`review` processes logs before opening a pull request to update redirects. 
+`review` processes logs before opening a pull request to update redirects.
 
 ### `scan`
 

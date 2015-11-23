@@ -61,9 +61,14 @@ module Frankenstein
       !(github_netrc.nil?)
     end
 
-    def github_issues(client, state)
+    def github_issues(client, state, page = nil)
       q = "is:#{state} is:pr author:#{github_netrc_username}"
-      client.search_issues q
+
+      if page.nil?
+        client.search_issues q
+      else
+        client.search_issues q, per_page: page  
+      end
     end
 
     def github_netrc_username
