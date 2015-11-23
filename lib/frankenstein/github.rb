@@ -67,7 +67,7 @@ module Frankenstein
       if page.nil?
         client.search_issues q
       else
-        client.search_issues q, per_page: page  
+        client.search_issues q, per_page: page
       end
     end
 

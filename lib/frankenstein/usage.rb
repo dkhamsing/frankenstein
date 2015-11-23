@@ -10,8 +10,7 @@ module Frankenstein
 
     def all_tools
       tools = %w(announce comments issues mergeclose new review scan todo)
-
-      m = tools.map { |x| x.green }
+      m = tools.map(&:green)
       m.join ', '
     end
 

@@ -27,9 +27,7 @@ module Frankenstein
       [links_to_check, links_found]
     end
 
-    def core_links_to_check(r, json_url)
-      user = github_netrc_username
-
+    def core_links_to_check(_, json_url)
       c = net_get json_url
       json = JSON.parse c.body
 
@@ -83,7 +81,7 @@ module Frankenstein
     end
 
     def core_open_safari(url, verbose = true)
-      puts "\nOpening Safari ..." if verbose 
+      puts "\nOpening Safari ..." if verbose
       system("open -a Safari #{url}")
     end
 

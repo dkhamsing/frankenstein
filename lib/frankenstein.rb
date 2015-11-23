@@ -206,8 +206,8 @@ module Frankenstein
         io_record_pull(argv1, p)
         done = true
       elsif user_input.downcase == option_gist or
-            user_input.include? option_tweet
-            done = true
+          user_input.include? option_tweet
+        done = true
         gist_url, * = Frankenstein.github_create_gist file_log, true
 
         if user_input.include? option_tweet

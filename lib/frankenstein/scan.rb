@@ -153,7 +153,7 @@ module Scan
     todo = Frankenstein.io_json_read f
 
     left = todo.map { |x| x.dup }
-    todo.each_with_index do |x, index|
+    todo.each_with_index do |x|
       m = x['repo']
 
       unless m.include? '://github.com'
@@ -188,8 +188,7 @@ module Scan
       repos = Github::Trending.get argv_2
     end
 
-    m = repos.map { |x| x.name }
-    core_scan map_repos(m)
+    core_scan map_repos(repos.map(&:name))
 
     exit
   end

@@ -99,7 +99,7 @@ module Issues
           sleep 0.5
         end
 
-        comment = "`frankenstein` run completed for "\
+        comment = '`frankenstein` run completed for '\
                   "#{Frankenstein.pluralize2 links_to_check.count, 'repo'} \n"
 
         gists.each do |hash|
@@ -142,9 +142,9 @@ module Issues
   puts count == 0 ? 'No issues' : m
 
   items = i[:items]
-  items.each_with_index do |x, index|
-    pull_url = x[:html_url]
-    m = "#{index + 1} #{pull_url.blue}"
+  items.each_with_index do |x2, i|
+    pull_url = x2[:html_url]
+    m = "#{i + 1} #{pull_url.blue}"
     puts m
   end
 

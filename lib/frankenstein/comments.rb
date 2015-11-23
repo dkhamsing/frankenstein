@@ -51,7 +51,7 @@ module Comments
   if argv1 == OPTION_READ
     exit unless File.exist? FILE
 
-    json.reject { |x| x.values[0]['number_of_comments'] == 0 }.
+    json.reject { |y| y.values[0]['number_of_comments'] == 0 }.
       each_with_index do |x, i|
         project = x.keys[0]
         puts "#{i+1} #{project.white}"
@@ -101,7 +101,7 @@ module Comments
       end
     end
 
-    map = issues.each_with_index.map do |y, i|
+    map = issues.each_with_index.map do |y, i2|
       x = y[:pull_request][:html_url]
 
       project = x.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
@@ -115,7 +115,7 @@ module Comments
         next
       end
 
-      m = "#{i} #{project.white} #{comments.count} comments"
+      m = "#{i2} #{project.white} #{comments.count} comments"
       puts m
 
       cm = comments.map { |x|

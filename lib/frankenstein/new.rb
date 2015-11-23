@@ -72,11 +72,11 @@ module New
       links_to_check, json = Frankenstein.core_links_to_check repo, j
 
       number = json['number']
-      links_to_check.each do |x|
+      links_to_check.each do |x2|
         Frankenstein.core_todo_add({ repo: x })
-        puts "Added #{x.white} to #{'todo'.blue}"
+        puts "Added #{x2.white} to #{'todo'.blue}"
 
-        comment = "Run request for #{x} received."
+        comment = "Run request for #{x2} received."
         client.add_comment repo, number, comment
 
         thread = notif['id']
