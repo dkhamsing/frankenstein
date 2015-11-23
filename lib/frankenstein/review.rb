@@ -43,6 +43,17 @@ module Review
     end
   end
 
+  if (argv_1 == OPTION_LOG) && (argv_2 == OPTION_DONE)
+    r = Frankenstein.io_records(argv_2 == OPTION_ALL)
+    m = r.map { |key, _| key }
+    m.each_with_index do |x|
+      mark_done x
+      Frankenstein.io_record_review x
+    end
+    puts 'Finished'
+    exit
+  end
+
   if (argv_1 == OPTION_LOG) && (argv_2.nil?)
     r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
@@ -60,7 +71,7 @@ module Review
     idx = 0
     r.each do |key, value|
       idx += 1
-      puts "#{idx} #{key}".white 
+      puts "#{idx} #{key}".white
       list = value['log']
       list.each_with_index do |x, index|
         if list.count > 1
