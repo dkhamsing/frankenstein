@@ -50,11 +50,10 @@ module Scan
     a_at = '@username'.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}> "\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan trending repos"\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} #{a_r} — scan trending repo for a "\
-        'random language'\
-        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}] — scan trending repo for a "\
-        'given language '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan overall trending repos"\
+        "\n#{LEADING_SPACE} #{a_p} #{a_t} [#{a_l}] — scan trending repos for a"\
+        ' given language '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_r} — scan random trending repos "\
         "\n#{LEADING_SPACE} #{a_p} #{a_po} — scan trending repos for popular "\
         'languages'\
         "\n#{LEADING_SPACE} #{a_p} #{a_at} — scan top/recent repos for a "\
