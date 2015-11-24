@@ -115,6 +115,7 @@ module Frankenstein
     '://secure.travis-ci.org/.*(pn|sv)g',
     '://stackoverflow.com/questions/ask?',
     '://t.co/',
+    '://t.cn/',
     '://twitter.com/home',
     '://travis-ci.org/.*png',
     '://travis-ci.org/.*svg',
