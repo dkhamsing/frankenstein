@@ -73,6 +73,21 @@ module Comments
     exit
   end
 
+  class << self
+    def project_from_issue(i)
+      x = pull_url i
+      project_from_url x
+    end
+
+    def project_from_url(x)
+      x.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
+    end
+
+    def pull_url(y)
+      y[:pull_request][:html_url]
+    end
+  end
+
   if argv1 == OPTION_GET
     puts '> Creating GitHub client'
     client = Frankenstein.github_client
@@ -89,11 +104,8 @@ module Comments
       keys = json.map { |x| x.keys[0] }
 
       issues = issues.reject do |y|
-        x = y[:pull_request][:html_url]
-        project = x.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
-
+        project = project_from_issue y
         condition = keys.include? project
-
         puts "Skipping #{project.white}" if condition
 
         condition
@@ -101,9 +113,7 @@ module Comments
     end
 
     map = issues.each_with_index.map do |y, i2|
-      x = y[:pull_request][:html_url]
-
-      project = x.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
+      project = project_from_issue y
       number = y[:number]
 
       begin
