@@ -110,7 +110,7 @@ module Frankenstein
 
       puts "\n#{em_logo} Checking merge status for #{project.white} ..."
       merged = client.pull_merged? project, number
-      puts 'Pull request was merged 🎉' if merged == true
+      puts 'Pull request was merged 🎉'.green if merged == true
 
       puts "\n#{em_logo} Checking pull request status ..." unless merged == true
       state = client.pull(project, number)[:state]
