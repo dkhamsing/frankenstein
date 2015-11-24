@@ -24,10 +24,10 @@ module Review
         "Usage: #{o_p} <#{'file'.white}> \n"\
         "       #{o_p} #{OPTION_LOG.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} #{OPTION_ALL.blue} \n"\
+        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_DONE.blue} \n"\
         "       #{o_p} #{OPTION_LOG.blue} <#{o_n}> or \n"\
         "       #{o_p} <#{o_n}> \n"\
-        "       #{o_p} <#{o_n}> #{OPTION_DONE.blue} \n"\
-        "       #{o_p} #{OPTION_LOG.blue} #{OPTION_DONE.blue} \n"
+        "       #{o_p} <#{o_n}> #{OPTION_DONE.blue} \n"
     puts m
     exit
   end
@@ -54,19 +54,14 @@ module Review
     exit
   end
 
-  if (argv_1 == OPTION_LOG)
-    r = Frankenstein.io_records(argv_2 == OPTION_ALL)
+  number = if argv_1 == OPTION_LOG
+             argv_2.to_i
+           else
+             argv_1.to_i
+           end
 
-    if argv_2 == OPTION_DONE
-      m = r.map { |key, _| key }
-      # puts m
-      m.each_with_index do |x|
-        mark_done x
-        Frankenstein.io_record_review x
-      end
-      puts 'Finished'
-      exit
-    end
+  if (argv_1 == OPTION_LOG) && (number == 0)
+    r = Frankenstein.io_records(argv_2 == OPTION_ALL)
 
     idx = 0
     r.each do |key, value|
@@ -94,18 +89,12 @@ module Review
         end
         puts x
       end
-    end
+    end # r.each
 
     puts 'Log is empty 🎉' if idx == 0
 
     exit
   end
-
-  number = if argv_1 == OPTION_LOG
-             argv_2.to_i
-           else
-             argv_1.to_i
-           end
 
   if number > 0
     r = Frankenstein.io_records false
