@@ -1,7 +1,6 @@
 # Gather comments...
 module Comments
   require 'colored'
-  # require 'pp'
 
   require 'frankenstein/constants'
   require 'frankenstein/github'
@@ -118,14 +117,14 @@ module Comments
       m = "#{i2} #{project.white} #{comments.count} comments"
       puts m
 
-      cm = comments.map { |z|
+      cm = comments.map do |z|
         {
           login: z['user']['login'],
           created_at: z['created_at'],
           updated_at: z['updated_at'],
           body: z['body']
         }
-      }
+      end
 
       sleep 0.8
       { project =>
@@ -142,5 +141,4 @@ module Comments
     Frankenstein.io_json_write FILE, f
     puts "Wrote log to #{FILE.white}"
   end
-
 end # module

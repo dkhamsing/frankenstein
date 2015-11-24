@@ -245,7 +245,7 @@ module Frankenstein
 
               # handle anchor
               if link.include? '#'
-                anchor = link.match /#.*/
+                anchor = link.match '#.*'
                 redirect << anchor[0]
               end
 

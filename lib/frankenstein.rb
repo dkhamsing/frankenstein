@@ -225,8 +225,11 @@ module Frankenstein
     end # while
   end # if github_creds
 
-  io_record_visits(argv1,
-    redirects, log.identifier, raw_info) unless found_file_content
+  io_record_visits(
+    argv1,
+    redirects,
+    log.identifier,
+    raw_info) unless found_file_content
 
   exit(1) if (failures.count > 0) && !(failures.include? CONTROLLED_ERROR)
 end # module
