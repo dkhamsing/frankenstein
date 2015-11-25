@@ -4,6 +4,7 @@ module Frankenstein
   KEY_LOG = 'log'
   KEY_PULL = 'pull'
   KEY_REVIEW = 'review'
+  KEY_SCAN = 'scan'
   KEY_VISIT = 'visit'
 
   class << self
@@ -16,13 +17,13 @@ module Frankenstein
       unless all
         r = r.reject do |_, value|
           list = value['log']
-          # puts "list = #{list}"
 
           m = list.map do |x|
+            sc = x['type'] == 'scan'
             pu = x['type'] == 'pull'
             rev = x['type'] == 'review'
             redirects = x['redirects'] == 0
-            pu || rev || redirects
+            pu || rev || redirects || sc
           end
           # puts "map = #{m}"
           m.include? true
@@ -72,6 +73,28 @@ module Frankenstein
         io_json_write FILE_VISITS, r
       else
         puts "io_record_review no visits log to record review for #{repo.red}"
+      end
+    end
+
+    def io_record_scan(username, repos)
+      item = {
+        type: KEY_SCAN,
+        date: Time.now.utc.iso8601,
+        repos: repos
+      }
+      if File.exist? FILE_VISITS
+        r = io_json_read FILE_VISITS
+        if r.key? username
+          hash = r[username]
+          list = hash[KEY_LOG]
+          list.push item
+        else
+          r[username] = { KEY_LOG => [item] }
+        end
+
+        io_json_write FILE_VISITS, r
+      else
+        puts 'io_record_scan file missing'.red
       end
     end
 

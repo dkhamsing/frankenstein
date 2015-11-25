@@ -8,6 +8,7 @@ module Scan
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/github'
+  require 'frankenstein/io'
   require 'frankenstein/output'
 
   PRODUCT = 'scan'
@@ -130,6 +131,8 @@ module Scan
     m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
 
     core_scan map_repos(m)
+
+    Frankenstein.io_record_scan user, m
 
     exit
   end
