@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faraday_middleware', '~> 0.10.0'
   spec.add_dependency 'json', '~> 1.8.3'
   spec.add_dependency 'parallel', '~> 1.6.1'
+  spec.add_dependency 'differ', '~> 0.1.2'
 
   spec.add_dependency 'octokit', '~> 4.1.1' # github
   spec.add_dependency 'netrc', '~> 0.11.0' # credentials
