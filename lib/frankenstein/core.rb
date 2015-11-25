@@ -163,16 +163,17 @@ module Frankenstein
 
         redirects.each do |hash|
           original, redirect = hash.first
-          # diff = array.length - key.length
-
-          # colored_diff = diff
-          # colored_diff = colored_diff.to_s.red if diff.abs > 1
           log.add "#{original.yellow} redirects to \n#{redirect} "
 
           changes = Differ.diff_by_word(redirect, original).changes
           changes.each do |c|
-            m = c.delete == '' ? "#{c.insert.green} was added" :
-              "#{c.delete.red} was replaced by #{c.insert.green}"
+            if c.delete == ''
+              m = "#{c.insert.green} was added"
+            elsif c.insert == ''
+              m = "#{c.delete.red} was removed"
+            else
+              m = "#{c.delete.red} was replaced by #{c.insert.green}"
+            end             
             log.add "  #{m}"
           end
 
