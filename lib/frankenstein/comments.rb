@@ -139,7 +139,7 @@ module Comments
       sleep 0.8
       { project =>
         {
-          url: x,
+          url: y,
           comments: cm,
           number_of_comments: comments.count
         }
