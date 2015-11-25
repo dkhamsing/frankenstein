@@ -119,6 +119,7 @@ module Frankenstein
     '://twitter.com/home',
     '://travis-ci.org/.*png',
     '://travis-ci.org/.*svg',
+    '://weibo.com/',
     '://youtu.be/'
   ]
 end
