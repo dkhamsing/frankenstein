@@ -252,6 +252,8 @@ module Frankenstein
               log.verbose "#{link} was redirected to \n#{redirect}".yellow
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
+              elsif redirect == link
+                log.add "#{em_mad} Redirect is the same as #{link}"
               else
                 redirects.push({ link => redirect })
               end
