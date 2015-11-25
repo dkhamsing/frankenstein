@@ -3,6 +3,8 @@ module Frankenstein
   require 'parallel'
   require 'colored'
   require 'json'
+  require 'differ'
+  require 'differ/string'
 
   require 'frankenstein/constants'
   require 'frankenstein/github'
@@ -11,6 +13,13 @@ module Frankenstein
   require 'frankenstein/network'
   require 'frankenstein/output'
   require 'frankenstein/twitter'
+
+  # Diff change
+  class Differ::Diff
+    def changes
+      @raw.reject { |e| e.is_a? String }
+    end
+  end
 
   class << self
     def core_find_links(content)
@@ -161,13 +170,23 @@ module Frankenstein
         replaced = original
 
         redirects.each do |hash|
-          key, array = hash.first
-          diff = array.length - key.length
+          original, redirect = hash.first
+          # diff = array.length - key.length
 
-          colored_diff = diff
-          colored_diff = colored_diff.to_s.red if diff.abs > 1
-          log.add "#{key.yellow} #{colored_diff} redirects to \n#{array} \n\n"
-          replaced = replaced.sub key, array
+          # colored_diff = diff
+          # colored_diff = colored_diff.to_s.red if diff.abs > 1
+          log.add "#{original.yellow} redirects to \n#{redirect} "
+
+          changes = Differ.diff_by_word(redirect, original).changes
+          changes.each do |c|
+            m = c.delete == '' ? "#{c.insert.green} was added" :
+              "#{c.delete.red} was replaced by #{c.insert.green}"
+            log.add "  #{m}"
+          end
+
+          log.add ''
+
+          replaced = replaced.sub original, redirect
         end # redirects.each
 
         File.open(file_updated, 'w') do |ff|
