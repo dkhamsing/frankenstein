@@ -13,8 +13,8 @@ module Frankenstein
     require 'json'
 
     require 'frankenstein/date'
+    require 'frankenstein/diff'
     require 'frankenstein/emoji'
-
     # require 'pp'
 
     def github_client
@@ -90,6 +90,24 @@ module Frankenstein
       # sort by url
       redirects = redirects.uniq.sort_by { |r| r.keys[0] }
 
+      https = redirects.select do |hash|
+          original, redirect = hash.first
+          changes = Differ.diff_by_word(redirect, original).changes
+          c = changes[0]
+          next if changes.count > 1
+          next if c.class == NilClass
+          (c.delete == 'http') && (c.insert == 'https')
+      end
+
+      redirects = redirects.reject do |hash|
+        original, redirect = hash.first
+        changes = Differ.diff_by_word(redirect, original).changes
+        c = changes[0]
+        next if changes.count > 1
+        next if c.class == NilClass
+        (c.delete == 'http') && (c.insert == 'https')
+      end
+
       github = redirects.select { |r| r.keys[0].downcase.include? MATCH }
       if github.count > 0
         h = github_pull_heading 'GitHub '
@@ -101,9 +119,20 @@ module Frankenstein
         end
       end
 
+      if https.count > 0
+        h = github_pull_heading 'HTTPS '
+        pr_desc << h
+
+        https.each do |hash|
+          key, array = hash.first
+          pr_desc << "#{key} | #{array} \n" unless key == array
+        end
+      end
+
       rest = redirects.reject { |r| r.keys[0].downcase.include? MATCH }
       if rest.count > 0
-        h = github_pull_heading 'Other '
+        h = github_pull_heading 'Other ' unless
+          (https.count == 0) && (github.count == 0)
         pr_desc << h
 
         rest.each do |hash|
