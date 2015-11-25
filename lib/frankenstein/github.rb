@@ -121,8 +121,13 @@ module Frankenstein
       end
 
       if rest.count > 0
-        h = github_pull_heading 'Other ' unless
-          (https.count == 0) && (github.count == 0)
+
+        h = if (https.count == 0) && (github.count == 0)
+          github_pull_heading ''
+        else
+          github_pull_heading 'Other '
+        end
+
         pr_desc << h
 
         rest.each do |hash|
