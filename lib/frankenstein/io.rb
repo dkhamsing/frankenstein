@@ -1,6 +1,5 @@
 # I/O
 module Frankenstein
-
   KEY_LOG = 'log'
   KEY_PULL = 'pull'
   KEY_REVIEW = 'review'

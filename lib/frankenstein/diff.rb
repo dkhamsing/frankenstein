@@ -9,5 +9,4 @@ module Frankenstein
       @raw.reject { |e| e.is_a? String }
     end
   end
-
 end

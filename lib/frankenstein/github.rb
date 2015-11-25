@@ -91,15 +91,16 @@ module Frankenstein
       redirects = redirects.uniq.sort_by { |r| r.keys[0] }
 
       https, redirects = redirects.partition do |hash|
-          original, redirect = hash.first
-          changes = Differ.diff_by_word(redirect, original).changes
-          c = changes[0]
-          next if changes.count > 1
-          next if c.class == NilClass
-          (c.delete == 'http') && (c.insert == 'https')
+        original, redirect = hash.first
+        changes = Differ.diff_by_word(redirect, original).changes
+        c = changes[0]
+        next if changes.count > 1
+        next if c.class == NilClass
+        (c.delete == 'http') && (c.insert == 'https')
       end
 
-      github, rest = redirects.partition { |r| r.keys[0].downcase.include? MATCH }
+      github, rest =
+        redirects.partition { |r| r.keys[0].downcase.include? MATCH }
       if github.count > 0
         h = github_pull_heading 'GitHub '
         pr_desc << h
@@ -121,12 +122,11 @@ module Frankenstein
       end
 
       if rest.count > 0
-
         h = if (https.count == 0) && (github.count == 0)
-          github_pull_heading ''
-        else
-          github_pull_heading 'Other '
-        end
+              github_pull_heading ''
+            else
+              github_pull_heading 'Other '
+            end
 
         pr_desc << h
 
