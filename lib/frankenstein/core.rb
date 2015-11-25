@@ -3,23 +3,15 @@ module Frankenstein
   require 'parallel'
   require 'colored'
   require 'json'
-  require 'differ'
-  require 'differ/string'
 
   require 'frankenstein/constants'
+  require 'frankenstein/diff'
   require 'frankenstein/github'
   require 'frankenstein/io'
   require 'frankenstein/log'
   require 'frankenstein/network'
   require 'frankenstein/output'
   require 'frankenstein/twitter'
-
-  # Diff change
-  class Differ::Diff
-    def changes
-      @raw.reject { |e| e.is_a? String }
-    end
-  end
 
   class << self
     def core_find_links(content)
