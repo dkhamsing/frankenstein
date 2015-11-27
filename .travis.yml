@@ -12,3 +12,4 @@ script:
   - frankenstein fastlane/fastlane.tools -v threads=8 no-prompt
   - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 no-prompt
   - frankenstein http://dkhamsing.github.io/ -v no-prompt
+  - frankenstein bin/assets/test-no-redirects -v
