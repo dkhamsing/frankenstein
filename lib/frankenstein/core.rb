@@ -255,18 +255,18 @@ module Frankenstein
             elsif res.status >= 300
               redirect = resolve_redirects(link, log)
 
-              # handle anchor
-              if link.include? '#'
-                anchor = link.match '#.*'
-                redirect << anchor[0]
-              end
-
               log.verbose "#{link} was redirected to \n#{redirect}".yellow
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
               elsif redirect == link
                 log.add "#{em_mad} Redirect is the same as #{link}"
               else
+                # handle anchor
+                if link.include? '#'
+                  anchor = link.match '#.*'
+                  redirect << anchor[0]
+                end
+
                 redirects.push({ link => redirect })
               end
             end # if res.status != 200
