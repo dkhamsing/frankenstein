@@ -39,6 +39,56 @@ module Scan
     'scala'
   ]
 
+  class << self
+    def scan_user argv_1
+      user = argv_1.sub('@', '')
+      c = Frankenstein.github_client
+      c.auto_paginate = true
+
+      begin
+        u = c.user user
+      rescue StandardError => e
+        puts "#{argv_1} is not a valid user: #{e}".red
+        exit 1
+      end
+
+      l = u['location']
+      repos = u['public_repos']
+      m = "Getting repos for #{argv_1.white} "
+      m << "from #{l.blue}" unless l.nil?
+      puts m
+
+      puts "#{Frankenstein.pluralize2 repos, 'repo'}"
+
+      r = c.repos(user).reject { |x| x['fork'] }
+      puts "#{r.count} are not forked" unless r.count == repos
+
+      puts 'Getting top 5 most popular repos...'
+      top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
+      top5.each { |x| puts ' ' << x['full_name'] }
+
+      puts 'Getting latest repos with updates'
+      recent = r.reject { |x| x['pushed_at'].class == NilClass }
+        .sort_by { |x| x['pushed_at'] }.reverse.first(5)
+      recent.each { |x| puts ' ' << x['full_name'] }
+
+      combined = recent + top5
+      m = combined.uniq.map { |x| x['full_name'] }
+      m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
+
+      core_scan map_repos(m)
+
+      Frankenstein.io_record_scan user, m
+    end
+
+    def update_left left, f
+      left.delete_at 0
+      Frankenstein.io_json_write f, left
+      puts "todo left: #{left.count}"
+      sleep 1
+    end
+  end
+
   argv_1, argv_2 = ARGV
   if argv_1.nil?
     a_p = PRODUCT.blue
@@ -95,45 +145,7 @@ module Scan
   end # class
 
   if argv_1.include? '@'
-    user = argv_1.sub('@', '')
-    c = Frankenstein.github_client
-    c.auto_paginate = true
-
-    begin
-      u = c.user user
-    rescue StandardError => e
-      puts "#{argv_1} is not a valid user: #{e}".red
-      exit 1
-    end
-
-    l = u['location']
-    repos = u['public_repos']
-    m = "Getting repos for #{argv_1.white} "
-    m << "from #{l.blue}" unless l.nil?
-    puts m
-
-    puts "#{Frankenstein.pluralize2 repos, 'repo'}"
-
-    r = c.repos(user).reject { |x| x['fork'] }
-    puts "#{r.count} are not forked" unless r.count == repos
-
-    puts 'Getting top 5 most popular repos...'
-    top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
-    top5.each { |x| puts ' ' << x['full_name'] }
-
-    puts 'Getting latest repos with updates'
-    recent = r.reject { |x| x['pushed_at'].class == NilClass }
-      .sort_by { |x| x['pushed_at'] }.reverse.first(5)
-    recent.each { |x| puts ' ' << x['full_name'] }
-
-    combined = recent + top5
-    m = combined.uniq.map { |x| x['full_name'] }
-    m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
-
-    core_scan map_repos(m)
-
-    Frankenstein.io_record_scan user, m
-
+    scan_user argv_1
     exit
   end
 
@@ -162,6 +174,12 @@ module Scan
     todo.each_with_index do |x|
       m = x['repo']
 
+      if m.include? '@'
+        scan_user m
+        update_left left, f
+        next
+      end
+
       unless m.include? '://github.com'
         m = "https://github.com/#{m}"
       end
@@ -169,11 +187,7 @@ module Scan
       puts "Scanning #{m.white}..."
 
       core_scan m
-
-      left.delete_at 0
-      Frankenstein.io_json_write f, left
-      puts "todo left: #{left.count}"
-      sleep 1
+      update_left left, f
     end
 
     puts "Finished scanning #{todo.count} repos" unless todo.count == 0
