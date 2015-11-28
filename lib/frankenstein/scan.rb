@@ -143,8 +143,11 @@ module Scan
     pop.each_with_index do |p, i|
       puts "#{i + 1}/#{pop.count} Getting trending repos for #{p}"
       repos = Github::Trending.get p
-      all = all + repos
+      all += repos
     end
+
+    puts 'Getting overall trending repos'
+    all += Github::Trending.get
 
     m = all.map(&:name)
     core_scan map_repos(m)
