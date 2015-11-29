@@ -100,6 +100,7 @@ module Frankenstein
     '://github.com/.*state=open$',
     'github.io',
     '://goo.gl/',
+    'issuestats.com/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
     '://ogp.me/ns',
