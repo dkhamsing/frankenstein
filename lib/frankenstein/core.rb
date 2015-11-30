@@ -175,6 +175,9 @@ module Frankenstein
               m = "#{c.delete.red} was replaced by #{c.insert.green}"
             end
             log.add "  #{m}"
+
+            puts '  ' << '!!!'.red_on_yellow if
+              (c.insert != 'https') && (original.include? '//github.com/')
           end
 
           log.add ''
