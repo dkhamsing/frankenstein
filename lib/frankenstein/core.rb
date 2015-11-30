@@ -265,7 +265,7 @@ module Frankenstein
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
               elsif redirect == link
-                log.add "#{em_mad} Redirect is the same as #{link}"
+                log.add "😓  Redirect is the same for #{link}"
               else
                 # handle anchor
                 if link.include? '#'
