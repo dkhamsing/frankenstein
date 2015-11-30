@@ -98,6 +98,7 @@ module Frankenstein
     '://github.com/.*/tarball/',
     '://github.com/.*/raw/',
     '://github.com/.*state=open$',
+    '//github.com/.*contributors$',
     'github.io',
     '://goo.gl/',
     'issuestats.com/',
