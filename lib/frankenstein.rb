@@ -72,7 +72,10 @@ module Frankenstein
 
   log.file_write "$ #{PRODUCT} #{ARGV.join ' '} \n\n"
 
-  u, r = if argv1_is_http || found_file_content
+  the_url,
+  readme,
+  content =
+        if argv1_is_http || found_file_content
            argv1
          else
            log.verbose 'Attempt to get default branch (unauthenticated)'
@@ -93,11 +96,17 @@ module Frankenstein
              m, raw_info =
                github_repo_json_info(parsed, default_branch, argv1)
              log.add m
-             net_find_github_url_readme(argv1, default_branch)
+             github_readme_unauthenticated(argv1, log)
            end # if message ..
          end # if argv1_is_http ..
-  the_url = u
-  readme = r
+  # the_url = u
+  # readme = r
+
+  if the_url.nil?
+    puts "No content found for #{argv1.white}"
+    exit
+  end
+
   log.verbose "Readme found: #{readme}"
 
   m = "#{em_logo} Processing links for ".white
@@ -121,7 +130,7 @@ module Frankenstein
                 end
               end
 
-              content = net_get(the_url).body
+              content = net_get(the_url).body if content.nil?
               content
             end
   File.open(file_copy, 'w') { |f| f.write(content) }

@@ -414,10 +414,18 @@ module Frankenstein
           m, raw_info =
             Frankenstein.github_repo_json_info(parsed, b, argv1)
           log.add m
-          the_url, readme = Frankenstein.net_find_github_url_readme(argv1, b)
+
+          the_url,
+          readme,
+          content = github_readme_unauthenticated(argv1, log)
+
+          if the_url.nil?
+            puts "No content found for #{argv1.white}"
+            next
+          end
         end # if message ..
 
-        content = net_get(the_url).body
+        content = net_get(the_url).body if content.nil?
         File.open(file_copy, 'w') { |f| f.write(content) }
 
         links_to_check, * = core_find_links content

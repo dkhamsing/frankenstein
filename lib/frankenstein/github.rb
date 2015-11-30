@@ -223,6 +223,27 @@ module Frankenstein
       end
     end
 
+    def github_readme_unauthenticated(argv1, log)
+      json_url = GITHUB_API_BASE + 'repos/' + argv1 + '/readme'
+      log.verbose "Endpoint: #{json_url}"
+      log.add "Finding readme for #{argv1.white}"
+
+      body = net_get(json_url).body
+      log.verbose body
+
+      parsed = JSON.parse(body)
+      # pp parsed
+      readme = parsed['name']
+      url = parsed['download_url']
+      content = parsed['content']
+
+      decoded = Base64.decode64 content unless content.nil?
+
+      # TODO: this could run out of api calls.. ?
+
+      [url, readme, decoded]
+    end
+
     def github_repo(client, repo)
       client.repo(repo)
     end
