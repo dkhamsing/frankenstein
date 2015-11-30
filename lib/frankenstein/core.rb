@@ -161,7 +161,10 @@ module Frankenstein
         original = f.read
         replaced = original
 
-        redirects.each do |hash|
+        puts "   #{redirects.uniq.count} unique" if
+          redirects.uniq.count != redirects.count
+
+        redirects.uniq.each do |hash|
           original, redirect = hash.first
           log.add "#{original.yellow} redirects to \n#{redirect.yellow} "
 
