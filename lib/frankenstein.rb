@@ -79,9 +79,8 @@ module Frankenstein
            message, parsed = github_repo_unauthenticated(argv1, log)
            log.verbose "Parsed message: #{message}"
 
-           if message == 'Not Found' || message == 'Moved Permanently'
-             m = "Retrieving repo #{argv1} "
-             log.error "#{m.red} #{message.downcase}"
+           if github_repo_error message
+             log.error github_repo_error_message message, argv1
              exit(1)
            elsif message.include? 'API rate limit exceeded'
              log.error "GitHub #{message}"

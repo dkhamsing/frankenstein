@@ -227,6 +227,15 @@ module Frankenstein
       client.repo(repo)
     end
 
+    def github_repo_error(message)
+      message == 'Not Found' || message == 'Moved Permanently'
+    end
+
+    def github_repo_error_message(message, argv1)
+      m = "Retrieving repo #{argv1} "
+      "#{m.red} #{message.downcase}"
+    end
+
     def github_repo_info(gh_repo, name)
       count = gh_repo.stargazers_count
       pushed_at = gh_repo.pushed_at
