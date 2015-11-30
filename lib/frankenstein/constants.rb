@@ -55,7 +55,8 @@ module Frankenstein
     'readme.creole',
     'ReadMe.md',
     'README.mdown',
-    'readme.markdown'
+    'readme.markdown',
+    'README.adoc'
   ]
 
   SEPARATOR = '='
