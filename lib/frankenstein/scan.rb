@@ -82,7 +82,7 @@ module Scan
       Frankenstein.io_record_scan user, m
     end
 
-    def update_left left, f
+    def update_left(left, f)
       left.delete_at 0
       Frankenstein.io_json_write f, left
       puts "todo left: #{left.count}"
