@@ -210,13 +210,12 @@ module Frankenstein
       log.verbose "Set head to #{head}"
 
       begin
-      created = github.create_pull_request(repo,
-                                           branch,
-                                           head,
-                                           PULL_REQUEST_TITLE,
-                                           description)
-      return created[:html_url]
-
+        created = github.create_pull_request(repo,
+                                             branch,
+                                             head,
+                                             PULL_REQUEST_TITLE,
+                                             description)
+        return created[:html_url]
       rescue StandardError => e
         puts 'Could not create pull request'.red
         puts "error #{e}".red

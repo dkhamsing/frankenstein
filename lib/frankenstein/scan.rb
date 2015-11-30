@@ -40,7 +40,7 @@ module Scan
   ]
 
   class << self
-    def scan_user argv_1
+    def scan_user(argv_1)
       user = argv_1.sub('@', '')
       c = Frankenstein.github_client
       c.auto_paginate = true
@@ -65,16 +65,17 @@ module Scan
 
       puts 'Getting top 5 most popular repos...'
       top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
-      top5.each { |x| puts ' ' << x['full_name'] }
+             .each { |x| puts ' ' << x['full_name'] }
 
       puts 'Getting latest repos with updates'
       recent = r.reject { |x| x['pushed_at'].class == NilClass }
-        .sort_by { |x| x['pushed_at'] }.reverse.first(5)
-      recent.each { |x| puts ' ' << x['full_name'] }
+               .sort_by { |x| x['pushed_at'] }
+               .reverse.first(5)
+               .each { |x| puts ' ' << x['full_name'] }
 
       combined = recent + top5
       m = combined.uniq.map { |x| x['full_name'] }
-      m.each_with_index { |x, i| puts "#{i + 1} #{x}" }
+          .each_with_index { |x, i| puts "#{i + 1} #{x}" }
 
       core_scan map_repos(m)
 
