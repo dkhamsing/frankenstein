@@ -82,7 +82,7 @@ Wrote log to logs/1446869147-2015-11-06-fastlane.tools.frankenstein
 ✅ 200 ok
 🔶 3xx redirect
 🔴 4xx error
-⚪ other
+⚪ white list / other
 ```
 
 ```shell
