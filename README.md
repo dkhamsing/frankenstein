@@ -10,7 +10,7 @@
 
 This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios), it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
 
-See [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run) to request a `frankenstein` run on a repo (there's also [this](https://github.com/ReadmeCritic/Disinterest) if you'd like to opt out :no_good:)
+See [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run) to request a `frankenstein` run on a repo (you can also [opt out](https://github.com/ReadmeCritic/Disinterest) :no_good:)
 
 Jump to
 - [Installation](#installation)
