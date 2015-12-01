@@ -229,7 +229,12 @@ module Frankenstein
     end
 
     def github_readme(client, repo)
-      r = client.readme repo
+      begin
+        r = client.readme repo
+      rescue StandardError => e        
+        return [nil, nil]
+      end
+
       name = r['name']
       content = r['content']
       decoded = Base64.decode64 content unless content.nil?

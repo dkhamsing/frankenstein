@@ -405,6 +405,8 @@ module Frankenstein
           b = github_default_branch c, repo
           readme, content = github_readme c, repo
 
+          next if readme.nil?
+
           m, raw_info = github_repo_info_client c, repo, b
           log.add m
         else

@@ -85,6 +85,11 @@ module Frankenstein
         default_branch = github_default_branch c, repo
         readme, content = github_readme c, repo
 
+        if readme.nil?
+          log.error 'No README'
+          exit
+        end
+
         m, raw_info = github_repo_info_client c, repo, default_branch
         log.add m
 
