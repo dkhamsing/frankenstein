@@ -252,6 +252,7 @@ module Frankenstein
 
   io_record_visits(
     argv1,
+    links_to_check.count,
     redirects,
     log.identifier,
     raw_info) unless found_file_content
