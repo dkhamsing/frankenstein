@@ -398,32 +398,42 @@ module Frankenstein
         file_redirects = log.filename(Frankenstein::FILE_REDIRECTS)
         file_log = log.filelog
 
-        message, parsed = Frankenstein.github_repo_unauthenticated(argv1, log)
+        if github_creds
+          c = github_client
+          repo = argv1
 
-        if github_repo_error message
-          log.error github_repo_error_message message, argv1
-          next
-        elsif message.include? 'API rate limit exceeded'
-          log.error "GitHub #{message}"
-          log.add 'Finding readme...'
-
-          b = 'master'
-          the_url, readme = net_find_github_url_readme(argv1, b)
-        else
-          b = parsed['default_branch']
-          m, raw_info =
-            Frankenstein.github_repo_json_info(parsed, b, argv1)
+          m, raw_info = github_repo_info_client c, repo
           log.add m
 
-          the_url,
-          readme,
-          content = github_readme_unauthenticated(argv1, log)
+          b = github_default_branch c, repo
+          readme, content = github_readme c, repo
+        else
+          message, parsed = github_repo_unauthenticated(argv1, log)
 
-          if the_url.nil?
-            puts "No content found for #{argv1.white}"
+          if github_repo_error message
+            log.error github_repo_error_message message, argv1
             next
-          end
-        end # if message ..
+          elsif message.include? 'API rate limit exceeded'
+            log.error "GitHub #{message}"
+            log.add 'Finding readme...'
+
+            b = 'master'
+            the_url, readme = net_find_github_url_readme(argv1, b)
+          else
+            b = parsed['default_branch']
+            m, raw_info = github_repo_json_info(parsed, b, argv1)
+            log.add m
+
+            the_url,
+            readme,
+            content = github_readme_unauthenticated(argv1, log)
+
+            if the_url.nil?
+              puts "No content found for #{argv1.white}"
+              next
+            end
+          end # if message ..
+        end
 
         content = net_get(the_url).body if content.nil?
         File.open(file_copy, 'w') { |f| f.write(content) }

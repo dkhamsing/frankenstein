@@ -48,6 +48,11 @@ module Frankenstein
       [html_url, filename]
     end
 
+    def github_default_branch(client, repo)
+      r = github_repo client, repo
+      r['default_branch']
+    end
+
     def github_fork(client, repo)
       client.fork(repo)
     end
@@ -223,6 +228,15 @@ module Frankenstein
       end
     end
 
+    def github_readme(client, repo)
+      r = client.readme repo
+      name = r['name']
+      content = r['content']
+      decoded = Base64.decode64 content unless content.nil?
+
+      [name, decoded]
+    end
+
     def github_readme_unauthenticated(argv1, log)
       json_url = GITHUB_API_BASE + 'repos/' + argv1 + '/readme'
       log.verbose "Endpoint: #{json_url}"
@@ -255,6 +269,20 @@ module Frankenstein
     def github_repo_error_message(message, argv1)
       m = "Retrieving repo #{argv1} "
       "#{m.red} #{message.downcase}"
+    end
+
+    def github_repo_info_client(client, name)
+      gh_repo = github_repo client, name
+
+      count = gh_repo['stargazers_count']
+      pushed_at = gh_repo['pushed_at']
+      repo_updated = number_of_days_since pushed_at
+      message = "#{em_star} #{count} #{name} #{heat_index count} "
+      message << repo_updated
+
+      h = { repo: name, count: count, pushed_at: pushed_at }
+
+      [message, h]
     end
 
     def github_repo_info(gh_repo, name)

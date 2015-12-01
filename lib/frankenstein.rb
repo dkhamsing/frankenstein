@@ -78,25 +78,41 @@ module Frankenstein
     if argv1_is_http || found_file_content
       argv1
     else
-      log.verbose 'Attempt to get default branch (unauthenticated)'
-      message, parsed = github_repo_unauthenticated(argv1, log)
-      log.verbose "Parsed message: #{message}"
+      if github_creds
+        c = github_client
+        repo = argv1
 
-      if github_repo_error message
-        log.error github_repo_error_message message, argv1
-        exit(1)
-      elsif message.include? 'API rate limit exceeded'
-        log.error "GitHub #{message}"
-        log.add 'Finding readme...'
+        default_branch = github_default_branch c, repo
+        readme, content = github_readme c, repo
 
-        default_branch = 'master'
-        net_find_github_url_readme(argv1, default_branch)
-      else
-        default_branch = parsed['default_branch']
-        m, raw_info = github_repo_json_info(parsed, default_branch, argv1)
+        log.add "README: #{readme.white}"
+        log.add "Default branch: #{default_branch.white}"
+
+        m, raw_info = github_repo_info_client c, repo
         log.add m
-        github_readme_unauthenticated(argv1, log)
-      end # if message ..
+
+        [repo, readme, content]
+      else
+        log.verbose 'Attempt to get default branch (unauthenticated)'
+        message, parsed = github_repo_unauthenticated(argv1, log)
+        log.verbose "Parsed message: #{message}"
+
+        if github_repo_error message
+          log.error github_repo_error_message message, argv1
+          exit(1)
+        elsif message.include? 'API rate limit exceeded'
+          log.error "GitHub #{message}"
+          log.add 'Finding readme...'
+
+          default_branch = 'master'
+          net_find_github_url_readme(argv1, default_branch)
+        else
+          default_branch = parsed['default_branch']
+          m, raw_info = github_repo_json_info(parsed, default_branch, argv1)
+          log.add m
+          github_readme_unauthenticated(argv1, log)
+        end # if message ..
+      end
     end # if argv1_is_http ..
 
   if the_url.nil?
@@ -111,25 +127,27 @@ module Frankenstein
   m << ' ...'.white
   log.add m
 
-  content = if found_file_content
-              found_file_content
-            else
-              code = net_status the_url
-              log.verbose "#{the_url} status: #{code}"
+  if content.nil?
+    content = if found_file_content
+                found_file_content
+              else
+                code = net_status the_url
+                log.verbose "#{the_url} status: #{code}"
 
-              unless code == 200
-                if argv1_is_http
-                  log.error "url response (status code: #{code})"
-                  exit(1)
-                else
-                  log.error 'could not find readme in master branch'.white
-                  exit
+                unless code == 200
+                  if argv1_is_http
+                    log.error "url response (status code: #{code})"
+                    exit(1)
+                  else
+                    log.error 'could not find readme in master branch'.white
+                    exit
+                  end
                 end
-              end
 
-              content = net_get(the_url).body if content.nil?
-              content
-            end
+                content = net_get(the_url).body
+                content
+              end
+  end
   File.open(file_copy, 'w') { |f| f.write(content) }
 
   links_to_check, links_found = core_find_links content
