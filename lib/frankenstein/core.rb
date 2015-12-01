@@ -353,14 +353,14 @@ module Frankenstein
 
     def core_scan(argv_1)
       c = File.read argv_1
-      links, * = Frankenstein.core_find_links c
-      r = Frankenstein.github_get_repos links
+      links, * = core_find_links c
+      r = github_get_repos links
       # puts r
-      puts "Scanning #{Frankenstein.pluralize2(r.count, 'repo').white}"
+      puts "Scanning #{pluralize2(r.count, 'repo').white}"
 
       flag_verbose = false
       number_of_threads = 10
-      logs = Frankenstein.core_logs
+      logs = core_logs
       r.each.with_index do |argv1, index|
         if logs.include? argv1.sub('/', '-')
           match = argv1.sub('/', '-')
@@ -391,11 +391,11 @@ module Frankenstein
 
         elapsed_time_start = Time.now
 
-        log = Frankenstein::Log.new(flag_verbose, argv1)
+        log = Log.new(flag_verbose, argv1)
 
-        file_copy = log.filename(Frankenstein::FILE_COPY)
-        file_updated = log.filename(Frankenstein::FILE_UPDATED)
-        file_redirects = log.filename(Frankenstein::FILE_REDIRECTS)
+        file_copy = log.filename(FILE_COPY)
+        file_updated = log.filename(FILE_UPDATED)
+        file_redirects = log.filename(FILE_REDIRECTS)
         file_log = log.filelog
 
         if github_creds
