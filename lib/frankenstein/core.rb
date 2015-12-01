@@ -460,7 +460,11 @@ module Frankenstein
           file_log)
 
         redirects = r[1]
-        io_record_visits(argv1, redirects, log.identifier, raw_info)
+        io_record_visits(argv1,
+                         links_to_check.count,
+                         redirects,
+                         log.identifier,
+                         raw_info)
       end # r.each
     end
 
