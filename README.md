@@ -1,4 +1,4 @@
-![](assets/its-alive.gif)
+![](http://i.giphy.com/2MMB4JT8lokbS.gif)
 
 # Frankenstein
 
