@@ -402,11 +402,11 @@ module Frankenstein
           c = github_client
           repo = argv1
 
-          m, raw_info = github_repo_info_client c, repo
-          log.add m
-
           b = github_default_branch c, repo
           readme, content = github_readme c, repo
+
+          m, raw_info = github_repo_info_client c, repo, b
+          log.add m
         else
           message, parsed = github_repo_unauthenticated(argv1, log)
 

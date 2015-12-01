@@ -85,10 +85,7 @@ module Frankenstein
         default_branch = github_default_branch c, repo
         readme, content = github_readme c, repo
 
-        log.add "README: #{readme.white}"
-        log.add "Default branch: #{default_branch.white}"
-
-        m, raw_info = github_repo_info_client c, repo
+        m, raw_info = github_repo_info_client c, repo, default_branch
         log.add m
 
         [repo, readme, content]

@@ -271,18 +271,35 @@ module Frankenstein
       "#{m.red} #{message.downcase}"
     end
 
-    def github_repo_info_client(client, name)
-      gh_repo = github_repo client, name
+    def github_repo_info_client(client, repo, default_branch)
+      parsed = github_repo client, repo
 
-      count = gh_repo['stargazers_count']
-      pushed_at = gh_repo['pushed_at']
-      repo_updated = number_of_days_since pushed_at
-      message = "#{em_star} #{count} #{name} #{heat_index count} "
-      message << repo_updated
+      repo_description = parsed['description']
+      repo_stars = parsed['stargazers_count']
+      repo_pushed_at = parsed['pushed_at'].to_s
+      puts repo_pushed_at
 
-      h = { repo: name, count: count, pushed_at: pushed_at }
+      _, days = number_of_days_since_raw(Time.parse repo_pushed_at)
 
-      [message, h]
+      raw_updated = if days == 0
+                      'today'
+                    else
+                      "#{pluralize2 days, 'day'} ago"
+                    end
+      raw = {
+        description: repo_description,
+        stars: repo_stars,
+        pushed_at: repo_pushed_at,
+        updated: raw_updated
+      }
+
+      repo_updated = number_of_days_since(Time.parse repo_pushed_at)
+
+      m = "Found: #{default_branch.white} for "\
+          "#{repo} — "\
+          "#{repo_description} — #{repo_stars}#{em_star} "\
+          "— #{repo_updated}"
+      [m, raw]
     end
 
     def github_repo_info(gh_repo, name)
