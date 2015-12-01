@@ -231,8 +231,8 @@ module Frankenstein
     def github_readme(client, repo)
       begin
         r = client.readme repo
-      rescue StandardError => e        
-        return [nil, nil]
+      rescue StandardError => e
+        return [nil, e]
       end
 
       name = r['name']

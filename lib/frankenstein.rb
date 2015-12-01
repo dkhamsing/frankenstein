@@ -86,7 +86,7 @@ module Frankenstein
         readme, content = github_readme c, repo
 
         if readme.nil?
-          log.error 'No README'
+          log.error content
           exit
         end
 
