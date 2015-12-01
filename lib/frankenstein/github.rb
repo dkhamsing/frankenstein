@@ -317,11 +317,12 @@ module Frankenstein
       [message, parsed]
     end
 
-    def github_get_repos(links_to_check)
-      links_to_check.select { |link|
-        link.to_s.downcase.include? 'github.com' and link.count('/') == 4
-      }.map { |url| url.split('.com/')[1] }
-      .reject { |x| x.include? '.' or x.include? '#' }.uniq
+    def github_get_repos(l)
+      gmatch = 'github.com'
+      l.select { |m| (m.to_s.downcase.include? gmatch) && (m.count('/') == 4) }
+        .map { |url| url.split('.com/')[1] }
+        .reject { |x| (x.include? '.') || (x.include? '#') }
+        .uniq
     end
 
     def github_repos_info(github_repos, number_of_threads, client, log)

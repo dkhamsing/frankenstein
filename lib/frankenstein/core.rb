@@ -273,7 +273,7 @@ module Frankenstein
                   redirect << anchor[0]
                 end
 
-                redirects.push({ link => redirect })
+                redirects.push link => redirect
               end
             end # if res.status != 200
           end # Parallel

@@ -76,7 +76,7 @@ module Issues
               file = temp[0]['file']
               dir = Frankenstein::FILE_LOG_DIRECTORY
               fr = "#{dir}/#{file}.frankenstein"
-              files.push({ key => fr })
+              files.push key => fr
             end
 
             pull = log.select { |y| y['pull_url'] if y['type'] == 'pull' }
@@ -95,7 +95,7 @@ module Issues
           r = hash.keys[0]
           f = hash.values[0]
           gist_url, * = Frankenstein.github_create_gist f, true
-          gists.push({ r => gist_url })
+          gists.push r => gist_url
           sleep 0.5
         end
 

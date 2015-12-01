@@ -181,10 +181,7 @@ module Scan
         next
       end
 
-      unless m.include? '://github.com'
-        m = "https://github.com/#{m}"
-      end
-
+      m = "https://github.com/#{m}" unless m.include? '://github.com'
       puts "Scanning #{m.white}..."
 
       core_scan m

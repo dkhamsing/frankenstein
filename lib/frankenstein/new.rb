@@ -73,7 +73,7 @@ module New
 
       number = json['number']
       links_to_check.each do |x2|
-        Frankenstein.core_todo_add({ repo: x })
+        Frankenstein.core_todo_add repo: x
         puts "Added #{x2.white} to #{'todo'.blue}"
 
         comment = "Run request for #{x2} received."

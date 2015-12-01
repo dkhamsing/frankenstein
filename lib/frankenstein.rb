@@ -75,32 +75,29 @@ module Frankenstein
   the_url,
   readme,
   content =
-        if argv1_is_http || found_file_content
-           argv1
-         else
-           log.verbose 'Attempt to get default branch (unauthenticated)'
-           message, parsed = github_repo_unauthenticated(argv1, log)
-           log.verbose "Parsed message: #{message}"
+    if argv1_is_http || found_file_content
+      argv1
+    else
+      log.verbose 'Attempt to get default branch (unauthenticated)'
+      message, parsed = github_repo_unauthenticated(argv1, log)
+      log.verbose "Parsed message: #{message}"
 
-           if github_repo_error message
-             log.error github_repo_error_message message, argv1
-             exit(1)
-           elsif message.include? 'API rate limit exceeded'
-             log.error "GitHub #{message}"
-             log.add 'Finding readme...'
+      if github_repo_error message
+        log.error github_repo_error_message message, argv1
+        exit(1)
+      elsif message.include? 'API rate limit exceeded'
+        log.error "GitHub #{message}"
+        log.add 'Finding readme...'
 
-             default_branch = 'master'
-             net_find_github_url_readme(argv1, default_branch)
-           else
-             default_branch = parsed['default_branch']
-             m, raw_info =
-               github_repo_json_info(parsed, default_branch, argv1)
-             log.add m
-             github_readme_unauthenticated(argv1, log)
-           end # if message ..
-         end # if argv1_is_http ..
-  # the_url = u
-  # readme = r
+        default_branch = 'master'
+        net_find_github_url_readme(argv1, default_branch)
+      else
+        default_branch = parsed['default_branch']
+        m, raw_info = github_repo_json_info(parsed, default_branch, argv1)
+        log.add m
+        github_readme_unauthenticated(argv1, log)
+      end # if message ..
+    end # if argv1_is_http ..
 
   if the_url.nil?
     puts "No content found for #{argv1.white}"
@@ -212,8 +209,8 @@ module Frankenstein
         log.add "Pull request created: #{p.blue}".white
         io_record_pull(argv1, p)
         done = true
-      elsif user_input.downcase == option_gist or
-            user_input.include? option_tweet
+      elsif (user_input.downcase == option_gist) ||
+            (user_input.include? option_tweet)
         done = true
         gist_url, * = Frankenstein.github_create_gist file_log, true
 

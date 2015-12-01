@@ -145,9 +145,9 @@ module Review
   file_info = "#{argv_1}-info"
   redirects_file = "#{argv_1}-redirects"
 
-  if not File.exist? file_copy or
-     not File.exist? file_info or
-     not File.exist? redirects_file
+  if (!File.exist? file_copy) ||
+     (!File.exist? file_info) ||
+     (!File.exist? redirects_file)
     puts 'Error: File(s) missing'.red
     exit
   end
