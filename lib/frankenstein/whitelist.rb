@@ -40,6 +40,7 @@ module Frankenstein
     '//github.com/.*contributors$',
     'github.io',
     '://goo.gl/',
+    '//gratipay.com/',
     '//heroku.com/deploy',
     'issuestats.com/',
     '://localhost',
