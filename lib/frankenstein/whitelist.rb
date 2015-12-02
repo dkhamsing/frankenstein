@@ -26,6 +26,7 @@ module Frankenstein
     '://github.com/security',
     '://github.com/site',
     '://github.com/new',
+    '://github.com/watching',
     '://github.com/.*/new$',
     '://github.com.*releases/new',
     '://github.com.*releases/download/',
