@@ -384,7 +384,7 @@ module Frankenstein
       logs = core_logs
       records = io_json_read FILE_VISITS
       r.each.with_index do |argv1, index|
-        if (logs.include? argv1.sub('/', '-'))
+        if logs.include? argv1.sub('/', '-')
           match = argv1.sub('/', '-')
           t = core_logs.match(/(.){22}(#{match})/)
           epoch = t[0].gsub(/-.*/, '').to_i
@@ -393,7 +393,7 @@ module Frankenstein
 
           puts core_scan_time_ago seconds, index, argv1
           next
-        elsif (records.keys.include? argv1)
+        elsif records.keys.include? argv1
           item = records[argv1]['log'].last['date']
           t = (Time.parse item).to_i
           today = Time.now.to_i
