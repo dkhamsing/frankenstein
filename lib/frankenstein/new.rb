@@ -46,7 +46,7 @@ module New
   end
 
   puts "#{Frankenstein.pluralize2 m.count, 'issue'}".white
-  
+
   m.each_with_index do |x, index|
     print "#{index + 1} "
     if x.include? RUN_ISSUES
