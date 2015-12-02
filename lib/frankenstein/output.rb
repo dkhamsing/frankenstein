@@ -33,7 +33,7 @@ module Frankenstein
       "#{count} #{text}#{count > 1 ? 's' : ''}"
     end
 
-    def in_white_list2(w, input, cli_wl, log)       
+    def in_white_list2(w, input, cli_wl, log)
       white_list = cli_wl ? w.dup.push(cli_wl.split('^')).flatten : w
       white_list.each do |regexp|
         if input.match(regexp)
