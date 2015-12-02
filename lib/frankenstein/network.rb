@@ -30,10 +30,18 @@ module Frankenstein
       code
     end
 
-    def resolve_redirects(url, log) # modified via http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142
+    def net_resolve_redirects(url, log) # modified via http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142
       response = fetch_response(log, url, method: :head)
       if response
-        return response.to_hash[:url].to_s
+        r = response.to_hash[:url].to_s
+
+        # handle anchor
+        if url.include? '#'
+          anchor = url.match '#.*'
+          r << anchor[0]
+        end
+
+        return r
       else
         return nil
       end
