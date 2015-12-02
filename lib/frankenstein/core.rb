@@ -92,32 +92,32 @@ module Frankenstein
       puts clean_pull_url
       number = clean_pull_url.gsub(/.*pull\//, '')
       puts number
-      project = clean_pull_url.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
-      puts project
-      username = project.gsub(/\/.*$/, '')
+      proj = clean_pull_url.gsub(/\/pull.*$/, '').sub('https://github.com/', '')
+      puts proj
+      username = proj.gsub(/\/.*$/, '')
       puts username
-      fork = project.sub(username, github_netrc_username)
+      fork = proj.sub(username, github_netrc_username)
       puts fork
 
       puts "\n#{em_logo} Creating GitHub client"
       client = github_client
 
       puts "\n#{em_logo} Getting changes ... "
-      f = client.pull_files project, number
+      f = client.pull_files proj, number
       changes = f[0][:additions]
       m = 'Found '\
           "#{pluralize2 changes, 'change'} "
       puts m
 
-      puts "\n#{em_logo} Checking merge status for #{project.white} ..."
-      merged = client.pull_merged? project, number
+      puts "\n#{em_logo} Checking merge status for #{proj.white} ..."
+      merged = client.pull_merged? proj, number
       puts 'Pull request was merged 🎉'.green if merged == true
 
       puts "\n#{em_logo} Checking pull request status ..." unless merged == true
-      state = client.pull(project, number)[:state]
+      state = client.pull(proj, number)[:state]
       puts 'Pull request was closed 😡' if state == 'closed' && merged == false
 
-      check_comments(client, project, number, em_logo)
+      check_comments(client, proj, number, em_logo)
 
       puts ''
       if merged == true || state == 'closed'
@@ -261,14 +261,15 @@ module Frankenstein
             elsif res.status >= 300
               redirect = net_resolve_redirects(link, log)
               log.verbose "#{link} was redirected to \n#{redirect}".yellow
-              
+
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
               elsif redirect == link
                 log.add "😓  Redirect is the same for #{link}"
               else
                 if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
-                  output_status flag_minimize_output, WHITE_LIST_STATUS, link, log
+                  wls = WHITE_LIST_STATUS
+                  output_status flag_minimize_output, wls, link, log
                   next
                 end
 
