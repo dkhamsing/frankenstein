@@ -10,8 +10,7 @@ end
 # Check GitHub notifications
 module New
   require 'colored'
-  # require 'pp'
-  # require 'json'
+
   require 'frankenstein/constants'
   require 'frankenstein/core'
   require 'frankenstein/network'
@@ -46,6 +45,8 @@ module New
     # is it better to load `u` and retrieve html_url via json ?
   end
 
+  puts "#{Frankenstein.pluralize2 m.count, 'issue'}".white
+  
   m.each_with_index do |x, index|
     print "#{index + 1} "
     if x.include? RUN_ISSUES
