@@ -406,7 +406,8 @@ module Frankenstein
           readme, content = github_readme c, repo
 
           if readme.nil?
-            puts content.red
+            print 'Error '.red
+            puts content
             next
           end
 
