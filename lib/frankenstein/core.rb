@@ -351,7 +351,10 @@ module Frankenstein
       [failures, redirects]
     end
 
-    def core_scan_time_ago(seconds, index, argv1)
+    def core_scan_time_ago(t, index, argv1)
+      today = Time.now.to_i
+      seconds = today - t
+
       minutes = seconds / 60
       hour = minutes / 60
       minutes -= (60 * hour) if hour > 0
@@ -376,7 +379,6 @@ module Frankenstein
       c = File.read argv_1
       links, * = core_find_links c
       r = github_get_repos links
-      # puts r
       puts "Scanning #{pluralize2(r.count, 'repo').white}"
 
       flag_verbose = false
@@ -388,18 +390,14 @@ module Frankenstein
           match = argv1.sub('/', '-')
           t = core_logs.match(/(.){22}(#{match})/)
           epoch = t[0].gsub(/-.*/, '').to_i
-          today = Time.now.to_i
-          seconds = today - epoch
 
-          puts core_scan_time_ago seconds, index, argv1
+          puts core_scan_time_ago epoch, index, argv1
           next
         elsif records.keys.include? argv1
-          item = records[argv1]['log'].last['date']
-          t = (Time.parse item).to_i
-          today = Time.now.to_i
-          seconds = today - t
+          d = records[argv1]['log'].last['date']
+          t = (Time.parse d).to_i
 
-          puts core_scan_time_ago seconds, index, argv1
+          puts core_scan_time_ago t, index, argv1
           next
         end
 
