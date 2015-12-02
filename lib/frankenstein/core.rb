@@ -351,6 +351,27 @@ module Frankenstein
       [failures, redirects]
     end
 
+    def core_scan_time_ago(seconds, index, argv1)
+      minutes = seconds / 60
+      hour = minutes / 60
+      minutes -= (60 * hour) if hour > 0
+      day = hour / 24
+
+      m = "#{index + 1} Skipping #{argv1.white}, run "
+      if day > 0
+        m << "#{pluralize2 day, 'day'}"
+      else
+        if hour > 0
+          m << "#{hour}h #{minutes}m"
+        else
+          m << "#{pluralize2 minutes, 'minute'}"
+        end
+      end
+      m << ' ago'
+
+      m
+    end
+
     def core_scan(argv_1)
       c = File.read argv_1
       links, * = core_find_links c
@@ -361,31 +382,24 @@ module Frankenstein
       flag_verbose = false
       number_of_threads = 10
       logs = core_logs
+      records = io_json_read FILE_VISITS
       r.each.with_index do |argv1, index|
-        if logs.include? argv1.sub('/', '-')
+        if (logs.include? argv1.sub('/', '-'))
           match = argv1.sub('/', '-')
           t = core_logs.match(/(.){22}(#{match})/)
           epoch = t[0].gsub(/-.*/, '').to_i
           today = Time.now.to_i
           seconds = today - epoch
-          minutes = seconds / 60
-          hour = minutes / 60
-          minutes -= (60 * hour) if hour > 0
-          day = hour / 24
 
-          m = "#{index + 1} Skipping #{argv1.white}, run "
-          if day > 0
-            m << "#{pluralize2 day, 'day'}"
-          else
-            if hour > 0
-              m << "#{hour}h #{minutes}m"
-            else
-              m << "#{pluralize2 minutes, 'minute'}"
-            end
-          end
-          m << ' ago'
+          puts core_scan_time_ago seconds, index, argv1
+          next
+        elsif (records.keys.include? argv1)
+          item = records[argv1]['log'].last['date']
+          t = (Time.parse item).to_i
+          today = Time.now.to_i
+          seconds = today - t
 
-          puts m
+          puts core_scan_time_ago seconds, index, argv1
           next
         end
 
