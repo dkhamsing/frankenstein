@@ -306,14 +306,12 @@ module Frankenstein
 
       redirects = [] if redirects.nil?
 
-      if redirects.count > 0
-        core_process_redirects(
-          file_redirects,
-          file_copy,
-          file_updated,
-          redirects,
-          log)
-      end # redirects.count
+      core_process_redirects(
+        file_redirects,
+        file_copy,
+        file_updated,
+        redirects,
+        log) if redirects.count > 0
 
       puts "Wrote log to #{file_log.white}"
 
