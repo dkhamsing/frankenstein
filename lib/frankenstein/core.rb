@@ -261,17 +261,17 @@ module Frankenstein
             elsif res.status >= 300
               redirect = resolve_redirects(link, log)
 
-              if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
-                output_status flag_minimize_output, WHITE_LIST_STATUS, link, log
-                next
-              end
-
               log.verbose "#{link} was redirected to \n#{redirect}".yellow
               if redirect.nil?
                 log.add "#{em_mad} No redirect found for #{link}"
               elsif redirect == link
                 log.add "😓  Redirect is the same for #{link}"
               else
+                if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
+                  output_status flag_minimize_output, WHITE_LIST_STATUS, link, log
+                  next
+                end
+
                 # handle anchor
                 if link.include? '#'
                   anchor = link.match '#.*'

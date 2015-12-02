@@ -34,7 +34,6 @@ module Frankenstein
     end
 
     def in_white_list2(w, input, cli_wl, log)       
-      return false if input.nil?
       white_list = cli_wl ? w.dup.push(cli_wl.split('^')).flatten : w
       white_list.each do |regexp|
         if input.match(regexp)
