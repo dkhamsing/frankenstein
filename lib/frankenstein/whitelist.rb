@@ -1,5 +1,10 @@
 # White list
 module Frankenstein
+  REDIRECTED_WHITE_LIST =
+  [
+    'https://nodejs.org/en/'
+  ]
+
   WHITE_LIST_REGEXP =
   [
     '://127',

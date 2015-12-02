@@ -231,7 +231,7 @@ module Frankenstein
         redirects = []
         unless option_github_stars_only
           Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
-            if in_white_list(link, option_white_list, log)
+            if in_white_list2 WHITE_LIST_REGEXP, link, option_white_list, log
               output_status(flag_minimize_output, WHITE_LIST_STATUS, link, log)
               next
             end
@@ -260,6 +260,11 @@ module Frankenstein
               failures.push(link)
             elsif res.status >= 300
               redirect = resolve_redirects(link, log)
+
+              if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
+                output_status flag_minimize_output, WHITE_LIST_STATUS, link, log
+                next
+              end
 
               log.verbose "#{link} was redirected to \n#{redirect}".yellow
               if redirect.nil?

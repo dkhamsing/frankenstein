@@ -33,8 +33,7 @@ module Frankenstein
       "#{count} #{text}#{count > 1 ? 's' : ''}"
     end
 
-    def in_white_list(input, cli_wl, log)
-      w = WHITE_LIST_REGEXP
+    def in_white_list2(w, input, cli_wl, log)
       white_list = cli_wl ? w.dup.push(cli_wl.split('^')).flatten : w
       white_list.each do |regexp|
         if input.match(regexp)
@@ -80,7 +79,7 @@ module Frankenstein
     end
 
     def status_glyph(status, url, log)
-      return em_status_white if in_white_list(url, nil, log)
+      return em_status_white if in_white_list2 WHITE_LIST_REGEXP, url, nil, log
 
       case
       when status == 200
