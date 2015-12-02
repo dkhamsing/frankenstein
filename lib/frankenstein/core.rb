@@ -408,6 +408,11 @@ module Frankenstein
           if readme.nil?
             print 'Error '.red
             puts content
+            io_record_visits(argv1,
+                             0,
+                             [],
+                             log.identifier,
+                             nil)
             next
           end
 

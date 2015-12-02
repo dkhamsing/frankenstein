@@ -87,6 +87,11 @@ module Frankenstein
 
         if readme.nil?
           log.error content
+          io_record_visits(argv1,
+                           0,
+                           [],
+                           log.identifier,
+                           nil)
           exit
         end
 
