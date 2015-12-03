@@ -63,6 +63,7 @@ module Frankenstein
     'readthedocs.org',
     'reddit.com/message/compose',
     '://secure.travis-ci.org/.*(pn|sv)g',
+    'sourceforge.net/projects/.*/download$',
     '://stackoverflow.com/questions/ask?',
     '://t.co/',
     '://t.cn/',
