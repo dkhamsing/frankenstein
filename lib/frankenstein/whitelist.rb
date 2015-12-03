@@ -51,6 +51,7 @@ module Frankenstein
     'issuestats.com/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
+    '//mzl.la/',
     '://ogp.me/ns',
     '://raw.github.com/',
     '://group.google.com',
