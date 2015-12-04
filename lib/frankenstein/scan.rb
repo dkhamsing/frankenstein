@@ -44,7 +44,7 @@ module Scan
   ]
 
   class << self
-    def scan_content(content, allforce=false)
+    def scan_content(content, allforce = false)
       epoch = Time.now.to_i
       filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
 
@@ -55,7 +55,7 @@ module Scan
       File.delete filename
     end
 
-    def scan_user(argv_1, all=false)
+    def scan_user(argv_1, all = false)
       user = argv_1.sub('@', '')
       c = Frankenstein.github_client
       c.auto_paginate = true
@@ -137,10 +137,10 @@ module Scan
         "\n#{LEADING_SPACE} #{a_p} #{a_r} — scan random trending repos "\
         "\n#{LEADING_SPACE} #{a_p} #{a_po} — scan trending repos for popular "\
         'languages'\
-        "\n#{LEADING_SPACE} #{a_p} #{a_at} — scan top/recent repos for a "\
-        'GitHub user '\
-        "\n#{LEADING_SPACE} #{a_p} #{a_at} #{a_a} — (force) scan all repos for a "\
-        'GitHub user '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_at} — scan top/recent repos for"\
+        ' a GitHub user '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_at} #{a_a} — (force) scan all repos for"\
+        ' a GitHub user '\
         "\n#{LEADING_SPACE} #{a_p} #{a_todo} - scan repos from #{'todo'.blue}"
     puts m
     puts "\n"
@@ -155,7 +155,7 @@ module Scan
   Frankenstein.cli_create_log_dir
 
   if argv_1.include? '@'
-    scan_user argv_1, argv_2==OPTION_ALL
+    scan_user argv_1, argv_2 == OPTION_ALL
     exit
   end
 

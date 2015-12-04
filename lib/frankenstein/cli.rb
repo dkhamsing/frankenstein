@@ -50,7 +50,7 @@ module Frankenstein
 
       [
         flag_fetch_github_stars,
-        flag_minimize_output,
+        flag_minimize_output
       ]
     end
 

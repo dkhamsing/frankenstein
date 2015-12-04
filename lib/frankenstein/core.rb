@@ -369,7 +369,7 @@ module Frankenstein
       m
     end
 
-    def core_scan(argv_1, force=false)
+    def core_scan(argv_1, force = false)
       c = File.read argv_1
       links, * = core_find_links c
       r = github_get_repos links
