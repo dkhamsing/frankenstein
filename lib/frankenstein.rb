@@ -81,7 +81,13 @@ module Frankenstein
         c = github_client
         repo = argv1
 
-        default_branch = github_default_branch c, repo
+        begin
+          default_branch = github_default_branch c, repo
+        rescue StandardError => e
+          puts "Error getting branch #{e}".red
+          exit
+        end
+
         readme, content = github_readme c, repo
 
         if readme.nil?
@@ -100,6 +106,14 @@ module Frankenstein
         [repo, readme, content]
       else
         log.verbose 'Attempt to get default branch (unauthenticated)'
+
+        begin
+          default_branch = github_default_branch c, repo
+        rescue StandardError => e
+          puts "Error getting branch #{e}".red
+          exit
+        end
+
         message, parsed = github_repo_unauthenticated(argv1, log)
         log.verbose "Parsed message: #{message}"
 

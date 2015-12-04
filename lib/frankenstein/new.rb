@@ -29,7 +29,12 @@ module New
   client = Frankenstein.github_client
 
   puts '> Getting notifications'
-  n = client.notifications
+  begin
+    n = client.notifications
+  rescue StandardError => e
+    puts "Error getting notifications #{e}".red
+    exit
+  end
 
   t = Time.new.strftime('%b %d at %I:%M%p')
 
