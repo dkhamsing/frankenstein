@@ -16,6 +16,7 @@ module Scan
 
   LEADING_SPACE = '      '
 
+  OPTION_ALL = 'all'
   OPTION_POPULAR = 'p'
   OPTION_RANDOM = 'r'
   OPTION_TREND = 't'
@@ -43,7 +44,18 @@ module Scan
   ]
 
   class << self
-    def scan_user(argv_1)
+    def scan_content(content, allforce=false)
+      epoch = Time.now.to_i
+      filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
+
+      File.write filename, content
+
+      Frankenstein.core_scan filename, allforce
+
+      File.delete filename
+    end
+
+    def scan_user(argv_1, all=false)
       user = argv_1.sub('@', '')
       c = Frankenstein.github_client
       c.auto_paginate = true
@@ -66,23 +78,36 @@ module Scan
       r = c.repos(user).reject { |x| x['fork'] }
       puts "#{r.count} are not forked" unless r.count == repos
 
-      puts 'Getting top 5 most popular repos...'
-      top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
-             .each { |x| puts ' ' << x['full_name'] }
-
-      puts 'Getting latest repos with updates'
-      recent = r.reject { |x| x['pushed_at'].class == NilClass }
-               .sort_by { |x| x['pushed_at'] }
-               .reverse.first(5)
+      if all
+        combined = r
+      else
+        puts 'Getting top 5 most popular repos...'
+        top5 = r.sort_by { |x| x['stargazers_count'] }.reverse.first(5)
                .each { |x| puts ' ' << x['full_name'] }
 
-      combined = recent + top5
+        puts 'Getting latest repos with updates'
+        recent = r.reject { |x| x['pushed_at'].class == NilClass }
+                 .sort_by { |x| x['pushed_at'] }
+                 .reverse.first(5)
+                 .each { |x| puts ' ' << x['full_name'] }
+
+        combined = recent + top5
+      end
       m = combined.uniq.map { |x| x['full_name'] }
           .each_with_index { |x, i| puts "#{i + 1} #{x}" }
 
-      core_scan map_repos(m)
+      scan_content map_repos(m), all
 
       Frankenstein.io_record_scan user, m
+    end
+
+    def map_repos(repos)
+      mapped = repos.map { |r| "https://github.com/#{r}" }
+
+      m = ''
+      mapped.each { |r| m << " #{r}" }
+
+      m
     end
 
     def update_left(left, f)
@@ -103,6 +128,7 @@ module Scan
     a_r = OPTION_RANDOM.white
     a_po = OPTION_POPULAR.white
     a_at = '@username'.green
+    a_a = OPTION_ALL.white
     m = "#{a_p} #{PRODUCT_DESCRIPTION.white} \n"\
         "Usage: #{a_p} <#{a_f}> "\
         "\n#{LEADING_SPACE} #{a_p} #{a_t} — scan overall trending repos"\
@@ -112,6 +138,8 @@ module Scan
         "\n#{LEADING_SPACE} #{a_p} #{a_po} — scan trending repos for popular "\
         'languages'\
         "\n#{LEADING_SPACE} #{a_p} #{a_at} — scan top/recent repos for a "\
+        'GitHub user '\
+        "\n#{LEADING_SPACE} #{a_p} #{a_at} #{a_a} — (force) scan all repos for a "\
         'GitHub user '\
         "\n#{LEADING_SPACE} #{a_p} #{a_todo} - scan repos from #{'todo'.blue}"
     puts m
@@ -126,30 +154,8 @@ module Scan
 
   Frankenstein.cli_create_log_dir
 
-  class << self
-    def core_scan(content)
-      epoch = Time.now.to_i
-      filename = "#{Frankenstein::FILE_LOG_DIRECTORY}/todo-#{epoch}"
-
-      File.write filename, content
-
-      Frankenstein.core_scan(filename)
-
-      File.delete filename
-    end
-
-    def map_repos(repos)
-      mapped = repos.map { |r| "https://github.com/#{r}" }
-
-      m = ''
-      mapped.each { |r| m << " #{r}" }
-
-      m
-    end
-  end # class
-
   if argv_1.include? '@'
-    scan_user argv_1
+    scan_user argv_1, argv_2==OPTION_ALL
     exit
   end
 
@@ -166,7 +172,7 @@ module Scan
     all += Github::Trending.get
 
     m = all.map(&:name)
-    core_scan map_repos(m)
+    scan_content map_repos(m)
     exit
   end
 
@@ -187,7 +193,7 @@ module Scan
       m = "https://github.com/#{m}" unless m.include? '://github.com'
       puts "Scanning #{m.white}..."
 
-      core_scan m
+      scan_content m
       update_left left, f
     end
 
@@ -209,7 +215,7 @@ module Scan
       repos = Github::Trending.get argv_2
     end
 
-    core_scan map_repos(repos.map(&:name))
+    scan_content map_repos(repos.map(&:name))
 
     exit
   end

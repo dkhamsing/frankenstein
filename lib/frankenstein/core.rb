@@ -373,7 +373,7 @@ module Frankenstein
       m
     end
 
-    def core_scan(argv_1)
+    def core_scan(argv_1, force=false)
       c = File.read argv_1
       links, * = core_find_links c
       r = github_get_repos links
@@ -384,19 +384,21 @@ module Frankenstein
       logs = core_logs
       records = io_json_read FILE_VISITS
       r.each.with_index do |argv1, index|
-        if logs.include? argv1.sub('/', '-')
-          match = argv1.sub('/', '-')
-          t = core_logs.match(/(.){22}(#{match})/)
-          epoch = t[0].gsub(/-.*/, '').to_i
+        unless force
+          if logs.include? argv1.sub('/', '-')
+            match = argv1.sub('/', '-')
+            t = core_logs.match(/(.){22}(#{match})/)
+            epoch = t[0].gsub(/-.*/, '').to_i
 
-          puts core_scan_time_ago epoch, index, argv1
-          next
-        elsif records.keys.include? argv1
-          d = records[argv1]['log'].last['date']
-          t = (Time.parse d).to_i
+            puts core_scan_time_ago epoch, index, argv1
+            next
+          elsif records.keys.include? argv1
+            d = records[argv1]['log'].last['date']
+            t = (Time.parse d).to_i
 
-          puts core_scan_time_ago t, index, argv1
-          next
+            puts core_scan_time_ago t, index, argv1
+            next
+          end
         end
 
         elapsed_time_start = Time.now
