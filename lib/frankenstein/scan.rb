@@ -40,7 +40,12 @@ module Scan
     'scala',
     'dart',
     'go',
-    'rust'
+    'rust',
+    'coffeescript',
+    'julia',
+    'elixir',
+    'erlang',
+    'haskell'
   ]
 
   class << self
