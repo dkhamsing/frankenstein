@@ -178,11 +178,11 @@ module Frankenstein
       file_copy,
       file_log)
 
+  io_record_review argv1
+
   # TODO: check for twitter creds
 
-  if github_creds && !(ARGV.include? OPTION_SKIP)
-    io_record_review argv1
-
+  if github_creds && !(ARGV.include? OPTION_SKIP) && io_record_pull_check(argv1)
     option_happy = '-h'
     option_gist = 'g'
     option_tweet = 't'

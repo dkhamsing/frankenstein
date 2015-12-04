@@ -157,11 +157,9 @@ module Review
   puts "#{file_info.white} file_info"
   puts "#{redirects_file.white} redirects_file"
 
-  # c = File.read(redirects_file)
   redirects = Frankenstein.io_json_read redirects_file
 
   info = Frankenstein.io_json_read file_info
-  # puts info
 
   argv1 = info['repo']
 
@@ -170,42 +168,44 @@ module Review
 
   log = Frankenstein::Log.new(false, file_log)
 
-  done = nil
-  while done.nil?
-    Frankenstein.core_process_redirects(
-      file_redirects,
-      file_copy,
-      file_updated,
-      redirects,
-      log)
+  if Frankenstein.io_record_pull_check argv1
+    done = nil
+    while done.nil?
+      Frankenstein.core_process_redirects(
+        file_redirects,
+        file_copy,
+        file_updated,
+        redirects,
+        log)
 
-    option_pull = 'p'
-    option_white_list = 'w'
-    user_input = Frankenstein.cli_prompt option_pull, option_white_list
-    if user_input.downcase == option_pull
-      log.add "\nCreating pull request on GitHub for #{argv1} ...".white
+      option_pull = 'p'
+      option_white_list = 'w'
+      user_input = Frankenstein.cli_prompt option_pull, option_white_list
+      if user_input.downcase == option_pull
+        log.add "\nCreating pull request on GitHub for #{argv1} ...".white
 
-      desc = Frankenstein.github_pull_description(redirects, nil)
-      p = Frankenstein.github_pull_request(argv1, default_branch, readme,
-                                           file_updated, desc, log)
-      log.add "Pull request created: #{p.blue}".white
-      Frankenstein.io_record_pull(argv1, p)
+        desc = Frankenstein.github_pull_description(redirects, nil)
+        p = Frankenstein.github_pull_request(argv1, default_branch, readme,
+                                             file_updated, desc, log)
+        log.add "Pull request created: #{p.blue}".white
+        Frankenstein.io_record_pull(argv1, p)
 
-      done = true
-    elsif user_input.include? option_white_list
-      wl = user_input.sub("#{option_white_list}=", '')
-      list = wl.split '^'
+        done = true
+      elsif user_input.include? option_white_list
+        wl = user_input.sub("#{option_white_list}=", '')
+        list = wl.split '^'
 
-      list.each do |x| # TODO: this looks like it could be improved
-        redirects.reject! do |hash|
-          key, * = hash.first
-          key.include? x
+        list.each do |x| # TODO: this looks like it could be improved
+          redirects.reject! do |hash|
+            key, * = hash.first
+            key.include? x
+          end
         end
+      else
+        done = true
       end
-    else
-      done = true
-    end
-  end # end while
+    end # end while
+  end # end if prompt
 
   Frankenstein.io_record_review argv1
 end

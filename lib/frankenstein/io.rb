@@ -32,6 +32,21 @@ module Frankenstein
       r
     end
 
+    def io_record_pull_check(repo)
+      return true unless io_record_pull_exists repo
+
+      print "A pull request exists for #{repo.white}, continue? (y/n) "
+      user_input = STDIN.gets.chomp
+      return false if user_input.downcase != 'y'
+      true
+    end
+
+    def io_record_pull_exists(repo)
+      r = io_json_read Frankenstein::FILE_VISITS
+      r[repo]['log'].each { |x| return true if x['type'] == 'pull' }
+      false
+    end
+
     def io_record_pull(repo, pull_url)
       pull = {
         type: KEY_PULL,
