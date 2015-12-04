@@ -254,6 +254,20 @@ script:
 
 ## Additional Tools
 
+For more information, type `tool-name` without arguments.
+
+```shell
+$ review
+review Facilitate creating pull requests to update redirects
+Usage: review <file>
+       review logs
+       review logs all
+       review logs done
+       review logs <n> or
+       review <n> 
+       review <n> done
+```
+
 ### `announce`
 
 `announce` can post a .frankenstein results log file to a gist and optionally tweet the gist link.
@@ -285,7 +299,6 @@ script:
 ### `todo`
 
 `todo` manages a list of `frankenstein` runs to do.
-
 
 ## Credits
 
