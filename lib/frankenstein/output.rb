@@ -50,7 +50,7 @@ module Frankenstein
         m = "#{pluralize2 issues.count, 'issue'} (#{percent.round}%)"
         log.error_header m
 
-        m = "   (#{issues.count} of #{pluralize2 links_to_check.count, 'link'}"
+        m = "   #{issues.count} of #{pluralize2 links_to_check.count, 'link'}"
         log.add m
 
         log.add issues
