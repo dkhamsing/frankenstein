@@ -206,7 +206,6 @@ module Frankenstein
       option_github_stars_only,
       option_head,
       option_white_list,
-      flag_control_failure,
       flag_minimize_output,
       flag_fetch_github_stars,
       file_redirects,
@@ -221,7 +220,6 @@ module Frankenstein
       else
         unless option_github_stars_only
           m = "🔎  Checking #{pluralize2 links_to_check.count, 'link'}"
-          m << ' (including a controlled failure)' if flag_control_failure
           log.add m
         end
 
@@ -321,9 +319,7 @@ module Frankenstein
       if failures.count == 0
         log.add "#{em_logo} No failures for #{argv1.blue}".white
       else
-        if (failures.count == 1) && (failures.include? CONTROLLED_ERROR)
-          log.add "The only failure was the controlled failure #{em_sunglasses}"
-        else
+        if failures.count > 0
           m = "#{em_status_red} #{pluralize2 failures.count, 'failure'} "\
               "for #{argv1.blue}".red
           log.add m
@@ -474,7 +470,6 @@ module Frankenstein
           false, # option_github_stars_only,
           true,  # option_head,
           false, # option_white_list,
-          false, # flag_control_failure,
           false, # flag_minimize_output,
           false, # flag_fetch_github_stars,
           file_redirects,

@@ -7,8 +7,6 @@ module Frankenstein
   ARGV1_GITHUB_REPO = 'github repo'
   ARGV1_URL = 'url'
 
-  CONTROLLED_ERROR = 'https://github.com/dkhamsing/controlled/error'
-
   DEFAULT_NUMBER_OF_THREADS = 10
 
   FILE_LOG_DIRECTORY = 'logs'
@@ -20,12 +18,10 @@ module Frankenstein
   FILE_UPDATED = 'updated'
   FILE_VISITS = "#{FILE_LOG_DIRECTORY}/franken_visits.json"
 
-  FLAG_FAIL = 'f'
   FLAG_GITHUB_STARS = 'z'
   FLAG_MINIMIZE_OUTPUT = 'm'
   FLAG_VERBOSE = 'v'
 
-  FLAG_FAIL_USAGE = 'Add a controlled failure'
   FLAG_GITHUB_USAGE = 'Get GitHub repo info'
   FLAG_MINIMIZE_USAGE = 'Minimized result output'
   FLAG_VERBOSE_USAGE = 'Verbose output'

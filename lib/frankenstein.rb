@@ -51,7 +51,6 @@ module Frankenstein
   option_github_stars_only,
   option_head,
   option_white_list,
-  flag_control_failure,
   flag_fetch_github_stars,
   flag_minimize_output,
   argv1_is_http,
@@ -159,7 +158,6 @@ module Frankenstein
 
   links_to_check, links_found = core_find_links content
   log.verbose "Links found: #{links_found}"
-  links_to_check.unshift(CONTROLLED_ERROR) if flag_control_failure
 
   failures, redirects =
     core_run(
@@ -173,7 +171,6 @@ module Frankenstein
       option_github_stars_only,
       option_head,
       option_white_list,
-      flag_control_failure,
       flag_minimize_output,
       flag_fetch_github_stars,
       file_redirects,
@@ -262,5 +259,5 @@ module Frankenstein
     log.identifier,
     raw_info) unless found_file_content
 
-  exit(1) if (failures.count > 0) && !(failures.include? CONTROLLED_ERROR)
+  exit(1) if failures.count > 0
 end # module

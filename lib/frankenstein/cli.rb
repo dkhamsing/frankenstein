@@ -33,7 +33,6 @@ module Frankenstein
 
     def cli_all_flags
       [
-        FLAG_FAIL,
         FLAG_MINIMIZE_OUTPUT,
         FLAG_VERBOSE,
         FLAG_GITHUB_STARS
@@ -48,12 +47,10 @@ module Frankenstein
       flag_fetch_github_stars = cli_get_github(option_github_stars_only,
                                                argv_flags)
       flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
-      flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
 
       [
         flag_fetch_github_stars,
         flag_minimize_output,
-        flag_control_failure
       ]
     end
 
@@ -100,15 +97,13 @@ module Frankenstein
       option_white_list = cli_process_options(log)
 
       flag_fetch_github_stars,
-      flag_minimize_output,
-      flag_control_failure = cli_process_flags(option_github_stars_only,
+      flag_minimize_output = cli_process_flags(option_github_stars_only,
                                                argv_flags)
 
       [
         option_github_stars_only,
         option_head,
         option_white_list,
-        flag_control_failure,
         flag_fetch_github_stars,
         flag_minimize_output,
         argv1_is_http,
