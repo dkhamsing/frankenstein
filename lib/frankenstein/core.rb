@@ -249,9 +249,6 @@ module Frankenstein
 
             next if res.status == 200
 
-            m = "#{status_glyph res.status, link, log} #{res.status} #{link}"
-            issues.push(m)
-
             if res.status >= 500
               misc.push(link)
             elsif res.status >= 400
@@ -267,10 +264,14 @@ module Frankenstein
               else
                 if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
                   wls = WHITE_LIST_STATUS
-                  output_status flag_minimize_output, wls, link, log
+                  # output_status flag_minimize_output, wls, link, log
+                  log.add "#{em_status_white} #{link.white} is in the "\
+                    'redirect white list'
                   next
                 end
 
+                issues.push "#{status_glyph res.status, link, log} "\
+                  "#{res.status} #{link}"
                 redirects.push link => redirect
               end
             end # if res.status != 200
