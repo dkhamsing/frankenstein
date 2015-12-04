@@ -191,8 +191,10 @@ module Frankenstein
 
     done = nil
     while done.nil?
-      m = "\nNext? (#{option_pull.white}ull request | "\
-          "white list #{option_w.white}=<s1^s2..> | #{option_gist.white}ist | "\
+      m = "\nNext? ("
+      m << "#{option_pull.white}ull request | white list "\
+        "#{option_w.white}=<s1^s2..> | " if redirects.count > 0
+      m << "#{option_gist.white}ist | "\
           "#{option_tweet.white}weet [#{option_happy.white}] [message] | "\
           'enter to end) '
       print m
