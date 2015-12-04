@@ -263,8 +263,6 @@ module Frankenstein
                 log.add "😓  Redirect is the same for #{link}"
               else
                 if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
-                  wls = WHITE_LIST_STATUS
-                  # output_status flag_minimize_output, wls, link, log
                   log.add "#{em_status_white} #{link.white} is in the "\
                     'redirect white list'
                   next
