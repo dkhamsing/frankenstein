@@ -36,7 +36,10 @@ module Scan
     'perl',
     'matlab',
     'lua',
-    'scala'
+    'scala',
+    'dart',
+    'go',
+    'rust'
   ]
 
   class << self
