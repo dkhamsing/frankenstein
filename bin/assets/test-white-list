@@ -1,5 +1,7 @@
 # white list
 
+WL https://nodejs.org
+
 WL http://amzn.com/0321812182
 
 WL https://coveralls.io/r/haml/haml
