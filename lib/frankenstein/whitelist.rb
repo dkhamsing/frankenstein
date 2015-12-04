@@ -5,25 +5,34 @@ module Frankenstein
     'https://nodejs.org/en/'
   ]
 
-  WHITE_LIST_REGEXP =
+  URL_SHORTENER_WHITE_LIST =
   [
-    '://127',
     '://aka.ms/',
     '://amzn.com/',
     '//amzn.to/',
+    '//bit.ly/',
+    '//cl.ly/',
+    '://db.tt/',
+    '://eepurl.com/',
+    '://fb.me/',
+    '://goo.gl/',
+    '//mzl.la/',
+    '://t.co/',
+    '://t.cn/',
+    '://youtu.be/'
+  ]
+
+  REGEX_WHITE_LIST =
+  [
+    '://127',
     '//developer.apple.com/xcode/download',
     '//ci.appveyor.com/api',
     '://badge.fury.io/',
-    '//bit.ly/',
-    '//cl.ly/',
     '://cocoapod-badges',
     '://coveralls.io/r/',
     '://coveralls.io/repos.*(pn|sv)g',
-    '://db.tt/',
     '://discord.gg/',
-    '://eepurl.com/',
     'facebook.com/sharer',
-    '://fb.me/',
     '://fury-badge.herokuapp.com/.*png',
     '://shop.github.com$',
     '://enterprise.github.com/$',
@@ -47,13 +56,11 @@ module Frankenstein
     '://github.com/.*state=open$',
     '//github.com/.*contributors$',
     'github.io',
-    '://goo.gl/',
     '//gratipay.com/',
     '//heroku.com/deploy',
     'issuestats.com/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
-    '//mzl.la/',
     '://ogp.me/ns',
     '://raw.github.com/',
     '://group.google.com',
@@ -69,12 +76,9 @@ module Frankenstein
     '://stackoverflow.com/questions/ask?',
     '//swift.org',
     '//bugs.swift.org',
-    '://t.co/',
-    '://t.cn/',
     '://twitter.com/home',
     '://travis-ci.org/.*png',
     '://travis-ci.org/.*svg',
-    '://weibo.com/',
-    '://youtu.be/'
+    '://weibo.com/'
   ]
 end
