@@ -27,7 +27,7 @@ module Frankenstein
   FLAG_VERBOSE_USAGE = 'Verbose output'
 
   OPTION_HEAD = 'head'
-  OPTION_SKIP = 'no-prompt'
+  OPTION_SKIP = 'silent'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
 

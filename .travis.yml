@@ -6,10 +6,10 @@ before_script:
   - bundle install
 script:  
   - frankenstein
-  - frankenstein bin/assets/test-readme -v threads=0 no-prompt
-  - frankenstein bin/assets/test-no-links -v no-prompt
-  - frankenstein bin/assets/test-white-list -mv head no-prompt
-  - frankenstein fastlane/fastlane.tools -v threads=8 no-prompt
-  - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 no-prompt
-  - frankenstein http://dkhamsing.github.io/ -v no-prompt
+  - frankenstein bin/assets/test-readme -v threads=0 silent
+  - frankenstein bin/assets/test-no-links -v silent
+  - frankenstein bin/assets/test-white-list -mv head silent
+  - frankenstein fastlane/fastlane.tools -v threads=8 silent
+  - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 silent
+  - frankenstein http://dkhamsing.github.io/ -v silent
   - frankenstein bin/assets/test-no-redirects -v

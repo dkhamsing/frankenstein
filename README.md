@@ -37,7 +37,7 @@ bundle install
 ## Usage
 
 ```shell
-frankenstein <url|file|github repo> [-mvz] [head] [repo] [threads=d] [no-prompt]
+frankenstein <url|file|github repo> [-mvz] [head] [repo] [threads=d] [silent]
 ```
 
 Additional tools available: [`announce`](#announce),
@@ -230,7 +230,7 @@ Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | ent
 
 ### Travis
 
-- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub (option `no-prompt`).
+- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub (option `silent`).
 - Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
   - https://github.com/dkhamsing/open-source-ios-apps/pull/139
   - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
@@ -249,7 +249,7 @@ before_script:
   - cd frankenstein-1.0-wip
   - bundle install
 script:  
-  - frankenstein ../README.md no-prompt
+  - frankenstein ../README.md silent
 ```
 
 ## Additional Tools
@@ -264,7 +264,7 @@ Usage: review <file>
        review logs all
        review logs done
        review logs <n> or
-       review <n> 
+       review <n>
        review <n> done
 ```
 
