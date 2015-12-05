@@ -57,12 +57,10 @@ module Frankenstein
     def cli_process_options(log)
       option_github_stars_only = ARGV.include? OPTION_STARS
       option_head = ARGV.include? OPTION_HEAD
-      option_white_list = cli_option_value_raw OPTION_WHITE_LIST, SEPARATOR, log
 
       [
         option_github_stars_only,
-        option_head,
-        option_white_list
+        option_head
       ]
     end
 
@@ -93,8 +91,7 @@ module Frankenstein
       number_of_threads = cli_process_misc(argv1, log)
 
       option_github_stars_only,
-      option_head,
-      option_white_list = cli_process_options(log)
+      option_head = cli_process_options(log)
 
       flag_fetch_github_stars,
       flag_minimize_output = cli_process_flags(option_github_stars_only,
@@ -103,7 +100,6 @@ module Frankenstein
       [
         option_github_stars_only,
         option_head,
-        option_white_list,
         flag_fetch_github_stars,
         flag_minimize_output,
         argv1_is_http,

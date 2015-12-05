@@ -30,7 +30,6 @@ module Frankenstein
   OPTION_SKIP = 'no-prompt'
   OPTION_STARS = 'repo'
   OPTION_THREADS = 'threads'
-  OPTION_WHITE_LIST = 'wl'
 
   PRODUCT = 'frankenstein'
 

@@ -50,7 +50,6 @@ module Frankenstein
 
   option_github_stars_only,
   option_head,
-  option_white_list,
   flag_fetch_github_stars,
   flag_minimize_output,
   argv1_is_http,
@@ -58,8 +57,6 @@ module Frankenstein
   number_of_threads = cli_process(argv1, argv_flags, log)
 
   log.verbose "Number of threads: #{number_of_threads}"
-  m = "Option white list: #{option_white_list}"
-  log.verbose m unless option_white_list.nil?
 
   if flag_fetch_github_stars && !github_creds
     log.error GITHUB_CREDS_ERROR
@@ -184,7 +181,6 @@ module Frankenstein
       readme,
       option_github_stars_only,
       option_head,
-      option_white_list,
       flag_minimize_output,
       flag_fetch_github_stars,
       file_redirects,

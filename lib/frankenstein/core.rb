@@ -205,7 +205,6 @@ module Frankenstein
       readme,
       option_github_stars_only,
       option_head,
-      option_white_list,
       flag_minimize_output,
       flag_fetch_github_stars,
       file_redirects,
@@ -229,7 +228,7 @@ module Frankenstein
         redirects = []
         unless option_github_stars_only
           Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
-            if in_white_list link, option_white_list, log
+            if in_white_list link, log
               output_status(flag_minimize_output, WHITE_LIST_STATUS, link, log)
               next
             end
@@ -262,7 +261,7 @@ module Frankenstein
               elsif redirect == link
                 log.add "😓  Redirect is the same for #{link}"
               else
-                if in_white_list2 REDIRECTED_WHITE_LIST, redirect, false, log
+                if in_white_list2 REDIRECTED_WHITE_LIST, redirect, log
                   log.add "#{em_status_white} #{link.white} is in the "\
                     'redirect white list'
                   next
@@ -468,7 +467,6 @@ module Frankenstein
           readme,
           false, # option_github_stars_only,
           true,  # option_head,
-          false, # option_white_list,
           false, # flag_minimize_output,
           false, # flag_fetch_github_stars,
           file_redirects,
