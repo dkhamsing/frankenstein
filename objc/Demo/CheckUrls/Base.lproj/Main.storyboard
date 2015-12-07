@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rxZ-TK-tTG">
+                                <rect key="frame" x="40" y="70" width="520" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Vyq-hH-QeR"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pass" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jig-hK-8CQ">
+                                <rect key="frame" x="40" y="180" width="36" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2r-He-5jm">
+                                <rect key="frame" x="81" y="180" width="50" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Ufg-rt-Umn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LK5-fd-OcU">
+                                <rect key="frame" x="40" y="241" width="520" height="339"/>
+                                <animations/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eb4-56-hmj">
+                                <rect key="frame" x="450" y="180" width="110" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeK-RC-kUA">
+                                <rect key="frame" x="510" y="180" width="50" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="FDN-WP-CYn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LK5-fd-OcU" secondAttribute="bottom" constant="20" id="0qJ-wz-ibZ"/>
+                            <constraint firstItem="eb4-56-hmj" firstAttribute="trailing" secondItem="SeK-RC-kUA" secondAttribute="trailing" id="7Uf-OI-06o"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LK5-fd-OcU" secondAttribute="trailing" constant="20" id="8Ca-vX-nYP"/>
+                            <constraint firstItem="eb4-56-hmj" firstAttribute="leading" secondItem="SeK-RC-kUA" secondAttribute="leading" constant="-60" id="AIr-r4-DMc"/>
+                            <constraint firstItem="rxZ-TK-tTG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="BCD-5t-Fsw"/>
+                            <constraint firstItem="LK5-fd-OcU" firstAttribute="top" secondItem="z2r-He-5jm" secondAttribute="bottom" constant="40" id="CPZ-7D-8oQ"/>
+                            <constraint firstItem="LK5-fd-OcU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="D8e-cg-LAi"/>
+                            <constraint firstItem="rxZ-TK-tTG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ew8-hY-H0j"/>
+                            <constraint firstItem="rxZ-TK-tTG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="PX2-tP-yYm"/>
+                            <constraint firstItem="jig-hK-8CQ" firstAttribute="top" secondItem="rxZ-TK-tTG" secondAttribute="bottom" constant="10" id="Usl-Yr-4BD"/>
+                            <constraint firstItem="SeK-RC-kUA" firstAttribute="centerY" secondItem="jig-hK-8CQ" secondAttribute="centerY" id="ciD-Py-5Rb"/>
+                            <constraint firstItem="jig-hK-8CQ" firstAttribute="leading" secondItem="rxZ-TK-tTG" secondAttribute="leading" id="dbn-w4-3kL"/>
+                            <constraint firstItem="z2r-He-5jm" firstAttribute="top" secondItem="jig-hK-8CQ" secondAttribute="top" id="tI2-I0-ENu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SeK-RC-kUA" secondAttribute="trailing" constant="20" id="wJ7-Lh-ntI"/>
+                            <constraint firstItem="eb4-56-hmj" firstAttribute="centerY" secondItem="jig-hK-8CQ" secondAttribute="centerY" id="wgf-Jl-fOb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rxZ-TK-tTG" secondAttribute="trailing" constant="20" id="yPX-zs-TfA"/>
+                            <constraint firstItem="z2r-He-5jm" firstAttribute="leading" secondItem="jig-hK-8CQ" secondAttribute="trailing" constant="5" id="z3g-Td-tMK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="console" destination="rxZ-TK-tTG" id="iUK-b9-LuH"/>
+                        <outlet property="consoleFail" destination="LK5-fd-OcU" id="wrM-Cx-YfL"/>
+                        <outlet property="foundLabel" destination="SeK-RC-kUA" id="Iig-4p-ALa"/>
+                        <outlet property="passLabel" destination="z2r-He-5jm" id="1Y0-FW-kF5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="366" y="259"/>
+        </scene>
+    </scenes>
+</document>
