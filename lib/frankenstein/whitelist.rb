@@ -2,7 +2,8 @@
 module Frankenstein
   REDIRECTED_WHITE_LIST =
   [
-    'https://nodejs.org/en/'
+    '://code.google.com/hosting/moved',
+    '://nodejs.org/en/'
   ]
 
   URL_SHORTENER_WHITE_LIST =
