@@ -393,7 +393,7 @@ module Frankenstein
 
             puts core_scan_time_ago epoch, index, argv1
             next
-          elseif records != nil
+          elseif !records.nil?
             if records.keys.include? argv1
               d = records[argv1]['log'].last['date']
               t = (Time.parse d).to_i
