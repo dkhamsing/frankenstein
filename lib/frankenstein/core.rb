@@ -376,7 +376,14 @@ module Frankenstein
       flag_verbose = false
       number_of_threads = 10
       logs = core_logs
-      records = io_json_read FILE_VISITS
+
+      begin
+        records = io_json_read FILE_VISITS
+      rescue => e
+        puts "Error reading visits.json #{e}".red
+        records = nil
+      end
+
       r.each.with_index do |argv1, index|
         unless force
           if logs.include? argv1.sub('/', '-')
@@ -386,12 +393,14 @@ module Frankenstein
 
             puts core_scan_time_ago epoch, index, argv1
             next
-          elsif records.keys.include? argv1
-            d = records[argv1]['log'].last['date']
-            t = (Time.parse d).to_i
+          elseif records != nil
+            if records.keys.include? argv1
+              d = records[argv1]['log'].last['date']
+              t = (Time.parse d).to_i
 
-            puts core_scan_time_ago t, index, argv1
-            next
+              puts core_scan_time_ago t, index, argv1
+              next
+            end
           end
         end
 
