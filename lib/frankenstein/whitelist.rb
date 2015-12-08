@@ -3,7 +3,8 @@ module Frankenstein
   REDIRECTED_WHITE_LIST =
   [
     '://code.google.com/hosting/moved',
-    '://nodejs.org/en/'
+    '://nodejs.org/en/',
+    'https://www.paypal.com/home'
   ]
 
   URL_SHORTENER_WHITE_LIST =
@@ -67,7 +68,7 @@ module Frankenstein
     '://ogp.me/ns',
     '://raw.github.com/',
     '://group.google.com',
-    '://groups.google.com',
+    '://groups.google',
     '://i.creativecommons.org/.*png',
     '://instagram.com/',
     'paypal.com/cgi-bin/webscr',
@@ -75,6 +76,7 @@ module Frankenstein
     'readthedocs.org',
     'reddit.com/message/compose',
     '://secure.travis-ci.org/.*(pn|sv)g',
+    'my.slack.com/services',
     'sourceforge.net/projects/.*/download$',
     '://stackoverflow.com/questions/ask?',
     '//swift.org',
