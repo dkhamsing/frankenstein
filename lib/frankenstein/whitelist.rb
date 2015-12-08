@@ -2,8 +2,12 @@
 module Frankenstein
   REDIRECTED_WHITE_LIST =
   [
+    'clojure.org/.*responseToken=',
     '://code.google.com/hosting/moved',
+    'raw.githubusercontent.com',
+    'Main_Page',
     '://nodejs.org/en/',
+    'http://www.opentable.com/start/home',
     'https://www.paypal.com/home'
   ]
 
@@ -37,6 +41,7 @@ module Frankenstein
     '://coveralls.io/repos.*(pn|sv)g',
     '://discord.gg/',
     'facebook.com/sharer',
+    'facebook.com/groups',
     '://fury-badge.herokuapp.com/.*png',
     '://shop.github.com$',
     '://enterprise.github.com/$',
@@ -62,6 +67,7 @@ module Frankenstein
     'github.io',
     '//gratipay.com/',
     '//heroku.com/deploy',
+    '//meritbadge.herokuapp.com',
     'issuestats.com/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
