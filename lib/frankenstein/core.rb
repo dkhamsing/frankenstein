@@ -1,9 +1,10 @@
 # Frankenstein core
 module Frankenstein
+  require 'awesome_bot'
   require 'parallel'
   require 'colored'
   require 'json'
-
+  
   require 'frankenstein/constants'
   require 'frankenstein/diff'
   require 'frankenstein/github'
@@ -15,15 +16,8 @@ module Frankenstein
 
   class << self
     def core_find_links(content)
-      links_found = URI.extract(content, /http()s?/)
-
-      links_to_check =
-        links_found.reject { |x| x.length < 9 }
-        .map { |x| x.gsub(/\).*/, '').gsub(/'.*/, '').gsub(/,.*/, '').gsub('/:', '/') }
-      # ) for markdown
-      # ' found on https://fastlane.tools/
-      # , for link followed by comma
-      # : found on ircanywhere/ircanywhere
+      links_found = AwesomeBot.links_find content
+      links_to_check = AwesomeBot.links_filter links_found
 
       [links_to_check, links_found]
     end
