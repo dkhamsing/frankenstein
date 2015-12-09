@@ -11,5 +11,4 @@ script:
   - frankenstein bin/assets/test-white-list -mv head silent
   - frankenstein fastlane/fastlane.tools -v threads=8 silent
   - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 silent
-  - frankenstein http://dkhamsing.github.io/ -v silent
   - frankenstein bin/assets/test-no-redirects -v
