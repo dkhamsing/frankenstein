@@ -22,6 +22,7 @@ module Frankenstein
     '://db.tt/',
     '://eepurl.com/',
     '://fb.me/',
+    '://git.io/',
     '://goo.gl/',
     '//j.mp/',
     '//mzl.la/',
