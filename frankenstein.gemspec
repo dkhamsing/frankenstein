@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # dependencies
-  spec.add_dependency 'awesome_bot', '~> 0.1'
+  spec.add_dependency 'awesome_bot', '~> 1.0'
   spec.add_dependency 'colored', '~> 1.2'
   spec.add_dependency 'faraday', '~> 0.9.2'
   spec.add_dependency 'faraday_middleware', '~> 0.10.0'
