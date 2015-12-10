@@ -51,6 +51,7 @@ module Frankenstein
     '://github.com/.*/fork$',
     '://github.com/pulls',
     '://github.com/security',
+    '://github.com/settings',
     '://github.com/site',
     '://github.com/new',
     '://github.com/watching',
