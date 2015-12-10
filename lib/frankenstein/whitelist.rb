@@ -37,6 +37,7 @@ module Frankenstein
     '//developer.apple.com/xcode/download',
     '//ci.appveyor.com/api',
     '://badge.fury.io/',
+    '://bitbucket.org/repo/create',
     '://cocoapod-badges',
     '://coveralls.io/r/',
     '://coveralls.io/repos.*(pn|sv)g',
