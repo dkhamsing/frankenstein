@@ -4,7 +4,7 @@ module Frankenstein
   require 'parallel'
   require 'colored'
   require 'json'
-  
+
   require 'frankenstein/constants'
   require 'frankenstein/diff'
   require 'frankenstein/github'
@@ -221,12 +221,14 @@ module Frankenstein
         failures = []
         redirects = []
         unless option_github_stars_only
-          Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
-            if in_white_list link, log
-              output_status(flag_minimize_output, WHITE_LIST_STATUS, link, log)
-              next
-            end
+          _, links_to_check = links_to_check.partition { |link|
+            condition = in_white_list link, log
+            output_status(flag_minimize_output,
+              WHITE_LIST_STATUS, link, log) if condition
+            condition
+          }
 
+          Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
             begin
               res = option_head ? net_head(link) : net_get(link)
             rescue StandardError => e
