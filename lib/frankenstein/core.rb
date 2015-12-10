@@ -230,7 +230,7 @@ module Frankenstein
 
           AwesomeBot.statuses(links_to_check, number_of_threads,
             option_head) do |s, u|
-            puts "#{s} #{s.class} #{u}".red
+            # puts "#{s} #{s.class} #{u}".red
             if s.class != Fixnum
               log.error "Getting link #{link.white} #{s}"
 
