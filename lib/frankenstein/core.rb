@@ -228,47 +228,47 @@ module Frankenstein
             condition
           }
 
-          Parallel.each(links_to_check, in_threads: number_of_threads) do |link|
-            begin
-              res = option_head ? net_head(link) : net_get(link)
-            rescue StandardError => e
-              log.error "Getting link #{link.white} #{e.message}"
+          AwesomeBot.statuses(links_to_check, number_of_threads,
+            option_head) do |s, u|
+            puts "#{s} #{s.class} #{u}".red
+            if s.class != Fixnum
+              log.error "Getting link #{link.white} #{s}"
 
-              issue = "#{em_status_red} #{e.message} #{link}"
+              issue = "#{em_status_red} #{s} #{link}"
               issues.push(issue)
               failures.push(issue)
               next
             end
 
-            output_status(flag_minimize_output, res.status, link, log)
+            output_status(flag_minimize_output, s, u, log)
 
-            next if res.status == 200
+            next if s == 200
 
-            if res.status >= 500
-              misc.push(link)
-            elsif res.status >= 400
-              failures.push(link)
-            elsif res.status >= 300
-              redirect = net_resolve_redirects(link, log)
-              log.verbose "#{link} was redirected to \n#{redirect}".yellow
+            if s >= 500
+              misc.push(u)
+            elsif s >= 400
+              failures.push(u)
+            elsif s >= 300
+              redirect = net_resolve_redirects(u, log)
+              log.verbose "#{u} was redirected to \n#{redirect}".yellow
 
               if redirect.nil?
-                log.add "#{em_mad} No redirect found for #{link}"
-              elsif redirect == link
-                log.add "😓  Redirect is the same for #{link}"
+                log.add "#{em_mad} No redirect found for #{u}"
+              elsif redirect == u
+                log.add "😓  Redirect is the same for #{u}"
               else
                 if in_white_list2 REDIRECTED_WHITE_LIST, redirect, log
-                  log.add "#{em_status_white} #{link.white} is in the "\
+                  log.add "#{em_status_white} #{u.white} is in the "\
                     'redirect white list'
                   next
                 end
 
-                issues.push "#{status_glyph res.status, link, log} "\
-                  "#{res.status} #{link}"
-                redirects.push link => redirect
+                issues.push "#{status_glyph s, u, log} "\
+                  "#{s} #{u}"
+                redirects.push u => redirect
               end
-            end # if res.status != 200
-          end # Parallel
+            end # if s
+          end # end AwesomeBot
 
           output_issues(issues, links_to_check, log)
           output_misc(misc, log) if misc.count > 0
