@@ -221,12 +221,12 @@ module Frankenstein
         failures = []
         redirects = []
         unless option_github_stars_only
-          _, links_to_check = links_to_check.partition { |link|
+          _, links_to_check = links_to_check.partition do |link|
             condition = in_white_list link, log
             output_status(flag_minimize_output,
               WHITE_LIST_STATUS, link, log) if condition
             condition
-          }
+          end
 
           AwesomeBot.statuses(links_to_check, number_of_threads,
             option_head) do |s, u|
