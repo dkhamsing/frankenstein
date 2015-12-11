@@ -232,9 +232,9 @@ module Frankenstein
             option_head) do |s, u|
             # puts "#{s} #{s.class} #{u}".red
             if s.class != Fixnum
-              log.error "Getting link #{link.white} #{s}"
+              log.error "Getting link #{u.white} #{s}"
 
-              issue = "#{em_status_red} #{s} #{link}"
+              issue = "#{em_status_red} #{s} #{u}"
               issues.push(issue)
               failures.push(issue)
               next
