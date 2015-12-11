@@ -70,6 +70,7 @@ module Frankenstein
     'github.io',
     '//gratipay.com/',
     '//heroku.com/deploy',
+    '//githubbadges.herokuapp',
     '//meritbadge.herokuapp.com',
     'issuestats.com/',
     '://localhost',
