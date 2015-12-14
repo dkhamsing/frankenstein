@@ -51,7 +51,7 @@ module Frankenstein
         b.adapter :net_http
       end
       return conn.send method, url
-    rescue Faraday::Error, Faraday::Error::ConnectionFailed => e
+    rescue => e
       log.verbose "fetch_response error #{e}"
       return nil
     end
