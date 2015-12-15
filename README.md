@@ -115,7 +115,7 @@ $ frankenstein dkhamsing/open-source-ios-apps threads=15 # use 15 parallel threa
 
 ### GitHub
 
-Integration with GitHub (repo information, pull request, gists) requires a GitHub account with username and passwords set in [.netrc](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
+Integration with GitHub (repo information, pull request, gists) requires credentials set in [.netrc](http://octokit.github.io/octokit.rb/#Using_a__netrc_file).
 
 `-z` `repo`
 
