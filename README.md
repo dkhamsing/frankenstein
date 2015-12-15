@@ -1,14 +1,10 @@
-![](http://i.giphy.com/2MMB4JT8lokbS.gif)
-
 # Frankenstein
 
-`frankenstein` checks for live URLs on a page, it can also [correct links](https://github.com/ReadmeCritic) in [GitHub](#github) READMEs :octocat:
-
-![](assets/demo.gif)
+`frankenstein` can correct [correct links](https://github.com/ReadmeCritic) in [GitHub](#github) READMEs :octocat:
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
-This started as a project to verify links in ["awesome"](https://github.com/sindresorhus/awesome) [projects](https://github.com/vsouza/awesome-ios), it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
+This project uses [`awesome_bot`](https://github.com/dkhamsing/awesome_bot) to validate links, it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) :runner: :construction_worker:
 
 See [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run) to request a `frankenstein` run on a repo (you can also [opt out](https://github.com/ReadmeCritic/Disinterest) :no_good:)
 
