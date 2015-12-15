@@ -426,6 +426,7 @@ module Frankenstein
             io_record_visits(argv1,
                              0,
                              [],
+                             [],
                              log.identifier,
                              nil)
             next
@@ -466,7 +467,7 @@ module Frankenstein
 
         links_to_check, * = core_find_links content
 
-        r = core_run(
+        f, r = core_run(
           elapsed_time_start,
           log,
           links_to_check,
@@ -483,10 +484,10 @@ module Frankenstein
           file_copy,
           file_log)
 
-        redirects = r[1]
         io_record_visits(argv1,
                          links_to_check.count,
-                         redirects,
+                         r,
+                         f,
                          log.identifier,
                          raw_info)
       end # r.each

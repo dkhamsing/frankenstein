@@ -112,12 +112,14 @@ module Frankenstein
       end
     end
 
-    def io_record_visits(repo, number_of_links, redirects, file, repo_info)
+    def io_record_visits(repo, number_of_links, redirects,
+      failures, file, repo_info)
       visit = {
         type: KEY_VISIT,
         date: Time.now.utc.iso8601,
         links: number_of_links,
         redirects: redirects.count,
+        failures: failures.count,
         file: file
       }
       visit['info'] = repo_info unless repo_info.nil?
