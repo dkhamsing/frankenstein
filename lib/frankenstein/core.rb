@@ -247,7 +247,7 @@ module Frankenstein
             if s >= 500
               misc.push(u)
             elsif s >= 400
-              failures.push(u)
+              failures.push "#{status_glyph s, u, log} #{s} #{u}"
             elsif s >= 300
               redirect = net_resolve_redirects(u, log)
               log.verbose "#{u} was redirected to \n#{redirect}".yellow
@@ -263,8 +263,7 @@ module Frankenstein
                   next
                 end
 
-                issues.push "#{status_glyph s, u, log} "\
-                  "#{s} #{u}"
+                issues.push "#{status_glyph s, u, log} #{s} #{u}"
                 redirects.push u => redirect
               end
             end # if s
