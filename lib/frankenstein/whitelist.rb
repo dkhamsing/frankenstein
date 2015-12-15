@@ -72,6 +72,7 @@ module Frankenstein
     '//heroku.com/deploy',
     '//githubbadges.herokuapp',
     '//meritbadge.herokuapp.com',
+    'imageshack.us/',
     'issuestats.com/',
     '://localhost',
     '://maven-badges.herokuapp.com/',
