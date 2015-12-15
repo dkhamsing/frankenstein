@@ -13,7 +13,6 @@ Jump to
 - [Usage](#usage)
   - [GitHub](#github)
   - [Correct READMEs](#correct-readmes)
-  - [Travis](#travis)
 - [Examples](#examples)
 - [Additional Tools](#additional-tools)
 - [Credits](#credits)
@@ -222,30 +221,6 @@ http://giphy.com/gifs/loop-factory-how-its-made-n1JN4fSrXovJe
 🏃  No failures for dkhamsing/forker
 
 Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | enter to end) w=gph
-```
-
-### Travis
-
-- `frankenstein` also works with [Travis](https://travis-ci.org/) to validate commits on GitHub (option `silent`).
-- Examples with [dkhamsing/open-source-ios-apps](https://github.com/dkhamsing/open-source-ios-apps):
-  - https://github.com/dkhamsing/open-source-ios-apps/pull/139
-  - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87775142
-  - https://travis-ci.org/dkhamsing/open-source-ios-apps/builds/87774588
-
-`.travis.yml`
-
-```
-language: ruby
-rvm:
-  - 2.2
-before_script:
-  - wget https://codeload.github.com/dkhamsing/frankenstein/tar.gz/1.0-wip -O /tmp/frankenstein.tar.gz
-  - tar -xvf /tmp/frankenstein.tar.gz
-  - export PATH=$PATH:$PWD/frankenstein-1.0-wip/bin/
-  - cd frankenstein-1.0-wip
-  - bundle install
-script:  
-  - frankenstein ../README.md silent
 ```
 
 ## Additional Tools
