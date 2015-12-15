@@ -270,7 +270,12 @@ module Frankenstein
             end # if s
           end # end AwesomeBot
 
-          output_issues(issues, links_to_check, log)
+          if failures.count > 0
+            log.add "\n#{pluralize2 failures.count, 'failure'}"
+            log.add failures
+          end
+
+          output_issues issues, links_to_check, log
           output_misc(misc, log) if misc.count > 0
         end # unless option_github_stars_only
 
