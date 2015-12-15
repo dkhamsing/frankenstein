@@ -108,7 +108,7 @@ Found: 1.0-wip for dkhamsing/frankenstein — Checks for live URLs and correct R
 
 ```shell
 $ frankenstein dkhamsing/open-source-ios-apps -v # verbose output
-$ frankenstein dkhamsing/open-source-ios-apps head # make head requests to speed up frankenstein, some pages block these though and get reported as errors 😕
+$ frankenstein dkhamsing/open-source-ios-apps head # make head requests (faster), some pages block these though and get reported as errors 😕
 $ frankenstein dkhamsing/open-source-ios-apps -mv head # combine flags and options (flags have to be ahead of options)
 $ frankenstein dkhamsing/open-source-ios-apps threads=15 # use 15 parallel threads (the default is 10, use threads=0 to disable threading)
 ```
