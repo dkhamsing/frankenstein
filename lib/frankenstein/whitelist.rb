@@ -26,6 +26,7 @@ module Frankenstein
     '://goo.gl/',
     '//j.mp/',
     '//mzl.la/',
+    '//qr.ae/',
     '://t.co/',
     '://t.cn/',
     '://youtu.be/'
@@ -89,6 +90,10 @@ module Frankenstein
     '://secure.travis-ci.org/.*(pn|sv)g',
     'my.slack.com/services',
     'sourceforge.net/projects/.*/download$',
+    'stackexchange.com/a/',
+    'stackexchange.com/q/',
+    '://stackoverflow.com/a/',
+    '://stackoverflow.com/q/',
     '://stackoverflow.com/questions/ask?',
     '//swift.org',
     '//bugs.swift.org',
