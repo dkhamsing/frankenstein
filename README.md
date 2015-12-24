@@ -24,9 +24,9 @@ Jump to
 ```shell
 git clone https://github.com/dkhamsing/frankenstein.git
 cd frankenstein
-bundle install
+rake install
 
-# you can now run frankenstein from bin/ 😎
+# frankenstein is installed 😎
 ```
 
 ## Usage
