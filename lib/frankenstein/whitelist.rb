@@ -29,6 +29,7 @@ module Frankenstein
     '//qr.ae/',
     '://t.co/',
     '://t.cn/',
+    '://tinyurl.com/',
     '://youtu.be/'
   ]
 
