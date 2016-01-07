@@ -41,6 +41,7 @@ module Frankenstein
     '://badge.fury.io/',
     '://bitbucket.org/repo/create',
     '://cocoapod-badges',
+    'codeclimate.*png',
     '://coveralls.io/r/',
     '://coveralls.io/repos.*(pn|sv)g',
     '://discord.gg/',
