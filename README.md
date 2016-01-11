@@ -289,5 +289,3 @@ Usage: review <file>
 ## License
 
 This project is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
-
-[![](assets/inspectocat.jpg)](https://octodex.github.com/inspectocat/)
