@@ -4,7 +4,9 @@
 
 [![Build Status](https://travis-ci.org/dkhamsing/frankenstein.svg)](https://travis-ci.org/dkhamsing/frankenstein)
 
-This project uses [`awesome_bot`](https://github.com/dkhamsing/awesome_bot) to validate links, it's still a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) 
+![](http://i.giphy.com/2MMB4JT8lokbS.gif)
+
+This project uses [`awesome_bot`](https://github.com/dkhamsing/awesome_bot) to validate links, it's very much a [work in progress](https://github.com/dkhamsing/frankenstein/pull/2) (the code is horrible)
 
 See [ReadmeCritic/Run](https://github.com/ReadmeCritic/Run) to request a `frankenstein` run on a repo (you can also [opt out](https://github.com/ReadmeCritic/Disinterest) :no_good:)
 
