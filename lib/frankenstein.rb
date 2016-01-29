@@ -1,370 +1,278 @@
-require "frankenstein/version"
-require "frankenstein/constants"
-require "frankenstein/logging"
-require "frankenstein/usage"
+require 'frankenstein/cli'
+require 'frankenstein/core'
+require 'frankenstein/constants'
+require 'frankenstein/date'
+require 'frankenstein/emoji'
+require 'frankenstein/github'
+require 'frankenstein/io'
+require 'frankenstein/log'
+require 'frankenstein/network'
+require 'frankenstein/output'
+require 'frankenstein/twitter'
+require 'frankenstein/usage'
+require 'frankenstein/version'
 
 # Check for live URLs on a page
 module Frankenstein
-  require 'faraday'
-  require 'faraday_middleware'
-  require 'parallel'
   require 'colored'
-  require 'octokit'
-  require 'netrc'
+  require 'parallel'
+
+  # logs are stored in FILE_LOG_DIRECTORY
+  cli_create_log_dir
 
   # process cli arguments
   argv1, argv_flags = ARGV
 
-  option_github_stars_only = ARGV.include? OPTION_STARS
-  $option_log_to_file = ARGV.include? OPTION_LOG
-  flag_control_failure = argv_flags.to_s.include? FLAG_FAIL
-  $flag_verbose = argv_flags.to_s.include? FLAG_VERBOSE
-
-  if argv1
-    argv1_is_http = argv1.match(/^http/)
-
-    if !argv1_is_http
-      begin
-        found_file_content = File.read(argv1)
-      rescue Exception => e
-        verbose "Not a file #{e}"
-      end
-
-      option_pull_request = if argv1.include? "/"
-        ARGV.include? OPTION_PULL_REQUEST
-      else
-        false
-      end
-    end
-  end
-
-  flag_fetch_github_stars = if option_github_stars_only
-    true
-  else
-    argv_flags.to_s.include? FLAG_GITHUB_STARS
-  end
-
-  flag_minimize_output = argv_flags.to_s.include? FLAG_MINIMIZE_OUTPUT
-  if flag_minimize_output
-    regex = "#{OPTION_ROW}#{SEPARATOR}"
-    verbose "Regular expression: #{regex}"
-    temp = ARGV.find { |e| /#{regex}/ =~ e }
-    log_number_of_items_per_row = if temp
-      temp.split(SEPARATOR)[1].to_i
-    else
-      10 # default is 10 items per output rows
-    end
-  end
-
-  regex = "#{OPTION_THREADS}#{SEPARATOR}"
-  verbose "Regular expression: #{regex}"
-  temp = ARGV.find { |e| /#{regex}/ =~ e }
-  number_of_threads = if temp
-    temp.split(SEPARATOR)[1].to_i
-  else
-    5 # default is 5 threads
-  end
-  verbose "Number of threads: #{number_of_threads}"
-
-  if flag_fetch_github_stars || option_pull_request
-    n = Netrc.read
-    creds = n[NETRC_GITHUB_MACHINE]
-    if creds.nil?
-      f_puts "#{mad} Error: missing GitHub credentials in .netrc".red
-      exit(1)
-    end
-  end
-
   if argv1.nil?
     usage
-    exit(0)
+    exit
   end
 
-  class << self
-    def status(url)
-     response = Faraday.head(url)
-     code = response.status
-     verbose "Status: #{code} #{url}"
-     return code
-    end
+  argv1 = cli_filter_github(argv1)
+  filtered = argv1.sub('/', '-') # TODO: filtered should be in core
+  if core_logs.scan(filtered).count > 0
+    m = "#{em_logo} there are previous runs for #{argv1.white} in "\
+        "#{FILE_LOG_DIRECTORY.green}"
+    puts m
+    pattern = "#{FILE_LOG_DIRECTORY}/*#{filtered}.frankenstein"
+    r = Dir.glob pattern
+    puts pluralize2 r.count, 'file'
+    puts r
+  end
 
-    def resolve_redirects(url) # resolve_redirects via http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142
-    response = fetch_response(url, method: :head)
-      if response
-          return response.to_hash[:url].to_s
-      else
-          return nil
-      end
-    end
+  flag_verbose = cli_log(argv_flags)
+  log = Frankenstein::Log.new(flag_verbose, argv1)
 
-    def fetch_response(url, method: :get)
-      conn = Faraday.new do |b|
-          b.use FaradayMiddleware::FollowRedirects;
-          b.adapter :net_http
-      end
-      return conn.send method, url
-      rescue Faraday::Error, Faraday::Error::ConnectionFailed => e
-      return nil
-    end
-  end # class
+  file_copy = log.filename(FILE_COPY)
+  file_updated = log.filename(FILE_UPDATED)
+  file_redirects = log.filename(FILE_REDIRECTS)
+  file_log = log.filelog
+
+  option_github_stars_only,
+  option_head,
+  flag_fetch_github_stars,
+  flag_minimize_output,
+  argv1_is_http,
+  found_file_content,
+  number_of_threads = cli_process(argv1, argv_flags, log)
+
+  log.verbose "Number of threads: #{number_of_threads}"
+
+  if flag_fetch_github_stars && !github_creds
+    log.error GITHUB_CREDS_ERROR
+    exit(1)
+  end
 
   # start
   elapsed_time_start = Time.now
 
-  if $option_log_to_file
-    franken_log "\n\nStart: #{elapsed_time_start} \n"
-    franken_log "Arguments: #{ARGV} \n"
-  end
+  log.file_write "$ #{PRODUCT} #{ARGV.join ' '} \n\n"
 
-  if flag_minimize_output
-    verbose "Number of minimized output items per row: #{log_number_of_items_per_row}"
-  end
+  the_url,
+  readme,
+  content =
+    if argv1_is_http || found_file_content
+      argv1
+    else
+      if github_creds
+        c = github_client
+        repo = argv1
 
-  the_url = if argv1_is_http || found_file_content
-    argv1
-  else
-    argv1_is_github_repo = argv1
-    base = "https://raw.githubusercontent.com/#{argv1}/master/"
-    "#{base}#{
-      README_VARIATIONS.find { |x|
-        temp = "#{base}#{x}"
-        $readme = x
-        verbose "Readme found to be: #{$readme}"
-        status(temp) < 400 }
-        }"
-  end
-
-  f_print "#{logo} Processing links for ".white
-  f_print the_url.blue
-  f_puts " ...".white
-
-  links_found = if found_file_content
-    URI.extract(found_file_content, /http()s?/)
-  else
-    code = status the_url
-
-    if code != 200
-      error_message = (argv1_is_http) ? "url response" : "could not find readme in master branch"
-      f_puts "#{mad} Error, #{error_message.red} (status code: #{code.to_s.red})"
-      exit(1)
-    end
-
-    res = Faraday.get(the_url)
-    content = res.body
-    File.open(FILE_TEMP, 'w') { |f|
-      f.write(content)
-    }
-    URI.extract(content, /http()s?/)
-  end
-  verbose "Links found: #{links_found}"
-
-  links_to_check = links_found.reject { |x|
-    x.length < 9
-  }.map { |x|
-    x.gsub(/\).*/,'').gsub(/'.*/,'').gsub(/,.*/,'')
-    # ) for markdown
-    # ' found on https://fastlane.tools/
-    # , for link followed by comma
-  }.uniq
-
-  if flag_control_failure
-    links_to_check.unshift(CONTROLLED_ERROR)
-  end
-
-  verbose "🔎  Links found: ".white
-  verbose links_to_check
-
-  if links_to_check.count==0
-    error_result_header 'no links found'
-  else
-    if !option_github_stars_only
-      f_print "🔎  Checking #{links_to_check.count} ".white
-      f_puts pluralize("link", links_to_check.count).white
-      if flag_control_failure
-        f_puts "   (including a controlled failure)"
-      end
-    end
-
-    issues = []
-    failures = []
-    redirects = Hash.new
-    if !option_github_stars_only
-      Parallel.each_with_index(links_to_check, :in_threads => number_of_threads) do |link, index|
         begin
-        res = Faraday.get(link)
-        rescue Exception => e
-          f_print "#{mad} Error getting link "
-          f_print link.white
-          f_puts ": #{e.message.red}"
-
-          issue = "#{status_red} #{e.message} #{link}"
-          issues.push(issue)
-          failures.push(issue)
-          next
+          default_branch = github_default_branch c, repo
+        rescue StandardError => e
+          puts "Error getting branch #{e}".red
+          exit
         end
 
-        if flag_minimize_output
-          f_print status_glyph res.status, link
-          if (index + 1) % log_number_of_items_per_row == 0
-            f_puts " #{log_number_of_items_per_row * (1 +(index / log_number_of_items_per_row)) }"
-          end
+        readme, content = github_readme c, repo
+
+        if readme.nil?
+          log.error content
+          io_record_visits(argv1,
+                           0,
+                           [],
+                           [],
+                           log.identifier,
+                           nil)
+          exit
+        end
+
+        m, raw_info = github_repo_info_client c, repo, default_branch
+        log.add m
+
+        [repo, readme, content]
+      else
+        log.verbose 'Attempt to get default branch (unauthenticated)'
+
+        begin
+          default_branch = github_default_branch c, repo
+        rescue StandardError => e
+          puts "Error getting branch #{e}".red
+          exit
+        end
+
+        message, parsed = github_repo_unauthenticated(argv1, log)
+        log.verbose "Parsed message: #{message}"
+
+        if github_repo_error message
+          log.error github_repo_error_message message, argv1
+          exit(1)
+        elsif message.include? 'API rate limit exceeded'
+          log.error "GitHub #{message}"
+          log.add 'Finding readme...'
+
+          default_branch = 'master'
+          net_find_github_url_readme(argv1, default_branch)
         else
-          f_puts_with_index index+1, links_to_check.count, "\t #{status_glyph res.status, link} #{res.status==200 ? "" : res.status} #{link}"
-        end
-
-        if res.status != 200
-          issues.push("#{status_glyph res.status, link} #{res.status} #{link}")
-
-          if res.status >= 400
-            failures.push(link)
-          elsif res.status >= 300
-             redirect = resolve_redirects link
-             verbose "#{link} was redirected to \n#{redirect}".white
-             redirects[link]=redirect
-          end
-        end
-      end # Parallel
-
-      if issues.count>0
-        percent = issues.count * 100 / links_to_check.count
-        error_result_header "#{issues.count} #{pluralize "issue", issues.count} (#{percent.round}%)"
-        f_puts "   (#{issues.count} of #{links_to_check.count} #{pluralize "link", links_to_check.count})"
-        f_puts issues
-      else
-        f_puts "#{"\nfrankenstein".white} #{"found no errors".green} 😎 "
+          default_branch = parsed['default_branch']
+          m, raw_info = github_repo_json_info(parsed, default_branch, argv1)
+          log.add m
+          github_readme_unauthenticated(argv1, log)
+        end # if message ..
       end
-    end #if !option_github_stars_only
+    end # if argv1_is_http ..
 
-    if flag_fetch_github_stars
-      github_repos = links_to_check.select { |link|
-        link.to_s.downcase.include? "github.com" and link.count('/')==4
-      }.map { |url|
-        url.split('.com/')[1]
-      }.reject { |x|
-        x.include? "."
-      }.uniq
-      verbose github_repos
+  if the_url.nil?
+    puts "No content found for #{argv1.white}"
+    exit
+  end
 
-      if github_repos.count == 0
-        f_puts "No GitHub repos found".white
-      else
-        f_print "\n🔎  Getting star count for #{github_repos.count} GitHub ".white
-        f_puts pluralize("repo",github_repos.count).white
+  log.verbose "Readme found: #{readme}"
 
-        client = Octokit::Client.new(:netrc => true)
-        Parallel.each_with_index(github_repos, :in_threads => number_of_threads) do |repo, index|
-        # github_repos.each_with_index { |repo, index|
-          verbose "Attempting to get stars for #{repo}"
+  m = "#{em_logo} Processing links for ".white
+  m << the_url.blue
+  m << ' ...'.white
+  log.add m
 
-          begin
-          gh_repo = client.repo(repo)
-          rescue Exception => e
-            f_print "#{mad} Error getting repo for "
-            f_print repo.white
-            f_puts ": #{e.message.red}"
-            next
+  if content.nil?
+    content = if found_file_content
+                found_file_content
+              else
+                code = net_status the_url
+                log.verbose "#{the_url} status: #{code}"
+
+                unless code == 200
+                  if argv1_is_http
+                    log.error "url response (status code: #{code})"
+                    exit(1)
+                  else
+                    log.error 'could not find readme in master branch'.white
+                    exit
+                  end
+                end
+
+                content = net_get(the_url).body
+                content
+              end
+  end
+  File.open(file_copy, 'w') { |f| f.write(content) }
+
+  links_to_check, links_found = core_find_links content
+  log.verbose "Links found: #{links_found}"
+
+  failures, redirects =
+    core_run(
+      elapsed_time_start,
+      log,
+      links_to_check,
+      argv1,
+      number_of_threads,
+      default_branch,
+      readme,
+      option_github_stars_only,
+      option_head,
+      flag_minimize_output,
+      flag_fetch_github_stars,
+      file_redirects,
+      file_updated,
+      file_copy,
+      file_log)
+
+  io_record_review argv1
+
+  # TODO: check for twitter creds
+
+  if github_creds && !(ARGV.include? OPTION_SKIP) && io_record_pull_check(argv1)
+    option_happy = '-h'
+    option_gist = 'g'
+    option_tweet = 't'
+    option_pull = 'p'
+    option_w = 'w'
+
+    done = nil
+    while done.nil?
+      m = "\nNext? ("
+      m << "#{option_pull.white}ull request | " if
+        (redirects.count > 0) && (readme.nil? == false)
+      m << "white list #{option_w.white}=<s1^s2..> | " if redirects.count > 0
+      m << "#{option_gist.white}ist | "\
+          "#{option_tweet.white}weet [#{option_happy.white}] [message] | "\
+          'enter to end) '
+      print m
+      user_input = STDIN.gets.chomp
+
+      if user_input.include? option_w
+        wl = user_input.sub("#{option_w}=", '')
+        list = wl.split '^'
+
+        list.each do |x| # TODO: this looks like it could be improved
+          redirects.reject! do |hash|
+            key, * = hash.first
+            key.include? x
           end
+        end
 
-          count = gh_repo.stargazers_count
-          f_puts_with_index index+1, github_repos.count, "\t ⭐️  #{count} #{repo} #{heat_index count}"
-        end # Parallel
-      end # if github_repos.count == 0
-    end # flag_fetch_github_stars
-  end # if links_to_check.count==0
+        core_process_redirects(
+          file_redirects,
+          file_copy,
+          file_updated,
+          redirects,
+          log)
+        next
+      end
 
-  if redirects.count > 0
-    f_puts "\n#{status_yellow} #{redirects.count} #{pluralize "redirect", redirects.count}".yellow
+      if user_input.downcase == option_pull
+        unless github_repo_exist(github_client, argv1)
+          log.error "#{argv1.red} is not a repo"
+          exit(1)
+        end
 
-    verbose "Replacing redirects in temp file #{FILE_TEMP}.."
-    File.open(FILE_TEMP, 'a+') { |f|
-      original = f.read
-      replaced = original
+        log.add "\nCreating pull request on GitHub for #{argv1} ...".white
+        desc = github_pull_description(redirects, failures)
+        p = github_pull_request(argv1, default_branch, readme, file_updated,
+                                desc, log)
+        log.add "Pull request created: #{p.blue}".white
+        io_record_pull(argv1, p)
+        done = true
+      elsif (user_input.downcase == option_gist) ||
+            (user_input.include? option_tweet)
+        done = true
+        gist_url, * = Frankenstein.github_create_gist file_log, true
 
-      redirects.each do |key, array|
-        f_puts "#{key.yellow} redirects to \n#{array} \n\n"
-        replaced = replaced.gsub key, array
-      end #redirects.each
+        if user_input.include? option_tweet
+          client = twitter_client
+          message = user_input.sub(option_tweet, '').sub(option_happy, '').strip
 
-      File.open(FILE_TEMP, 'w') { |f|
-        f_puts "Wrote log with redirects replaced: #{FILE_TEMP}".white
-        f.write(replaced)
-      }
-    } # File.open(FILE_TEMP, 'a+') { |f|
-  end # redirects.count
+          happy = user_input.include? option_happy
+          tweet = Frankenstein.twitter_frankenstein_tweet(argv1, gist_url,
+                                                          message, happy)
+          t = client.update tweet
+          twitter_log Frankenstein.twitter_tweet_url(client, t)
+        end # if user_input.downcase == 't'
+      else  # any other key
+        done = true
+      end # user input == y
+    end # while
+  end # if github_creds
 
-  if $option_log_to_file
-    f_puts "Wrote log to #{FILE_LOG}".white
-  end
+  io_record_visits(
+    argv1,
+    links_to_check.count,
+    redirects,
+    failures,
+    log.identifier,
+    raw_info) unless found_file_content
 
-  if option_pull_request
-    f_puts "\nCreating pull request on GitHub for #{argv1}..".white
-
-    github = Octokit::Client.new(:netrc => true)
-
-    repo = argv1
-    forker = Netrc.read[NETRC_GITHUB_MACHINE][0]
-    fork = repo.gsub(/.*\//,"#{forker}/")
-    verbose "Fork: #{fork}"
-
-    github.fork(repo)
-
-    sleep 2 # give it time to create repo 😢
-
-    branch = "master"
-
-    ref = "heads/#{branch}"
-
-    # commit to github via http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/
-    sha_latest_commit = github.ref(fork, ref).object.sha
-    sha_base_tree = github.commit(fork, sha_latest_commit).commit.tree.sha
-    file_name = $readme
-    my_content = File.read(FILE_TEMP)
-
-    blob_sha = github.create_blob(fork, Base64.encode64(my_content), "base64")
-    sha_new_tree = github.create_tree(fork,
-                                       [ { :path => file_name,
-                                           :mode => "100644",
-                                           :type => "blob",
-                                           :sha => blob_sha } ],
-                                       {:base_tree => sha_base_tree }).sha
-    commit_message = "Update redirects"
-    sha_new_commit = github.create_commit(fork, commit_message, sha_new_tree, sha_latest_commit).sha
-    updated_ref = github.update_ref(fork, ref, sha_new_commit)
-
-    verbose "Sent commit to fork #{fork}"
-
-    head = "#{forker}:#{branch}"
-    verbose "Set head to #{head}"
-
-    created = github.create_pull_request(repo, branch, head, "Update redirects", "Created with https://github.com/dkhamsing/frankenstein")
-    pull_link = created[:html_url].blue
-    f_puts "Pull request created: #{pull_link}".white
-
-    github.delete_repository(fork)
-    verbose "Deleted fork"
-  end
-
-  elapsed_seconds = Time.now - elapsed_time_start
-  verbose "Elapsed time in seconds: #{elapsed_seconds}"
-  f_print "\n🕐  Time elapsed: ".white
-  case
-  when elapsed_seconds>60
-    minutes = (elapsed_seconds/60).floor
-    seconds = elapsed_seconds - minutes * 60
-    f_puts "#{minutes.round(0)} #{pluralize "minute", minutes} #{seconds>0 ? seconds.round(0).to_s << "s" : ""}"
-  else
-    f_puts "#{elapsed_seconds.round(2)} #{pluralize "second", elapsed_seconds}"
-  end
-
-  if $option_log_to_file
-    franken_log "End: #{Time.new}"
-  end
-
-  f_puts ""
-  if failures.count == 0
-    f_puts "#{logo} No failures for #{argv1.blue}".white
-  else
-    f_puts "#{status_red} #{failures.count} #{pluralize "failure", failures.count} for #{argv1.blue}".red
-    exit(1)
-  end
+  exit(1) if failures.count > 0
 end # module

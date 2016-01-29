@@ -1,0 +1,14 @@
+language: ruby
+rvm:
+  - 2.2
+before_script:
+  - export PATH=$PATH:$PWD/bin/
+  - bundle install
+script:  
+  - frankenstein
+  - frankenstein bin/assets/test-readme -v threads=0 silent
+  - frankenstein bin/assets/test-no-links -v silent
+  - frankenstein bin/assets/test-white-list -mv head silent
+  - frankenstein fastlane/fastlane.tools -v threads=8 silent
+  - frankenstein https://github.com/dkhamsing/frankenstein -v threads=11 silent
+  - frankenstein bin/assets/test-no-redirects -v

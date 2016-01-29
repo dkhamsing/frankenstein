@@ -1,23 +1,36 @@
+# Emojis
 module Frankenstein
   class << self
-    def heat
-      return "🔥 "
+    def em_heat
+      '🔥 '
     end
 
-    def logo
-      return "🏃 "
+    def em_logo
+      '🏃 '
     end
 
-    def mad
-      return "😡 "
+    def em_mad
+      '😡 '
     end
 
-    def status_red
-      return "🔴 "
-    end 
+    def em_star
+      '⭐️ '
+    end
 
-    def status_yellow
-      return "🔶 "
-    end 
+    def em_status_red
+      '🔴 '
+    end
+
+    def em_status_white
+      '⚪ '
+    end
+
+    def em_status_yellow
+      '🔶 '
+    end
+
+    def em_sunglasses
+      '😎 '
+    end
   end # class
 end

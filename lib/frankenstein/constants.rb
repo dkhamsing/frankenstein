@@ -1,37 +1,45 @@
+# Constants
 module Frankenstein
-  CONTROLLED_ERROR = "https://github.com/dkhamsing/controlled/error"
+  require 'frankenstein/readmes'
+  require 'frankenstein/whitelist'
 
-  FILE_LOG = "franken_log"
-  FILE_TEMP = "franken_temp"
+  ARGV1_FILE = 'file'
+  ARGV1_GITHUB_REPO = 'github repo'
+  ARGV1_URL = 'url'
 
-  FLAG_FAIL = "f"
-  FLAG_GITHUB_STARS = "g"
-  FLAG_MINIMIZE_OUTPUT = "m"
-  FLAG_VERBOSE = "v"
+  DEFAULT_NUMBER_OF_THREADS = 10
 
-  NETRC_GITHUB_MACHINE = "api.github.com"
+  FILE_LOG_DIRECTORY = 'logs'
 
-  OPTION_LOG = "log"
-  OPTION_PULL_REQUEST = "pull"
-  OPTION_ROW = "row"
-  OPTION_STARS = "stars"
-  OPTION_THREADS = "threads"
+  FILE_COPY = 'copy'
+  FILE_REPO = "#{FILE_LOG_DIRECTORY}/franken_repos.json"
+  FILE_REDIRECTS = 'redirects'
+  FILE_TODO = "#{FILE_LOG_DIRECTORY}/franken_todo.json"
+  FILE_UPDATED = 'updated'
+  FILE_VISITS = "#{FILE_LOG_DIRECTORY}/franken_visits.json"
 
-  README_VARIATIONS = [
-    "README.md",
-    "Readme.md",
-    "readme.md",
-    "README.markdown",
-    "Readme.markdown"
-  ]
+  FLAG_GITHUB_STARS = 'z'
+  FLAG_MINIMIZE_OUTPUT = 'm'
+  FLAG_VERBOSE = 'v'
 
-  SEPARATOR = "="
+  FLAG_GITHUB_USAGE = 'Get GitHub repo info'
+  FLAG_MINIMIZE_USAGE = 'Minimized result output'
+  FLAG_VERBOSE_USAGE = 'Verbose output'
 
-  WHITE_LIST_REGEXP = [
-    "//coveralls.io/repos.*svg",
-    "//github.com.*issues/new",
-    "//github.com.*ch/new",
-    "//github.com.*\.git$",
-    "//i.creativecommons.org/.*png",
-  ]
+  OPTION_HEAD = 'head'
+  OPTION_SKIP = 'silent'
+  OPTION_STARS = 'repo'
+  OPTION_THREADS = 'threads'
+
+  PRODUCT = 'frankenstein'
+
+  PROJECT_URL = 'https://github.com/dkhamsing/frankenstein'
+
+  PULL_REQUEST_COMMIT_MESSAGE = 'Update README URLs based on HTTP redirects'
+  PULL_REQUEST_TITLE = PULL_REQUEST_COMMIT_MESSAGE
+  PULL_REQUEST_DESCRIPTION = "Created with #{PROJECT_URL}"
+
+  SEPARATOR = '='
+
+  WHITE_LIST_STATUS = -1
 end

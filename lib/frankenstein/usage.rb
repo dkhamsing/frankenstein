@@ -1,42 +1,51 @@
-require "frankenstein/constants"
-require "frankenstein/emoji"
-
+# Usage
 module Frankenstein
   require 'colored'
 
   class << self
-    def usage
-      puts "#{logo} Check for live URLS on a page".white
-      puts "#{"frankenstein".green} <#{"url|github repo|file".magenta}> "\
-      "[#{"-fgmv".blue}] "\
-      "[#{OPTION_LOG.blue}] "\
-      "[#{OPTION_PULL_REQUEST.blue}] "\
-      "[#{OPTION_ROW.blue}=d] "\
-      "[#{OPTION_STARS.blue}] "\
-      "[#{OPTION_THREADS.blue}=d] "      
-      puts "   #{"url".magenta} \t\t URL for the page"
-      puts "   #{"github repo".magenta} \t GitHub repository"
-      puts "   #{"file".magenta} \t File on disk"
-
-      puts "\n   #{FLAG_FAIL.blue} \t\t Add a controlled failure"
-      puts "   #{FLAG_GITHUB_STARS.blue} \t\t Fetch GitHub repo star count"
-      puts "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t Minimized result output (see row option below)"
-      puts "   #{FLAG_VERBOSE.blue} \t\t Verbose output"
-
-      puts "\n   #{OPTION_LOG.blue} \t\t Write log to file"
-      puts "   #{OPTION_PULL_REQUEST.blue} \t Create a pull request with updated redirects"
-      puts "   #{OPTION_ROW.blue} \t\t Number of items per row (minimized output)"
-      puts "   #{OPTION_STARS.blue} \t Fetch GitHub repo star count only"
-      puts "   #{OPTION_THREADS.blue} \t Number of threads to use (parallelization)"
-
-      puts "\n#{logo} Examples".white
-      puts "$ frankenstein https://fastlane.tools"
-      puts "$ frankenstein README.md"
-      puts "$ frankenstein dkhamsing/open-source-ios-apps -mv row=20"
-      puts "$ frankenstein dkhamsing/open-source-ios-apps stars"
-
-      puts "\n#{logo} \n- Fetching GitHub repo star count and creating pull requests requires credentials in .netrc"
-      puts "- More information: #{"https://github.com/dkhamsing/frankenstein".white.underline}"
+    def all_argv1
+      "#{ARGV1_URL.magenta}|#{ARGV1_FILE.magenta}|"\
+        "#{ARGV1_GITHUB_REPO.magenta}"
     end
-  end #class
+
+    def all_tools
+      tools = %w(announce comments issues mergeclose new review scan todo)
+      m = tools.map(&:green)
+      m.join ', '
+    end
+
+    def usage
+      m = "#{em_logo} #{'Check for live URLS on a page'.white} \n" \
+          "#{PRODUCT.green} <#{all_argv1}> "\
+      "[-#{cli_all_flags.join.blue}] "\
+      "[#{OPTION_HEAD.blue}] "\
+      "[#{OPTION_STARS.blue}] "\
+      "[#{OPTION_THREADS.blue}=d] "\
+      "[#{OPTION_SKIP.blue}] "\
+      "\n"\
+      "   #{ARGV1_URL.magenta} \t\t URL for the page \n"\
+      "   #{ARGV1_GITHUB_REPO.magenta} \t GitHub repository \n"\
+      "   #{ARGV1_FILE.magenta} \t File on disk \n\n"\
+      "   #{FLAG_MINIMIZE_OUTPUT.blue} \t\t #{FLAG_MINIMIZE_USAGE} \n"\
+      "   #{FLAG_VERBOSE.blue} \t\t #{FLAG_VERBOSE_USAGE} \n"\
+      "   #{FLAG_GITHUB_STARS.blue} \t\t #{FLAG_GITHUB_USAGE} \n"\
+      "\n   #{OPTION_HEAD.blue} \t Check URLs with head requests 🚀 \n"\
+      "   #{OPTION_STARS.blue} \t Get GitHub repo info only \n"\
+      "   #{OPTION_THREADS.blue} \t Number of parallel threads "\
+      "(#{DEFAULT_NUMBER_OF_THREADS} is the default) \n"\
+      "   #{OPTION_SKIP.blue} \t Skip prompt at end of the run \n"\
+      "\n#{em_logo} #{'Examples'.white} \n"\
+      "$ #{PRODUCT} https://fastlane.tools \n"\
+      "$ #{PRODUCT} README.md \n"\
+      "$ #{PRODUCT} dkhamsing/open-source-ios-apps -mv threads=10 \n"\
+      "$ #{PRODUCT} dkhamsing/open-source-ios-apps stars \n"\
+      "\n#{em_logo} \n- Fetching GitHub repo information "\
+      "require credentials in .netrc \n"\
+      "- More tools: #{all_tools} \n"\
+      '- More information: '\
+      "#{PROJECT_URL.white.underline}"
+
+      puts m
+    end
+  end # class
 end
