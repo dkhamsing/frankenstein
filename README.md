@@ -279,7 +279,6 @@ Usage: review <file>
 - [@eteubert](http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142) and [@mgreensmith](http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/).
 - [awesome-aws](https://github.com/donnemartin/awesome-aws) for that 🔥.
 - [giphy](http://giphy.com/gifs/2MMB4JT8lokbS) for "it's alive" image.
-- [@jasoncostello](https://octodex.github.com/inspectocat/) for inspectocat.
 
 ## Contact
 
