@@ -1,0 +1,60 @@
+# white list
+
+WL https://nodejs.org
+
+WL http://amzn.com/0321812182
+
+WL https://coveralls.io/r/haml/haml
+WL [![Coverage Status](https://coveralls.io/repos/lodash/lodash/badge.svg?branch=master&service=github)](https://coveralls.io/github/lodash/lodash?branch=master)
+https://coveralls.io
+
+WL https://discord.gg/0ZcbPKXt5bWJVmUY
+
+WL http://badge.fury.io/js/react-native
+WL https://badge.fury.io/js/react-native.svg
+WL https://fury-badge.herokuapp.com/rb/fog.png
+
+WL http://bit.ly/xkcdapp
+
+WL http://eepurl.com/VEKCn
+
+WL https://fb.me/react-0.14.1.js
+WL https://fb.me/react-dom-0.14.1.js
+
+WL http://groups.google.com/group/guard-dev
+WL http://groups.google.com/group/ruby-bundler
+http://groups.google.com
+
+WL https://github.com/CocoaPods/CocoaPods-app/releases/new
+WL https://github.com/dkhamsing/ios-asset-names/issues/new
+WL https://github.com/facebook/react-native.git
+WL https://github.com/docker/docker/releases/latest
+WL https://github.com/shykes/helloflask/archive/master.tar.gz
+WL https://github.com/AFNetworking/AFNetworking/archive/master.zip
+WL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+WL https://github.com/Homebrew/homebrew/tree/master/LICENSE.txt redirects to
+https://github.com/vadimg/js_bintrees
+https://github.com/Homebrew/homebrew/blob/master/LICENSE.txt
+https://github.com/dkhamsing
+
+https://maven-badges.herokuapp.com/maven-central/com.github.dblock.waffle/waffle-jna
+
+http://ogp.me/ns/object#
+WL http://ogp.me/ns/profile#
+
+WL http://www.reddit.com/message/compose/?to=juan_potato
+https://www.reddit.com
+
+WL https://stackoverflow.com/questions/ask?tags=realm
+http://stackoverflow.com/
+http://stackoverflow.com/questions/19280341/create-directory-if-it-doesnt-exist-with-ruby
+
+WL https://travis-ci.org/facebook/react-native.svg?branch=master
+WL https://travis-ci.org/facebook/react-native.png
+https://travis-ci.org/facebook/
+
+WL https://t.co/an02Vvi8Tl
+WL https://t.co/8OSxRtjogQ
+
+WL https://youtu.be/uuk-5Fur9Nc
+https://www.youtube.com/watch?v=uuk-5Fur9Nc&feature=youtu.be
