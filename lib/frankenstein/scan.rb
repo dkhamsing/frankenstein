@@ -45,7 +45,8 @@ module Scan
     'julia',
     'elixir',
     'erlang',
-    'haskell'
+    'haskell',
+    'unknown'
   ]
 
   class << self
