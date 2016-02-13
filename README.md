@@ -199,7 +199,7 @@ Example pull requests with `frankenstein`:
 
 ### White list
 
-Some URLs that are meant to be redirected (i.e. URL shortener, badge, authentication) have been [white listed](lib/frankenstein/constants.rb).
+Some URLs that are meant to be redirected (i.e. URL shortener, badge, authentication) have been [white listed](lib/frankenstein/whitelist.rb).
 
 You an also white list items after a run or while using [`review`](#review) (option `w`).
 
