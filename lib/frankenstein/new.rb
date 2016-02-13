@@ -93,6 +93,11 @@ module New
       end # end links_to_check..
     else
       Frankenstein.core_merge url
+
+      # twitter doesn't like when you tweet too hard 🐦
+      pause =  m.count > 2 ? Random.new.rand(50..70) : 0
+      puts "Pausing for #{pause}s ..." if pause > 0
+      sleep pause
     end # if url.include? RUN_ISSUES
   end # end m.each
 
