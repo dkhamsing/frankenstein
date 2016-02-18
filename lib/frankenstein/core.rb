@@ -116,11 +116,11 @@ module Frankenstein
       puts ''
       if merged == true || state == 'closed'
         result = delete_fork(client, fork, em_logo)
-        if result == false
-          puts "The fork #{fork.red} has already been deleted.."
-          core_open_safari clean_pull_url
-          exit
-        end
+        # if result == false
+        #   puts "The fork #{fork.red} has already been deleted.."
+        #   core_open_safari clean_pull_url
+        #   exit
+        # end
 
         puts "\n#{em_logo} Crafting tweet ... \n\n"
         if (merged == true)
