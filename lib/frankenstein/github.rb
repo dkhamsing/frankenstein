@@ -11,6 +11,7 @@ module Frankenstein
     require 'octokit'
     require 'netrc'
     require 'json'
+    require 'github-readme'
 
     require 'frankenstein/date'
     require 'frankenstein/diff'
@@ -229,17 +230,14 @@ module Frankenstein
     end
 
     def github_readme(client, repo)
-      begin
-        r = client.readme repo
-      rescue StandardError => e
-        return [nil, e]
-      end
+      r = GitHubReadme::get repo, client
+
+      e = r['error']
+      return [nil, e] unless e.nil?
 
       name = r['name']
-      content = r['content']
-      decoded = Base64.decode64 content unless content.nil?
-
-      [name, decoded]
+      readme = r['readme']
+      [name, readme]
     end
 
     def github_readme_unauthenticated(argv1, log)
