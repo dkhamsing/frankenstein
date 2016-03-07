@@ -387,7 +387,15 @@ module Frankenstein
 
         m, hash = github_repo_info(gh_repo, repo)
         repos_info.push(hash)
-        log.add m
+
+        only_old = false
+        if (only_old)
+          d = difference hash[:pushed_at]
+          log.add m if d > (365*2)
+        else
+          log.add m
+        end
+
         log.verbose "   #{gh_repo.description}"
       end
 
