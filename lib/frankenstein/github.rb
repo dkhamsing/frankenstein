@@ -391,7 +391,7 @@ module Frankenstein
         only_old = false
         if (only_old)
           d = difference hash[:pushed_at]
-          log.add m if d > (365*2)
+          log.add m if d > (365*2) # 2 years
         else
           log.add m
         end
