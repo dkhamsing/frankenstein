@@ -15,25 +15,22 @@ Gem::Specification.new do |spec|
   spec.homepage      = Frankenstein::PROJECT_URL
   spec.license       = 'MIT'
 
-  spec.files         = Dir['lib/**/*'] + %w(bin/frankenstein README.md)
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.executables   = [spec.name]
+  spec.bindir        = 'bin'
   spec.require_paths = ['lib']
 
   # dependencies
-  spec.add_dependency 'awesome_bot', '~> 1.0'
-  spec.add_dependency 'colored', '~> 1.2'
-  spec.add_dependency 'faraday_middleware', '~> 0.10.0'
-  spec.add_dependency 'json', '~> 1.8.3'
-  spec.add_dependency 'parallel', '~> 1.6.1'
-  spec.add_dependency 'differ', '~> 0.1.2'
+  spec.add_dependency 'awesome_bot', '~> 1.0'           # validate links
+  spec.add_dependency 'colored', '~> 1.2'               # output
+  spec.add_dependency 'faraday_middleware', '~> 0.10.0' # TODO: remove
+  spec.add_dependency 'parallel', '~> 1.6.1'            # threads
+  spec.add_dependency 'differ', '~> 0.1.2'              # string diff
 
   spec.add_dependency 'github-readme', '~> 0.1.0.pre' # github
   spec.add_dependency 'netrc', '~> 0.11.0'            # credentials
   spec.add_dependency 'twitter', '~> 5.15.0'          # tweets
   spec.add_dependency 'github-trending', '~> 0.2.3'   # scan
 
-  # spec.add_development_dependency 'bundler', '~> 1.7' # travis needs this at 1.7
-  # spec.add_development_dependency 'rake', '~> 10.4.2'
   # spec.add_development_dependency 'guard-rubocop', '~> 1.2.0'
 end
