@@ -280,6 +280,7 @@ module Frankenstein
       repo_description = parsed['description']
       repo_stars = parsed['stargazers_count']
       repo_pushed_at = parsed['pushed_at'].to_s
+      repo_language = parsed['language']
       puts repo_pushed_at
 
       _, days = number_of_days_since_raw(Time.parse repo_pushed_at)
@@ -292,6 +293,7 @@ module Frankenstein
       raw = {
         description: repo_description,
         stars: repo_stars,
+        language: repo_language,
         pushed_at: repo_pushed_at,
         updated: raw_updated
       }
