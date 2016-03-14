@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2
 before_script:
-  - rake instakk
+  - rake install
 script:  
   - frankenstein
   - frankenstein bin/assets/test-readme -v threads=0 silent
