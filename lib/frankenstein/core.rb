@@ -228,8 +228,7 @@ module Frankenstein
             condition
           end
 
-          AwesomeBot.statuses(links_to_check, number_of_threads,
-            option_head) do |s, u|
+          AwesomeBot.statuses(links_to_check, number_of_threads, 10) do |s, u, h|
             # puts "#{s} #{s.class} #{u}".red
             if s.class != Fixnum
               log.error "Getting link #{u.white} #{s}"
@@ -249,7 +248,7 @@ module Frankenstein
             elsif s >= 400
               failures.push "#{status_glyph s, u, log} #{s} #{u}"
             elsif s >= 300
-              redirect = net_resolve_redirects(u, log)
+              redirect = h['location']
               log.verbose "#{u} was redirected to \n#{redirect}".yellow
 
               if redirect.nil?

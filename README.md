@@ -94,12 +94,6 @@ Next? (pull request | white list w=<s1^s2..> | gist | tweet [-h] [message] | ent
 #...
 ```
 
-## Credits
-
-- `faraday`, `parallel`, `octokit` and [more](frankenstein.gemspec).
-- [@eteubert](http://stackoverflow.com/questions/5532362/how-do-i-get-the-destination-url-of-a-shortened-url-using-ruby/20818142#20818142) and [@mgreensmith](http://mattgreensmith.net/2013/08/08/commit-directly-to-github-via-api-with-octokit/).
-- [giphy](http://giphy.com/gifs/2MMB4JT8lokbS)
-
 ## Contact
 
 - [github.com/dkhamsing](https://github.com/dkhamsing)

@@ -89,7 +89,7 @@ module Frankenstein
     'paypal.com/cgi-bin/webscr',
     'plus.google.com/share',
     'readthedocs.org',
-    'reddit.com/message/compose',
+    'reddit.com',
     '://secure.travis-ci.org/.*(pn|sv)g',
     'my.slack.com/services',
     'sourceforge.net/projects/.*/download$',
