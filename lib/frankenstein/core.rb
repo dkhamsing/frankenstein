@@ -72,7 +72,8 @@ module Frankenstein
 
       puts "\nTweet sent #{twitter_tweet_url(client, t).blue}"
 
-      core_open_safari clean_pull_url
+      puts "open #{clean_pull_url} to look at notification"
+      # core_open_safari clean_pull_url
     end
 
     def core_open_safari(url, verbose = true)
