@@ -74,20 +74,22 @@ module Frankenstein
         type: KEY_REVIEW,
         date: Time.now.utc.iso8601
       }
-      if File.exist? FILE_VISITS
-        r = io_json_read FILE_VISITS
-        if r.key? repo
-          hash = r[repo]
-          list = hash[KEY_LOG]
-          list.push p
-        else
-          r[repo] = { KEY_LOG => [p] }
-        end
 
-        io_json_write FILE_VISITS, r
-      else
-        puts "io_record_review no visits log to record review for #{repo.red}"
+      unless File.exist? FILE_VISITS
+        h = {}
+        File.open(FILE_VISITS, 'w') {|f| f.puts JSON.generate(h) }
       end
+
+      r = io_json_read FILE_VISITS
+      if r.key? repo
+        hash = r[repo]
+        list = hash[KEY_LOG]
+        list.push p
+      else
+        r[repo] = { KEY_LOG => [p] }
+      end
+
+      io_json_write FILE_VISITS, r
     end
 
     def io_record_scan(username, repos)
