@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   # dependencies
-  spec.add_dependency 'awesome_bot', '~> 1.8.4'         # validate links
+  spec.add_dependency 'awesome_bot', '~> 1.13.6'         # validate links
   spec.add_dependency 'colored', '~> 1.2'               # output
   spec.add_dependency 'differ', '~> 0.1.2'              # string diff
 
